@@ -1,0 +1,55 @@
+.Zoo {
+  text-align: center;
+}
+
+.Zoo-header {
+  background-color: #222;
+  height: 64px;
+  padding: 20px;
+  color: white;
+}
+
+.Zoo-intro {
+  font-size: large;
+}
+
+.zoo-sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 64px;
+    left: 0;
+    background-color: #222;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+.zoo-sidenav ul {
+    list-style-type: none;
+}
+
+.zoo-sidenav a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+}
+
+.zoo-sidenav a.selected {
+    color: #ffffff;
+}
+
+.zoo-detail-panel {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 104px;
+    left: 250px;
+    padding: 25px;
+}
+
+.zoo-detail-panel h1 {
+    text-align: left;
+}

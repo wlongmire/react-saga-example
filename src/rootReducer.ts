@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { cases } from './cases';
+import * as Cases from './cases';
 
-const casesReducer = cases.reducer;
+const casesReducer = Cases.Reducers.root;
 // todo: ... other reducers
 
 export default combineReducers({

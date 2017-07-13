@@ -1,6 +1,10 @@
 import * as React from 'react';
+
 import './Case.css';
 
+/**
+ * UI Element for displaying all events related to a case.
+ */
 class Case extends React.Component<{}, {}> {
   render() {
     return (

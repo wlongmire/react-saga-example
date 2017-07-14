@@ -8,7 +8,7 @@ import './CaseEvents.zoo.css';
  */
 export class CaseEventsZoo extends React.Component<{}, {}> {
   render() {
-    const demoProps = new Cases.Components.CaseEventsComponentProps(new Cases.Model.CaseItem());
+    const demoProps = new Cases.Components.CaseEventsComponentProps(new Cases.CaseItem());
     return (
       <div>
         <h1>Case Events Component</h1>

@@ -53,3 +53,7 @@
 .zoo-detail-panel h1 {
     text-align: left;
 }
+
+code {
+    background-color: #eee;
+}

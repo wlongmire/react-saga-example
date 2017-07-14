@@ -15,7 +15,7 @@ export const makeMainRoutes = () => {
                 />
                 <Route 
                     path="/zoo" 
-                    render={(props) => <Zoo.Components.Zoo {...props} />}
+                    render={(props) => <Zoo.Components.Main {...props} />}
                 />
             </div>
         </BrowserRouter>

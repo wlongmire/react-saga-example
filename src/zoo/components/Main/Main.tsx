@@ -1,9 +1,9 @@
 import * as React from 'react';
+import * as Cases from '../../../cases';
+import { CaseEventsZoo } from '../CaseEvents';
 import { Switch, Route, NavLink } from 'react-router-dom';
 
-import { cases } from '../../cases';
-
-import './Zoo.css';
+import './Main.css';
 
 class Zoo extends React.Component<{}, {}> {
   render() {
@@ -17,6 +17,7 @@ class Zoo extends React.Component<{}, {}> {
             <ul>
                 <li><NavLink to="/zoo/components/case" activeClassName="selected">Case</NavLink></li>
                 <li><NavLink to="/zoo/components/cases" activeClassName="selected">Cases</NavLink></li>
+                <li><NavLink to="/zoo/components/case-events" activeClassName="selected">Case Events</NavLink></li>
                 <li><a>Imaging</a></li>
                 <li><a>Labs</a></li>
                 <li><a>Procedures</a></li>
@@ -29,8 +30,9 @@ class Zoo extends React.Component<{}, {}> {
         </div>
         <div className="zoo-detail-panel">
             <Switch>
-                <Route path="/zoo/components/cases" exact={true} component={cases.Components.Cases} />
-                <Route path="/zoo/components/case" exact={true} component={cases.Components.Case} />
+              <Route path="/zoo/components/case" exact={true} component={Cases.Components.Case} />
+              <Route path="/zoo/components/cases" exact={true} component={Cases.Components.Cases} />
+              <Route path="/zoo/components/case-events" exact={true} component={CaseEventsZoo} /> 
             </Switch>
         </div>
       </div>

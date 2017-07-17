@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Redux from 'react-redux';\
+import * as Redux from 'react-redux';
 import { Route, BrowserRouter, Redirect } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';

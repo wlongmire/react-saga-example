@@ -4,10 +4,6 @@
  */
 import { App } from './components';
 
-export module app {
-
-    export const Components = { 
-        App 
-    };
-
-}
+export const Components = { 
+    App 
+};

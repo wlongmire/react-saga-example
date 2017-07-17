@@ -4,10 +4,6 @@
  */
 import { Main } from './components/Main';
 
-export module zoo {
-
-    export const Components = { 
-        Main 
-    };
-
-}
+export const Components = { 
+    Main 
+};

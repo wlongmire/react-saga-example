@@ -1,10 +1,12 @@
 import * as React from 'react';
+import * as Redux from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 
-import { app as Application } from '../application';
-import { zoo as Zoo } from '../zoo';
+import * as Application from '../application';
+import * as Zoo from '../zoo';
+import * as Login from '../login';
 
-export const makeMainRoutes = () => {
+export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <BrowserRouter>
             <div>
@@ -16,6 +18,10 @@ export const makeMainRoutes = () => {
                 <Route 
                     path="/zoo" 
                     render={(props) => <Zoo.Components.Main {...props} />}
+                />
+                <Route
+                    path="/login"
+                    render={(props) => <Login.Components.Login {...props} />}
                 />
             </div>
         </BrowserRouter>

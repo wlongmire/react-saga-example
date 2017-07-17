@@ -1,9 +1,11 @@
-import { all, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
+import { api } from '../services/api';
 
 function* fetchCases() {
     try {
-        yield(put(Actions.Action.loadAllCompleted([])));
+        const cases = yield call(api.cases.getAll);
+        yield(put(Actions.Action.loadAllCompleted(cases)));
     } catch (e) {
         yield(put(Actions.Action.loadAllFailed(e)));
     }

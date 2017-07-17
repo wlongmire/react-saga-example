@@ -3,11 +3,11 @@ import * as React from 'react';
 import './HolyGrail.css';
 
 export class HolyGrailProps {
-    header?: React.ComponentClass | JSX.Element;
-    nav?: React.ComponentClass | JSX.Element;
-    main?: React.ComponentClass | JSX.Element;
-    aside?: React.ComponentClass | JSX.Element;
-    footer?: React.ComponentClass | JSX.Element;
+    header?: JSX.Element;
+    nav?: JSX.Element;
+    main?: JSX.Element;
+    aside?:JSX.Element;
+    footer?: JSX.Element;
     hideHeader?: boolean;
     hideNavigation?: boolean;
     hideAside?: boolean;

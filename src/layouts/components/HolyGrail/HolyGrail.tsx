@@ -6,11 +6,7 @@ export class HolyGrailProps {
     header?: JSX.Element;
     nav?: JSX.Element;
     main?: JSX.Element;
-<<<<<<< HEAD
     aside?: JSX.Element;
-=======
-    aside?:JSX.Element;
->>>>>>> fcd17260bbf65bd5515127461a355d220a766c1e
     footer?: JSX.Element;
     hideHeader?: boolean;
     hideNavigation?: boolean;

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as Cases from '../../../cases';
-import { CaseEventsZoo } from '../CaseEvents';
 import { Switch, Route, NavLink } from 'react-router-dom';
+
+import { CaseEventsZoo } from '../CaseEvents';
+import { LoginZoo } from '../Login';
 
 import './Main.css';
 
@@ -20,6 +22,7 @@ class Zoo extends React.Component<{}, {}> {
                 <li><NavLink to="/zoo/components/case-events" activeClassName="selected">Case Events</NavLink></li>
                 <li><a>Imaging</a></li>
                 <li><a>Labs</a></li>
+                <li><NavLink to="/zoo/components/login" activeClassName="selected">Login</NavLink></li>
                 <li><a>Procedures</a></li>
                 <li><a>Schedule</a></li>
                 <li><a>Social</a></li>
@@ -33,6 +36,7 @@ class Zoo extends React.Component<{}, {}> {
               <Route path="/zoo/components/case" exact={true} component={Cases.Components.Case} />
               <Route path="/zoo/components/cases" exact={true} component={Cases.Components.Cases} />
               <Route path="/zoo/components/case-events" exact={true} component={CaseEventsZoo} /> 
+              <Route path="/zoo/components/login" exact={true} component={LoginZoo} />
             </Switch>
         </div>
       </div>

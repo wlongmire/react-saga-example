@@ -1,7 +1,7 @@
 import {ActionType, Action} from './actions';
 // import {Patient, Patients} Update this part once we get to make the necessary exports in the respective folders.
 import {Patients} from './components';
-import {ReducerState, Patient} from './models';
+import {ReducerState} from './models';
 import {getAllPatients} from './selectors';
 import {root} from './sagas';
 import {reducer} from './reducer';
@@ -16,8 +16,7 @@ import {reducer} from './reducer';
 
 
 export const Model = {
-    ReducerState,
-    Patient
+    ReducerState
 }
 
 export const Actions = {

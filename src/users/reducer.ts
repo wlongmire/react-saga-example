@@ -6,7 +6,7 @@ import * as Actions from './actions';
  * Initial Reducer state
  */
 
- const initialState : Model.ReducerState = {};
+ const initialState : Model.ReducerState = [];
 
  /**
   * Redux reducer

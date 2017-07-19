@@ -1,1 +1,2 @@
-export { Patients } from './Patients';
+import {ConnectedPatients} from './Patients';
+export default ConnectedPatients;

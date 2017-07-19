@@ -1,6 +1,6 @@
 import {ActionType, Action} from './actions';
 // import {Patient, Patients} Update this part once we get to make the necessary exports in the respective folders.
-import {Patients} from './components';
+import Patients from './components';
 import {ReducerState} from './models';
 import {getAllPatients} from './selectors';
 import {root} from './sagas';

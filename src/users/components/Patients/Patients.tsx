@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
 import './Patients.css';
-import {getAllPatients} from '../../selectors';
+// import {getAllPatients} from '../../selectors';
 import * as patientActions  from '../../actions';
 // import * as Model from '../../models';
 
@@ -23,7 +23,7 @@ export interface PatientsState {
 
 }
 
-export class Patients extends React.Component<PatientProps, any>{
+export class Patients extends React.Component<PatientProps, {}>{
 
     constructor(props: PatientProps){
         super(props);
@@ -35,8 +35,9 @@ export class Patients extends React.Component<PatientProps, any>{
         
     }
 
-    public componentDidMount(){
+    componentDidMount(){
         console.log("Mounted")
+        // this.props.loadAllPatients();
 
     }
 
@@ -51,14 +52,14 @@ export class Patients extends React.Component<PatientProps, any>{
 }
 
 
-const mapStateToProps = (state: PatientsState ) => ({
-     patients: getAllPatients(state)
+const mapStateToProps = (state: any ) => ({
+     patients: state.patients
 })
 
 
 const mapDispatchToProps = (dispatch: Dispatch<PatientsState>) => bindActionCreators({
-        loadAllPatients : patientActions.Action.loadAllPatients
+    loadAllPatients : patientActions.Action.loadAllPatients
 },dispatch);
 
 
-export default connect<{}, PatientProps, {}>(mapStateToProps, mapDispatchToProps)(Patients);
+export const ConnectedPatients =  connect<{}, PatientProps, {}>(mapStateToProps, mapDispatchToProps)(Patients);

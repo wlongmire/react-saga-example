@@ -1,9 +1,9 @@
 import {ActionType, Action} from './actions';
 // import {Patient, Patients} Update this part once we get to make the necessary exports in the respective folders.
-
+import {Patients} from './components';
 import {ReducerState, Patient} from './models';
 import {getAllPatients} from './selectors';
-// import {root} from './sagas';
+import {root} from './sagas';
 import {reducer} from './reducer';
 
 /**
@@ -26,17 +26,17 @@ export const Actions = {
 }
 
 export const Components = {
-    Patient,
-    // PAtients,Doctors and all other users will be here
+    Patients,
+    // Patients,Doctors and all other users will be here
 }
 
 export const Selectors = {
     getAllPatients
 }
 
-// export const Sagas = {
-//     root
-// }
+export const Sagas = {
+    root
+}
 
 export const Reducers = {
     root: reducer

@@ -1,59 +1,32 @@
-.Zoo {
-  text-align: center;
+header h1 {
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
 }
 
-.Zoo-header {
-  background-color: #222;
-  height: 64px;
-  padding: 20px;
-  color: white;
+p {
+    margin: 0 0 1em 0;
 }
 
-.Zoo-intro {
-  font-size: large;
+ul {
+    list-style: none;
+    /* -webkit-padding-start: 0px; */
 }
 
-.zoo-sidenav {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 64px;
-    left: 0;
-    background-color: #222;
-    overflow-x: hidden;
-    padding-top: 60px;
+ul > li {
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
-.zoo-sidenav ul {
-    list-style-type: none;
+a {
+    color: #fff;
 }
 
-.zoo-sidenav a {
-    padding: 8px;
+a:link, a:visited, a:hover, a:active {
+    color: #fff;
     text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
 }
 
-.zoo-sidenav a.selected {
-    color: #ffffff;
-}
-
-.zoo-detail-panel {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 104px;
-    left: 250px;
-    padding: 25px;
-}
-
-.zoo-detail-panel h1 {
-    text-align: left;
-}
-
-code {
-    background-color: #eee;
+a.selected {
+    color: #999;
 }

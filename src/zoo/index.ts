@@ -1,13 +1,9 @@
-/**
- * The module index is responsible for maintaining its public API. This is the exposed surface
- * where modules can interface with each other.
- */
-import { Main } from './components/Main';
+import {
+    CaseEventsZoo,
+    Main
+} from './components';
 
-export module zoo {
-
-    export const Components = { 
-        Main 
-    };
-
-}
+export const Components = {
+    CaseEventsZoo,
+    Main
+};

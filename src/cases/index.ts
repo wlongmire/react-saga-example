@@ -1,7 +1,7 @@
 import { ActionType, Action } from './actions';
 import { Cases, Case, CaseEvents, CaseEventsComponentProps } from './components';
 import { ReducerState, CaseItem } from './model';
-import { getAll } from './selectors';
+import { getAllCases } from './selectors';
 import { root } from './sagas';
 import { reducer } from './reducer';
 
@@ -29,7 +29,7 @@ export const Components = {
 };
 
 export const Selectors = {
-    getAll
+    getAllCases
 };
 
 export const Sagas = {

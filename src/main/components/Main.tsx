@@ -13,7 +13,6 @@ interface MainProps {
 class Main extends React.Component<MainProps, {}> {
     render() {
         const { store } = this.props;
-
         return (
             <Provider store={store}>
                 <MuiThemeProvider>

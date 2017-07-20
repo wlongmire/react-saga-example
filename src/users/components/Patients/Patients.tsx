@@ -37,7 +37,7 @@ export class Patients extends React.Component<PatientProps, {}>{
 
     componentDidMount(){
         console.log("Mounted")
-        // this.props.loadAllPatients();
+        this.props.loadAllPatients();
 
     }
 

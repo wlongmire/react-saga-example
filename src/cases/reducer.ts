@@ -1,4 +1,3 @@
-
 import * as Common from '../common';
 import ApplicationState from '../common';
 

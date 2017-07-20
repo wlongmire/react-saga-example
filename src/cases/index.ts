@@ -1,6 +1,7 @@
 import { ActionType, Action } from './actions';
 import { Cases, Case, CaseEvents, CaseEventsComponentProps } from './components';
 import { getAllCases } from './selectors';
+import { CaseItem } from './model';
 import { root } from './sagas';
 import { reducer } from './reducer';
 
@@ -19,7 +20,8 @@ export const Components = {
     Cases,
     Case,
     CaseEvents,
-    CaseEventsComponentProps
+    CaseEventsComponentProps,
+    CaseItem
 };
 
 export const Selectors = {

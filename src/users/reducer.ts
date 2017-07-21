@@ -1,12 +1,12 @@
-import * as Model from './models';
 import * as Common from '../common';
 import * as Actions from './actions';
+import ApplicationState from '../common';
 
 /**
  * Initial Reducer state
  */
 
- const initialState : Model.ReducerState = [];
+ const initialState = (state: ApplicationState.IState) => state.patients;
 
  /**
   * Redux reducer
@@ -14,7 +14,7 @@ import * as Actions from './actions';
   * @param action
   */
 
-  export function reducer(state:Model.ReducerState = initialState, action: Common.ActionResult<{}>){
+  export function reducer(state = initialState, action: Common.ActionResult<{}>){
       switch(action.type){
         case Actions.ActionType.LOAD_ALL_PATIENTS:
             return Object.assign({}, initialState)

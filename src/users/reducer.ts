@@ -17,11 +17,11 @@ import ApplicationState from '../common';
   export function reducer(state = initialState, action: Common.ActionResult<{}>){
       switch(action.type){
         case Actions.ActionType.LOAD_ALL_PATIENTS:
-            return Object.assign({}, initialState)
+            return { ...state, initialState}
         case Actions.ActionType.LOAD_ALL_PATIENTS_SUCCESS:
-            return Object.assign({}, initialState, {patients: action.value})
+            return { ...state , patients: action.value }
         case Actions.ActionType.LOAD_ALL_PATIENTS_FAILURE:
-            return Object.assign({}, initialState, {error: action.value})
+            return { ...state, error: action.value}
           default: 
           return state
       }

@@ -1,4 +1,3 @@
-// import * as Model from './model';
 import ApplicationState from '../common'
 
 /**

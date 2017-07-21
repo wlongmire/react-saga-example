@@ -25,6 +25,8 @@ export class Main extends React.Component<{}, MainState> {
         <ul>
           <li><NavLink to="/zoo/components/case" activeClassName="selected">Case</NavLink></li>
           <li><NavLink to="/zoo/components/cases" activeClassName="selected">Cases</NavLink></li>
+          <li><NavLink to="/zoo/components/patient" activeClassName="selected">Patient</NavLink></li>
+          <li><NavLink to="/zoo/components/patients" activeClassName="selected">Patients</NavLink></li>
           <li><NavLink to="/zoo/components/case-events" activeClassName="selected">Case Events</NavLink></li>
           <li><NavLink to="/zoo/components/imaging" activeClassName="selected">Imaging</NavLink></li>
           <li><NavLink to="/zoo/components/labs" activeClassName="selected">Labs</NavLink></li>
@@ -40,6 +42,7 @@ export class Main extends React.Component<{}, MainState> {
         <Switch>
           <Route path="/zoo/components/case" exact={true} component={Cases.Components.Case} />
           <Route path="/zoo/components/cases" exact={true} component={Cases.Components.Cases} />
+          <Route path="/zoo/components/patients" exact={true} component={Patients.Components.Patients} />
           <Route path="/zoo/components/case-events" exact={true} component={CaseEventsZoo} /> 
         </Switch>
       ),

@@ -2,25 +2,15 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
+import ApplicationState from '../../../common';
 import './Patients.css';
-// import {getAllPatients} from '../../selectors';
+import {getAllPatients} from '../../selectors';
 import * as patientActions  from '../../actions';
-// import * as Model from '../../models';
 
-
-export interface IPatient {
-    id: number;
-    first_name: string;
-    last_name: string;
-}
 
 export interface PatientProps {
-    patients: IPatient[];
+    patients: ApplicationState.IPatients;
     loadAllPatients: () => void
-}
-
-export interface PatientsState {
-
 }
 
 export class Patients extends React.Component<PatientProps, {}>{
@@ -29,10 +19,7 @@ export class Patients extends React.Component<PatientProps, {}>{
         super(props);
         this.state = {
             
-        }
-
-
-        
+        }      
     }
 
     componentDidMount(){
@@ -52,12 +39,12 @@ export class Patients extends React.Component<PatientProps, {}>{
 }
 
 
-const mapStateToProps = (state: any ) => ({
-     patients: state.patients
+const mapStateToProps = (state: ApplicationState.IState ) => ({
+     patients: getAllPatients(state)
 })
 
 
-const mapDispatchToProps = (dispatch: Dispatch<PatientsState>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators({
     loadAllPatients : patientActions.Action.loadAllPatients
 },dispatch);
 

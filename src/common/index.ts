@@ -28,6 +28,10 @@ declare module ApplicationState{
         kind: string;
     }
 
+    interface IPatients{
+        patients: Array<IPatient>
+    }
+
     interface IDoctor extends IUser{
         kind: string;
     }

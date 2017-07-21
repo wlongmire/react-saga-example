@@ -16,10 +16,7 @@ export interface PatientProps {
 export class Patients extends React.Component<PatientProps, {}>{
 
     constructor(props: PatientProps){
-        super(props);
-        this.state = {
-            
-        }      
+        super(props);    
     }
 
     componentDidMount(){
@@ -49,4 +46,4 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators({
 },dispatch);
 
 
-export const ConnectedPatients =  connect<{}, PatientProps, {}>(mapStateToProps, mapDispatchToProps)(Patients);
+export const PatientsContainer =  connect<{}, PatientProps, {}>(mapStateToProps, mapDispatchToProps)(Patients);

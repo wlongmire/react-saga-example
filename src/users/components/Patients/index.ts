@@ -1,2 +1,2 @@
-import {ConnectedPatients} from './Patients';
-export default ConnectedPatients;
+import {PatientsContainer} from './Patients';
+export default PatientsContainer;

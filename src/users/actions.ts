@@ -23,8 +23,8 @@ export class Action {
       * Add patient generator.
       * To be updated to be able to add all other functionality as well. 
       */
-    public static addPatient(patient: Model.Patient): Common.ActionResult<Model.Patient> {
-        const action: Common.ActionResult<Model.Patient> = {
+    public static addPatient(patient: Model.IPatient): Common.ActionResult<Model.IPatient> {
+        const action: Common.ActionResult<Model.IPatient> = {
             type: ActionType.ADD_PATIENT,
             value: patient
         }
@@ -43,8 +43,8 @@ export class Action {
      * Static method to return a successful request when patients
      * have been loaded.
      */
-    public static loadAllPatientsSuccess(patients: Array<Model.Patient>): Common.ActionResult<Array<Model.Patient>> {
-        const action: Common.ActionResult<Array<Model.Patient>> = {
+    public static loadAllPatientsSuccess(patients: Array<Model.IPatient>): Common.ActionResult<Array<Model.IPatient>> {
+        const action: Common.ActionResult<Array<Model.IPatient>> = {
             type: ActionType.LOAD_ALL_PATIENTS_SUCCESS,
             value: patients
         }

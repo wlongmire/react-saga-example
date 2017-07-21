@@ -6,12 +6,12 @@ import * as Model from './models';
  */
 
 export module ActionType {
-    export const ADD_PATIENT = 'ADD_PATIENT';
+    export const ADD_PATIENT = 'users/ADD_PATIENT';
     // Add the remaining actions for ensuring the add patients success and 
     // failure have a success and failure action
-    export const LOAD_ALL_PATIENTS = 'LOAD_ALL_PATIENTS';
-    export const LOAD_ALL_PATIENTS_SUCCESS = 'LOAD_ALL_PATIENTS_SUCCESS';
-    export const LOAD_ALL_PATIENTS_FAILURE = 'LOAD_ALL_PATIENTS_FAILURE'
+    export const LOAD_ALL_PATIENTS = 'users/LOAD_ALL_PATIENTS';
+    export const LOAD_ALL_PATIENTS_SUCCESS = 'users/LOAD_ALL_PATIENTS_SUCCESS';
+    export const LOAD_ALL_PATIENTS_FAILURE = 'users/LOAD_ALL_PATIENTS_FAILURE'
 }
 
 /**

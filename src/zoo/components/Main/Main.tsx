@@ -42,7 +42,7 @@ export class Main extends React.Component<{}, MainState> {
         <Switch>
           <Route path="/zoo/components/case" exact={true} component={Cases.Components.Case} />
           <Route path="/zoo/components/cases" exact={true} component={Cases.Components.Cases} />
-          <Route path="/zoo/components/patients" exact={true} component={Patients.Components.Patients} />
+          <Route path="/zoo/components/patients" exact={true} component={Patients.Components.PatientsContainer} />
           <Route path="/zoo/components/case-events" exact={true} component={CaseEventsZoo} /> 
         </Switch>
       ),

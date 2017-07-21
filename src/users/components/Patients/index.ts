@@ -1,2 +1,1 @@
-import {PatientsContainer} from './Patients';
-export default PatientsContainer;
+export { PatientsContainer } from './Patients';

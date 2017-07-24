@@ -1,9 +1,9 @@
 /**
  * Redux ActionResult interface
  */
-export interface ActionResult<T> {
-    type: string,
-    value?: T
+export class ActionResult<T> {
+    type: string;
+    value?: T;
 }
 
 /**

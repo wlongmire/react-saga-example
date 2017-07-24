@@ -5,10 +5,16 @@ import {
     loginSuccess
 } from './actions';
 
+<<<<<<< HEAD
 import { Login, LoginContainer } from './components';
 
 import { root } from './sagas';
 
+=======
+import { LoginCredentials } from './model';
+import { Login, LoginContainer } from './components';
+
+>>>>>>> auth + login updates
 export const Actions = {
     ActionType, 
     login,
@@ -21,6 +27,11 @@ export const Components = {
     Login
 };
 
+<<<<<<< HEAD
 export const Sagas = {
     root
+=======
+export const Model = {
+    LoginCredentials
+>>>>>>> auth + login updates
 };

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   '#visit-drawer': {
-    'position': 'fixed',
+    'position': 'absolute',
     'right': [{ 'unit': 'px', 'value': 0 }],
     'top': [{ 'unit': 'px', 'value': 0 }],
     'width': [{ 'unit': '%H', 'value': 0.3 }],

@@ -1,22 +1,29 @@
 import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import * as Visit from '../../../visits';
 import './App.css';
 
 const style = {
   backgroundColor: '#f84445'
 }
 
-class App extends React.Component<{}, {}> {
+interface VisitComponentState {
+  openDrawer : boolean
+}
+
+class App extends React.Component<{}, VisitComponentState> {
   constructor(){
     super()
-
-    this.redirectToVisitPage = this.redirectToVisitPage.bind(this);
+    this.state = {
+      openDrawer: false
+    }
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
-  redirectToVisitPage(){
-    console.log('====================================');
-    console.log('Clicked');
-    console.log('====================================');
+  toggleDrawer(){
+    this.setState({
+      openDrawer : !this.state.openDrawer
+    })
   }
   render() {
     return (
@@ -31,8 +38,10 @@ class App extends React.Component<{}, {}> {
           label="Visit"
           secondary={true}
           buttonStyle={style}
-          onClick={this.redirectToVisitPage}
+          onClick={this.toggleDrawer}
         />
+        <Visit.Components.VisitDrawer
+          className={ this.state.openDrawer? "visit-drawer-hide": "visit-drawer-show"}/>
       </div>
     );
   }

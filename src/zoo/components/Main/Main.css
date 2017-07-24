@@ -13,15 +13,9 @@ ul {
     /* -webkit-padding-start: 0px; */
 }
 
-.zoo-sidenav {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 104px;
-    left: 0;
-    background-color: #222;
-    overflow-x: hidden;
+ul > li {
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 a {

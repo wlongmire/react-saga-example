@@ -1,6 +1,6 @@
-import { VisitContainer } from './components';
+import { VisitDrawer } from './components';
 
 
 export const Components = {
-    VisitContainer
+    VisitDrawer
 }

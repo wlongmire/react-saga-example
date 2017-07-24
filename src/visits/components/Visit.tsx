@@ -1,10 +1,14 @@
 import * as React from 'react';
+import './Visit.css';
 
+export class VisitDrawerProps {
+    className ?: string;
 
-export class VisitContainer extends React.Component<{}, {}>{
+}
+export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
     render(){
         return(
-            <div>Visit Container Section</div>
+            <div  id="visit-drawer" className={this.props.className}> Visit Container Section</div>
         )
     }
 }

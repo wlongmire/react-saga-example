@@ -25,7 +25,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route 
                     path="/visit" 
-                    render={(props) => <Visit.Components.VisitContainer {...props} />}
+                    render={(props) => <Visit.Components.VisitDrawer {...props} />}
                 />
             </div>
         </BrowserRouter>

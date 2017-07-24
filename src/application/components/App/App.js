@@ -18,11 +18,11 @@ export default StyleSheet.create({
   'container': {
     'right': [{ 'unit': 'px', 'value': 0 }]
   },
-  'visit-drawer-hide': {
+  'visit-drawer-show': {
     'transform': 'translateX(0)',
     'transition': 'transform .6s ease-in-out'
   },
-  'visit-drawer-show': {
+  'visit-drawer-hide': {
     'transform': 'translateX(100%)',
     'transition': 'transform .6s ease-in-out'
   }

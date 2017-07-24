@@ -41,7 +41,7 @@ class App extends React.Component<{}, VisitComponentState> {
           onClick={this.toggleDrawer}
         />
         <Visit.Components.VisitDrawer
-          className={ this.state.openDrawer? "visit-drawer-hide": "visit-drawer-show"}/>
+          className={ this.state.openDrawer? "visit-drawer-show": "visit-drawer-hide"}/>
       </div>
     );
   }

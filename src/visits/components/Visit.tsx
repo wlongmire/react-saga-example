@@ -11,8 +11,7 @@ import './Visit.css';
 const dataSource = ['New', 'Scheduled', 'Process Visit', 'Finalized'];
 const dataSource2 = ['LifeCo', 'External', 'Procedure'];
 const dataSource3 = ['Primary', 'Gynecologist', 'Dermatologist'];
-const dataSource4 = ['Alpha', 'Beta', 'Gamma'];
-
+const dataSource4 = ['A', 'B', 'Dermatologist'];
 
 const menuProps = {
   desktop: true,
@@ -78,6 +77,8 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
                     dataSource={dataSource4}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    targetOrigin={{ vertical: 'bottom', horizontal: 'left' }}
             />
             </div>
         )

@@ -1,9 +1,4 @@
 export class Api {
-    static cases() {
-        const api = new Api('cases');
-        return api;
-        // return new Api('cases');
-    }
     
     constructor(private baseUrl: string) {}
 
@@ -31,7 +26,7 @@ export class Api {
         return this.getRequest('DELETE', this.baseUrl, id.toString());
     }
 
-    private getRequest(method: string, basePath: string, urlPath?: string, body?: object, ): Promise<object> {
+    private getRequest(method: string, basePath: string, urlPath?: string, body?: object ): Promise<object> {
         const headers = new Headers();
         headers.append('Authorization', 'Token abcdef123456');
         headers.append('Content-Type', 'application/json');

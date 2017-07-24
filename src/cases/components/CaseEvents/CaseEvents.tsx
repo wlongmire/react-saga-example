@@ -7,7 +7,7 @@ import './CaseEvents.css';
  * CaseEvents Component Properties
  */
 export class CaseEventsComponentProps {
-  constructor(public caseEvents: Model.CaseItem) {}
+  constructor(public caseEvents: Array<Model.CaseItem>) {}
 }
 
 /**

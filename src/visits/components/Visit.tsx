@@ -4,6 +4,7 @@ import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
+import TableInputs from './common/TableInputs';
 
 
 import './Visit.css';
@@ -11,8 +12,6 @@ import './Visit.css';
 const dataSource = ['New', 'Scheduled', 'Process Visit', 'Finalized'];
 const dataSource2 = ['LifeCo', 'External', 'Procedure'];
 const dataSource3 = ['Primary', 'Gynecologist', 'Dermatologist'];
-const dataSource4 = ['A', 'B', 'Dermatologist'];
-
 const menuProps = {
   desktop: true,
   disableAutoFocus: true,
@@ -72,14 +71,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 multiLine={true}
                 rows={2}
             />
-            <AutoComplete
-                    floatingLabelText="Vitals"
-                    filter={AutoComplete.noFilter}
-                    openOnFocus={true}
-                    dataSource={dataSource4}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                    targetOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            />
+            <TableInputs/>
             </div>
         )
     }

@@ -22,5 +22,8 @@ export default StyleSheet.create({
   'maintenance-section': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
     'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }]
+  },
+  'table-element': {
+    'width': [{ 'unit': '%H', 'value': 0.8 }]
   }
 });

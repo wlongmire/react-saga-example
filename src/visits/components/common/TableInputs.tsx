@@ -33,39 +33,35 @@ const vitalsObject = [
 }
 ]
 
+const myVitals:any = []
+
 
 interface TableInputsState{
     value: number;
-    vitals?: any
+    vitalOptions?: any;
+    vitalsObjects?: any;
 }
 export default class TableInputs extends React.Component<{}, TableInputsState>{
     constructor(){
         super()
     this.state = {
         value: 1,
-        vitals: vitalsObject
+        vitalOptions: vitalsObject,
+        vitalsObjects: myVitals
     }
     this.handleChange = this.handleChange.bind(this);
-        
+    this.handleAddVital = this.handleAddVital.bind(this);
     }
 
     handleChange = (event:any, index:number, value:any) => this.setState({value});
 
-    render(){
-        return(
-            <Table style={TableStyles}>
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-                <TableHeaderColumn>Vitals</TableHeaderColumn>
-                <TableHeaderColumn><span className="add">+</span></TableHeaderColumn>
-            </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false}>
+    handleAddVital = (event:any) => {
+        const newVital = (
                     <TableRow>
                     <TableRowColumn>
                     <DropDownMenu value={this.state.value} onChange={this.handleChange}>
                         {
-                            this.state.vitals.map((v:any)=>{
+                            this.state.vitalOptions.map((v:any)=>{
                                     return(
                                  <MenuItem key={v.id} value={v.name} primaryText={v.name} />
                             )})
@@ -73,11 +69,71 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
                     </DropDownMenu>
                     </TableRowColumn>
                     <TableRowColumn>  
-                        <TextField
-                            floatingLabelText="Test"
-                        />  
+                    <TextField
+                            hintText="Hint Text"
+                            floatingLabelText="Vitals"
+                     /> 
                     </TableRowColumn>
-                          </TableRow>
+                    </TableRow>
+        ) 
+    
+        this.setState({
+            vitalsObjects : [...this.state.vitalsObjects.concat(newVital)]
+        })
+    }
+
+    render(){
+        return(
+            <Table style={TableStyles}>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+                <TableHeaderColumn>Vitals</TableHeaderColumn>
+                <TableHeaderColumn><span onClick={this.handleAddVital} className="add">+</span></TableHeaderColumn>
+            </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+                    {
+                        this.state.vitalsObjects.map((vit:any)=>{
+                            return(
+                                <TableRow>
+                                <TableRowColumn>
+                                <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+                                    {
+                                        this.state.vitalOptions.map((v:any)=>{
+                                                return(
+                                            <MenuItem key={v.id} value={v.name} primaryText={v.name} />
+                                        )})
+                                    }
+                                </DropDownMenu>
+                                </TableRowColumn>
+                                <TableRowColumn>  
+                                <TextField
+                                        hintText="Hint Text"
+                                        floatingLabelText="Vitals"
+                                /> 
+                                </TableRowColumn>
+                                </TableRow>
+                            )
+                        } )
+                    }
+                    {/* <TableRow>
+                    <TableRowColumn>
+                    <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+                        {
+                            this.state.vitalOptions.map((v:any)=>{
+                                    return(
+                                 <MenuItem key={v.id} value={v.name} primaryText={v.name} />
+                            )})
+                        }
+                    </DropDownMenu>
+                    </TableRowColumn>
+                    <TableRowColumn>  
+                    <TextField
+                            hintText="Hint Text"
+                            floatingLabelText="Vitals"
+                     /> 
+                    </TableRowColumn>
+                    </TableRow> */}
             </TableBody>
         </Table>
         )

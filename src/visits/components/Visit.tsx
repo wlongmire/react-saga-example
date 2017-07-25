@@ -5,9 +5,15 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import TableInputs from './common/TableInputs';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 import './Visit.css';
+
+const style = {
+  backgroundColor: '#f84445',
+  width: '70%'
+}
 
 const dataSource = ['New', 'Scheduled', 'Process Visit', 'Finalized'];
 const dataSource2 = ['LifeCo', 'External', 'Procedure'];
@@ -72,6 +78,28 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 rows={2}
             />
             <TableInputs/>
+            <TextField
+                hintText="Subjective"
+                multiLine={true}
+                rows={2}
+            />
+            <TextField
+                hintText="Objective"
+                multiLine={true}
+                rows={2}
+            />
+            <TextField
+                hintText="Assessments"
+                multiLine={true}
+                rows={2}
+            />
+             <TextField
+                hintText="Next Steps"
+                multiLine={true}
+                rows={2}
+            />
+            <br/>
+            <RaisedButton style={style} secondary={true} label="save"/>
             </div>
         )
     }

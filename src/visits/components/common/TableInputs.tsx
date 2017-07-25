@@ -13,13 +13,6 @@ import MenuItem from 'material-ui/MenuItem';
 
 import './TableInputs.css';
 
-const createIdGenerator = () => {
-    let id = 0;
-    return () => ++id;
-}
-
-const idGenerator = createIdGenerator();
-
 const TableStyles = {
     width: '70%',
     margin: '0 auto'
@@ -27,9 +20,9 @@ const TableStyles = {
 
 
 const vitalsObject = [
-    {id: idGenerator(), name: 'Weight'}, 
-    {id: idGenerator(), name:'Height'}, 
-    {id: idGenerator(), name:'Age'
+    {id: 1, name:'Weight'}, 
+    {id: 2, name:'Height'}, 
+    {id: 3, name:'Age'
 }
 ]
 
@@ -37,17 +30,17 @@ const myVitals:any = []
 
 
 interface TableInputsState{
-    value: number;
+    value:number;
     vitalOptions?: any;
-    vitalsObjects?: any;
+    myVitals?: any;
 }
 export default class TableInputs extends React.Component<{}, TableInputsState>{
     constructor(){
         super()
     this.state = {
-        value: 1,
+        value: 0,
         vitalOptions: vitalsObject,
-        vitalsObjects: myVitals
+        myVitals: myVitals
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleAddVital = this.handleAddVital.bind(this);
@@ -56,14 +49,15 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
     handleChange = (event:any, index:number, value:any) => this.setState({value});
 
     handleAddVital = (event:any) => {
+
         const newVital = (
                     <TableRow>
                     <TableRowColumn>
                     <DropDownMenu value={this.state.value} onChange={this.handleChange}>
                         {
-                            this.state.vitalOptions.map((v:any)=>{
+                            this.state.vitalOptions.map((v:any, index:number)=>{
                                     return(
-                                 <MenuItem key={v.id} value={v.name} primaryText={v.name} />
+                                 <MenuItem key={index} value={v.name} primaryText={v.name} />
                             )})
                         }
                     </DropDownMenu>
@@ -78,7 +72,7 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
         ) 
     
         this.setState({
-            vitalsObjects : [...this.state.vitalsObjects.concat(newVital)]
+            myVitals : [...this.state.myVitals.concat(newVital)]
         })
     }
 
@@ -92,48 +86,7 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
             </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-                    {
-                        this.state.vitalsObjects.map((vit:any)=>{
-                            return(
-                                <TableRow>
-                                <TableRowColumn>
-                                <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-                                    {
-                                        this.state.vitalOptions.map((v:any)=>{
-                                                return(
-                                            <MenuItem key={v.id} value={v.name} primaryText={v.name} />
-                                        )})
-                                    }
-                                </DropDownMenu>
-                                </TableRowColumn>
-                                <TableRowColumn>  
-                                <TextField
-                                        hintText="Hint Text"
-                                        floatingLabelText="Vitals"
-                                /> 
-                                </TableRowColumn>
-                                </TableRow>
-                            )
-                        } )
-                    }
-                    {/* <TableRow>
-                    <TableRowColumn>
-                    <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-                        {
-                            this.state.vitalOptions.map((v:any)=>{
-                                    return(
-                                 <MenuItem key={v.id} value={v.name} primaryText={v.name} />
-                            )})
-                        }
-                    </DropDownMenu>
-                    </TableRowColumn>
-                    <TableRowColumn>  
-                    <TextField
-                            hintText="Hint Text"
-                            floatingLabelText="Vitals"
-                     /> 
-                    </TableRowColumn>
-                    </TableRow> */}
+                {this.state.myVitals}
             </TableBody>
         </Table>
         )

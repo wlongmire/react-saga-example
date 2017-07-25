@@ -12,7 +12,12 @@ import './Visit.css';
 
 const style = {
   backgroundColor: '#f84445',
-  width: '70%'
+  width: '70%',
+  marginBottom: '1em',
+}
+
+const btnStyle = {
+    backgroundColor: '#f84445'
 }
 
 const dataSource = ['New', 'Scheduled', 'Process Visit', 'Finalized'];
@@ -99,7 +104,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 rows={2}
             />
             <br/>
-            <RaisedButton style={style} secondary={true} label="save"/>
+            <RaisedButton secondary={true} buttonStyle={btnStyle} style={style} label="save"/>
             </div>
         )
     }

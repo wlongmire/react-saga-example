@@ -37,11 +37,22 @@ export class VisitDrawerProps {
 
 }
 export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
+    constructor(){
+        super()
+
+        this.handleSubmitVisit = this.handleSubmitVisit.bind(this);
+    }
+
+    handleSubmitVisit(event:any){
+        event.preventDefault();
+        console.log(event.target)
+    }
     render(){
         return(
-            <div  id="visit-drawer" className={this.props.className}> 
+            <form id="visit-drawer" onSubmit={this.handleSubmitVisit} className={this.props.className}> 
             <div className="header"> <p>New Visit</p></div>
             <AutoComplete
+                    name="status"
                     floatingLabelText="Status"
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
@@ -49,6 +60,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                     menuProps={menuProps}
             />
             <AutoComplete
+                    name="visit_type"
                     floatingLabelText="Visit Type"
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
@@ -56,56 +68,65 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
             />
             <div className="maintenance-section">
                 <span>Maintenance</span>
-                <Checkbox label="Physical" labelStyle={labelStyles}/>
-                <Checkbox label="Pap Smear" labelStyle={labelStyles}/>
+                <Checkbox name="maintenance-physical" label="Physical" labelStyle={labelStyles}/>
+                <Checkbox name="maintenance-pap-smear" label="Pap Smear" labelStyle={labelStyles}/>
             </div>
             <TextField
+                name="doctor"
                 floatingLabelText="Doctor"
                 defaultValue="Dr. Venis Wilder"
             />
             <AutoComplete
+                    name="doctor-type"
                     floatingLabelText="Doctor Type"
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
                     dataSource={dataSource3}
             />
             <TextField
+                name="location"
                 floatingLabelText="Location"
                 hintText="Nairobi Area"
             />
-            <DatePicker hintText="Date"/>
+            <DatePicker name="date" hintText="Date"/>
             <TimePicker
+                name="time"
                 hintText="Intended Time"
             />
             <TextField
+                name="complaints"
                 hintText="Complaints"
                 multiLine={true}
                 rows={2}
             />
             <TableInputs/>
             <TextField
+                name="subjective"
                 hintText="Subjective"
                 multiLine={true}
                 rows={2}
             />
             <TextField
+                name="objective"
                 hintText="Objective"
                 multiLine={true}
                 rows={2}
             />
             <TextField
+                name="assessments"
                 hintText="Assessments"
                 multiLine={true}
                 rows={2}
             />
              <TextField
+                name="next-steps"
                 hintText="Next Steps"
                 multiLine={true}
                 rows={2}
             />
             <br/>
-            <RaisedButton secondary={true} buttonStyle={btnStyle} style={style} label="save"/>
-            </div>
+            <RaisedButton secondary={true} type="submit" buttonStyle={btnStyle} style={style} label="save"/>
+            </form>
         )
     }
 }

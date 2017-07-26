@@ -21,11 +21,10 @@ const TableStyles = {
 
 
 const vitalsObject = [
-    { id: 0, name: 'Weight' },
-    { id: 1, name: 'Height' },
-    {
-        id: 2, name: 'Age'
-    }
+    {id: 0, name: 'Weight' },
+    {id: 1, name: 'Height' },
+    {id: 2, name: 'Age'
+}
 ]
 
 interface IVital {
@@ -54,12 +53,13 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
         this.handleAddVital = this.handleAddVital.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
     }
+    
 
     handleChange = (event: any, vitalId: number, value: string) => {
         let st = [...this.state.myVitals]
         st.forEach((vital:IVital) => {
             if(vital.id === vitalId){
-                vital.value = value;
+                vital.name = value;
             }
         })
         this.setState({myVitals: st});
@@ -79,7 +79,6 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
 
 
     handleAddVital = (event: React.SyntheticEvent<any>) => {
-        console.log("Event")
         let newVital: IVital = { id: this.count++, name: '', value: '' };
         let vitals = this.state.myVitals;
         vitals.push(newVital);
@@ -97,10 +96,7 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
                 return (
                     <TableRow key={vital.id}>
                         <TableRowColumn>
-                            <DropDownMenu value={vital.value} onChange={(e,k,v) => {
-                                console.log('event',e)
-                                console.log('key', k)
-                                console.log('value', v)
+                            <DropDownMenu value={vital.name} onChange={(e,k,v) => {
                                 this.handleChange(e,vital.id,v)}
                                 
                                 }>
@@ -109,9 +105,11 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
                         </TableRowColumn>
                         <TableRowColumn>
                             <TextField 
-                            hintText="Vitals" 
-                            value={vital.value} 
-                            onChange={(e,v) => this.handleTextInput(e,v,vital.id)} floatingLabelText="Vitals" />
+                            id={vital.id.toString()}
+                            name={vital.name}
+                            hintText={vital.name} 
+                            floatingLabelText={vital.value}
+                            onChange={(e,v) => this.handleTextInput(e,v,vital.id)}/>
                         </TableRowColumn>
                     </TableRow>
                 )

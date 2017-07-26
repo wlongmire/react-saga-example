@@ -4,8 +4,10 @@ import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
-import TableInputs from './common/TableInputs';
 import RaisedButton from 'material-ui/RaisedButton';
+
+import TableInputs from './common/TableInputs';
+import TableTemplate from './common/TableTemplates';
 
 
 import './Visit.css';
@@ -100,6 +102,9 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 rows={2}
             />
             <TableInputs/>
+            <TableTemplate
+                headerTitle="Systems Review"
+            />
             <TextField
                 name="subjective"
                 hintText="Subjective"
@@ -123,6 +128,12 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 hintText="Next Steps"
                 multiLine={true}
                 rows={2}
+            />
+            <TableTemplate
+                headerTitle="Follow Ups"
+            />
+            <TableTemplate
+                headerTitle="Internal Notes"
             />
             <br/>
             <RaisedButton secondary={true} type="submit" buttonStyle={btnStyle} style={style} label="save"/>

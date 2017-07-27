@@ -1,71 +1,89 @@
-// import { api } from '../api';
+import * as CryptoJS from 'crypto-js';
+import { makeUrl } from '../helper';
 
-export class Auth {
-    static login() {
+/**
+ * Login Credentials
+ */
+export class LoginCredentials {
+    public password: string;
 
-    }
-
-    static logout() {
-        // endpoint?
+    constructor(
+        public email: string,
+        password: string
+    ) {
+        this.password = CryptoJS.SHA224(password);
     }
 }
 
+/**
+ * Login Response
+ */
+export class LoginResponse {
+    constructor(
+        public clientToken: string
+        
+    ) {}
+}
 
-// import * as Redux from 'react-redux';
-// import * as Login from '../../login';
-// import { EventEmitter } from 'events';
-// import { History } from 'history';
+/**
+ * Service responsible for authenticating credentials via the remote auth server.
+ */
+export class AuthService {
 
-// export default class Auth extends EventEmitter {
-//     userProfile: object | undefined | null;
+    /**
+     * Responsible for authenticating the specified credentials.
+     * @param credentials 
+     */
+    static login(credentials: LoginCredentials) {
+        const requestInit: RequestInit = {
+            method: 'POST',
+            headers: { 
+                'Authorization': `Token ${process.env.REACT_APP_API_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password
+            })
+        };
 
-//     constructor(
-//         private store: Redux.Store<{}>, 
-//         private history: History) {
+        const url = makeUrl('exposed', 'register_client');
+        const request = new Request(url, requestInit);
 
-//         super();
+        return fetch(request)
+            .then(response => response.json())
+            .then(result => {
+                switch (result.status) {
+                    case '200':
+                        localStorage.setItem('access_token', result.new_client_token);
+                        // todo: id_token
+                        // todo: expires_at see https://github.com/LifeCo/backend/issues/18
+                        return Promise.resolve();
+                    default:
+                        return Promise.reject(result.error);
+                }
+            });
+    }
 
-//         this.login = this.login.bind(this);
-//         this.logout = this.logout.bind(this);
-//         this.handleAuthentication = this.handleAuthentication.bind(this);
-//         this.isAuthenticated = this.isAuthenticated.bind(this);
-//         this.getAccessToken = this.getAccessToken.bind(this);
-//         this.getProfile = this.getProfile.bind(this);
-//     }
+    /**
+     * Responsible for invalidating the current auth token.
+     */
+    static logout() {
+        // do we need an endpoint for logging out and invalidating tokens?
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('expires_at');
+    }
 
-//     login() {
-//         // show login form
-//         this.store.dispatch(Login.Actions.login());
-//     }
+    static isAuthenticated() {
+        // note: this is a very naive approach. need to use json
+        // web tokens to provide better assurances of token validity.
+        const token = localStorage.getItem('access_token');
+        return (token && token.length > 0);
 
-//     handleAuthentication() {
-//         // handle the authentication
-//     }
-
-//     setSession(authResult: object) {
-
-//     }
-
-//     getAccessToken() {
-//         // get access token from localStorage
-//     }
-
-//     getProfile() {
-//         // return the user profile
-//     }
-
-//     // logout() {
-//         localStorage.removeItem('access_token');
-//         localStorage.removeItem('id_token');
-//         localStorage.removeItem('expires_at');
-//         this.userProfile = null;
-
-//         // navigate to the home route here
-//         this.history.push('home');
-//     }
-
-//     isAuthenticated() {
-//         let expiresAt = JSON.parse(localStorage.getItem('expires_at') || '');
-//         return new Date().getTime() < expiresAt;
-//     }
-// }
+        // todo: 
+        // let expiresAt = localStorage.getItem('expires_at');
+        // return new Date().getTime() < expiresAt;
+    }
+}

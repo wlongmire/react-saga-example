@@ -5,8 +5,9 @@ import {
     loginSuccess
 } from './actions';
 
-import { LoginCredentials } from './model';
 import { Login, LoginContainer } from './components';
+
+import { root } from './sagas';
 
 export const Actions = {
     ActionType, 
@@ -20,6 +21,6 @@ export const Components = {
     Login
 };
 
-export const Model = {
-    LoginCredentials
+export const Sagas = {
+    root
 };

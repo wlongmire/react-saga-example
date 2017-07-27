@@ -1,2 +1,2 @@
 export { Login } from './Login';
-export { LoginContainer } from './LoginContainer';
+export { default as LoginContainer } from './LoginContainer';

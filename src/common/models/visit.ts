@@ -44,7 +44,7 @@ export class Visit {
     providerLocation: Address;
     complaints: Array<string>;
     vitals: Dictionary<number>;
-    systemReview: Array<object>;
+    systemReview: Dictionary<string>;
     subjective: string;
     objective: string;
     assessment: string;

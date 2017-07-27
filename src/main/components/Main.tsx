@@ -4,23 +4,31 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { makeMainRoutes } from '../routes';
 
-const routes = makeMainRoutes();
-
 interface MainProps {
     store: Redux.Store<{}>;
 }
 
-class Main extends React.Component<MainProps, {}> {
+interface MainState {
+    routes: JSX.Element;
+}
+
+export class Main extends React.Component<MainProps, MainState> {
+    constructor(props: MainProps) {
+        super(props);
+
+        this.state = {
+            routes: makeMainRoutes(this.props.store)
+        };
+    }
+
     render() {
         const { store } = this.props;
         return (
             <Provider store={store}>
                 <MuiThemeProvider>
-                    {routes}
+                    {this.state.routes}
                 </MuiThemeProvider>
             </Provider>
         );
     }
 }
-
-export default Main;

@@ -1,9 +1,7 @@
 import {
-    CaseEventsZoo,
     Main
 } from './components';
 
-export const Components = {
-    CaseEventsZoo,
-    Main
+export const Components = { 
+    Main 
 };

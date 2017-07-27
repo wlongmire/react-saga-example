@@ -6,8 +6,8 @@ import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import TableInputs from './common/TableInputs';
-import TableTemplate from './common/TableTemplates';
+import TableInputs from '../common/TableInputs';
+import TableTemplate from '../common/TableTemplates';
 
 
 import './Visit.css';

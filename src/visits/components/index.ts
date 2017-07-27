@@ -1,1 +1,1 @@
-export {VisitDrawer} from './Visit';
+export * from './Visits';

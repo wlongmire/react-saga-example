@@ -3,11 +3,11 @@ import {getAllVisits} from './selectors';
 import {root} from './sagas';
 import {VisitItem} from './model';
 import {reducer} from './reducer';
-import { VisitDrawer } from './components';
+import { VisitsContainer} from './components';
 
 
 export const Components = {
-    VisitDrawer
+    VisitsContainer
 }
 
 export const Actions = {

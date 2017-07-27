@@ -4,7 +4,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';
 import * as Login from '../login';
-import * as Visit from '../visits';
+import * as Visits from '../visits';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
@@ -24,8 +24,8 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     render={(props) => <Login.Components.Login {...props} />}
                 />
                 <Route 
-                    path="/visit" 
-                    render={(props) => <Visit.Components.VisitDrawer {...props} />}
+                    path="/visits" 
+                    render={(props) => <Visits.Components.VisitsContainer {...props} />}
                 />
             </div>
         </BrowserRouter>

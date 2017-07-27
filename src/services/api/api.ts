@@ -1,3 +1,5 @@
+import { makeUrl } from '../helper';
+
 export class Api {
     
     constructor(private baseUrl: string) {}
@@ -38,27 +40,8 @@ export class Api {
             cache: 'default'
         };
         
-        const url = this.getUrl(basePath);
+        const url = makeUrl(basePath);
         const request = new Request(url, requestInit);
         return fetch(request).then(response => response.json());
-    }
-
-    private getUrl(basePath: string, extendedPath?: string) {
-        const host = process.env.REACT_APP_API_HOST;
-        const port = process.env.REACT_APP_API_PORT;
-        
-        let url = `http://${host}`;
-
-        if (port) {
-            url = `${url}:${port}`;
-        }
-
-        url = `${url}/${basePath}`;
-
-        if (extendedPath) {
-            url = `${url}/${extendedPath}`;
-        }
-
-        return url;
     }
 }

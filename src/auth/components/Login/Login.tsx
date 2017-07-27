@@ -2,7 +2,8 @@ import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import { LoginCredentials } from '../../model';
+import { LoginCredentials } from '../../../services/auth';
+import { ActionResult } from '../../../common';
 
 import './Login.css';
 
@@ -10,12 +11,12 @@ import './Login.css';
  * 
  */
 export class LoginComponentProps {
-  onSubmit: (credentials: LoginCredentials) => void;
+  login: (credentials: LoginCredentials) => ActionResult<LoginCredentials>;
 }
   
-  /**
-   * 
-   */
+/**
+ * 
+ */
 class LoginComponentState {
   email: string;
   password: string;
@@ -26,7 +27,6 @@ class LoginComponentState {
  * Display element for login.
  */
 export class Login extends React.Component<LoginComponentProps, LoginComponentState> {
-
   constructor() {
     super();
 
@@ -70,8 +70,8 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    * 
    */
   onSubmit() {
-    if (this.props.onSubmit) {
-      this.props.onSubmit(new LoginCredentials(this.state.email, this.state.password));
+    if (this.props.login) {
+      this.props.login(new LoginCredentials(this.state.email, this.state.password));
     }
   }
 
@@ -93,6 +93,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
     return (
       <div className="login-form">
         <Paper zDepth={2}>
+          <h2 className="login-label">Login</h2>
           <TextField
             className="login-email-input"
             style={fieldStyle}

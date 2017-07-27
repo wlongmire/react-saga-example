@@ -47,7 +47,15 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
 
     handleSubmitVisit(event:any){
         event.preventDefault();
-        console.log(event.target)
+        // let fields = ['status', 'visit_type', 'maintenance-physical', 'maintenance-pap-smear', 
+        //     'doctor', 'doctor-type', 'location', 'time','complaints', 'subjective', 'objective', 'assessment',
+        // 'next-steps' ];
+        let fields = ['status', 'visit_type', 'maintenance-physical', 'maintenance-pap-smear','doctor', 'doctor-type','location',
+    'time','complaints'];
+        fields.forEach((field:string)=>{
+            console.log(event.target[field].value)
+        })
+
     }
     render(){
         return(

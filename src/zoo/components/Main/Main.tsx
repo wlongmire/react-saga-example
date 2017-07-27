@@ -96,8 +96,7 @@ export class Main extends React.Component<{}, MainState> {
           </nav>
           <aside>aside</aside>
         </div>
-        <footer>
-        </footer>
+        <footer />
       </div>
     );
   }

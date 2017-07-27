@@ -38,10 +38,9 @@ export class AuthService {
         const requestInit: RequestInit = {
             method: 'POST',
             headers: { 
-                'Authorization': `Token ${process.env.REACT_APP_API_TOKEN}`,
-                'Content-Type': 'application/json'
+                'Accept-Language': `Token ${process.env.REACT_APP_API_TOKEN}`
             },
-            mode: 'cors',
+            mode: 'no-cors',
             body: JSON.stringify({
                 email: credentials.email,
                 password: credentials.password

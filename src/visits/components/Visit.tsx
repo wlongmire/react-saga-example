@@ -51,7 +51,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
         //     'doctor', 'doctor-type', 'location', 'time','complaints', 'subjective', 'objective', 'assessment',
         // 'next-steps' ];
         let fields = ['status', 'visit_type', 'maintenance-physical', 'maintenance-pap-smear','doctor', 'doctor-type','location',
-    'time','complaints'];
+        'time','complaints'];
         fields.forEach((field:string)=>{
             console.log(event.target[field].value)
         })

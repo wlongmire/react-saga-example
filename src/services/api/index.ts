@@ -1,6 +1,5 @@
-import { Api } from './api';
+import { VisitService } from './visit';
 
 export const api = {
-    cases: new Api('cases'),
-    users: new Api('users')
+    visits: VisitService
 };

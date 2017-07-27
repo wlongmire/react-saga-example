@@ -1,7 +1,7 @@
 import { ActionType, Action } from './actions';
 import { Cases, Case, CaseEvents, CaseEventsComponentProps } from './components';
-import { ReducerState, CaseItem } from './model';
-import { getAll } from './selectors';
+import { getAllCases } from './selectors';
+import { CaseItem } from './model';
 import { root } from './sagas';
 import { reducer } from './reducer';
 
@@ -11,11 +11,6 @@ import { reducer } from './reducer';
  * 
  * The module exposes the Models, Components, ActionTypes, Action Generators, Selectors, Sagas, and the Reducer.
  */
-export const Model = {
-    ReducerState,
-    CaseItem
-};
-
 export const Actions = {
     ActionType,
     Action
@@ -25,11 +20,12 @@ export const Components = {
     Cases,
     Case,
     CaseEvents,
-    CaseEventsComponentProps
+    CaseEventsComponentProps,
+    CaseItem
 };
 
 export const Selectors = {
-    getAll
+    getAllCases
 };
 
 export const Sagas = {

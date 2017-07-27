@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
-
 import * as Application from '../application';
 import * as Zoo from '../zoo';
 import * as Login from '../login';

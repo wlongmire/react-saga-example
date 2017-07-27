@@ -23,7 +23,6 @@ export class Main extends React.Component<MainProps, MainState> {
 
     render() {
         const { store } = this.props;
-
         return (
             <Provider store={store}>
                 <MuiThemeProvider>

@@ -1,3 +1,17 @@
+import * as utils from './utils';
+
+export const Utils = {
+    strEnum: utils.strEnum
+};
+
+export interface IAddress {
+    streetAddress1: string;
+    streetAddress2?: string;
+    city: string;
+    state: string;
+    postalCode: string;
+}
+
 /**
  * Redux ActionResult interface
  */

@@ -3,6 +3,8 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import { Login } from '../Login';
 import { mount } from 'enzyme';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
+import { LoginCredentials } from '../../../services/auth';
+import { ActionResult } from '../../../common';
 
 beforeAll(() => {
     // since we're using mount...need the tap event plugin and the mui them provider
@@ -11,20 +13,20 @@ beforeAll(() => {
 })
 
 test('Login component renders correctly', () => {
-    const submitFn = () => {};
+    const loginFn = (credentials: LoginCredentials) => new ActionResult<LoginCredentials>(); ;
     const wrapper = mount(
         <MuiThemeProvider>
-            <Login onSubmit={submitFn} />
+            <Login login={loginFn} />
         </MuiThemeProvider>
     );
     expect(wrapper.find('.login-form').exists());
 });
 
 test('Submit click fires fn', () => {
-    const submitFn = () => {};
+    const loginFn = (credentials: LoginCredentials) => new ActionResult<LoginCredentials>(); ;
     const wrapper = mount(
         <MuiThemeProvider>
-            <Login onSubmit={submitFn} />
+            <Login login={loginFn} />
         </MuiThemeProvider>
     );
 
@@ -37,7 +39,4 @@ test('Submit click fires fn', () => {
     const loginButton = wrapper.find('.login-submit-button');
     expect(loginButton.exists()).toBeTruthy();
     expect(loginButton.childAt(0).prop('disabled')).toBeTruthy();
-
-    console.log(emailInput.childAt(0).text());
-
 });

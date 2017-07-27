@@ -62,6 +62,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
             <form id="visit-drawer" onSubmit={this.handleSubmitVisit} className={this.props.className}> 
             <div className="header"> <p>New Visit</p></div>
             <AutoComplete
+                    id="status"
                     name="status"
                     floatingLabelText="Status"
                     filter={AutoComplete.noFilter}

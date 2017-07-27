@@ -6,6 +6,7 @@
     height: 100%;
     box-shadow: 2px 0 10px 0 black;
     overflow-y: scroll;
+    text-align: center;
 }
 
 .header{

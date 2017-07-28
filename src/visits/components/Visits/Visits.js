@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  'visits-container': {
+    'textAlign': 'center'
+  },
   'title': {
     'color': '#f84445'
   },

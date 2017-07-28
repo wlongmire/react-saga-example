@@ -10,12 +10,14 @@ export const VisitStatus = StringEnum([
     'Cancelled'
 ]);
 
+console.log(VisitStatus)
 /** Create a type for the Visit Status */
 export type VisitStatus = keyof typeof VisitStatus;
 
 /** K:V for visit type */
 export const VisitType = StringEnum([
     'LifeCo',
+    'Procedure',
     'External'
 ]);
 

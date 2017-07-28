@@ -16,6 +16,7 @@ export const createRequest = (method: string, basePath: string, urlPath?: string
     
     const url = createUrl(basePath);
     const request = new Request(url, requestInit);
+    console.log('request here', request)
     return fetch(request).then(response => response.json());
 }
 

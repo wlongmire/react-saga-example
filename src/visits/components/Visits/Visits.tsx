@@ -6,7 +6,8 @@ import './Visits.css';
 
 
 const style = {
-    backgroundColor: '#f84445'
+    backgroundColor: '#f84445',
+    display: ''
 }
 
 interface VisitComponentState {
@@ -29,7 +30,7 @@ export class VisitsContainer extends React.Component<{}, VisitComponentState>{
     }
     render() {
         return (
-            <div>
+            <div className="visits-container">
                 <RaisedButton
                     label="Visit"
                     secondary={true}

@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import {VisitStatus, VisitProviderType, VisitType} from '../../../common/models';
 import TableInputs from '../common/TableInputs';
 import TableTemplate from '../common/TableTemplates';
 
@@ -21,27 +21,27 @@ const style = {
 const btnStyle = {
     backgroundColor: '#f84445'
 }
-
-const dataSource = ['New', 'Scheduled', 'Process Visit', 'Finalized'];
-const dataSource2 = ['LifeCo', 'External', 'Procedure'];
-const dataSource3 = ['Primary', 'Gynecologist', 'Dermatologist'];
 const menuProps = {
   desktop: true,
   disableAutoFocus: true,
 };
 
+const getOptions = (stringEnumObject: object) => {
+    return Object.keys(stringEnumObject);
+}
+
 const labelStyles = {
     width: 'auto'
 }
 
-export class VisitDrawerProps {
+interface VisitDrawerProps {
     className ?: string;
-
 }
+
+
 export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
     constructor(){
         super()
-
         this.handleSubmitVisit = this.handleSubmitVisit.bind(this);
     }
 
@@ -67,7 +67,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                     floatingLabelText="Status"
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
-                    dataSource={dataSource}
+                    dataSource={getOptions(VisitStatus)}
                     menuProps={menuProps}
             />
             <AutoComplete
@@ -75,7 +75,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                     floatingLabelText="Visit Type"
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
-                    dataSource={dataSource2}
+                    dataSource={getOptions(VisitType)}
             />
             <div className="maintenance-section">
                 <span>Maintenance</span>
@@ -92,7 +92,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                     floatingLabelText="Doctor Type"
                     filter={AutoComplete.noFilter}
                     openOnFocus={true}
-                    dataSource={dataSource3}
+                    dataSource={getOptions(VisitProviderType)}
             />
             <TextField
                 name="location"

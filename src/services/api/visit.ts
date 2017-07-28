@@ -7,9 +7,13 @@ import {
 export class VisitService {
     /** Fetches events for the specified channel id */
     static fetch(channelId: number) {
+        console.log('Here>>>>>>>>>>>>')
         return ChannelEventService.fetch(channelId)
             .then (json => {
+                console.log('Hapa',json)
                 return {/* TODO: Map response */};
+            }).catch((e:Error)=>{
+                console.log('errored here>>>>>>',e)
             });
     }
 

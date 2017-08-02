@@ -5,5 +5,5 @@ import ApplicationState from '../common';
  * @param state
  */
 
- export const getAllPatients = (state: ApplicationState.IState) => state.patients;
-
+// 
+export const getAllPatients = (state: ApplicationState.IState) => state.patients;

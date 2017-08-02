@@ -11,6 +11,7 @@ export class VisitService {
         return ChannelEventService.fetch(channelId)
             .then (json => {
                 console.log('Hapa',json)
+                // return Array<Model.IVisit>
                 return {/* TODO: Map response */};
             }).catch((e:Error)=>{
                 console.log('errored here>>>>>>',e)

@@ -10,7 +10,6 @@ export const VisitStatus = StringEnum([
     'Cancelled'
 ]);
 
-console.log(VisitStatus)
 /** Create a type for the Visit Status */
 export type VisitStatus = keyof typeof VisitStatus;
 

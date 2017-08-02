@@ -12,42 +12,29 @@ export module ActionType {
     export const LOAD_ALL_FAILED = 'visits/LOAD_ALL_FAILED'
 }
 
-/**
- * Action Generators
- */
+export const loadAllVisitsCompleted = (visitItems: Array<Model.VisitItem>): Common.ActionResult<Array<Model.VisitItem>> => {
+    return {
+        type: ActionType.LOAD_ALL_COMPLETED,
+        value: visitItems
+    };
+}
 
-export class Action {
-    /**
-     * Add/ Create visit generator
-     */
-    public static add(visit:Model.VisitItem):Common.ActionResult<Model.VisitItem>{
-        const action: Common.ActionResult<Model.VisitItem> ={
-            type: ActionType.ADD,
-            value: visit
-        };
-        return action;
-    }
+export const loadAllVisits = (): Common.ActionResult<{}> => {
+    return {
+        type: ActionType.LOAD_ALL
+    };
+}
 
-    public static loadAllVisits():Common.ActionResult<{}>{
-        const action: Common.ActionResult<{}> = {
-            type: ActionType.LOAD_ALL
-        };
-        return action;
-    }
+export const loadAllFailed = (error: Error): Common.ActionResult<Error> => {
+    return {
+        type: ActionType.LOAD_ALL_FAILED,
+        value: error
+    };
+}
 
-    public static loadAllVisitsCompleted(visitItems: Array<Model.VisitItem>):Common.ActionResult<Array<Model.VisitItem>>{
-        const action : Common.ActionResult<Array<Model.VisitItem>> = {
-            type: ActionType.LOAD_ALL_COMPLETED,
-            value: visitItems
-        };
-        return action;
-    }
-
-    public static loadAllFailed(error: Error): Common.ActionResult<Error>{
-        const action : Common.ActionResult<Error> = {
-            type: ActionType.LOAD_ALL_FAILED,
-            value: error
-        };
-        return action;
-    }
+export const add = (visit: Model.VisitItem): Common.ActionResult<Model.VisitItem> => {
+    return {
+        type: ActionType.ADD,
+        value: visit
+    };
 }

@@ -4,23 +4,21 @@ import ApplicationState from '../common';
 
 //Initial reducer state
 
-const initialState = (state:ApplicationState.IState) => state.visits;
+// const initialState = (state:ApplicationState.IState) => (state.visits = [] );
 
 /**
  * Redux reducer
  */
 
- export function reducer(state = initialState, action:Common.ActionResult<{}>){
-     switch(action.type){
+export function reducer(state: ApplicationState.IState = {visits : []}, action: Common.ActionResult<{}>) {
+    switch (action.type) {
         case Actions.ActionType.ADD:
-            return {...state, visit:action.value}
-        case Actions.ActionType.LOAD_ALL:
-            return {...state, initialState}
+            return { ...state, visit: action.value }
         case Actions.ActionType.LOAD_ALL_COMPLETED:
-            return {...state, visits: action.value}
+            return { ...state, visits: action.value }
         case Actions.ActionType.LOAD_ALL_FAILED:
-            return {...state, error:action.value}
+            return { ...state, error: action.value }
         default:
             return state;
-     }
- }
+    }
+}

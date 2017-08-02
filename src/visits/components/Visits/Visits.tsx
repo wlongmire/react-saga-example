@@ -1,26 +1,43 @@
 import * as React from 'react';
 import { VisitDrawer } from '../Visit/VisitDrawer';
 import RaisedButton from 'material-ui/RaisedButton';
-
+// import {getAllVisits} from '../../selectors';
+import ApplicationState from '../../../common';
+import {connect} from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import {  Dispatch } from "redux";
+// import * as VisitsActions from '../../actions';
+import * as VisitModels from '../../model';
+import {loadAllVisits} from '../../actions';
 import './Visits.css';
 
 
 const style = {
     backgroundColor: '#f84445',
-    display: ''
+}
+
+interface VisitsProps {
+    visits : VisitModels.Visits,
+    loadAllVisits : () => void
 }
 
 interface VisitComponentState {
     openDrawer: boolean
+    visits?: Array<any>
 }
 
-export class VisitsContainer extends React.Component<{}, VisitComponentState>{
+export class Visits extends React.Component<VisitsProps, VisitComponentState>{
     constructor() {
         super()
         this.state = {
-            openDrawer: false
+            openDrawer: false,
         }
         this.toggleDrawer = this.toggleDrawer.bind(this);
+    }
+
+    componentDidMount(){    
+        console.log('Another one ================')
+        this.props.loadAllVisits();
     }
 
     toggleDrawer() {
@@ -29,6 +46,7 @@ export class VisitsContainer extends React.Component<{}, VisitComponentState>{
         })
     }
     render() {
+        console.log('Props for visits',this.props.visits.visits)
         return (
             <div className="visits-container">
                 <RaisedButton
@@ -43,3 +61,12 @@ export class VisitsContainer extends React.Component<{}, VisitComponentState>{
         )
     }
 }
+
+const mapStateToProps = (state: ApplicationState.IState) => {
+    return {
+        visits : state.visits,
+    }
+}
+
+
+export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, {loadAllVisits})(Visits)

@@ -7,7 +7,8 @@ export * from './utils';
  */
 export interface ActionResult<T> {
     type: string,
-    value?: T
+    value?: T,
+    custType?: string;
 }
 
 /**
@@ -34,9 +35,6 @@ declare module ApplicationState{
 
     }
 
-    interface IVisits{
-        visits: Array<IVisit>
-    }
 
     interface IPatient extends IUser{
         kind: string;
@@ -57,10 +55,10 @@ declare module ApplicationState{
      * To improve on pattern here
      */
     interface IState {
-        patients: Array<IPatient>;
-        doctors: Array<IDoctor>;
-        cases: Array<ICase>;
-        visits: IVisits
+        patients?: Array<IPatient>;
+        doctors?: Array<IDoctor>;
+        cases?: Array<ICase>;
+        visits?: Array<IVisit>
     }
 }
 

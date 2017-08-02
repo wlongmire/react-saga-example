@@ -3,14 +3,14 @@ import * as Actions from './actions';
 
 function* fetchVisits(){
     try{
-        yield(put(Actions.Action.loadAllVisitsCompleted([])));
+        yield(put(Actions.loadAllVisitsCompleted([])));
     } catch (e){
-        yield(put(Actions.Action.loadAllFailed(e)))
+        yield(put(Actions.loadAllFailed(e)))
     }
 }
 
 function* watchLoadAll(){
-    yield takeEvery(Actions.Action.loadAllVisits, fetchVisits)
+    yield takeEvery(Actions.loadAllVisits, fetchVisits)
 }
 
 export function* root(){

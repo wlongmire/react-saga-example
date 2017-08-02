@@ -1,4 +1,4 @@
-import {ActionType, Action} from './actions';
+import {ActionType} from './actions';
 import {getAllVisits} from './selectors';
 import {root} from './sagas';
 import {VisitItem} from './model';
@@ -11,8 +11,7 @@ export const Components = {
 }
 
 export const Actions = {
-    ActionType,
-    Action
+    ActionType
 }
 
 export const Selectors = {

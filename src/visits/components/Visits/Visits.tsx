@@ -46,7 +46,6 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
-        console.log('Props for visits',this.props.visits.visits)
         return (
             <div className="visits-container">
                 <RaisedButton

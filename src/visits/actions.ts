@@ -20,6 +20,7 @@ export const loadAllVisitsCompleted = (visitItems: Array<Model.VisitItem>): Comm
 }
 
 export const loadAllVisits = (): Common.ActionResult<{}> => {
+    console.log('loadAllVisits...action creator');
     return {
         type: ActionType.LOAD_ALL
     };

@@ -7,8 +7,7 @@ export * from './utils';
  */
 export interface ActionResult<T> {
     type: string,
-    value?: T,
-    custType?: string;
+    value?: T
 }
 
 /**

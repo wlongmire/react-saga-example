@@ -45,11 +45,8 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
-<<<<<<< Updated upstream
-=======
         console.log('Props for visits',this.props.visits.visits)
         console.log('Props ', this.props)
->>>>>>> Stashed changes
         return (
             <div className="visits-container">
                 <RaisedButton

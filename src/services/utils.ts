@@ -14,14 +14,15 @@ export const createRequest = (method: string, basePath: string, urlPath?: string
         cache: 'default'
     };
     
-    const url = createUrl(basePath);
+    const url = createUrl(basePath, urlPath, body);
+    // get events or post events
     const request = new Request(url, requestInit);
     console.log('request here', request)
     return fetch(request).then(response => response.json());
 }
 
 /** Makes a url using the environment settings.  */
-export const createUrl = (basePath: string, extendedPath?: string) => {
+export const createUrl = (basePath: string, extendedPath?: string, body?:object) => {
     const host = process.env.REACT_APP_API_HOST;
     const port = process.env.REACT_APP_API_PORT;
     

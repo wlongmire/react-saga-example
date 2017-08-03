@@ -1,6 +1,6 @@
 import * as Common from '../common';
 import * as Model from './model';
-
+import ApplicationState from '../common';
 /**
  * Action Types for Visits
  */
@@ -33,7 +33,7 @@ export const loadAllFailed = (error: Error): Common.ActionResult<Error> => {
     };
 }
 
-export const add = (visit: Model.VisitItem): Common.ActionResult<Model.VisitItem> => {
+export const add = (visit: ApplicationState.IVisit): Common.ActionResult<Model.VisitItem> => {
     return {
         type: ActionType.ADD,
         value: visit

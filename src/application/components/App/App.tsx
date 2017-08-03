@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as auth from '../../../auth';
+
 import './App.css';
 
 const logo = require('./logo.svg');
@@ -14,6 +16,7 @@ class App extends React.Component<{}, {}> {
         <p className="App-intro">
           This will contain the actual layout container for the app.
         </p>
+        <auth.Components.ConnectedLogoutButton />
       </div>
     );
   }

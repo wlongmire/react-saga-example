@@ -2,9 +2,9 @@ import {all, fork, put, takeEvery} from 'redux-saga/effects';
 import * as Actions from './actions';
 
 function* fetchPatients(){
-    try{
+    try {
         yield(put(Actions.Action.loadAllPatientsSuccess([])));
-    } catch(e){
+    } catch(e) {
         yield(put(Actions.Action.loadAllPatientsFailure(e)))
     }
 }

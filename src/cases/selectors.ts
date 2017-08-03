@@ -1,4 +1,4 @@
-import ApplicationState from '../common'
+import ApplicationState from '../common';
 
 /**
  * Sample selector

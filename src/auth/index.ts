@@ -5,8 +5,9 @@ import {
     loginSuccess
 } from './actions';
 
-import { Login, LoginContainer } from './components';
+import { Login, LoginContainer, LogoutButton, ConnectedLogoutButton} from './components';
 import { root } from './sagas';
+import { reducer } from './reducer';
 
 export const Actions = {
     ActionType, 
@@ -17,9 +18,15 @@ export const Actions = {
 
 export const Components = {
     LoginContainer,
-    Login
+    Login,
+    LogoutButton,
+    ConnectedLogoutButton
 };
 
 export const Sagas = {
     root
+};  
+
+export const Reducer = {
+    reducer
 };

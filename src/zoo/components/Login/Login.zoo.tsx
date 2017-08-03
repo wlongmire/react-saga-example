@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Auth from '../../../auth';
-import { LoginCredentials } from '../../../services/auth';
+import { AuthLoginCredentials } from '../../../services/auth';
 import { ActionResult } from '../../../common';
 
 import './Login.zoo.css';
@@ -15,11 +15,11 @@ export class LoginZoo extends React.Component<{}, {}> {
     this.login = this.login.bind(this);
   }
 
-  login(credentials: LoginCredentials) {
-    return new ActionResult<LoginCredentials>();
+  login(credentials: AuthLoginCredentials) {
+    return new ActionResult<AuthLoginCredentials>();
   } 
 
-  onSubmit(credentials: LoginCredentials) {
+  onSubmit(credentials: AuthLoginCredentials) {
     // todo: display submit info
   }
 

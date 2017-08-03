@@ -1,27 +1,23 @@
-import * as CryptoJS from 'crypto-js';
 import { makeUrl } from '../helper';
 
 /**
  * Login Credentials
  */
-export class LoginCredentials {
-    public password: string;
-
+export class AuthLoginCredentials {
     constructor(
         public email: string,
-        password: string
-    ) {
-        this.password = CryptoJS.SHA224(password);
-    }
+        public password: string
+    ) {}
 }
 
 /**
  * Login Response
  */
-export class LoginResponse {
+export class AuthLoginResponse {
     constructor(
-        public clientToken: string
-        
+        public clientToken: string,
+        public userRole: number,
+        public userChannel: number
     ) {}
 }
 
@@ -34,13 +30,12 @@ export class AuthService {
      * Responsible for authenticating the specified credentials.
      * @param credentials 
      */
-    static login(credentials: LoginCredentials) {
+    static login(credentials: AuthLoginCredentials) {
         const requestInit: RequestInit = {
             method: 'POST',
             headers: { 
                 'Accept-Language': `Token ${process.env.REACT_APP_API_TOKEN}`
             },
-            mode: 'no-cors',
             body: JSON.stringify({
                 email: credentials.email,
                 password: credentials.password
@@ -54,11 +49,15 @@ export class AuthService {
             .then(response => response.json())
             .then(result => {
                 switch (result.status) {
-                    case '200':
+                    case 200:
                         localStorage.setItem('access_token', result.new_client_token);
-                        // todo: id_token
-                        // todo: expires_at see https://github.com/LifeCo/backend/issues/18
-                        return Promise.resolve();
+                        localStorage.setItem('role_id', result.role_id);
+                        localStorage.setItem('user_channel', result.user_channel);
+                        return Promise.resolve(new AuthLoginResponse(
+                            result.new_client_token,
+                            result.role_id,
+                            result.user_channel
+                        ));
                     default:
                         return Promise.reject(result.error);
                 }
@@ -71,8 +70,9 @@ export class AuthService {
     static logout() {
         // do we need an endpoint for logging out and invalidating tokens?
         localStorage.removeItem('access_token');
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('expires_at');
+        localStorage.removeItem('role_id');
+        localStorage.removeItem('user_channel');
+        return Promise.resolve({});
     }
 
     static isAuthenticated() {

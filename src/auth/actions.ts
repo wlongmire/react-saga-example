@@ -1,8 +1,9 @@
 import * as Common from '../common';
-import { LoginCredentials } from '../services/auth';
+import { AuthLoginCredentials } from '../services/auth';
+import { AuthInfo } from './model';
 
 /**
- * 
+ * Action Types
  */
 export module ActionType {
     export const LOGIN = 'auth/LOGIN';
@@ -17,7 +18,7 @@ export module ActionType {
  * 
  * @param credentials 
  */
-export const login = (credentials: LoginCredentials): Common.ActionResult<LoginCredentials> => {
+export const login = (credentials: AuthLoginCredentials): Common.ActionResult<AuthLoginCredentials> => {
     return {
         type: ActionType.LOGIN,
         value: credentials
@@ -28,9 +29,10 @@ export const login = (credentials: LoginCredentials): Common.ActionResult<LoginC
  * 
  * @param response 
  */
-export const loginSuccess = (): Common.ActionResult<undefined> => {
+export const loginSuccess = (authInfo: AuthInfo): Common.ActionResult<AuthInfo> => {
     return {
-        type: ActionType.LOGIN_SUCCESS
+        type: ActionType.LOGIN_SUCCESS,
+        value: authInfo
     };
 };
 

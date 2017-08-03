@@ -2,7 +2,7 @@ import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import { LoginCredentials } from '../../../services/auth';
+import { AuthLoginCredentials } from '../../../services/auth';
 import { ActionResult } from '../../../common';
 
 import './Login.css';
@@ -11,7 +11,7 @@ import './Login.css';
  * 
  */
 export class LoginComponentProps {
-  login: (credentials: LoginCredentials) => ActionResult<LoginCredentials>;
+  login: (credentials: AuthLoginCredentials) => ActionResult<AuthLoginCredentials>;
 }
   
 /**
@@ -43,7 +43,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
   }
 
   /**
-   * 
+   * Handler for email changes.
    * @param event 
    * @param newValue 
    */
@@ -55,7 +55,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
   }
 
   /**
-   * 
+   * Handle for password changes.
    * @param event 
    * @param newValue 
    */
@@ -67,19 +67,19 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
   }
 
   /**
-   * 
+   * Handler for submit button.
    */
   onSubmit() {
     if (this.props.login) {
-      this.props.login(new LoginCredentials(this.state.email, this.state.password));
+      this.props.login(new AuthLoginCredentials(this.state.email, this.state.password));
     }
   }
 
   /**
-   * 
+   * Validates the email and password values and sets the state accordingly.
    */
   validate() {
-    this.setState({isValid: (this.state.email.length > 0 && this.state.password.length > 0)});
+    this.setState({ isValid: (this.state.email.length > 0 && this.state.password.length > 0) });
   }
 
   /**

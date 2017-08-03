@@ -11,13 +11,14 @@ export const createRequest = (method: string, basePath: string, urlPath?: string
         method,
         headers,
         mode: 'cors',
-        cache: 'default'
+        cache: 'default',
+        body: JSON.stringify(body)
     };
+
     
-    const url = createUrl(basePath, urlPath, body);
+    const url = createUrl(basePath, urlPath);
     // get events or post events
     const request = new Request(url, requestInit);
-    console.log('request here', request)
     return fetch(request).then(response => response.json());
 }
 

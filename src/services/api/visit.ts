@@ -8,8 +8,7 @@ export class VisitService {
     /** Fetches events for the specified channel id */
     static fetch(channelId: number) {
         return ChannelEventService.fetch(channelId)
-            .then (json => {
-                console.log(json)
+            .then ((json:any) => {
                 // return Array<Model.IVisit>
                 return {/* TODO: Map response */};
             }).catch((e:Error)=>{

@@ -12,10 +12,10 @@ export module ActionType {
     export const LOAD_ALL_FAILED = 'visits/LOAD_ALL_FAILED'
 }
 
-export const loadAllVisitsCompleted = (visitItems: Array<Model.VisitItem>): Common.ActionResult<Array<Model.VisitItem>> => {
+export const loadAllVisitsCompleted = (visits: Array<Model.VisitItem>): Common.ActionResult<Array<Model.VisitItem>> => {
     return {
         type: ActionType.LOAD_ALL_COMPLETED,
-        value: visitItems
+        value: visits
     };
 }
 

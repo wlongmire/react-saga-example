@@ -7,7 +7,6 @@ export class ChannelEventService {
         const body = {
             channel_id: channelId
         };
-        console.log('Bidy here', body)
         return createRequest('POST', 'exposed', 'get_events', body);
     }
 

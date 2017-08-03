@@ -8,12 +8,16 @@ export class VisitService {
     /** Fetches events for the specified channel id */
     static fetch(channelId: number) {
         return ChannelEventService.fetch(channelId)
-            .then ((json:any) => {
-                // return Array<Model.IVisit>
-                return {/* TODO: Map response */};
-            }).catch((e:Error)=>{
-                console.log('errored here>>>>>>',e)
-            });
+            .then((response:any) => { 
+                let matches = response.rows.filter((row:any) =>{
+                    return row[0] === 4602455549815028
+                })
+
+                let visitMatches = matches.filter((match:any) =>{
+                    return match[5] === 'visit_record'
+                })
+                return visitMatches;
+            })
     }
 
     /** Posts a visit_created event message to the specified channel */

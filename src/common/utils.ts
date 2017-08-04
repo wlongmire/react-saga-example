@@ -1,9 +1,11 @@
 /** Utility function to create a K:V from a list of strings */
-export function StringEnum<T extends string>(o: Array<T>):{[K in T]: K} {
-    return o.reduce((res, key) => {
-        res[key] = key;
-        return res;
-    }, Object.create(null));
+export function StringEnum<T extends string>(o: Array<T>): {[K in T]: K} {
+    return o.reduce(
+        (res, key) => {
+            res[key] = key;
+            return res;
+        }, 
+        Object.create(null));
 }
 
 /** Dictionary implementation - useful for typed key value pairs */
@@ -11,7 +13,7 @@ export class Dictionary<T> {
     _keys: string[] = new Array<string>();
     _values: T[] = new Array<T>();
 
-    constructor(init: { key: string; value: T;}[]) {
+    constructor(init: { key: string; value: T }[]) {
         for (let i = 0; i < init.length; i++) {
             this[init[i].key] = init[i].value;
             this._keys.push(init[i].key);

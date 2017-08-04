@@ -1,56 +1,88 @@
-import * as Redux from 'react-redux';
-import { EventEmitter } from 'events';
-import { History } from 'history';
+import { makeUrl } from '../helper';
 
-export default class Auth extends EventEmitter {
-    userProfile: object | undefined | null;
-
+/**
+ * Login Credentials
+ */
+export class AuthLoginCredentials {
     constructor(
-        private store: Redux.Store<{}>, 
-        private history: History) {
+        public email: string,
+        public password: string
+    ) {}
+}
 
-        super();
+/**
+ * Login Response
+ */
+export class AuthLoginResponse {
+    constructor(
+        public clientToken: string,
+        public userRole: number,
+        public userChannel: number
+    ) {}
+}
 
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
-        this.handleAuthentication = this.handleAuthentication.bind(this);
-        this.isAuthenticated = this.isAuthenticated.bind(this);
-        this.getAccessToken = this.getAccessToken.bind(this);
-        this.getProfile = this.getProfile.bind(this);
+/**
+ * Service responsible for authenticating credentials via the remote auth server.
+ */
+export class AuthService {
+
+    /**
+     * Responsible for authenticating the specified credentials.
+     * @param credentials 
+     */
+    static login(credentials: AuthLoginCredentials) {
+        const requestInit: RequestInit = {
+            method: 'POST',
+            headers: { 
+                'Accept-Language': `Token ${process.env.REACT_APP_API_TOKEN}`
+            },
+            body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password
+            })
+        };
+
+        const url = makeUrl('exposed', 'register_client');
+        const request = new Request(url, requestInit);
+
+        return fetch(request)
+            .then(response => response.json())
+            .then(result => {
+                switch (result.status) {
+                    case 200:
+                        localStorage.setItem('access_token', result.new_client_token);
+                        localStorage.setItem('role_id', result.role_id);
+                        localStorage.setItem('user_channel', result.user_channel);
+                        return Promise.resolve(new AuthLoginResponse(
+                            result.new_client_token,
+                            result.role_id,
+                            result.user_channel
+                        ));
+                    default:
+                        return Promise.reject(result.error);
+                }
+            });
     }
 
-    login() {
-        this.store.dispatch
-    }
-
-    handleAuthentication() {
-        // handle the authentication
-    }
-
-    setSession(authResult: object) {
-
-    }
-
-    getAccessToken() {
-
-    }
-
-    getProfile() {
-
-    }
-
-    logout() {
+    /**
+     * Responsible for invalidating the current auth token.
+     */
+    static logout() {
+        // do we need an endpoint for logging out and invalidating tokens?
         localStorage.removeItem('access_token');
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('expires_at');
-        this.userProfile = null;
-
-        // navigate to the home route here
-        this.history.push('home');
+        localStorage.removeItem('role_id');
+        localStorage.removeItem('user_channel');
+        return Promise.resolve({});
     }
 
-    isAuthenticated() {
-        let expiresAt = JSON.parse(localStorage.getItem('expires_at') || '');
-        return new Date().getTime() < expiresAt;
+    static isAuthenticated() {
+        // note: this is a very naive approach. need to use json
+        // web tokens to provide better assurances of token validity.
+        const token = localStorage.getItem('access_token');
+        return (token && token.length > 0);
+
+        // todo: 
+        // let expiresAt = localStorage.getItem('expires_at');
+        // return new Date().getTime() < expiresAt;
     }
 }

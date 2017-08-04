@@ -1,8 +1,6 @@
 import { reducer } from './reducer';
 import * as actions from './actions';
 import { AuthInfo } from './model';
-// import { AuthLoginCredentials } from '../services/auth';
-// import * as Common from '../common';
 
 describe('auth reducer', () => {
     it('should return the initial state', () => {

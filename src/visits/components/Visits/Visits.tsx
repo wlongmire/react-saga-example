@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { VisitDrawer } from '../Visit/VisitDrawer';
+import VisitCollection from './VisitsCollection';
 import RaisedButton from 'material-ui/RaisedButton';
 // import {getAllVisits} from '../../selectors';
 import ApplicationState from '../../../common';
@@ -55,6 +56,7 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
                     buttonStyle={style}
                     onClick={this.toggleDrawer}
                 />
+                <VisitCollection visits={this.props.visits.visits}/>
                 <VisitDrawer
                     className={this.state.openDrawer ? "visit-drawer-show" : "visit-drawer-hide"} />
             </div>

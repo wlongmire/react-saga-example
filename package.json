@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/crypto-js": "^3.1.33",
+    "@types/enzyme": "^2.8.3",
     "@types/jest": "^20.0.2",
     "@types/material-ui": "^0.17.15",
     "@types/node": "^8.0.10",
@@ -23,6 +25,7 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "react-tap-event-plugin": "^2.0.1",
+    "react-test-renderer": "^15.6.1",
     "redux": "^3.7.1",
     "redux-saga": "^0.15.4",
     "reselect": "^3.0.1",

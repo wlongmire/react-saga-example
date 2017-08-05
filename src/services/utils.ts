@@ -17,7 +17,7 @@ export const createRequest = (method: string, basePath: string, urlPath?: string
     const url = createUrl(basePath);
     const request = new Request(url, requestInit);
     return fetch(request).then(response => response.json());
-}
+};
 
 /** Makes a url using the environment settings.  */
 export const createUrl = (basePath: string, extendedPath?: string) => {
@@ -37,7 +37,7 @@ export const createUrl = (basePath: string, extendedPath?: string) => {
     }
 
     return url;
-}
+};
 
 /** Creates a channel message request */
 export function createChannelMessageRequest<T> (

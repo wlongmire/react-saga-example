@@ -1,0 +1,12 @@
+sudo: true
+language: node_js
+node_js:
+- '7.10.0'
+cache:
+  yarn: true
+  directories:
+    - node_modules
+install:
+  - npm install
+script:
+  - npm test

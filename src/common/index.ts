@@ -1,27 +1,27 @@
 export * from './models';
 export * from './utils';
-
+export { default as history } from './history';
 
 /**
  * Redux ActionResult interface
  */
-export interface ActionResult<T> {
-    type: string,
-    value?: T
-}
+export class ActionResult<T> {
+    type: string;
+    value?: T;
+};
 
 /**
  * EventStream Event interface
  */
 export interface EventStreamEvent {
 
-}
+};
 
 /**
  * Globals for the project
  */
 
-declare module ApplicationState{
+declare module ApplicationState {
     interface IUser{
         id: number;
         first_name: string,
@@ -36,6 +36,7 @@ declare module ApplicationState{
 
 
     interface IPatient extends IUser{
+
         kind: string;
     }
 
@@ -43,7 +44,7 @@ declare module ApplicationState{
         patients: Array<IPatient>
     }
 
-    interface IDoctor extends IUser{
+    interface IDoctor extends IUser {
         kind: string;
     }
 

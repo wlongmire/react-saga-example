@@ -1,6 +1,8 @@
 import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router-dom';
+import * as auth from '../../../auth';
+
 import './App.css';
 
 const btnStyle = {
@@ -26,6 +28,7 @@ class App extends React.Component<{}, {}> {
           buttonStyle={btnStyle}
         />
         </Link>
+        <auth.Components.ConnectedLogoutButton />
       </div>
     );
   }

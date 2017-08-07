@@ -1,33 +1,48 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Router, Redirect } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';
 import * as Login from '../login';
 import * as Visits from '../visits';
 
+import * as Auth from '../auth';
+import { AuthService } from '../services';
+import { history } from '../common';
+
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <div>
                 <Route 
                     exact={true}
-                    path="/"    
-                    render={(props) => <Application.Components.App {...props} />} 
+                    path="/"
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/' }
+                                    }} 
+                            />
+                        ) : (
+                            <Application.Components.App {...props} />
+                        )
+                    )} 
                 />
                 <Route 
-                    path="/zoo" 
+                    path="/zoo"
                     render={(props) => <Zoo.Components.Main {...props} />}
                 />
                 <Route
                     path="/login"
-                    render={(props) => <Login.Components.Login {...props} />}
+                    render={(props) => <Auth.Components.LoginContainer {...props} />}
                 />
                 <Route 
                     path="/visits" 
                     render={(props) => <Visits.Components.VisitsContainer {...props} />}
                 />
             </div>
-        </BrowserRouter>
+        </Router>
     );
 };

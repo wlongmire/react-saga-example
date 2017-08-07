@@ -1,13 +1,12 @@
-// import { all } from 'redux-saga/effects';
-// import { cases } from './cases';
-// import { fork, all } from 'redux-saga/effects';
-import { all, fork } from 'redux-saga/effects';
+import { fork, all } from 'redux-saga/effects';
+import * as auth from './auth';
+import * as navigation from './navigation';
 import * as visits from './visits';
-// import usersSaga from './users';
-// import eventsSaga from './events';
 
 export default function* root() {
     yield all([
+        fork(auth.Sagas.root),
+        fork(navigation.Sagas.root),
         fork(visits.Sagas.root)
     ]);
 }

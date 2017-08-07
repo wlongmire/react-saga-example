@@ -4,20 +4,18 @@ import * as Model from './models';
 /**
  * Action types for Patients.
  */
-
 export module ActionType {
     export const ADD_PATIENT = 'users/ADD_PATIENT';
     // Add the remaining actions for ensuring the add patients success and 
     // failure have a success and failure action
     export const LOAD_ALL_PATIENTS = 'users/LOAD_ALL_PATIENTS';
     export const LOAD_ALL_PATIENTS_SUCCESS = 'users/LOAD_ALL_PATIENTS_SUCCESS';
-    export const LOAD_ALL_PATIENTS_FAILURE = 'users/LOAD_ALL_PATIENTS_FAILURE'
+    export const LOAD_ALL_PATIENTS_FAILURE = 'users/LOAD_ALL_PATIENTS_FAILURE';
 }
 
 /**
  * Action Generators
  */
-
 export class Action {
     /**
       * Add patient generator.
@@ -30,6 +28,7 @@ export class Action {
         }
         return action;
     }
+
     /**
      * Static method to be able to load all patients.
      */
@@ -39,6 +38,7 @@ export class Action {
         };
         return action;
     }
+
     /**
      * Static method to return a successful request when patients
      * have been loaded.
@@ -50,6 +50,7 @@ export class Action {
         }
         return action;
     }
+
     /**
      * Static method to handle the error thrown back with the error
      */
@@ -60,5 +61,4 @@ export class Action {
         };
         return action;
     }
-
 }

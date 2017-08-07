@@ -63,6 +63,7 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
             <div className="header"> <p>New Visit</p></div>
             <AutoComplete
                     id="status"
+                    
                     name="status"
                     floatingLabelText="Status"
                     filter={AutoComplete.noFilter}
@@ -79,8 +80,8 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
             />
             <div className="maintenance-section">
                 <span>Maintenance</span>
-                <Checkbox name="maintenance-physical" label="Physical" labelStyle={labelStyles}/>
-                <Checkbox name="maintenance-pap-smear" label="Pap Smear" labelStyle={labelStyles}/>
+                <Checkbox  labelStyle={labelStyles}/>
+                <Checkbox  labelStyle={labelStyles}/>
             </div>
             <TextField
                 name="doctor"

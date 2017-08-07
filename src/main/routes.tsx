@@ -3,9 +3,7 @@ import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';
-import * as Login from '../login';
 import * as Visits from '../visits';
-
 import * as Auth from '../auth';
 import { AuthService } from '../services';
 import { history } from '../common';

@@ -27,6 +27,6 @@ export const Sagas = {
     root
 };  
 
-export const Reducer = {
-    reducer
+export const Reducers = {
+    root: reducer
 };

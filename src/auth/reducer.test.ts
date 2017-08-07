@@ -31,11 +31,12 @@ describe('auth reducer', () => {
 
     it('should handle LOGIN_FAIL', () => {
         expect(
-            reducer({ isAuthenticated: true }, { 
+            reducer({ isAuthenticated: true, authError: undefined }, { 
                 type: actions.ActionType.LOGIN_FAIL,
-                value: new Error('test error')
+                value: 'test error'
             })).toEqual({
-                isAuthenticated: false
+                isAuthenticated: false,
+                authError: 'test error'
             });
     });
 });

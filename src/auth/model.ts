@@ -3,6 +3,7 @@ export interface AuthState {
     clientToken?: string;
     userRole?: number;
     userChannel?: number;
+    authError?: string;
 }
 
 export interface AuthInfo {

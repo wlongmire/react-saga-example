@@ -1,9 +1,12 @@
 import * as React from 'react';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import { AuthLoginCredentials } from '../../../services/auth';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import { ActionResult } from '../../../common';
+import { AuthLoginCredentials } from '../../../services/auth';
+import { AuthState } from '../../model';
+import { connect } from 'react-redux';
+import { login } from '../../actions';
 
 import './Login.css';
 
@@ -12,6 +15,7 @@ import './Login.css';
  */
 export class LoginComponentProps {
   login: (credentials: AuthLoginCredentials) => ActionResult<AuthLoginCredentials>;
+  auth: AuthState;
 }
   
 /**
@@ -93,7 +97,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
     return (
       <div className="login-form">
         <Paper zDepth={2}>
-          <h2 className="login-label">Login</h2>
+          <h2 className="login-label">LifeCo EHR</h2>
           <TextField
             className="login-email-input"
             style={fieldStyle}
@@ -108,15 +112,40 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
             type="password"
             onChange={this.onPasswordChange}
           />
-          <RaisedButton
-            className="login-submit-button"
-            label="Sign In"
-            primary={true}
-            disabled={!this.state.isValid}
-            onClick={this.onSubmit}
-          />
+          <div className="login-submit-button-container">
+            <RaisedButton
+              className="login-submit-button"
+              label="Sign In"
+              primary={true}
+              disabled={!this.state.isValid}
+              onClick={this.onSubmit}
+            />
+          </div>
+          {this.props.auth.authError &&
+            <div>
+              <p className="error-label">
+                { this.props.auth.authError }
+              </p>
+            </div>
+          }
         </Paper>
       </div>
     );
   }
 }
+
+type Store = {
+  auth: AuthState
+}
+
+const mapStateToProps = (state: Store) => ({
+  auth: state.auth
+});
+
+/**
+ * Connected display component for login.
+ */
+export const LoginContainer = connect(
+  mapStateToProps,
+  { login }
+)(Login);

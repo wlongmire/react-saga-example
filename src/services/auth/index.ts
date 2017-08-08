@@ -58,6 +58,9 @@ export class AuthService {
                             result.role_id,
                             result.user_channel
                         ));
+                    case 403:
+                        const errorMessage = `We don't recognize this e-mail or password. Double-check your information and try again.`;
+                        return Promise.reject(errorMessage);
                     default:
                         return Promise.reject(result.error);
                 }

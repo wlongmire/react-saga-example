@@ -38,7 +38,16 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route 
                     path="/visits" 
-                    render={(props) => <Visits.Components.VisitsContainer {...props} />}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state:{ referrer: '/'}
+                                }}
+                            />
+                        ):( <Visits.Components.VisitsContainer {...props} />)
+                    )}
                 />
             </div>
         </Router>

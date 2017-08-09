@@ -1,12 +1,9 @@
 import * as Common from '../common';
 import * as Actions from './actions';
-// import ApplicationState from '../common';
 
 /**
  * Initial Reducer state
  */
-
-//  const initialState = (state: ApplicationState.IState) => state.patients;
 
  /**
   * Redux reducer

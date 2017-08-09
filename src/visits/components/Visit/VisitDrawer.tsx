@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import RaisedButton from 'material-ui/RaisedButton';
-import {VisitStatus, VisitProviderType, VisitType} from '../../../common/models';
+import { VisitStatus, VisitProviderType, VisitType } from '../../../common/models';
 import TableInputs from '../common/TableInputs';
 import TableTemplate from '../common/TableTemplates';
 
@@ -35,7 +35,7 @@ const labelStyles = {
 }
 
 interface VisitDrawerProps {
-    className ?: string;
+    className?: string;
 }
 
 
@@ -47,9 +47,6 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
 
     handleSubmitVisit(event:any){
         event.preventDefault();
-        // let fields = ['status', 'visit_type', 'maintenance-physical', 'maintenance-pap-smear', 
-        //     'doctor', 'doctor-type', 'location', 'time','complaints', 'subjective', 'objective', 'assessment',
-        // 'next-steps' ];
         let fields = ['status', 'visit_type', 'maintenance-physical', 'maintenance-pap-smear','doctor', 'doctor-type','location',
         'time','complaints'];
         fields.forEach((field:string)=>{
@@ -63,7 +60,6 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
             <div className="header"> <p>New Visit</p></div>
             <AutoComplete
                     id="status"
-                    
                     name="status"
                     floatingLabelText="Status"
                     filter={AutoComplete.noFilter}
@@ -100,7 +96,9 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 floatingLabelText="Location"
                 hintText="Nairobi Area"
             />
-            <DatePicker name="date" hintText="Date"/>
+            <DatePicker 
+                name="date" 
+                hintText="Date"/>
             <TimePicker
                 name="time"
                 hintText="Intended Time"
@@ -146,7 +144,13 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
                 headerTitle="Internal Notes"
             />
             <br/>
-            <RaisedButton secondary={true} type="submit" buttonStyle={btnStyle} style={style} label="save"/>
+            <RaisedButton 
+                secondary={true} 
+                type="submit" 
+                buttonStyle={btnStyle} 
+                style={style} 
+                label="save"
+            />
             </form>
         )
     }

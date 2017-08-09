@@ -1,6 +1,5 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
-// import * as Common from '../common';
 import {Api} from '../services/api'
 
 function* fetchVisits(){

@@ -1,8 +1,4 @@
 import * as Common from '../common';
-// import ApplicationState from '../common';
-
-// initial reducer state
-// const initialState = (state: ApplicationState.IState) => state.cases;
 
 /**
  * Redux reducer

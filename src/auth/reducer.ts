@@ -7,12 +7,13 @@ const initialState: AuthState = {
     isAuthenticated: false,
     clientToken: undefined,
     userRole: undefined,
-    userChannel: undefined
+    userChannel: undefined,
+    authError: undefined
 };
 
 /**
  * Redux reducer
- * @param state 
+ * @param state
  * @param action 
  */
 export function reducer(state: AuthState = initialState, action: Common.ActionResult<{}>) {
@@ -29,7 +30,8 @@ export function reducer(state: AuthState = initialState, action: Common.ActionRe
         case ActionType.LOGIN_FAIL:
             return {
                 ...state,
-                isAuthenticated: false
+                isAuthenticated: false,
+                authError: action.value
             };
         case ActionType.LOGOUT_SUCCESS:
             return {
@@ -37,7 +39,8 @@ export function reducer(state: AuthState = initialState, action: Common.ActionRe
                 isAuthenticated: false,
                 clientToken: undefined,
                 userRole: undefined,
-                userChannel: undefined
+                userChannel: undefined,
+                authError: undefined
             };
         case ActionType.LOGOUT_FAIL:
             return state;

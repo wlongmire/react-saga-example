@@ -18,8 +18,8 @@
   resolved "https://registry.yarnpkg.com/@types/crypto-js/-/crypto-js-3.1.33.tgz#7e6c91603533e0cd9f279a8405a9b9e379880c5d"
 
 "@types/enzyme@^2.8.3":
-  version "2.8.3"
-  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-2.8.3.tgz#1f6b11248d99bf9a625d0552d56b627f73be4c9e"
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-2.8.4.tgz#0a75487091978a77178920fa0437c0f13a8e2dcd"
   dependencies:
     "@types/cheerio" "*"
     "@types/react" "*"
@@ -88,8 +88,8 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^15.0.36":
-  version "15.0.36"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.36.tgz#35cb9153eaaae0750ea50e0a8eaee1d93f42c189"
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.1.tgz#497f7228762da4432e335957cb34fe9b40f150ae"
 
 "@types/uuid@^3.4.0":
   version "3.4.0"

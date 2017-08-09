@@ -3,12 +3,17 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import { Login } from '../Login';
 import { mount } from 'enzyme';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
-// import { AuthLoginCredentials } from '../../../services/auth';
-// import { ActionResult } from '../../../common';
 
 const setup = () => {
     const props = {
-        login: jest.fn()
+        login: jest.fn(),
+        auth: {
+            isAuthenticated: false,
+            clientToken: undefined,
+            userRole: undefined,
+            userChannel: undefined,
+            authError: undefined
+        }
     }
 
     const wrapper = mount(

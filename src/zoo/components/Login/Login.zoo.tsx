@@ -24,11 +24,21 @@ export class LoginZoo extends React.Component<{}, {}> {
   }
 
   render() {
+    const props = {
+      login: this.login,
+      auth: {
+          isAuthenticated: false,
+          clientToken: undefined,
+          userRole: undefined,
+          userChannel: undefined,
+          authError: undefined
+      }
+    }
     return (
       <div className="login-zoo">
         <h1>Login Components</h1>
         <div>
-            <Auth.Components.Login login={this.login} />
+            <Auth.Components.Login {...props} />
         </div>
         <div>
           <h4>Usage</h4>

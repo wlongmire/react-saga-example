@@ -1,7 +1,9 @@
 .login-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
 }
 
 .login-form > div:first-of-type {
@@ -11,4 +13,18 @@
 .login-label {
     -webkit-margin-before: 0.25em;
     -webkit-margin-after: 0.25em;
+    text-align: center;
+}
+
+.login-submit-button-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.error-label {
+    color: red;
+    max-width: 260px;
+    margin-top: 15px;
+    font-size: 13px;
 }

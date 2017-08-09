@@ -40,7 +40,7 @@ export const loginSuccess = (authInfo: AuthInfo): Common.ActionResult<AuthInfo> 
  * 
  * @param error 
  */
-export const loginFail = (error: {}): Common.ActionResult<{}> => {
+export const loginFail = (error: string): Common.ActionResult<{}> => {
     return {
         type: ActionType.LOGIN_FAIL,
         value: error

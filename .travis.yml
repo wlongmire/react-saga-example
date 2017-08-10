@@ -24,4 +24,4 @@ deploy:
   on:
     repo: LifeCo/lifeco-emr-web
     branch: chore/add-CI-CD
-  local_dir: build
+  local_dir: public

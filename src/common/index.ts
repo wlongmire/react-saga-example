@@ -28,7 +28,15 @@ declare module ApplicationState {
         last_name: string
     }
 
-    interface IPatient extends IUser {
+    interface IVisit{
+        id: number;
+        status: string;
+
+    }
+
+
+    interface IPatient extends IUser{
+
         kind: string;
     }
 
@@ -43,11 +51,14 @@ declare module ApplicationState {
     interface ICase {
         id: number;
     }
-
+    /**
+     * To improve on pattern here
+     */
     interface IState {
-        patients: Array<IPatient>;
-        doctors: Array<IDoctor>
-        cases: Array<ICase>;
+        patients?: Array<IPatient>;
+        doctors?: Array<IDoctor>;
+        cases?: Array<ICase>;
+        visits?: Array<IVisit>
     }
 }
 

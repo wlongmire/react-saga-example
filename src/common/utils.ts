@@ -8,6 +8,7 @@ export function StringEnum<T extends string>(o: Array<T>): {[K in T]: K} {
         Object.create(null));
 }
 
+
 /** Dictionary implementation - useful for typed key value pairs */
 export class Dictionary<T> {
     _keys: string[] = new Array<string>();

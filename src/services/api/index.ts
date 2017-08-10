@@ -1,5 +1,5 @@
 import { VisitService } from './visit';
 
-export const api = {
+export const Api = {
     visits: VisitService
 };

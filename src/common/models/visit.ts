@@ -16,6 +16,7 @@ export type VisitStatus = keyof typeof VisitStatus;
 /** K:V for visit type */
 export const VisitType = StringEnum([
     'LifeCo',
+    'Procedure',
     'External'
 ]);
 

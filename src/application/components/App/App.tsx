@@ -1,21 +1,33 @@
 import * as React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Link} from 'react-router-dom';
 import * as auth from '../../../auth';
 
 import './App.css';
 
-const logo = require('./logo.svg');
+const btnStyle = {
+  backgroundColor:'#f84445'
+}
+
+
 
 class App extends React.Component<{}, {}> {
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to EMR App Home</h2>
+          <h2 className="title">LifeCo EMR Web</h2>
         </div>
         <p className="App-intro">
-          This will contain the actual layout container for the app.
+         Welcome
         </p>
+        <Link to="/visits">
+        <RaisedButton
+          label="Go to Visit Section"
+          secondary={true}
+          buttonStyle={btnStyle}
+        />
+        </Link>
         <auth.Components.ConnectedLogoutButton />
       </div>
     );

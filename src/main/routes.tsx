@@ -3,6 +3,7 @@ import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';
+import * as Visits from '../visits';
 import * as Auth from '../auth';
 import { AuthService } from '../services';
 import { history } from '../common';
@@ -34,6 +35,19 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 <Route
                     path="/login"
                     render={(props) => <Auth.Components.LoginContainer {...props} />}
+                />
+                <Route 
+                    path="/visits" 
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state:{ referrer: '/'}
+                                }}
+                            />
+                        ):( <Visits.Components.VisitsContainer {...props} />)
+                    )}
                 />
             </div>
         </Router>

@@ -12,8 +12,6 @@ script:
 - npm test
 - unset CI
 - npm run build
-- yarn global add serve
-- serve -s build
 deploy:
   provider: s3
   access_key_id: AKIAIBYXZIBCDHL5LAKA
@@ -25,4 +23,4 @@ deploy:
   on:
     repo: LifeCo/lifeco-emr-web
     branch: chore/add-CI-CD
-  local_dir: public
+  local_dir: build

@@ -14,9 +14,9 @@ script:
 - npm run build
 deploy:
   provider: s3
-  access_key_id: AKIAIBYXZIBCDHL5LAKA
+  access_key_id: $DEV_ACCESS_KEY_ID
   secret_access_key:
-    secure: KvQ6LjJVUGwKwkQ32zMk1mxKKgoMU0K9kXfzBnXhhMmPveahRNa9mpgcD72KvwNP9C1vCADVhGRZtkTKVJlGNDCBlG+v8NoKO9RbJTrT2D4SWyVvgLM7o44dACwDhyim5cDMp+GgKduKQBELGtCTc//36YpqL9en4GAzl9cIADtUW2A1zRIU0ixOKtS463BNWwOytvFnO/TbyYrY8pU/O1MlgHjz3AunYy676UZmaUtU+liZLkpOIAIy58YWbTDE8MC4fCyHx62/EZG1+sbmlGwf/brUwaJ3sCNmazoxO27zcG48FvWYdxMO7WZaX5/WCgWymmtQm5fSvGIbfVQXtie1OpMV1KPBUIZvxPnPFwsgKiPuy3JsGnSSxJ9W4wDxpWBzbPIGRnWNVWvUOgkJJzSSFRu3VX4xVibok2mnYr81JRtP9AJk7iaMSt1fYQ9HSXassk0IBnIii7FNLFDpdxO5dfj4i1D8cP7xTj/XxGJE8J6gNewFOM4Boppm4RELcltrK9m3l6CFP3aevwy836uSei0F0oQRFGDtoUAQXi0J7dpBovhkTODGQCVcA53LL8W2iWVPf7n7syNJLDvOuWS7Ltiyji7vfIULdoFf20tB4EheOdtmNbWbCI8Y52Wl/FskYfmlHcOKfYdHOOmaP1XUQR9stl4eFRjJt4nA77M=
+    secure: $DEV_SECRET_ACCESS_KEY
   bucket: dev-ehr.life.co
   skip_cleanup: true
   acl: public_read

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/LifeCo/lifeco-emr-web.svg?token=sgyH7jyoc2MU2rxDptEv&branch=master)](https://travis-ci.com/LifeCo/lifeco-emr-web)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 This project is organized by feature and follows an interpretation of [Jack Hsu's Three Rules](https://jaysoo.ca/2016/02/28/applying-code-organization-rules-to-concrete-redux-code/).

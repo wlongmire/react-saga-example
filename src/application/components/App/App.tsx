@@ -29,6 +29,13 @@ class App extends React.Component<{}, {}> {
         />
         </Link>
         <auth.Components.ConnectedLogoutButton />
+        <Link to="/patients">
+        <RaisedButton
+          label="Go to Patients List Section"
+          secondary={true}
+          buttonStyle={btnStyle}
+        />
+        </Link>
       </div>
     );
   }

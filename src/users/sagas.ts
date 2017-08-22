@@ -3,14 +3,14 @@ import * as Actions from './actions';
 
 function* fetchPatients(){
     try {
-        yield(put(Actions.Action.loadAllPatientsSuccess([])));
+        yield(put(Actions.loadAllPatientsSuccess([])));
     } catch(e) {
-        yield(put(Actions.Action.loadAllPatientsFailure(e)))
+        yield(put(Actions.loadAllPatientsFailure(e)))
     }
 }
 
 function* watchFetchAllPatients(){
-    yield takeEvery(Actions.Action.loadAllPatients, fetchPatients)
+    yield takeEvery(Actions.loadAllPatients, fetchPatients)
 }
 
 

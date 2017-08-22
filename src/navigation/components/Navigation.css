@@ -1,0 +1,32 @@
+.top-navigation{
+    list-style: none;
+    position: fixed;
+    right: 0;
+}
+
+.top-navigation li {
+    list-style: none;
+    display: inline-block;
+    cursor: pointer;
+    padding:0 3em;
+    transition: color .3s ease-in-out;
+}
+
+.top-navigation li:hover{
+    color: #f84445;
+}
+
+.lifeco--home{
+    left: 0;
+    position: fixed;
+    color: #f84445;
+    font-weight: bold;
+}
+
+hr{
+    top: 3.5em;
+    position: relative;
+    border: 1px solid #dedede;
+    opacity: .5;
+    
+}

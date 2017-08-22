@@ -1,0 +1,57 @@
+.patients-list-wrapper{
+    width: 100%;
+    padding: 8em 4em;
+}
+
+.patients-row{
+    border-bottom: 1px solid #dedede;
+    border-top: 1px solid #dedede;
+    padding: 2em 0;
+}
+.patients-title{
+    font-weight: 800;
+    color: gray;
+    font-size: .8em;
+    font-weight: 100;
+}
+
+.chat-count{
+    color: #f84445;
+}
+table {
+    margin-top: 1em;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+td {
+    padding: 1em 1em;
+}
+
+.new-message-alert{
+    background: #f84445;
+    display: inline-block;
+    color: white;
+    font-size: small;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition:all .4s ease-in-out;
+    margin-right: 1.5em;
+    text-align: center;
+    box-shadow: 0px 0px 10px #f84445;
+}
+
+.new-message-alert:hover{
+    box-shadow: 0px 0px 20px #f84445;
+}
+
+.message-count,.message-text{
+    display: inline-block;
+}
+.message-text{
+    font-size: small;
+    color: gray;
+    letter-spacing: 1px;
+}

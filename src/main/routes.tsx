@@ -4,6 +4,7 @@ import { Route, Router, Redirect } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';
 import * as Visits from '../visits';
+import * as Users from '../users';
 import * as Auth from '../auth';
 import { AuthService } from '../services';
 import { history } from '../common';
@@ -27,6 +28,10 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             <Application.Components.App {...props} />
                         )
                     )} 
+                />
+                <Route 
+                    path="/patients"
+                    render={(props) => <Users.Components.Patients {...props} />}
                 />
                 <Route 
                     path="/zoo"

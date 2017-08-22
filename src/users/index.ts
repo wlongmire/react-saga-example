@@ -1,5 +1,5 @@
-import { ActionType, Action } from './actions';
-import { PatientsContainer } from './components';
+import { ActionType} from './actions';
+import { Patients} from './components';
 import { ReducerState } from './models';
 import { getAllPatients } from './selectors';
 import { root } from './sagas';
@@ -18,12 +18,11 @@ export const Model = {
 };
 
 export const Actions = {
-    ActionType,
-    Action
+    ActionType
 };
 
 export const Components = {
-    PatientsContainer,
+    Patients,
     // Patients,Doctors and all other users will be here
 };
 

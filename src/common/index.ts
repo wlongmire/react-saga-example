@@ -23,7 +23,7 @@ export interface EventStreamEvent {
 
 declare module ApplicationState {
     interface IUser{
-        id: number;
+        id?: number;
         first_name: string,
         last_name: string
     }
@@ -37,7 +37,7 @@ declare module ApplicationState {
 
     interface IPatient extends IUser{
 
-        kind: string;
+        name: string;
     }
 
     interface IPatients{

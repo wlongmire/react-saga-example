@@ -13,52 +13,45 @@ export module ActionType {
     export const LOAD_ALL_PATIENTS_FAILURE = 'users/LOAD_ALL_PATIENTS_FAILURE';
 }
 
-/**
- * Action Generators
- */
-export class Action {
-    /**
-      * Add patient generator.
-      * To be updated to be able to add all other functionality as well. 
-      */
-    public static addPatient(patient: Model.IPatient): Common.ActionResult<Model.IPatient> {
-        const action: Common.ActionResult<Model.IPatient> = {
-            type: ActionType.ADD_PATIENT,
-            value: patient
-        }
-        return action;
-    }
 
-    /**
-     * Static method to be able to load all patients.
-     */
-    public static loadAllPatients(): Common.ActionResult<{}> {
-        const action: Common.ActionResult<{}> = {
-            type: ActionType.LOAD_ALL_PATIENTS
-        };
-        return action;
-    }
+export const loadAllPatients = ():Common.ActionResult<{}> =>  {
+    return {
+        type: ActionType.LOAD_ALL_PATIENTS
+    };
+}
 
-    /**
-     * Static method to return a successful request when patients
-     * have been loaded.
-     */
-    public static loadAllPatientsSuccess(patients: Array<Model.IPatient>): Common.ActionResult<Array<Model.IPatient>> {
-        const action: Common.ActionResult<Array<Model.IPatient>> = {
-            type: ActionType.LOAD_ALL_PATIENTS_SUCCESS,
-            value: patients
-        }
-        return action;
-    }
+export const loadAllPatientsSuccess = (patients: Array<Model.IPatient>): Common.ActionResult<Array<Model.IPatient>> =>  {
+    return   {
+        type: ActionType.LOAD_ALL_PATIENTS_SUCCESS,
+        value: patients
+    };
+}
 
-    /**
-     * Static method to handle the error thrown back with the error
-     */
-    public static loadAllPatientsFailure(error: Error): Common.ActionResult<Error> {
-        const action: Common.ActionResult<Error> = {
-            type: ActionType.LOAD_ALL_PATIENTS_FAILURE,
-            value: error
-        };
-        return action;
+export const loadAllPatientsFailure = (error: Error): Common.ActionResult<Error> => {
+    return {
+        type: ActionType.LOAD_ALL_PATIENTS_FAILURE,
+        value: error
+    };
+}
+
+
+// Redux Thunk operations begin here
+export const loadPatients = () => {
+    return (dispatch:any) => {
+        dispatch(loadAllPatients)
+        return fetch('https://api.myjson.com/bins/njw75', {
+            method: 'GET',
+        }).then((response:any)=>{
+            if(response.ok){
+                return response.json()
+            }
+            return response.json().then((err:Error)=>{
+                throw new Error;
+            })
+        }).then((data:any) => {
+            dispatch (loadAllPatientsSuccess(data))
+        }).catch(err=> {
+            dispatch(loadAllPatientsSuccess(err))
+        })
     }
 }

@@ -1,9 +1,11 @@
+@import './fonts/index.css';
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  font: 1.2em/1.3em 'Roboto-Light', 'Roboto Light', 'Roboto', 'Segoe UI Web Light', 'Segoe UI Light', 'Segoe UI Web Regular', 'Segoe UI', Helvetica, Arial, sans-serif; 
+  font: 1.2em/1.3em 'Apercu', 'Roboto Light', 'Roboto', 'Segoe UI Web Light', 'Segoe UI Light', 'Segoe UI Web Regular', 'Segoe UI', Helvetica, Arial, sans-serif; 
   color: #000;
   margin: 0;
 }

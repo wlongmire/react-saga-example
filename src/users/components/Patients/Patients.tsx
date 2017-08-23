@@ -38,11 +38,11 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
             <div>
             <Navigation/>
             <div className="patients-list-wrapper">
-            <div>
+            <div className="patients-list-title">
                 <h2>Hi Dr. Lee</h2>
                 <h3>You have <span className="chat-count">2 New Chats</span></h3>
+                <span className="patients-title"> Patients </span>
             </div>
-            <span className="patients-title"> Patients </span>
             <PatientsList
                 patients={
                     this.props.patients.patients}

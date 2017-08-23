@@ -18,7 +18,8 @@ export const PatientsList = (props:PatientListProps) => {
                     return(
                         <tr key={index} className="patients-row">
                         <td className="avatar">
-                           Avatar
+                           <img className="avatar-img" src="https://lh3.googleusercontent.com/-pHJxhwGxbOU/AAAAAAAAAAI/AAAAAAAAAAA/APJypA3z7sHfAw5NtWtgUSchZG2aFXEJ-Q/s64-c-mo/photo.jpg"/>
+
                         </td>
                         <td>
                             {patient.name}

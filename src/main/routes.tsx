@@ -34,6 +34,11 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     render={(props) => <Users.Components.Patients {...props} />}
                 />
                 <Route 
+                    exact={true}
+                    path="/patient/:patientId"
+                    render={(props) => <Users.Components.Patient {...props} />}
+                />
+                <Route 
                     path="/zoo"
                     render={(props) => <Zoo.Components.Main {...props} />}
                 />

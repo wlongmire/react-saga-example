@@ -19,7 +19,13 @@ import * as Actions from './actions';
             return { ...state , patients: action.value }
         case Actions.ActionType.LOAD_ALL_PATIENTS_FAILURE:
             return { ...state, error: action.value}
-          default: 
+        case Actions.ActionType.LOAD_PATIENT:
+            return { ...state, state}
+        case Actions.ActionType.LOAD_PATIENT_SUCCESS:
+            return { ...state , patient: action.value }
+        case Actions.ActionType.LOAD_PATIENT_SUCCESS:
+            return { ...state, error: action.value}
+        default: 
           return state
       }
   }

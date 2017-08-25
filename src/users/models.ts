@@ -6,8 +6,10 @@
  /**
   * Represents a Patient
   */
-export interface IPatient {
+export interface Patient{
     id: number;
-    first_name: string;
-    last_name: string;
+    name: string;
+    age?: string;
+    gender?: string;
+    avatar?: string;
 }

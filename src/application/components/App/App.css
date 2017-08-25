@@ -13,12 +13,4 @@
 .App-intro {
   font-size: large;
 }
-.App-container{
-  display: grid;
-  grid-template-columns: 25vw 75vw;
-  grid-template-rows: 100vh; 
-}
 
-.chat-section{
-  border-right: 2px solid #dedede;
-}

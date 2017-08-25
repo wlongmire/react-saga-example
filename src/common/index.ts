@@ -24,8 +24,7 @@ export interface EventStreamEvent {
 declare module ApplicationState {
     interface IUser{
         id?: number;
-        first_name: string,
-        last_name: string
+        name: string;
     }
 
     interface IVisit{
@@ -36,8 +35,6 @@ declare module ApplicationState {
 
 
     interface IPatient extends IUser{
-
-        name: string;
     }
 
     interface IPatients{
@@ -58,7 +55,8 @@ declare module ApplicationState {
         patients?: Array<IPatient>;
         doctors?: Array<IDoctor>;
         cases?: Array<ICase>;
-        visits?: Array<IVisit>
+        visits?: Array<IVisit>;
+        patient?: IPatient
     }
 }
 

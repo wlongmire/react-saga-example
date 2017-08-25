@@ -81,3 +81,16 @@ td {
     text-align: right;
     padding: 0 20px 0 0;
 }
+
+a .patient-name{
+    color: black;
+    transition:color .4s ease-in-out;
+}
+
+a .patient-name:hover{
+    color: #f84445;
+}
+
+.chat-section{
+    border-right: 1px solid #dedede;
+}

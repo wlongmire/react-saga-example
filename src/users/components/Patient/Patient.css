@@ -1,0 +1,53 @@
+.patient-view{
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 10% 20% 1fr;
+}
+
+.patient-details {
+    display: block;
+    padding: 2.5em;
+    width: 40%;
+    line-height: 5px;
+    
+}
+
+.patient-details div{
+    display: inline-block;
+}
+
+.patient-avatar{
+    margin-right: 1em;
+    border-radius: 50%;
+}
+
+.patient-name-details{
+    font-weight: bold;
+    font-size: 1.7em;
+}
+
+
+#add-event-btn{
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px #f84445
+}
+
+#main-section{
+    border-top: 1px solid #dedede;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+}
+
+.chat-title{
+    text-align: center;
+    display: block;
+    margin-top: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+}

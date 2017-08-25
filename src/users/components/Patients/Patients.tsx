@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from 'redux';
 import ApplicationState from '../../../common';
-import { getAllPatients } from '../../selectors';
+// import { getAllPatients } from '../../selectors';
 import * as patientActions  from '../../actions';
 import {PatientsList} from './PatientsList';
 import {Navigation} from '../../../navigation/components/Navigation';
-
+import * as Model from '../../models';
 import './Patients.css';
 
 export interface PatientProps {
-    patients: ApplicationState.IPatients;
+    patients: Array<Model.Patient>;
     loadAllPatients: () => void;
 }
 
@@ -26,14 +26,16 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
 
     }
 
+    handleNavigateToSinglePatient = () => {
+        console.log('Clicked')
+    }
+
     render() {
-        console.log('Patients', this.props.patients)
-        if(!this.props.patients.patients){
+        if(this.props.patients.length ===  0 ){
             return(
                 <div>Loading ...</div>
             )
         }
-
         return (
             <div>
             <Navigation/>
@@ -44,8 +46,8 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
                 <span className="patients-title"> Patients </span>
             </div>
             <PatientsList
-                patients={
-                    this.props.patients.patients}
+                patients={this.props.patients['patients']}
+                onClickSinglePatient={this.handleNavigateToSinglePatient}
             />
             </div>
             </div>
@@ -53,9 +55,11 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
     }
 }
 
-const mapStateToProps = (state: ApplicationState.IState ) => ({
-     patients: getAllPatients(state)
-});
+const mapStateToProps = (state: ApplicationState.IState ) => {
+     return {
+         patients: state.patients
+     }
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators(
     {

@@ -1,9 +1,10 @@
 import { ActionType} from './actions';
-import { Patients} from './components';
+import { Patients, Patient} from './components';
 import { ReducerState } from './models';
 import { getAllPatients } from './selectors';
 import { root } from './sagas';
 import { reducer } from './reducer';
+
 
 /**
  * As per the layout spec in the Cases section, this is a public API that we can exploit through which our modules can
@@ -23,6 +24,7 @@ export const Actions = {
 
 export const Components = {
     Patients,
+    Patient
     // Patients,Doctors and all other users will be here
 };
 

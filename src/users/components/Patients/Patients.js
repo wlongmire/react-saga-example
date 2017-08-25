@@ -74,5 +74,15 @@ export default StyleSheet.create({
   'message-indicator': {
     'textAlign': 'right',
     'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }]
+  },
+  'a patient-name': {
+    'color': 'black',
+    'transition': 'color .4s ease-in-out'
+  },
+  'a patient-name:hover': {
+    'color': '#f84445'
+  },
+  'chat-section': {
+    'borderRight': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }]
   }
 });

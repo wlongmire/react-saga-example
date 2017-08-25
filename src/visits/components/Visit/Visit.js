@@ -48,6 +48,14 @@ export default StyleSheet.create({
     'fontWeight': 'bold',
     'color': 'gray'
   },
+  'scheduled-title': {
+    'fontSize': [{ 'unit': 'string', 'value': 'small' }],
+    'fontWeight': 'bold',
+    'color': 'gray',
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 2 }],
+    'textAlign': 'left'
+  },
   'visit_type': {
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr',
@@ -84,10 +92,14 @@ export default StyleSheet.create({
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr 1fr'
   },
-  // .location-options{
-    display: grid;
-    width:60%;
-    margin: 0 auto;
-    grid-template-columns: 30% 30% 10%;
-}
+  'scheduled-time': {
+    'display': 'grid',
+    'position': 'relative',
+    'gridTemplateColumns': '1fr 1fr 1fr',
+    'width': [{ 'unit': 'vw', 'value': 56 }],
+    'gridColumnGap': '2em'
+  },
+  'scheduled-time-section': {
+    'marginBottom': [{ 'unit': 'em', 'value': 1 }]
+  }
 });

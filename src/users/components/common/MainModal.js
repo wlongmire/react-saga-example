@@ -8,7 +8,8 @@ export default StyleSheet.create({
     'width': [{ 'unit': '%H', 'value': 1 }],
     'height': [{ 'unit': '%V', 'value': 1 }],
     'background': 'rgba(0,0,0,0.6)',
-    'zIndex': '4'
+    'zIndex': '4',
+    'overflow': 'hidden'
   },
   'modal-content': {
     'margin': [{ 'unit': '%V', 'value': 0.1 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': '%V', 'value': 0.1 }, { 'unit': 'string', 'value': 'auto' }],
@@ -17,7 +18,8 @@ export default StyleSheet.create({
     'color': 'black',
     'display': 'grid',
     'gridTemplateRows': '15% 75%',
-    'background': 'white'
+    'background': 'white',
+    'overflowY': 'scroll'
   },
   'modal-title': {
     'background': '#f84445',

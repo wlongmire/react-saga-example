@@ -57,7 +57,6 @@ export class VisitDrawer extends React.Component<VisitDrawerProps, {}>{
     render(){
         return(
             <form id="visit-drawer" onSubmit={this.handleSubmitVisit} className={this.props.className}> 
-            <div className="header"> <p>New Visit</p></div>
             <AutoComplete
                     id="status"
                     name="status"

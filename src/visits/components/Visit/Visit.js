@@ -2,13 +2,9 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   '#visit-drawer': {
-    'position': 'absolute',
-    'right': [{ 'unit': 'px', 'value': 0 }],
-    'top': [{ 'unit': 'px', 'value': 0 }],
-    'width': [{ 'unit': '%H', 'value': 0.3 }],
+    'position': 'relative',
+    'width': [{ 'unit': '%H', 'value': 1 }],
     'height': [{ 'unit': '%V', 'value': 1 }],
-    'boxShadow': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': 'black' }],
-    'overflowY': 'scroll',
     'textAlign': 'center'
   },
   'header': {

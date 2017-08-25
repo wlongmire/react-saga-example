@@ -4,7 +4,8 @@ import './MainModal.css';
 
 type P = {
     title : string;
-    handleCloseModal : (event:any) => void
+    handleCloseModal : (event:any) => void;
+    children?: JSX.Element
 }
 
 
@@ -19,6 +20,7 @@ export default class MainModal extends React.Component<P, {}>{
     }
 
     render(){
+        const C = this.props.children
         return (
             <div id='main-modal' onClick={this.props.handleCloseModal}>
                 <div className="modal-content">
@@ -26,7 +28,7 @@ export default class MainModal extends React.Component<P, {}>{
                         <p> Add {this.props.title}</p>
                     </div>
                     <div>
-                        Add {this.props.title} Here
+                        {C}
                     </div>
                 </div>
             </div>

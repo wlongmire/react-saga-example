@@ -6,6 +6,7 @@
     height: 100%;
     background: rgba(0,0,0,0.6);
     z-index: 4;
+    overflow: hidden;
 }
 
 .modal-content {
@@ -16,6 +17,7 @@
     display: grid;
     grid-template-rows: 15% 75%;
     background:white;
+    overflow-y: scroll;
 }
 
 .modal-title{

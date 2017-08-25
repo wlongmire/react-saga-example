@@ -17,6 +17,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MainModal from '../common/MainModal';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
+import * as Visits from '../../../visits'
 
 interface Params {
     patientId: string
@@ -207,7 +208,9 @@ class PatientContainer extends React.Component<P,S>{
                         <MainModal
                         title="Visit"
                         handleCloseModal={this.handleCloseModal}
-                        />
+                        >
+                            <Visits.Components.VisitDrawer/>
+                        </MainModal>
                         }
                         {this.state.showImagingModal &&
                         <MainModal

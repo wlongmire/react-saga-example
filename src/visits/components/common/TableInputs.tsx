@@ -39,8 +39,12 @@ interface TableInputsState {
     myVitals: Array<IVital>;
 }
 
+interface TableInputProps {
+    onChange : (vitalsArray:object[]) => void;
+}
 
-export default class TableInputs extends React.Component<{}, TableInputsState>{
+
+export default class TableInputs extends React.Component<TableInputProps, TableInputsState>{
     private count: number = 0;
     constructor() {
         super()
@@ -62,7 +66,8 @@ export default class TableInputs extends React.Component<{}, TableInputsState>{
                 vital.name = value;
             }
         })
-        this.setState({myVitals: st});
+        this.setState({myVitals: st},() => {
+            this.props.onChange(this.state.myVitals)});
         
     }
 

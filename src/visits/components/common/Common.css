@@ -1,0 +1,9 @@
+.dropdown-label {    
+    font-size: small;
+    font-weight:bold;
+    color: gray;
+    display: inline-block;
+    text-align: left;
+    position: relative;
+    bottom: 1em;
+}

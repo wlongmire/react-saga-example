@@ -1,7 +1,7 @@
 import * as Common from '../common';
 import * as Model from './models';
 
-const BASE_URL = 'http://localhost:8300/patients/'
+const BASE_URL = 'https://my-json-server.typicode.com/kimani-ndegwa/temp-lifeco/patients/'
 /**
  * Action types for Patients.
  */
@@ -68,8 +68,13 @@ export const loadPatients = () => {
         dispatch(loadAllPatients)
         return fetch(BASE_URL, {
             method: 'GET',
+            headers:{
+                'Access-Control-Allow-Origin':''
+            }
         }).then((response:any)=>{
+            console.log(response, 'Response here')
             if(response.ok){
+                
                 return response.json()
             }
             return response.json().then((err:Error)=>{
@@ -78,6 +83,7 @@ export const loadPatients = () => {
         }).then((data:any) => {
             dispatch (loadAllPatientsSuccess(data))
         }).catch(err=> {
+            console.log(err)
             dispatch(loadAllPatientsSuccess(err))
         })
     }
@@ -87,7 +93,10 @@ export const loadSinglePatient = (id:number) => {
     return(dispatch:any) => {
         dispatch(loadPatient)
         return fetch(BASE_URL + id.toString(), {
-            method: 'GET'
+            method: 'GET',
+            headers:{
+                'Access-Control-Allow-Origin':''
+            }
         }).then((response: any)=>{
             if(response.ok){
                 return response.json()

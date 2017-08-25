@@ -42,6 +42,16 @@
     color: gray;
 }
 
+.scheduled-title{
+    font-size: small;
+    font-weight: bold;
+    color: gray;
+    position: relative;
+    left: 2em;
+    text-align: left;
+}
+
+
 .visit_type, .maintenance_type, .doctor_type{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -66,10 +76,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
-/* 
-.location-options{
+.scheduled-time{
     display: grid;
-    width:60%;
-    margin: 0 auto;
-    grid-template-columns: 30% 30% 10%;
-} */
+    position: relative;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 56vw;
+    grid-column-gap: 2em;
+}
+
+.scheduled-time-section{
+    margin-bottom: 1em;
+}
+

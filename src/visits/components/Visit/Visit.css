@@ -51,6 +51,7 @@
     text-align: left;
 }
 
+
 .visit_type, .maintenance_type, .doctor_type{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -75,7 +76,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
-
 .scheduled-time{
     display: grid;
     position: relative;
@@ -87,3 +87,4 @@
 .scheduled-time-section{
     margin-bottom: 1em;
 }
+

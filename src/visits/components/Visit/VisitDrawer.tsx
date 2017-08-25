@@ -86,6 +86,7 @@ const stubbedData = {
     'actualTime': [
         {value:1, primaryText:"6:30A.M"},
         {value:2, primaryText:"6:30P.M"},
+
     ]
 
 }
@@ -264,6 +265,89 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     <Checkbox className="checkbox-value"/>
                 </div>
             </div>
+            <div className="date-options">
+            <p className="location-title">Scheduled Date and Time</p>
+            <DatePicker 
+                name="date" 
+                hintText="Date Created"
+                style={{
+                    textAlign:"left",
+                    position:"relative",
+                    left:'2em',
+                    marginBottom:'.5em'
+                    }}
+                />
+            <DropDownTemplate
+                title="Assignee"
+                dataArray={
+                   stubbedData.assignee
+                }
+                onChange={this.onPlainTextDropDownChange('assignee')}
+            />
+            <DropDownTemplate
+                title="Patient"
+                dataArray={
+                   stubbedData.patient
+                }
+                onChange={this.onPlainTextDropDownChange('patient')}
+            />
+            <div>
+            <ChipCollection
+                items={this.state.payload.cases || [] } // event render from this.state.payload.tests
+            />
+            <DropDownTemplate
+                title="Add Case"
+                dataArray={
+                   stubbedData.cases
+                }
+                onChange={(value, text) => this.onChipDropDownChange('cases')(value, text) }
+            />
+            </div>
+            <br/>
+            <p className="checkbox-title">Visit Type</p>
+            <div className="visit-type-section">
+                <div className="visit_type"> 
+                    <span className="label">LifeCo</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+                <div className="visit_type"> 
+                    <span className="label">External</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+            </div>
+            <p className="checkbox-title">Maintenance</p>
+            <div className="maintenance-type-section">
+                <div className="maintenance_type"> 
+                    <span className="label">Physical</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+                <div className="maintenance_type"> 
+                    <span className="label">Pap Smear</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+            </div>
+            <DropDownTemplate
+                title="Doctor"
+                dataArray={
+                stubbedData.doctors
+                }
+                onChange={(value, text) => this.onChipDropDownChange('doctor')(value, text) }
+             />
+            <p className="checkbox-title">Doctor Type</p>
+            <div className="doctor-type-section">
+                <div className="doctor_type"> 
+                    <span className="label">Primary</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+                <div className="doctor_type"> 
+                    <span className="label">Gynaceologist</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+                <div className="doctor_type"> 
+                    <span className="label">Dermatologist</span>
+                    <Checkbox className="checkbox-value"/>
+                </div>
+            </div>
             <div>
             </div>
             <DropDownTemplate
@@ -355,10 +439,21 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
             <TextInputTemplate
                 name="objective"
                 title="Objective"
+
                 multiLine={true}
                 rows={2}
             />
             <TextInputTemplate
+
+                name="objective"
+                title="Objective"
+
+                multiLine={true}
+                rows={2}
+            
+            />
+            <TextInputTemplate
+
                 title="Objective"
                 name="objective"
                 multiLine={true}
@@ -393,6 +488,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 style={style} 
                 label="save"
             />
+            </div>
             </form>
         )
     }

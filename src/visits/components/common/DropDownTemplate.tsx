@@ -18,6 +18,10 @@ interface dataObject {
     primaryText: string;
 }
 
+const underlineStyle = {
+    display: "none"
+}
+
 export default class DropDownTemplate extends React.Component<DropDownTemplateProps, S>{
     constructor() {
         super();
@@ -38,7 +42,12 @@ export default class DropDownTemplate extends React.Component<DropDownTemplatePr
         return (
             <div>
                 <span className="dropdown-label">{this.props.title}</span>
-                <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+                <div className="dropdown-value">
+                <DropDownMenu 
+                iconStyle={{left:650}}
+                underlineStyle={underlineStyle} 
+                value={this.state.value} 
+                onChange={this.handleChange}>
                     {
                         this.props.dataArray.map((data: dataObject, index: number) => {
                             return (
@@ -47,6 +56,7 @@ export default class DropDownTemplate extends React.Component<DropDownTemplatePr
                         })
                     }
                 </DropDownMenu>
+                </div>
             </div>
         );
     }

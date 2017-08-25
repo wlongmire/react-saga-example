@@ -22,5 +22,72 @@ export default StyleSheet.create({
   },
   'table-element': {
     'width': [{ 'unit': '%H', 'value': 0.8 }]
-  }
+  },
+  'visit-type-section': {
+    'width': [{ 'unit': '%H', 'value': 0.7 }],
+    'margin': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }],
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr'
+  },
+  'maintenance-type-section': {
+    'width': [{ 'unit': '%H', 'value': 0.7 }],
+    'margin': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }],
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr'
+  },
+  'label': {
+    'display': 'inline-block',
+    'fontSize': [{ 'unit': 'string', 'value': 'small' }]
+  },
+  'checkbox-value': {
+    'display': 'inline-block',
+    'fontSize': [{ 'unit': 'string', 'value': 'small' }]
+  },
+  'location-title': {
+    'fontSize': [{ 'unit': 'string', 'value': 'small' }],
+    'fontWeight': 'bold',
+    'color': 'gray'
+  },
+  'visit_type': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr',
+    'textAlign': 'left',
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 1 }]
+  },
+  'maintenance_type': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr',
+    'textAlign': 'left',
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 1 }]
+  },
+  'doctor_type': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr',
+    'textAlign': 'left',
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 1 }]
+  },
+  'checkbox-title': {
+    'fontSize': [{ 'unit': 'px', 'value': 15 }],
+    'textAlign': 'left',
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 2 }],
+    'marginTop': [{ 'unit': 'em', 'value': 2 }],
+    'fontWeight': 'bold',
+    'color': 'gray'
+  },
+  'doctor-type-section': {
+    'width': [{ 'unit': '%H', 'value': 0.9 }],
+    'margin': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }],
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr 1fr'
+  },
+  // .location-options{
+    display: grid;
+    width:60%;
+    margin: 0 auto;
+    grid-template-columns: 30% 30% 10%;
+}
 });

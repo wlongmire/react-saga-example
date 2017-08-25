@@ -7,13 +7,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TableInputs from '../common/TableInputs';
 import TableTemplate from '../common/TableTemplate';
 import DropDownTemplate from '../common/DropDownTemplate';
+import TextInputTemplate from '../common/TextInputTemplate';
 import ChipCollection from '../common/Chips';
 import * as visitActions from '../../actions';
 import {  Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-
-
 
 import './Visit.css';
 
@@ -68,8 +66,17 @@ const stubbedData = {
         {value:2, primaryText:"Diagnosis  B"},
         {value:3, primaryText:"Diagnosis  C"},
         {value:4, primaryText:"Diagnosis  D"},
-    ]
+    ],
 
+    'doctors': [
+        {value:1, primaryText:"Dr. Venis Wilder"},
+        {value:2, primaryText:"Dr. Jackton Omamo"},
+    ],
+
+    'estimatedTime': [
+        {value:1, primaryText:"15 Minutes"},
+        {value:2, primaryText:"30 Minutes"},
+    ]
 
 }
 
@@ -166,6 +173,16 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 }
                 onChange={this.onPlainTextDropDownChange('status')}
             />
+            <DatePicker 
+                name="date" 
+                hintText="Date Created"
+                style={{
+                    textAlign:"left",
+                    position:"relative",
+                    left:'2em',
+                    marginBottom:'.5em'
+                    }}
+                />
             <DropDownTemplate
                 title="Assignee"
                 dataArray={
@@ -215,11 +232,13 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     <Checkbox className="checkbox-value"/>
                 </div>
             </div>
-            <TextField
-                name="doctor"
-                floatingLabelText="Doctor"
-                defaultValue="Dr. Venis Wilder"
-            />
+            <DropDownTemplate
+                title="Doctor"
+                dataArray={
+                stubbedData.doctors
+                }
+                onChange={(value, text) => this.onChipDropDownChange('doctor')(value, text) }
+             />
             <p className="checkbox-title">Doctor Type</p>
             <div className="doctor-type-section">
                 <div className="doctor_type"> 
@@ -274,6 +293,13 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 hintText="Intended Time"
             />
             </div>
+            <DropDownTemplate
+                title="Estimated Length of Visits"
+                dataArray={
+                stubbedData.estimatedTime
+                }
+                onChange={(value, text) => this.onChipDropDownChange('estimated-time')(value, text) }
+             />
             <div>
             <ChipCollection
                 items={this.state.payload.complaints || [] } // event render from this.state.payload.tests
@@ -305,27 +331,34 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 onChange={(value, text) => this.onChipDropDownChange('diagnosis')(value, text) }
             />
             </div>
-            <TextField
+            <TextInputTemplate
                 name="subjective"
-                hintText="Subjective"
+                title="Subjective"
                 multiLine={true}
                 rows={2}
             />
-            <TextField
+            <TextInputTemplate
                 name="objective"
-                hintText="Objective"
+                title="Objective"
                 multiLine={true}
                 rows={2}
             />
-            <TextField
+            <TextInputTemplate
+                title="Objective"
+                name="objective"
+                multiLine={true}
+                rows={2}
+            
+            />
+            <TextInputTemplate
                 name="assessments"
-                hintText="Assessments"
+                title="Assessments"
                 multiLine={true}
                 rows={2}
             />
-             <TextField
+             <TextInputTemplate
                 name="next-steps"
-                hintText="Next Steps"
+                title="Next Steps"
                 multiLine={true}
                 rows={2}
             />

@@ -13,18 +13,21 @@ export default StyleSheet.create({
   },
   'modal-content': {
     'margin': [{ 'unit': '%V', 'value': 0.1 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': '%V', 'value': 0.1 }, { 'unit': 'string', 'value': 'auto' }],
-    'width': [{ 'unit': '%H', 'value': 0.5 }],
-    'height': [{ 'unit': 'vw', 'value': 30 }],
+    'width': [{ 'unit': '%H', 'value': 0.6 }],
+    'height': [{ 'unit': 'vw', 'value': 40 }],
     'color': 'black',
     'display': 'grid',
     'gridTemplateRows': '15% 75%',
     'background': 'white',
-    'overflowY': 'scroll'
+    'overflowY': 'scroll',
+    'boxShadow': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'string', 'value': 'black' }],
+    'borderRadius': '5px'
   },
   'modal-title': {
-    'background': '#f84445',
+    'background': '#dedede',
     'textAlign': 'center',
-    'padding': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }],
-    'color': 'white'
+    'padding': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'em', 'value': 1.5 }],
+    'color': 'black',
+    'fontWeight': 'bold'
   }
 });

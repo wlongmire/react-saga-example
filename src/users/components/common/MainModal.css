@@ -6,21 +6,26 @@
     height: 100%;
     background: rgba(0,0,0,0.6);
     z-index: 4;
+    overflow: hidden;
 }
 
 .modal-content {
     margin: 10% auto;
-    width: 50%;
-    height: 30vw;
+    width: 60%;
+    height: 40vw;
     color:black;
     display: grid;
     grid-template-rows: 15% 75%;
     background:white;
+    overflow-y: scroll;
+    box-shadow: 0 0 20px black;
+    border-radius: 5px;
 }
 
 .modal-title{
-    background: #f84445;
+    background: #dedede;
     text-align: center;
-    padding: 1em;
-    color: white;
+    padding: 1.5em;
+    color: black;
+    font-weight: bold;
 }

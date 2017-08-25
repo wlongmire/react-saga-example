@@ -27,7 +27,8 @@ interface TableTemplateState {
 }
 
 interface TableTemplateProps{
-    headerTitle : string
+    headerTitle : string,
+    onChange : (items:Array<any>) => void;
 }
 export default class TableTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
     private count:number = 0;
@@ -36,25 +37,45 @@ export default class TableTemplate extends React.Component<TableTemplateProps, T
         super(props)
     
     this.state = {
-        items : []
+        items : [],
+        
     }
 
     this.handleAddItem = this.handleAddItem.bind(this);
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {
-        let newItem: IAdditionalItem = {id:this.count++,title:'', description:''}
+        console.log('event: ', e.target);
+        const newItem: IAdditionalItem = {
+            id:this.count++,
+            title:'',
+            description:''
+        }
+        this.setState(prevState => ({
+            items: prevState.items.concat(newItem)
+        }))
+    }
+
+    handleSubmit = (e:any, value:any) => {
+        console.log
+    }
+
+    handleChangeInput = (index: number) => (e:any) => {
         let items = [...this.state.items];
-        items.push(newItem)
-        this.setState({
-            items: items
+        const item = items[index];
+        items[index] = {
+            ...item,
+            [e.target.name]: e.target.value
+        }
+
+        this.setState({items}, () => {
+            this.props.onChange(this.state.items)
         })
-    
     }
 
     render(){
         return(
-        <Table style={TableStyles}>
+        <Table style={TableStyles} selectable={false}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                     <TableRow>
                         <TableHeaderColumn>{this.props.headerTitle}</TableHeaderColumn>
@@ -63,7 +84,8 @@ export default class TableTemplate extends React.Component<TableTemplateProps, T
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                         {
-                            this.state.items.map((item:IAdditionalItem)=>{
+                            this.state.items.map((item:IAdditionalItem, index:number, array)=>{
+                                console.log('Le Array', array.length)
                                 return(
                                 <TableRow key={item.id}>
                                 <TableRowColumn>
@@ -71,6 +93,7 @@ export default class TableTemplate extends React.Component<TableTemplateProps, T
                                         id={item.id.toString()}
                                         name="title"
                                         hintText="Title"
+                                        onChange={this.handleChangeInput(index)}
                                         floatingLabelText="Title"
                                     />
                                 </TableRowColumn>
@@ -79,6 +102,7 @@ export default class TableTemplate extends React.Component<TableTemplateProps, T
                                         id={item.id.toString()}
                                         name="description"
                                         hintText="Description"
+                                        onChange={this.handleChangeInput(index)}
                                         floatingLabelText="Description"/>
                                 </TableRowColumn>
                                 </TableRow>

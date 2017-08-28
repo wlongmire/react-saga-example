@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   'top-navigation': {
     'listStyle': 'none',
-    'position': 'fixed',
-    'right': [{ 'unit': 'px', 'value': 0 }]
+    'position': 'relative'
   },
   'top-navigation li': {
     'listStyle': 'none',
+    'position': 'relative',
     'display': 'inline-block',
     'cursor': 'pointer',
-    'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 3 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 3 }],
+    'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }],
     'transition': 'color .3s ease-in-out'
   },
   'top-navigation li:hover': {
@@ -20,12 +20,10 @@ export default StyleSheet.create({
     'left': [{ 'unit': 'px', 'value': 0 }],
     'position': 'fixed',
     'color': '#f84445',
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'marginRight': [{ 'unit': '%H', 'value': 0.4 }]
   },
   'hr': {
-    'top': [{ 'unit': 'em', 'value': 3.5 }],
-    'position': 'relative',
-    'border': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }],
-    'opacity': '.5'
+    'border': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }]
   }
 });

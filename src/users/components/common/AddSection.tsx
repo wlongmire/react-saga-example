@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import './MainModal.css';
+import './AddSection.css';
 
 type P = {
-    title : string;
-    handleCloseModal : (event:any) => void;
+    handleCloseModal ?: (event:any) => void;
     children?: JSX.Element
 }
 
 
-export default class MainModal extends React.Component<P, {}>{
+export default class AddSection extends React.Component<P, {}>{
     constructor(props:P){
         super(props)
     }
@@ -22,11 +21,8 @@ export default class MainModal extends React.Component<P, {}>{
     render(){
         const C = this.props.children
         return (
-            <div id='main-modal' onClick={this.props.handleCloseModal}>
-                <div className="modal-content">
-                    <div className="modal-title">
-                        <p> Add {this.props.title}</p>
-                    </div>
+            <div id='add-section' onClick={this.props.handleCloseModal}>
+                <div className="add-section">
                     <div>
                         {C}
                     </div>

@@ -1,4 +1,4 @@
-#main-modal{
+/* #main-modal{
     position: fixed;
     top: 0;
     left: 0;
@@ -7,9 +7,9 @@
     background: rgba(0,0,0,0.6);
     z-index: 4;
     overflow: hidden;
-}
+} */
 
-.modal-content {
+/* .modal-content {
     margin: 10% auto;
     width: 60%;
     height: 40vw;
@@ -20,12 +20,12 @@
     overflow-y: scroll;
     box-shadow: 0 0 20px black;
     border-radius: 5px;
-}
+} */
 
-.modal-title{
+/* .modal-title{
     background: #dedede;
     text-align: center;
     padding: 1.5em;
     color: black;
     font-weight: bold;
-}
+} */

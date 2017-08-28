@@ -14,7 +14,7 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
-import MainModal from '../common/MainModal';
+import AddSection from '../common/AddSection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import * as Visits from '../../../visits'
@@ -41,7 +41,9 @@ interface S {
     showTestsModal?: boolean;
     showImagingModal?: boolean;
     showWellnessModal?:boolean;
-    showOthersModal?: boolean
+    showOthersModal?: boolean;
+    tabs: Array<string>;
+    selectedTab : number;
 }
 
 const labelBackground = {
@@ -59,7 +61,11 @@ class PatientContainer extends React.Component<P,S>{
     constructor(){
         super();
         this.state = {
-            open: false
+            open: false,
+            tabs: [
+                "treatments", "visits", "tests", "imaging"
+            ],
+            selectedTab: 0
         };
     }
     componentDidMount(){
@@ -125,7 +131,6 @@ class PatientContainer extends React.Component<P,S>{
       }
 
       handleCloseModal = (event:any) => {
-        console.log("event", event.target.id)
         if(event.target.id === "main-modal"){
           this.setState({
             showImagingModal: false,
@@ -134,6 +139,14 @@ class PatientContainer extends React.Component<P,S>{
             showTreatmentsModal:false
           })
         }
+      }
+
+      _handleChange = (e:any) => {
+        console.log(e)
+      }
+
+      _handleClick = (e:any) =>{
+          console.log(e)
       }
 
     render(){
@@ -161,68 +174,53 @@ class PatientContainer extends React.Component<P,S>{
                         <span className="chat-title">Chat</span>
                     </section>
                     <section className="biodrive-section">
-                        <Tabs tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                        <Tab label="Treatments" style={labelTitle}>
-                        <div>
-                            Treatments
-                        </div>
-                        </Tab>
+                    <Tabs tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
+                    <Tab label="Treatments" style={labelTitle}>
+                    <div>
+                        Treatments
+                    </div>
+                    </Tab>
 
-                        <Tab label="Visits" style={labelTitle}>
-                        <div>
-                            Visits
-                        </div>
-                        </Tab>
+                    <Tab label="Visits" style={labelTitle}>
+                    <div>
+                        <AddSection
+                            >
+                                <Visits.Components.VisitDrawer/>
+                        </AddSection>
+                    </div>
+                    </Tab>
 
-                        <Tab label="Tests" style={labelTitle}>
-                        <div>
-                            Tests
-                        </div>
-                        </Tab>
+                    <Tab label="Tests" style={labelTitle}>
+                    <div>
+                        Tests
+                    </div>
+                    </Tab>
 
-                        <Tab label="Imaging" style={labelTitle}>
-                        <div>
-                            Imaging
-                        </div>
-                        </Tab>
+                    <Tab label="Imaging" style={labelTitle}>
+                    <div>
+                        Imaging
+                    </div>
+                    </Tab>
 
-                        <Tab label="Wellness" style={labelTitle}>
-                        <div>
-                            Wellness
-                        </div>
-                        </Tab>
+                    <Tab label="Wellness" style={labelTitle}>
+                    <div>
+                        Wellness
+                    </div>
+                    </Tab>
 
-                        <Tab label="Other" style={labelTitle}>
-                        <div>
-                            Other
-                        </div>
-                        </Tab>
-                        </Tabs>
-                        {this.state.showTreatmentsModal &&
-                        <MainModal
-                        title="Treatment"
-                        handleCloseModal={this.handleCloseModal}
-                        />
-                        }
+                    <Tab label="Other" style={labelTitle}>
+                    <div>
+                        Other
+                    </div>
+                    </Tab>
+                    </Tabs>
                         {this.state.showVisitsModal &&
-                        <MainModal
-                        title="Visit"
+                        <AddSection
+
                         handleCloseModal={this.handleCloseModal}
                         >
                             <Visits.Components.VisitDrawer/>
-                        </MainModal>
-                        }
-                        {this.state.showImagingModal &&
-                        <MainModal
-                        title="Imaging"
-                        handleCloseModal={this.handleCloseModal}
-                        />
-                        }
-                        {this.state.showTestsModal &&
-                        <MainModal
-                        title="Test"
-                        handleCloseModal={this.handleCloseModal}
-                        />
+                        </AddSection>
                         }
                         <div id="add-event-btn">
                         <Popover

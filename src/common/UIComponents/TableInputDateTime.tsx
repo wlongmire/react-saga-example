@@ -7,6 +7,8 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+import DropDownTemplate from './DropDownTemplate';
+import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import './TableInputs.css';
 
@@ -45,7 +47,6 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {
-        console.log('event: ', e.target);
         const newItem: IAdditionalItem = {
             id:this.count++,
             title:'',
@@ -88,21 +89,19 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
                                 return(
                                 <TableRow key={item.id}>
                                 <TableRowColumn>
-                                    <TextField 
-                                        id={item.id.toString()}
-                                        name="title"
-                                        hintText="Title"
-                                        onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="Title"
-                                    />
+                                    <DropDownTemplate/>
                                 </TableRowColumn>
                                 <TableRowColumn>
-                                    <TextField 
-                                        id={item.id.toString()}
-                                        name="description"
-                                        hintText="Description"
-                                        onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="Description"/>
+                                <DatePicker 
+                                    name="date" 
+                                    hintText="Date Created"
+                                    style={{
+                                        textAlign:"left",
+                                        position:"relative",
+                                        left:'2em',
+                                        marginBottom:'.5em'
+                                        }}
+                                    />
                                 </TableRowColumn>
                                 </TableRow>
                                 )

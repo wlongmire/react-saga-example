@@ -89,45 +89,45 @@ class PatientContainer extends React.Component<P,S>{
     
       handleClickOnTreatments = () => {
         this.setState({
-          showTreatmentsModal: !this.state.showTreatmentsModal,
-          open:false
+          open:false,
+          selectedTab: 0
         })
       }
     
       handleClickOnVisits = () => {
         this.setState({
-          showVisitsModal: !this.state.showVisitsModal,
-          open:false
+          open:false,
+          selectedTab: 1
         })
       }
     
       handleClickOnImaging = () => {
         this.setState({
-          showImagingModal: !this.state.showImagingModal,
-          open:false
+          open:false,
+          selectedTab: 3
         })
       }
     
       handleClickOnWellness = () => {
         this.setState({
-          showWellnessModal: !this.state.showWellnessModal,
-          open:false
+          open:false,
+          selectedTab: 4
         })
       }
     
       handleClickOnTests = () => {
         this.setState({
           showTestsModal: !this.state.showTestsModal,
-          open:false
+          open:false,
+          selectedTab:2
         })
-      }
-    
-    
+      }    
     
       handleClickOnOthers = () => {
         this.setState({
           showOthersModal: !this.state.showOthersModal,
-          open:false
+          open:false,
+          selectedTab:5
         })
       }
 
@@ -175,14 +175,14 @@ class PatientContainer extends React.Component<P,S>{
                         <span className="chat-title">Chat</span>
                     </section>
                     <section className="biodrive-section">
-                    <Tabs tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                    <Tab label="Treatments" style={labelTitle}>
+                    <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
+                    <Tab onClick={this.handleClickOnTreatments} value={0} label="Treatments" style={labelTitle}>
                     <div>
                         Treatments
                     </div>
                     </Tab>
 
-                    <Tab label="Visits" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnVisits} value={1} label="Visits" style={labelTitle}>
                     <div>
                         <AddSection
                             >
@@ -191,7 +191,7 @@ class PatientContainer extends React.Component<P,S>{
                     </div>
                     </Tab>
 
-                    <Tab label="Tests" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnTests} value={2} label="Tests" style={labelTitle}>
                     <div>
                     <div>
                         <Tests.Components.AddTestSection/>
@@ -199,19 +199,19 @@ class PatientContainer extends React.Component<P,S>{
                     </div>
                     </Tab>
 
-                    <Tab label="Imaging" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnImaging} value={3} label="Imaging" style={labelTitle}>
                     <div>
                         Imaging
                     </div>
                     </Tab>
 
-                    <Tab label="Wellness" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnWellness} value={4} label="Wellness" style={labelTitle}>
                     <div>
                         Wellness
                     </div>
                     </Tab>
 
-                    <Tab label="Other" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnOthers} value={5} label="Other" style={labelTitle}>
                     <div>
                         Other
                     </div>
@@ -239,6 +239,8 @@ class PatientContainer extends React.Component<P,S>{
                             <MenuItem onClick={this.handleClickOnVisits} primaryText="Visits" />
                             <MenuItem onClick={this.handleClickOnTests} primaryText="Tests" />
                             <MenuItem onClick={this.handleClickOnImaging} primaryText="Imaging" />
+                            <MenuItem onClick={this.handleClickOnWellness} primaryText="Wellness" />
+                            <MenuItem onClick={this.handleClickOnOthers} primaryText="Other" />
                             </Menu>
                         </Popover>
                         <FloatingActionButton 

@@ -6,8 +6,10 @@ import './TextInputTemplate.css';
 interface P {
     title : string;
     multiLine : boolean;
-    rows : number
+    rows : number;
+    defaultValue ?: string;
     name: string;
+    hintText?: string;
 }
 
 const underlineStyle = {
@@ -24,6 +26,7 @@ export class TextInputTemplate extends React.Component<P, {}>{
                     border:'1px solid #dedede',
                     position: "relative",
                     right: ".5em",
+                    padding: ".5em",
                     width:'90%',
                     borderRadius: "3px"
                 }}
@@ -31,6 +34,8 @@ export class TextInputTemplate extends React.Component<P, {}>{
                 name={this.props.title}
                 multiLine={this.props.multiLine}
                 rows={this.props.rows}
+                defaultValue={this.props.defaultValue || ''}
+                hintText={this.props.hintText || ''}
                 />
             </div>
         )

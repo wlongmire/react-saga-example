@@ -18,6 +18,7 @@ import AddSection from '../common/AddSection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import * as Visits from '../../../visits'
+import * as Tests from '../../../testorders';
 
 interface Params {
     patientId: string
@@ -192,7 +193,9 @@ class PatientContainer extends React.Component<P,S>{
 
                     <Tab label="Tests" style={labelTitle}>
                     <div>
-                        Tests
+                    <div>
+                        <Tests.Components.AddTestSection/>
+                    </div>
                     </div>
                     </Tab>
 

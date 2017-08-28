@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Checkbox from 'material-ui/Checkbox';
-// import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
-import TableInputs from '../common/TableInputs';
-import TableTemplate from '../common/TableTemplate';
-import DropDownTemplate from '../common/DropDownTemplate';
-import TextInputTemplate from '../common/TextInputTemplate';
-import ChipCollection from '../common/Chips';
+import {
+    TableInputs, 
+    TableTemplate,
+    DropDownTemplate, 
+    TextInputTemplate,
+    ChipCollection
+} from '../../../common/UIComponents';
 import * as visitActions from '../../actions';
 import {  Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -176,7 +177,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
     render(){
         console.log(this.state, 'State hapa')
         return(
-            <form id="visit-drawer" onSubmit={this.handleSubmitVisit} className={this.props.className}> 
+            <form id="visit-drawer" onSubmit={this.handleSubmitVisit}> 
             <DropDownTemplate
                 title="Status"
                 dataArray={

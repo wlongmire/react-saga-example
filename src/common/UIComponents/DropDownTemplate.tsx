@@ -44,7 +44,7 @@ export class DropDownTemplate extends React.Component<DropDownTemplateProps, S>{
                 <span className="dropdown-label">{this.props.title}</span>
                 <div className="dropdown-value">
                 <DropDownMenu 
-                iconStyle={{left:650}}
+                iconStyle={{left:750}}
                 underlineStyle={underlineStyle} 
                 value={this.state.value} 
                 onChange={this.handleChange}>

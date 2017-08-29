@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  'patient-view': {
+  'im patient-view': {
     'display': 'grid',
     'height': [{ 'unit': 'vh', 'value': 100 }],
     'gridTemplateRows': '10% 20% 1fr'

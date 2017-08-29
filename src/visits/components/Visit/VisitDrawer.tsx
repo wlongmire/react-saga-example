@@ -175,7 +175,6 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
     }
 
     render(){
-        console.log(this.state, 'State hapa')
         return(
             <form id="visit-drawer" onSubmit={this.handleSubmitVisit}> 
             <DropDownTemplate

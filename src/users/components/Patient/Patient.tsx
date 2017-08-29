@@ -19,6 +19,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 import * as Visits from '../../../visits'
 import * as Tests from '../../../testorders';
+import * as Wellness from '../../../wellness';
 
 interface Params {
     patientId: string
@@ -184,10 +185,7 @@ class PatientContainer extends React.Component<P,S>{
 
                     <Tab onClick={this.handleClickOnVisits} value={1} label="Visits" style={labelTitle}>
                     <div>
-                        <AddSection
-                            >
-                                <Visits.Components.VisitDrawer/>
-                        </AddSection>
+                        <Visits.Components.VisitDrawer/>
                     </div>
                     </Tab>
 
@@ -207,7 +205,7 @@ class PatientContainer extends React.Component<P,S>{
 
                     <Tab onClick={this.handleClickOnWellness} value={4} label="Wellness" style={labelTitle}>
                     <div>
-                        Wellness
+                        <Wellness.Components.WellnessComponent/>
                     </div>
                     </Tab>
 

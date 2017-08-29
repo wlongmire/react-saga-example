@@ -4,12 +4,13 @@ import TextField from 'material-ui/TextField';
 import './TextInputTemplate.css';
 
 interface P {
-    title : string;
+    title ?: string;
     multiLine : boolean;
     rows : number;
     defaultValue ?: string;
     name: string;
     hintText?: string;
+    inputHeight?: string
 }
 
 const underlineStyle = {
@@ -18,16 +19,18 @@ const underlineStyle = {
 
 export class TextInputTemplate extends React.Component<P, {}>{
     render(){
+        let inputHeight = "58px" || this.props.inputHeight
         return(
             <div>
                 <span className="input-title">{this.props.title}</span>
                 <TextField
                 style={{
-                    border:'1px solid #dedede',
+                    border:'2px solid #dedede',
                     position: "relative",
                     right: ".5em",
-                    padding: ".5em",
+                    padding: "1em",
                     width:'90%',
+                    height:{inputHeight},
                     borderRadius: "3px"
                 }}
                 underlineStyle={underlineStyle} 

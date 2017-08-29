@@ -38,3 +38,14 @@
 .top-section-items{
     height: 50px;
 }
+
+.data-body-maintenance,
+.data-body-immunizations{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-row-gap: 1rem;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    left: 1.5em;
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TextInputTemplate} from './TextInputTemplate';
+import DatePicker from 'material-ui/DatePicker';
 import {DropDownTemplate} from './DropDownTemplate';
 import './Inputs.css';
 
@@ -16,15 +16,21 @@ interface TableTemplateState {
 }
 
 const stubbedData = {
-    'activity': [
-        {value: 1, primaryText:"Active"},
-        {value: 2, primaryText:"Not Active"}
+    'maintenance': [
+        {value: 1, primaryText:"Select"},
+        {value: 2, primaryText:"Not Select"}],
+    
+
+    'immunization': [
+        {value: 1, primaryText:"Select"},
+        {value: 2, primaryText:"Not Select"}
 ]
 }
 
 interface TableTemplateProps{
     headerTitle: string;
     onChange : (items:Array<any>) => void;
+    domain : string
 }
 
 const getNamedValue = (name:string, v?:number) => {
@@ -42,7 +48,7 @@ const getNamedValue = (name:string, v?:number) => {
 
 }
 
-export class TableGoalTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
+export class DateTimeDropDownTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
     private count:number = 0;
     
     constructor(props:TableTemplateProps){
@@ -67,10 +73,6 @@ export class TableGoalTemplate extends React.Component<TableTemplateProps, Table
             items: prevState.items.concat(newItem)
         }))
     }
-
-    // handleSubmit = (e:any, value:any) => {
-    //     console.log
-    // }
 
     handleChangeInput = (index: number) => (e:any) => {
         let items = [...this.state.items];
@@ -105,30 +107,15 @@ export class TableGoalTemplate extends React.Component<TableTemplateProps, Table
                         {
                             this.state.items.map((item:IAdditionalItem, index:number, array)=>{
                                 return(
-                                <div className="data-body" key={item.id}>
+                                <div className="data-body-maintenance" key={item.id}>
                                     <div className="top-section">
-                                    <div>
-                                        <TextInputTemplate
-                                            name="goal-name"
-                                            multiLine={false}
-                                            rows={1}
-                                            hintText={"Name"}
-                                        />
-                                    </div>
-                                    <div>
                                         <DropDownTemplate
-                                            dataArray={stubbedData.activity}
-                                            onChange={this.onPlainTextDropDownChange('activity')}
+                                            dataArray={stubbedData[this.props.domain]}
+                                            onChange={this.onPlainTextDropDownChange(this.props.domain)}
                                         />
-                                    </div>
                                     </div>
                                     <div className="bottom-section">
-                                    <TextInputTemplate
-                                            name="goal-description"
-                                            multiLine={true}
-                                            rows={3}
-                                            hintText={"Type Something ..."}
-                                    />
+                                        <DatePicker hintText="Schedule Date" />
                                     </div>
                                 </div>
                                 )

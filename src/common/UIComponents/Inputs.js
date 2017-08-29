@@ -35,5 +35,23 @@ export default StyleSheet.create({
   },
   'top-section-items': {
     'height': [{ 'unit': 'px', 'value': 50 }]
+  },
+  'data-body-maintenance': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 2fr',
+    'gridRowGap': '1rem',
+    'width': [{ 'unit': '%H', 'value': 0.9 }],
+    'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': 'auto' }],
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 1.5 }]
+  },
+  'data-body-immunizations': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 2fr',
+    'gridRowGap': '1rem',
+    'width': [{ 'unit': '%H', 'value': 0.9 }],
+    'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'px', 'value': 0 }, { 'unit': 'string', 'value': 'auto' }],
+    'position': 'relative',
+    'left': [{ 'unit': 'em', 'value': 1.5 }]
   }
 });

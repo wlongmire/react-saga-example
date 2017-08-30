@@ -5,3 +5,5 @@ export {DropDownTemplate} from './DropDownTemplate';
 export {ChipCollection} from './Chips';
 export {TableGoalTemplate} from './TableGoalTemplate';
 export {DateTimeDropDownTemplate} from './DateTimeDropDownTemplate';
+export {PopOver} from './PopOver';
+export {FloatingBtn} from './FloatingIconButton';

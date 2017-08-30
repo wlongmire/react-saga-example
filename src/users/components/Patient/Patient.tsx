@@ -7,9 +7,6 @@ import ApplicationState from '../../../common';
 import * as Model from '../../models';
 import {Navigation} from '../../../navigation/components/Navigation';
 import './Patient.css';
-// import FloatingActionButton from 'material-ui/FloatingActionButton';
-// import ContentAdd from 'material-ui/svg-icons/content/add';
-import AddSection from '../common/AddSection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import * as Visits from '../../../visits'
 import * as Tests from '../../../testorders';
@@ -36,7 +33,7 @@ interface S {
     open : boolean;
     anchorEl?: any;
     showTreatmentsModal?: boolean;
-    showVisitsModal?: boolean;
+    createNewVisit?: boolean;
     showTestsModal?: boolean;
     showImagingModal?: boolean;
     showWellnessModal?:boolean;
@@ -110,6 +107,7 @@ class PatientContainer extends React.Component<P,S>{
       handleClickOnVisits = () => {
         this.setState({
           open:false,
+          createNewVisit : true,
           selectedTab: 1
         })
       }
@@ -144,16 +142,6 @@ class PatientContainer extends React.Component<P,S>{
         })
       }
 
-      handleCloseModal = (event:any) => {
-        if(event.target.id === "main-modal"){
-          this.setState({
-            showImagingModal: false,
-            showTestsModal:false,
-            showVisitsModal:false,
-            showTreatmentsModal:false
-          })
-        }
-      }
 
       _handleChange = (e:any) => {
         console.log(e)
@@ -197,6 +185,7 @@ class PatientContainer extends React.Component<P,S>{
 
                     <Tab onClick={this.handleClickOnVisits} value={1} label="Visits" style={labelTitle}>
                     <div>
+                        
                         <Visits.Components.VisitDrawer/>
                     </div>
                     </Tab>
@@ -228,13 +217,10 @@ class PatientContainer extends React.Component<P,S>{
                     </div>
                     </Tab>
                     </Tabs>
-                        {this.state.showVisitsModal &&
-                        <AddSection
-
-                        handleCloseModal={this.handleCloseModal}
-                        >
+                        {this.state.createNewVisit &&
+                 
                             <Visits.Components.VisitDrawer/>
-                        </AddSection>
+          
                         }
 
                         {this.state.open &&

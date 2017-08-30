@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { VisitDrawer } from '../Visit/VisitDrawer';
-import VisitCollection from './VisitsCollection';
-import RaisedButton from 'material-ui/RaisedButton';
+// import { VisitDrawer } from '../Visit/VisitDrawer';
+// import VisitCollection from './VisitsCollection';
+// import RaisedButton from 'material-ui/RaisedButton';
 // import {getAllVisits} from '../../selectors';
 import ApplicationState from '../../../common';
 import {connect} from 'react-redux';
@@ -13,9 +13,9 @@ import {loadAllVisits} from '../../actions';
 import './Visits.css';
 
 
-const style = {
-    backgroundColor: '#f84445',
-}
+// const style = {
+//     backgroundColor: '#f84445',
+// }
 
 interface VisitsProps {
     visits : VisitModels.Visits,
@@ -46,19 +46,9 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
-        console.log('Props for visits',this.props.visits.visits)
-        console.log('Props ', this.props)
         return (
-            <div className="visits-container">
-                <RaisedButton
-                    label="Visit"
-                    secondary={true}
-                    buttonStyle={style}
-                    onClick={this.toggleDrawer}
-                />
-                <VisitCollection visits={this.props.visits.visits}/>
-                <VisitDrawer
-                    className={this.state.openDrawer ? "visit-drawer-show" : "visit-drawer-hide"} />
+            <div>
+                Visits Here
             </div>
         )
     }

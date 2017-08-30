@@ -1,0 +1,1 @@
+export {OthersComponent} from './Others';

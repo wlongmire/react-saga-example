@@ -85,7 +85,6 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
                 <TableBody displayRowCheckbox={false}>
                         {
                             this.state.items.map((item:IAdditionalItem, index:number, array)=>{
-                                console.log('Le Array', array.length)
                                 return(
                                 <TableRow key={item.id}>
                                 <TableRowColumn>

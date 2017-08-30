@@ -7,17 +7,16 @@ import ApplicationState from '../../../common';
 import * as Model from '../../models';
 import {Navigation} from '../../../navigation/components/Navigation';
 import './Patient.css';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import Popover from 'material-ui/Popover';
-
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import ContentAdd from 'material-ui/svg-icons/content/add';
 import AddSection from '../common/AddSection';
 import {Tabs, Tab} from 'material-ui/Tabs';
-
 import * as Visits from '../../../visits'
+import * as Tests from '../../../testorders';
+import * as Wellness from '../../../wellness';
+import * as Others from '../../../others';
+import * as PopOverComponent from '../../../common/UIComponents';
+import * as FloatingBtn from '../../../common/UIComponents';
 
 interface Params {
     patientId: string
@@ -71,62 +70,77 @@ class PatientContainer extends React.Component<P,S>{
     componentDidMount(){
         this.props.loadSinglePatient(this.props.match.params.patientId)
     }
-    handleTogglePopOver = (event: any) => {
+    handleClosePopOver = (event: any) => {
         // This prevents ghost click.
         event.preventDefault();
     
         this.setState({
-          open: true,
+          open: false,
           anchorEl: event.currentTarget,
         });
       };
-      handleRequestClose = () => {
+
+    _handleShowPopOver = (event: any) => {
+        this.setState({
+            open: true,
+            anchorEl: event.currentTarget
+        })
+    }
+
+    _handleHidePopOver = (event: any) => {
+        console.log("Mouse Out")
+        this.setState({
+            open: false,
+        })
+    }
+
+    handleRequestClose = () => {
         this.setState({
           open: false,
         });
       };
     
-      handleClickOnTreatments = () => {
+    handleClickOnTreatments = () => {
         this.setState({
-          showTreatmentsModal: !this.state.showTreatmentsModal,
-          open:false
+          open:false,
+          selectedTab: 0
         })
       }
     
       handleClickOnVisits = () => {
         this.setState({
-          showVisitsModal: !this.state.showVisitsModal,
-          open:false
+          open:false,
+          selectedTab: 1
         })
       }
     
       handleClickOnImaging = () => {
         this.setState({
-          showImagingModal: !this.state.showImagingModal,
-          open:false
+          open:false,
+          selectedTab: 3
         })
       }
     
       handleClickOnWellness = () => {
         this.setState({
-          showWellnessModal: !this.state.showWellnessModal,
-          open:false
+          open:false,
+          selectedTab: 4
         })
       }
     
       handleClickOnTests = () => {
         this.setState({
           showTestsModal: !this.state.showTestsModal,
-          open:false
+          open:false,
+          selectedTab:2
         })
-      }
-    
-    
+      }    
     
       handleClickOnOthers = () => {
         this.setState({
           showOthersModal: !this.state.showOthersModal,
-          open:false
+          open:false,
+          selectedTab:5
         })
       }
 
@@ -174,43 +188,42 @@ class PatientContainer extends React.Component<P,S>{
                         <span className="chat-title">Chat</span>
                     </section>
                     <section className="biodrive-section">
-                    <Tabs tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                    <Tab label="Treatments" style={labelTitle}>
+                    <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
+                    <Tab onClick={this.handleClickOnTreatments} value={0} label="Treatments" style={labelTitle}>
                     <div>
                         Treatments
                     </div>
                     </Tab>
 
-                    <Tab label="Visits" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnVisits} value={1} label="Visits" style={labelTitle}>
                     <div>
-                        <AddSection
-                            >
-                                <Visits.Components.VisitDrawer/>
-                        </AddSection>
+                        <Visits.Components.VisitDrawer/>
                     </div>
                     </Tab>
 
-                    <Tab label="Tests" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnTests} value={2} label="Tests" style={labelTitle}>
                     <div>
-                        Tests
+                    <div>
+                        <Tests.Components.AddTestSection/>
+                    </div>
                     </div>
                     </Tab>
 
-                    <Tab label="Imaging" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnImaging} value={3} label="Imaging" style={labelTitle}>
                     <div>
                         Imaging
                     </div>
                     </Tab>
 
-                    <Tab label="Wellness" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnWellness} value={4} label="Wellness" style={labelTitle}>
                     <div>
-                        Wellness
+                        <Wellness.Components.WellnessComponent/>
                     </div>
                     </Tab>
 
-                    <Tab label="Other" style={labelTitle}>
+                    <Tab onClick={this.handleClickOnOthers} value={5} label="Other" style={labelTitle}>
                     <div>
-                        Other
+                        <Others.Components.OthersComponent/>
                     </div>
                     </Tab>
                     </Tabs>
@@ -222,27 +235,31 @@ class PatientContainer extends React.Component<P,S>{
                             <Visits.Components.VisitDrawer/>
                         </AddSection>
                         }
-                        <div id="add-event-btn">
-                        <Popover
-                            open={this.state.open}
-                            anchorEl={this.state.anchorEl}
-                            anchorOrigin={{horizontal:'right', vertical:'bottom'}}
-                            targetOrigin={{horizontal:'left', vertical:'top'}}
-                            onRequestClose={this.handleRequestClose}
-                            >
-                            
-                            <Menu>
-                            <MenuItem onClick={this.handleClickOnTreatments} primaryText="Treatments" />
-                            <MenuItem onClick={this.handleClickOnVisits} primaryText="Visits" />
-                            <MenuItem onClick={this.handleClickOnTests} primaryText="Tests" />
-                            <MenuItem onClick={this.handleClickOnImaging} primaryText="Imaging" />
-                            </Menu>
-                        </Popover>
-                        <FloatingActionButton 
-                            onClick={this.handleTogglePopOver}
-                            backgroundColor="#f84445">
-                         <ContentAdd />
-                         </FloatingActionButton>
+
+                        {this.state.open &&
+                        <PopOverComponent.PopOver
+                            _handleClickTest = {this.handleClickOnTests}
+                            _handleClickImaging = {this.handleClickOnImaging}
+                            _handleClickFollowUp = {this.handleClickOnOthers}
+                            _handleClickOTC = {this.handleClickOnOthers}
+                            _handleClickTreatments = {this.handleClickOnTreatments}
+                            _handleClickVisits = {this.handleClickOnVisits}
+                            _handleClickCase = {this.handleClickOnWellness}
+                        />
+                        }
+                        <div id="add-event-btn"
+                        className={this.state.open ? "floating-btn":"floating-btn-rotate"}
+
+                        >
+                        <div
+                        >
+                        <FloatingBtn.FloatingBtn
+                        onMouseEnter={this._handleShowPopOver}
+                        onClick={this.handleClosePopOver}
+                        
+                        />
+                        </div>
+                        
                          </div>
                     </section>
                 </div>

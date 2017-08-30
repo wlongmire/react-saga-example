@@ -1,3 +1,5 @@
+im
+
 .patient-view{
     display: grid;
     height: 100vh;
@@ -28,13 +30,16 @@
 
 
 #add-event-btn{
-    position: fixed;
-    right: 5%;
-    bottom: 5%;
-    height: 56px;
-    width: 56px;
+    background: #f84445;
+    width: 3.5em;
+    height: 3.5em;
     border-radius: 50%;
-    box-shadow: 0 0 3px #f84445
+    text-align: center;
+    position: absolute;
+    right: 53px;
+    bottom: 20px;
+    color: white;
+    box-shadow: 0 0 20px #f84445;
 }
 
 #main-section{
@@ -51,3 +56,13 @@
     font-weight: bold;
     font-size: 15px;
 }
+
+
+.floating-btn-rotate{
+    transition: transform .3s ease; 
+}
+.floating-btn{
+    transition: transform .3s ease;
+    transform: rotate(45deg);
+}
+

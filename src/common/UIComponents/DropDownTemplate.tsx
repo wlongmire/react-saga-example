@@ -8,9 +8,10 @@ interface S {
 }
 
 interface DropDownTemplateProps {
-    title: string;
+    title?: string;
     dataArray: dataObject[];
     onChange: (v: number, s : string) => void;
+    leftCaretPosition ?: number
 }
 
 interface dataObject {
@@ -39,12 +40,13 @@ export class DropDownTemplate extends React.Component<DropDownTemplateProps, S>{
     }
 
     render() {
+        let caretPosition = this.props.leftCaretPosition || 750
         return (
             <div>
                 <span className="dropdown-label">{this.props.title}</span>
                 <div className="dropdown-value">
                 <DropDownMenu 
-                iconStyle={{left:650}}
+                iconStyle={{left:{caretPosition}}}
                 underlineStyle={underlineStyle} 
                 value={this.state.value} 
                 onChange={this.handleChange}>

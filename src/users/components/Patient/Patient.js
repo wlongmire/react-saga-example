@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  'patient-view': {
+  'im patient-view': {
     'display': 'grid',
     'height': [{ 'unit': 'vh', 'value': 100 }],
     'gridTemplateRows': '10% 20% 1fr'
@@ -24,13 +24,16 @@ export default StyleSheet.create({
     'fontSize': [{ 'unit': 'em', 'value': 1.7 }]
   },
   '#add-event-btn': {
-    'position': 'fixed',
-    'right': [{ 'unit': '%H', 'value': 0.05 }],
-    'bottom': [{ 'unit': '%V', 'value': 0.05 }],
-    'height': [{ 'unit': 'px', 'value': 56 }],
-    'width': [{ 'unit': 'px', 'value': 56 }],
+    'background': '#f84445',
+    'width': [{ 'unit': 'em', 'value': 3.5 }],
+    'height': [{ 'unit': 'em', 'value': 3.5 }],
     'borderRadius': '50%',
-    'boxShadow': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': '#f84445' }]
+    'textAlign': 'center',
+    'position': 'absolute',
+    'right': [{ 'unit': 'px', 'value': 53 }],
+    'bottom': [{ 'unit': 'px', 'value': 20 }],
+    'color': 'white',
+    'boxShadow': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'string', 'value': '#f84445' }]
   },
   '#main-section': {
     'borderTop': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }],
@@ -44,5 +47,12 @@ export default StyleSheet.create({
     'textTransform': 'uppercase',
     'fontWeight': 'bold',
     'fontSize': [{ 'unit': 'px', 'value': 15 }]
+  },
+  'floating-btn-rotate': {
+    'transition': 'transform .3s ease'
+  },
+  'floating-btn': {
+    'transition': 'transform .3s ease',
+    'transform': 'rotate(45deg)'
   }
 });

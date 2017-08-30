@@ -2,6 +2,7 @@ export * from './models';
 export * from './utils';
 export { default as history } from './history';
 
+
 /**
  * Redux ActionResult interface
  */
@@ -16,7 +17,6 @@ export class ActionResult<T> {
 export interface EventStreamEvent {
 
 };
-
 /**
  * Globals for the project
  */
@@ -32,7 +32,6 @@ declare module ApplicationState {
         status: string;
 
     }
-
 
     interface IPatient extends IUser{
     }

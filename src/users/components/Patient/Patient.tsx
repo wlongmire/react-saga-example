@@ -98,6 +98,7 @@ class PatientContainer extends React.Component<P,S>{
         window.scrollTo(0, 0);
         this.setState({
             selectedTab: 1,
+            open: false,
             createNewVisit : false
         })
     }  
@@ -106,6 +107,7 @@ class PatientContainer extends React.Component<P,S>{
         window.scrollTo(0, 0);
         this.setState({
             selectedTab: 2,
+            open: false,
             createNewTestOrder : false
         })
     } 
@@ -114,6 +116,7 @@ class PatientContainer extends React.Component<P,S>{
         window.scrollTo(0, 0);
         this.setState({
             selectedTab: 0,
+            open: false,
             createNewTreatment : false
         })
     }
@@ -122,6 +125,7 @@ class PatientContainer extends React.Component<P,S>{
         window.scrollTo(0, 0);
         this.setState({
             selectedTab: 3,
+            open: false,
             createNewImaging : false
         })
     }
@@ -130,6 +134,7 @@ class PatientContainer extends React.Component<P,S>{
         window.scrollTo(0, 0);
         this.setState({
             selectedTab: 4,
+            open: false,
             createNewImaging : false
         })
     }
@@ -138,6 +143,7 @@ class PatientContainer extends React.Component<P,S>{
         window.scrollTo(0, 0);
         this.setState({
             selectedTab: 5,
+            open: false,
             createNewImaging : false
         })
     }

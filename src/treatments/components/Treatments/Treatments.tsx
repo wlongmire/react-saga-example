@@ -19,7 +19,9 @@ export class Treatments extends React.Component<RxProps, {}>{
     }
     render(){
         return (
-            <div></div>
+            <div>
+                
+            </div>
         )
     }
 }

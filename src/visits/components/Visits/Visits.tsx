@@ -1,6 +1,6 @@
 import * as React from 'react';
 // import { VisitDrawer } from '../Visit/VisitDrawer';
-// import VisitCollection from './VisitsCollection';
+import VisitCollection from './VisitsCollection';
 // import RaisedButton from 'material-ui/RaisedButton';
 // import {getAllVisits} from '../../selectors';
 import ApplicationState from '../../../common';
@@ -45,10 +45,28 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
-        console.log(this.props.visits)
+        console.log("Here Visits", this.props.visits.visits['result'])
+
         return (
             <div>
-    
+                <VisitCollection
+                    visits={[
+                        {
+                            "visit_type": "LifeCo",
+                            "doctor_type": "Chiropractor",
+                            "location": "25 BroadWay, New York, NY 3880",
+                            "description": "Visiting Dr.Peters for ANC",
+                            "date": "AUG 27 2017"
+                        },
+                        {
+                            "visit_type": "Chiropractor",
+                            "doctor_type": "Chiropractor",
+                            "location": "25 BroadWay, New York, NY 3880",
+                            "description": "Visiting Dr.Peters for ANC",
+                            "date": "AUG 27 2017"
+                        }
+                    ]}
+                />
             </div>
         )
     }

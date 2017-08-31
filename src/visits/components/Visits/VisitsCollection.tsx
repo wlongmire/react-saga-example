@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import './VisitsCollection.css';
+
 interface IVisit {
 
 }
@@ -7,23 +9,28 @@ interface VisitsCollectionProps {
     visits : Array<IVisit>
 }
 
-const last = (list:any) => list.slice(-1)[0];
-
-class VisitsCollection extends React.Component<VisitsCollectionProps, {}>{
-    constructor(props:VisitsCollectionProps){
-        super(props);
-    }
-    render(){
+const VisitsCollection = (props: VisitsCollectionProps) => {
         return(
-            <ol>
-                {this.props.visits.map(last).map((v:any, index: number) => {
+            <ul>
+                {props.visits.map((v:any, index: number) => {
                     return (
-                        <li key={index}>{v.assignee_key}</li>
+                        <li className="visit-item" key={index}>
+                        <div>
+                        <p className="visit-type">{v.visit_type}</p>
+                        <div className="visit-date-location">
+                        <p className="visit-location"> {v.location}</p>
+                        <p className="visit-date">{v.date}</p>
+                        </div>
+
+                        </div>
+                        <div>
+                        <p className="visit-description">{v.description}</p>
+                        </div>
+                        </li>
                     )
                 })}
-            </ol>
+            </ul>
         )
     }
-}
 
 export default VisitsCollection;

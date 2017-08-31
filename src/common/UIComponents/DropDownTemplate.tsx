@@ -42,7 +42,7 @@ export class DropDownTemplate extends React.Component<DropDownTemplateProps, S>{
     render() {
         let caretPosition = this.props.leftCaretPosition || 750
         return (
-            <div>
+            <div className="dropdown-component">
                 <span className="dropdown-label">{this.props.title}</span>
                 <div className="dropdown-value">
                 <DropDownMenu 

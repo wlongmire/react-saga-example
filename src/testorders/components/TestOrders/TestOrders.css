@@ -1,0 +1,42 @@
+.test-item{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width : 90%;
+    font-size: small;
+    box-shadow: .5px .5px 20px 1px rgba(0,0,0,.1);
+    padding: 2em 4em;
+    line-height: 2.5em;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    margin: 2em auto;
+}
+
+.test-type{
+    font-size: large;
+    font-weight: bold
+}
+
+.test-detail{
+    font-size:medium;
+}
+.test-title-card{
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    margin-left: 1em;
+    font-size: medium;
+    color: gray;
+}
+
+.test-details{
+    line-height: 5px;
+}
+
+.test-date{
+    color: gray;
+    opacity: .5;
+}
+
+.test-description{
+    font-size: medium;
+}

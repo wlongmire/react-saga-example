@@ -15,6 +15,7 @@ import * as Others from '../../../others';
 import * as Rx from '../../../treatments';
 import * as PopOverComponent from '../../../common/UIComponents';
 import * as FloatingBtn from '../../../common/UIComponents';
+import * as Imaging from '../../../imaging';
 
 interface Params {
     patientId: string
@@ -201,7 +202,6 @@ class PatientContainer extends React.Component<P,S>{
     } 
     
     
-    
     render(){
         if(!this.props.patient['patient']){
             return(
@@ -239,7 +239,9 @@ class PatientContainer extends React.Component<P,S>{
                     <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
                     <div>
                         { this.state.createNewVisit ? 
-                        <Visits.Components.VisitDrawer/>:
+                        <Visits.Components.VisitDrawer
+                            closeVisitCard={this.handleClickVisitsTab}
+                        />:
                         <Visits.Components.VisitsContainer/> 
                         }
                     </div>
@@ -249,15 +251,19 @@ class PatientContainer extends React.Component<P,S>{
 
                     <div>
                     <div>
-                        <Tests.Components.TestOrdersContainer/>
-                        <Tests.Components.AddTestSection/>
+                        {
+                            this.state.createNewTestOrder ?
+                            <Tests.Components.AddTestSection/>:
+                            <Tests.Components.TestOrdersContainer/>
+                        }
+    
                     </div>
                     </div>
                     </Tab>
 
                     <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
                     <div>
-                        Imaging
+                        <Imaging.Components.ImagingComponent/>
                     </div>
                     </Tab>
 

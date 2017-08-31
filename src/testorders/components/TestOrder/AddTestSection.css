@@ -1,8 +1,12 @@
 #test-section{
     position: relative;
-    width: 100%;
+    width: 90%;
     height: 100%;
     text-align: center;
+    margin: .5em auto;
+    box-shadow: 2px 1px 30px 1px rgba(0,0,0,.1);
+    border-radius: 3px;
+    
 }
 .priority-type-section{
     width: 70%;
@@ -28,86 +32,24 @@
     color: gray;
 }
 
-/* .header{
-    min-height: 10%;
-    background: #f84445;
-}
-
-.header p {
-    color: white;
-    font-weight: 900;
+.inputClass{
+    z-index: -1;
+    border: none;
+    text-align: left;
+    position: relative;
+    right:20vw;
+    border: 2px solid gray;
     padding: 1em;
+    margin: 2em;
+    cursor: pointer;
 }
 
-.maintenance-section{
+.test-add-new{
+    display: block;
+    text-align: left;
+    margin-left: 1.5em;
     font-size: medium;
-    padding: 2em;
-}
-
-.table-element{
-    width: 80%;
-}
-
-.visit-type-section, .maintenance-type-section{
-    width: 70%;
-    margin: 1.5em auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.label, .checkbox-value{
-    display: inline-block;
-    font-size: small;
-}
-.location-title{
-    font-size: small;
     font-weight: bold;
     color: gray;
+    padding: 5px;
 }
-
-.scheduled-title{
-    font-size: small;
-    font-weight: bold;
-    color: gray;
-    position: relative;
-    left: 2em;
-    text-align: left;
-}
-
-
-.visit_type, .maintenance_type, .doctor_type{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    text-align: left;
-    position: relative;
-    left: 1em;
-}
-
-.checkbox-title{
-    font-size: 15px;
-    text-align: left;
-    position: relative;
-    left:2em;
-    margin-top: 2em;
-    font-weight: bold;
-    color: gray;
-}
-
-.doctor-type-section{
-    width: 90%;
-    margin: 1.5em auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-.scheduled-time{
-    display: grid;
-    position: relative;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 56vw;
-    grid-column-gap: 2em;
-}
-
-.scheduled-time-section{
-    margin-bottom: 1em;
-}
- */

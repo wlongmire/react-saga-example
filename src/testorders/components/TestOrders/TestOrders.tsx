@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
 
 import * as testOrderActions from '../../actions';
+import TestOrdersCollection from './TestOrdersCollection';
+
 
 interface TestOrdersProps {
     testOrders : Array<any>,
@@ -21,7 +23,27 @@ class TestOrders extends React.Component<TestOrdersProps, {}>{
     }
     render(){
         return(
-            <div></div>
+            <div>
+                <TestOrdersCollection
+                testOrders={[
+                        {
+                            "test_type": "Sinus Infection Check",
+                            "description": "Albumin levels were higher than expected.Updated your case to the flu",
+                            "detail": "Albumin, Nitried and 2 More",
+                            "date": "AUG 27 2017"
+                        },
+                        {
+                            "test_type": "Routine Blood Work",
+                            "description": "Albumin levels were higher than expected.Updated your case to the cold bruh",
+                            "detail": "Lipid Panel",
+                            "date": "AUG 27 2017"
+                        },
+                    ]}
+                
+                
+                />
+
+            </div>
         )
     }
 }

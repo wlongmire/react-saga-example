@@ -1,4 +1,4 @@
-.treatment-item{
+.image-item{
     display: grid;
     grid-template-columns: 1fr 1fr;
     width : 90%;
@@ -11,15 +11,15 @@
     margin: 2em auto;
 }
 
-.treatment-type{
+.image-type{
     font-size: large;
     font-weight: bold
 }
 
-.treatment-detail{
+.image-detail{
     font-size:medium;
 }
-.treatment-title-card{
+.image-title-card{
     font-weight: bold;
     text-align: left;
     display: block;
@@ -28,15 +28,15 @@
     color: gray;
 }
 
-.treatment-details{
+.image-details{
     line-height: 5px;
 }
 
-.treatment-date{
+.image-date{
     color: gray;
     opacity: .5;
 }
 
-.treatment-description{
+.image-description{
     font-size: medium;
 }

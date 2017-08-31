@@ -7,3 +7,4 @@ export {TableGoalTemplate} from './TableGoalTemplate';
 export {DateTimeDropDownTemplate} from './DateTimeDropDownTemplate';
 export {PopOver} from './PopOver';
 export {FloatingBtn} from './FloatingIconButton';
+export {PanelTemplate} from './PanelTemplate';

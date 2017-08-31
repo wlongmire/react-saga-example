@@ -30,9 +30,10 @@ export default StyleSheet.create({
     'display': 'grid',
     'width': [{ 'unit': '%H', 'value': 1 }]
   },
-  'dropdown-label': {
-    'display': 'none'
-  },
+  // Will need to look into this
+  // .dropdown-label{
+    display: none;
+}
   'top-section-items': {
     'height': [{ 'unit': 'px', 'value': 50 }]
   },

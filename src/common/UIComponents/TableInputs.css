@@ -1,5 +1,20 @@
+#add-component{
+    width: 90%;
+    margin: 1em auto;
+}
+
+.add-component-header{
+    background: #dedede;
+    display: grid;
+    grid-template-columns: 1fr 20px;
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+
 .add {
     color: #f84445;
     font-size: x-large;
+    font-weight: bold;
     cursor: pointer;
 }

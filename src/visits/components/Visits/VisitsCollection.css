@@ -19,6 +19,15 @@
     font-size: medium;
 }
 
+.visit-title-card{
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    margin-left: 1em;
+    font-size: medium;
+    color: gray;
+}
+
 .visit-date-location{
     line-height: 5px;
 }

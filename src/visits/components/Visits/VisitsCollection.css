@@ -1,0 +1,33 @@
+.visit-item{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width : 90%;
+    font-size: small;
+    box-shadow: .5px .5px 20px 1px rgba(0,0,0,.1);
+    padding: 2em 4em;
+    line-height: 2.5em;
+    border-radius: 3px;
+    margin: 2em auto;
+}
+
+.visit-type{
+    font-size: large;
+    font-weight: bold
+}
+
+.visit-location{
+    font-size: medium;
+}
+
+.visit-date-location{
+    line-height: 5px;
+}
+
+.visit-date{
+    color: gray;
+    opacity: .5;
+}
+
+.visit-description{
+    font-size: medium;
+}

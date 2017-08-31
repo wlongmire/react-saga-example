@@ -7,14 +7,12 @@ import ApplicationState from '../../../common';
 import * as Model from '../../models';
 import {Navigation} from '../../../navigation/components/Navigation';
 import './Patient.css';
-// import FloatingActionButton from 'material-ui/FloatingActionButton';
-// import ContentAdd from 'material-ui/svg-icons/content/add';
-import AddSection from '../common/AddSection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import * as Visits from '../../../visits'
 import * as Tests from '../../../testorders';
 import * as Wellness from '../../../wellness';
 import * as Others from '../../../others';
+import * as Rx from '../../../treatments';
 import * as PopOverComponent from '../../../common/UIComponents';
 import * as FloatingBtn from '../../../common/UIComponents';
 
@@ -35,13 +33,12 @@ interface P {
 interface S {
     open : boolean;
     anchorEl?: any;
-    showTreatmentsModal?: boolean;
-    showVisitsModal?: boolean;
-    showTestsModal?: boolean;
-    showImagingModal?: boolean;
-    showWellnessModal?:boolean;
-    showOthersModal?: boolean;
-    tabs: Array<string>;
+    createNewVisit?: boolean;
+    createNewTestOrder?: boolean;
+    createNewImaging?: boolean;
+    createNewTreatment?: boolean;
+    showWellnessSection?:boolean;
+    showOthersSection?: boolean;
     selectedTab : number;
 }
 
@@ -61,10 +58,8 @@ class PatientContainer extends React.Component<P,S>{
         super();
         this.state = {
             open: false,
-            tabs: [
-                "treatments", "visits", "tests", "imaging"
-            ],
-            selectedTab: 0
+            selectedTab: 0,
+            createNewVisit: false
         };
     }
     componentDidMount(){
@@ -88,7 +83,6 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     _handleHidePopOver = (event: any) => {
-        console.log("Mouse Out")
         this.setState({
             open: false,
         })
@@ -99,70 +93,115 @@ class PatientContainer extends React.Component<P,S>{
           open: false,
         });
       };
-    
-    handleClickOnTreatments = () => {
+
+    handleClickVisitsTab = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            selectedTab: 1,
+            open: false,
+            createNewVisit : false
+        })
+    }  
+
+    handleClickTestOrdersTab = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            selectedTab: 2,
+            open: false,
+            createNewTestOrder : false
+        })
+    } 
+
+    handleClickTreatmentsTab = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            selectedTab: 0,
+            open: false,
+            createNewTreatment : false
+        })
+    }
+
+    handleClickImagingTab = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            selectedTab: 3,
+            open: false,
+            createNewImaging : false
+        })
+    }
+
+    handleClickWellnessTab = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            selectedTab: 4,
+            open: false,
+            createNewImaging : false
+        })
+    }
+
+    handleClickOthersTab = () => {
+        window.scrollTo(0, 0);
+        this.setState({
+            selectedTab: 5,
+            open: false,
+            createNewImaging : false
+        })
+    }
+
+    handleClickOnAddTreatments = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
-          selectedTab: 0
+          selectedTab: 0,
+          createNewTreatment: true
         })
       }
-    
-      handleClickOnVisits = () => {
+
+    handleClickOnAddVisits = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
+          createNewVisit : true,
           selectedTab: 1
         })
-      }
+    }
     
-      handleClickOnImaging = () => {
+    handleClickOnAddImaging = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
+          createNewImaging: true,
           selectedTab: 3
         })
-      }
+    }
     
-      handleClickOnWellness = () => {
+    handleClickOnAddTests = () => {
+        window.scrollTo(0, 0);
         this.setState({
-          open:false,
-          selectedTab: 4
-        })
-      }
-    
-      handleClickOnTests = () => {
-        this.setState({
-          showTestsModal: !this.state.showTestsModal,
+          createNewTestOrder: true,
           open:false,
           selectedTab:2
         })
-      }    
-    
-      handleClickOnOthers = () => {
+    } 
+
+    handleClickOnAddWellness = () => {
+        window.scrollTo(0, 0);
         this.setState({
-          showOthersModal: !this.state.showOthersModal,
+          open:false,
+          selectedTab:4
+        })
+    }
+    
+    handleClickOnAddOthers = () => {
+        window.scrollTo(0, 0);
+        this.setState({
           open:false,
           selectedTab:5
         })
-      }
-
-      handleCloseModal = (event:any) => {
-        if(event.target.id === "main-modal"){
-          this.setState({
-            showImagingModal: false,
-            showTestsModal:false,
-            showVisitsModal:false,
-            showTreatmentsModal:false
-          })
-        }
-      }
-
-      _handleChange = (e:any) => {
-        console.log(e)
-      }
-
-      _handleClick = (e:any) =>{
-          console.log(e)
-      }
-
+    } 
+    
+    
+    
     render(){
         if(!this.props.patient['patient']){
             return(
@@ -170,6 +209,7 @@ class PatientContainer extends React.Component<P,S>{
             )
         }
         let patientData = this.props.patient['patient'];
+        console.log(this.state)
         return(
             <div className="patient-view">
                 <Navigation/>
@@ -189,63 +229,59 @@ class PatientContainer extends React.Component<P,S>{
                     </section>
                     <section className="biodrive-section">
                     <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                    <Tab onClick={this.handleClickOnTreatments} value={0} label="Treatments" style={labelTitle}>
+                    <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
                     <div>
-                        Treatments
+                        
+                        <Rx.Components.RXContainer/>
                     </div>
                     </Tab>
 
-                    <Tab onClick={this.handleClickOnVisits} value={1} label="Visits" style={labelTitle}>
+                    <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
                     <div>
-                        <Visits.Components.VisitDrawer/>
+                        { this.state.createNewVisit ? 
+                        <Visits.Components.VisitDrawer/>:
+                        <Visits.Components.VisitsContainer/> 
+                        }
                     </div>
                     </Tab>
 
-                    <Tab onClick={this.handleClickOnTests} value={2} label="Tests" style={labelTitle}>
+                    <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
 
                     <div>
                     <div>
+                        <Tests.Components.TestOrdersContainer/>
                         <Tests.Components.AddTestSection/>
                     </div>
                     </div>
                     </Tab>
 
-                    <Tab onClick={this.handleClickOnImaging} value={3} label="Imaging" style={labelTitle}>
+                    <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
                     <div>
                         Imaging
                     </div>
                     </Tab>
 
-                    <Tab onClick={this.handleClickOnWellness} value={4} label="Wellness" style={labelTitle}>
+                    <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
                     <div>
                         <Wellness.Components.WellnessComponent/>
                     </div>
                     </Tab>
 
-                    <Tab onClick={this.handleClickOnOthers} value={5} label="Other" style={labelTitle}>
+                    <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
                     <div>
                         <Others.Components.OthersComponent/>
                     </div>
                     </Tab>
                     </Tabs>
-                        {this.state.showVisitsModal &&
-                        <AddSection
-
-                        handleCloseModal={this.handleCloseModal}
-                        >
-                            <Visits.Components.VisitDrawer/>
-                        </AddSection>
-                        }
 
                         {this.state.open &&
                         <PopOverComponent.PopOver
-                            _handleClickTest = {this.handleClickOnTests}
-                            _handleClickImaging = {this.handleClickOnImaging}
-                            _handleClickFollowUp = {this.handleClickOnOthers}
-                            _handleClickOTC = {this.handleClickOnOthers}
-                            _handleClickTreatments = {this.handleClickOnTreatments}
-                            _handleClickVisits = {this.handleClickOnVisits}
-                            _handleClickCase = {this.handleClickOnWellness}
+                            _handleClickTest = {this.handleClickOnAddTests}
+                            _handleClickImaging = {this.handleClickOnAddImaging}
+                            _handleClickTreatments = {this.handleClickOnAddTreatments}
+                            _handleClickVisits = {this.handleClickOnAddVisits}
+                            _handleClickWellness = {this.handleClickOnAddWellness}
+                            _handleClickOthers = {this.handleClickOnAddOthers}
                         />
                         }
                         <div id="add-event-btn"

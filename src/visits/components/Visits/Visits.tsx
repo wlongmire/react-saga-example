@@ -1,21 +1,20 @@
 import * as React from 'react';
-import { VisitDrawer } from '../Visit/VisitDrawer';
+// import { VisitDrawer } from '../Visit/VisitDrawer';
 import VisitCollection from './VisitsCollection';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 // import {getAllVisits} from '../../selectors';
 import ApplicationState from '../../../common';
 import {connect} from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import {  Dispatch } from "redux";
-// import * as VisitsActions from '../../actions';
+import { bindActionCreators } from 'redux';
+import {  Dispatch } from "redux";
+import * as visitsActions from '../../actions';
 import * as VisitModels from '../../model';
-import {loadAllVisits} from '../../actions';
 import './Visits.css';
 
 
-const style = {
-    backgroundColor: '#f84445',
-}
+// const style = {
+//     backgroundColor: '#f84445',
+// }
 
 interface VisitsProps {
     visits : VisitModels.Visits,
@@ -46,19 +45,28 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
-        console.log('Props for visits',this.props.visits.visits)
-        console.log('Props ', this.props)
+        console.log("Here Visits", this.props.visits.visits['result'])
+
         return (
-            <div className="visits-container">
-                <RaisedButton
-                    label="Visit"
-                    secondary={true}
-                    buttonStyle={style}
-                    onClick={this.toggleDrawer}
+            <div>
+                <VisitCollection
+                    visits={[
+                        {
+                            "visit_type": "LifeCo",
+                            "doctor_type": "Chiropractor",
+                            "location": "25 BroadWay, New York, NY 3880",
+                            "description": "Visiting Dr.Peters for ANC",
+                            "date": "AUG 27 2017"
+                        },
+                        {
+                            "visit_type": "Chiropractor",
+                            "doctor_type": "Chiropractor",
+                            "location": "25 BroadWay, New York, NY 3880",
+                            "description": "Visiting Dr.Peters for ANC",
+                            "date": "AUG 27 2017"
+                        }
+                    ]}
                 />
-                <VisitCollection visits={this.props.visits.visits}/>
-                <VisitDrawer
-                    className={this.state.openDrawer ? "visit-drawer-show" : "visit-drawer-hide"} />
             </div>
         )
     }
@@ -70,5 +78,11 @@ const mapStateToProps = (state: ApplicationState.IState) => {
     }
 }
 
+const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
+    {
+        loadAllVisits : visitsActions.getAllVisits
+    },
+    dispatch
+)
 
-export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, {loadAllVisits})(Visits)
+export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, mapDispatchToProps)(Visits)

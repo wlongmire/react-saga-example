@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   '#popover': {
-    'position': 'absolute',
+    'position': 'fixed',
     'right': [{ 'unit': 'em', 'value': 6 }],
     'bottom': [{ 'unit': 'em', 'value': 4 }],
     'zIndex': '10'

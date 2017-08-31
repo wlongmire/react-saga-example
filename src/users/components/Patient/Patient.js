@@ -29,7 +29,7 @@ export default StyleSheet.create({
     'height': [{ 'unit': 'em', 'value': 3.5 }],
     'borderRadius': '50%',
     'textAlign': 'center',
-    'position': 'absolute',
+    'position': 'fixed',
     'right': [{ 'unit': 'px', 'value': 53 }],
     'bottom': [{ 'unit': 'px', 'value': 20 }],
     'color': 'white',

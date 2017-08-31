@@ -1,27 +1,25 @@
 import * as Common from '../common';
-import * as Model from './model';
-import ApplicationState from '../common';
 /**
  * Action Types for Visits
  */
 
-const BASE_URL_VISITS = 'https://api.life.cheap/exposed/visits/5961834829465699'
+const BASE_URL_TEST_ORDERS = 'https://api.life.cheap/exposed/testorders/5961834829465699'
 
 export module ActionType {
-    export const ADD = 'visits/ADD';
-    export const LOAD_ALL = 'visits/LOAD_ALL';
-    export const LOAD_ALL_COMPLETED = 'visits/LOAD_ALL_COMPLETED';
-    export const LOAD_ALL_FAILED = 'visits/LOAD_ALL_FAILED'
+    export const ADD = 'testOrders/ADD';
+    export const LOAD_ALL = 'testOrders/LOAD_ALL';
+    export const LOAD_ALL_COMPLETED = 'testOrders/LOAD_ALL_COMPLETED';
+    export const LOAD_ALL_FAILED = 'testOrders/LOAD_ALL_FAILED'
 }
 
-export const loadAllVisitsCompleted = (visits: Array<Model.VisitItem>): Common.ActionResult<Array<Model.VisitItem>> => {
+export const loadAllTestOrdersCompleted = (testOrders: Array<any>): Common.ActionResult<Array<any>> => {
     return {
         type: ActionType.LOAD_ALL_COMPLETED,
-        value: visits
+        value: testOrders
     };
 }
 
-export const loadAllVisits = (): Common.ActionResult<{}> => {
+export const loadAllTestOrders = (): Common.ActionResult<{}> => {
     return {
         type: ActionType.LOAD_ALL
     };
@@ -34,17 +32,10 @@ export const loadAllFailed = (error: Error): Common.ActionResult<Error> => {
     };
 }
 
-export const add = (visit: ApplicationState.IVisit): Common.ActionResult<Model.VisitItem> => {
-    return {
-        type: ActionType.ADD,
-        value: visit
-    };
-}
-
-export const getAllVisits = () => {
+export const getAllTestOrders = () => {
     return(dispatch:any) => {
-        dispatch(loadAllVisits)
-        return fetch(BASE_URL_VISITS, {
+        dispatch(loadAllTestOrders)
+        return fetch(BASE_URL_TEST_ORDERS, {
             method : 'GET',
             headers:{
                 "Authorization": "Token 6ecc5c6a-3e3f-4aaf-bfd3-ba095aa2e62b'",
@@ -60,8 +51,8 @@ export const getAllVisits = () => {
             return response.json().then((err:Error)=>{
                 throw err;
             })
-        }).then((visits:any)=>{
-            dispatch(loadAllVisitsCompleted(visits))
+        }).then((testOrders:any)=>{
+            dispatch(loadAllTestOrdersCompleted(testOrders))
         }).catch(err =>{
             dispatch(loadAllFailed(err))
         })    

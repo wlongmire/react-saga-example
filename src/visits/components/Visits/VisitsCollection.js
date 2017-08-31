@@ -9,6 +9,7 @@ export default StyleSheet.create({
     'boxShadow': [{ 'unit': 'px', 'value': 0.5 }, { 'unit': 'px', 'value': 0.5 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'rgba(0,0,0,.1)' }],
     'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 4 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 4 }],
     'lineHeight': [{ 'unit': 'em', 'value': 2.5 }],
+    'borderRadius': '3px',
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 2 }, { 'unit': 'string', 'value': 'auto' }]
   },
   'visit-type': {

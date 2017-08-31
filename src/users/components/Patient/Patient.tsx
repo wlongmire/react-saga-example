@@ -95,6 +95,7 @@ class PatientContainer extends React.Component<P,S>{
       };
 
     handleClickVisitsTab = () => {
+        window.scrollTo(0, 0);
         this.setState({
             selectedTab: 1,
             createNewVisit : false
@@ -102,6 +103,7 @@ class PatientContainer extends React.Component<P,S>{
     }  
 
     handleClickTestOrdersTab = () => {
+        window.scrollTo(0, 0);
         this.setState({
             selectedTab: 2,
             createNewTestOrder : false
@@ -109,6 +111,7 @@ class PatientContainer extends React.Component<P,S>{
     } 
 
     handleClickTreatmentsTab = () => {
+        window.scrollTo(0, 0);
         this.setState({
             selectedTab: 0,
             createNewTreatment : false
@@ -116,6 +119,7 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     handleClickImagingTab = () => {
+        window.scrollTo(0, 0);
         this.setState({
             selectedTab: 3,
             createNewImaging : false
@@ -123,6 +127,7 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     handleClickWellnessTab = () => {
+        window.scrollTo(0, 0);
         this.setState({
             selectedTab: 4,
             createNewImaging : false
@@ -130,6 +135,7 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     handleClickOthersTab = () => {
+        window.scrollTo(0, 0);
         this.setState({
             selectedTab: 5,
             createNewImaging : false
@@ -137,6 +143,7 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     handleClickOnAddTreatments = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
           selectedTab: 0,
@@ -145,6 +152,7 @@ class PatientContainer extends React.Component<P,S>{
       }
 
     handleClickOnAddVisits = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
           createNewVisit : true,
@@ -153,6 +161,7 @@ class PatientContainer extends React.Component<P,S>{
     }
     
     handleClickOnAddImaging = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
           createNewImaging: true,
@@ -161,6 +170,7 @@ class PatientContainer extends React.Component<P,S>{
     }
     
     handleClickOnAddTests = () => {
+        window.scrollTo(0, 0);
         this.setState({
           createNewTestOrder: true,
           open:false,
@@ -169,6 +179,7 @@ class PatientContainer extends React.Component<P,S>{
     } 
 
     handleClickOnAddWellness = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
           selectedTab:4
@@ -176,6 +187,7 @@ class PatientContainer extends React.Component<P,S>{
     }
     
     handleClickOnAddOthers = () => {
+        window.scrollTo(0, 0);
         this.setState({
           open:false,
           selectedTab:5

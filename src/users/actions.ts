@@ -95,7 +95,7 @@ export const loadSinglePatient = (id:number) => {
         return fetch(BASE_URL + id.toString(), {
             method: 'GET',
             headers:{
-                'Access-Control-Allow-Origin':''
+                'Access-Control-Allow-Origin':'*'
             }
         }).then((response: any)=>{
             if(response.ok){

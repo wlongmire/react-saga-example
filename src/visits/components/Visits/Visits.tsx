@@ -5,11 +5,10 @@ import * as React from 'react';
 // import {getAllVisits} from '../../selectors';
 import ApplicationState from '../../../common';
 import {connect} from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import {  Dispatch } from "redux";
-// import * as VisitsActions from '../../actions';
+import { bindActionCreators } from 'redux';
+import {  Dispatch } from "redux";
+import * as visitsActions from '../../actions';
 import * as VisitModels from '../../model';
-import {loadAllVisits} from '../../actions';
 import './Visits.css';
 
 
@@ -46,9 +45,10 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
+        console.log(this.props.visits)
         return (
             <div>
-                Visits Here
+    
             </div>
         )
     }
@@ -60,5 +60,11 @@ const mapStateToProps = (state: ApplicationState.IState) => {
     }
 }
 
+const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
+    {
+        loadAllVisits : visitsActions.getAllVisits
+    },
+    dispatch
+)
 
-export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, {loadAllVisits})(Visits)
+export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, mapDispatchToProps)(Visits)

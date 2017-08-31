@@ -47,6 +47,18 @@ declare module ApplicationState {
     interface ICase {
         id: number;
     }
+
+    interface Rx {
+
+    }
+
+    interface Wellness {
+
+    }
+
+    interface TestOrder {
+
+    }
     /**
      * To improve on pattern here
      */
@@ -55,7 +67,10 @@ declare module ApplicationState {
         doctors?: Array<IDoctor>;
         cases?: Array<ICase>;
         visits?: Array<IVisit>;
-        patient?: IPatient
+        patient?: IPatient;
+        treatments?: Array<Rx>;
+        wellness?: Array<Wellness>;
+        testorders?: Array<TestOrder>
     }
 }
 

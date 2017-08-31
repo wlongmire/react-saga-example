@@ -12,6 +12,7 @@ import * as Visits from '../../../visits'
 import * as Tests from '../../../testorders';
 import * as Wellness from '../../../wellness';
 import * as Others from '../../../others';
+import * as Rx from '../../../treatments';
 import * as PopOverComponent from '../../../common/UIComponents';
 import * as FloatingBtn from '../../../common/UIComponents';
 
@@ -38,7 +39,6 @@ interface S {
     showImagingModal?: boolean;
     showWellnessModal?:boolean;
     showOthersModal?: boolean;
-    tabs: Array<string>;
     selectedTab : number;
 }
 
@@ -58,9 +58,6 @@ class PatientContainer extends React.Component<P,S>{
         super();
         this.state = {
             open: false,
-            tabs: [
-                "treatments", "visits", "tests", "imaging"
-            ],
             selectedTab: 0
         };
     }
@@ -179,13 +176,13 @@ class PatientContainer extends React.Component<P,S>{
                     <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
                     <Tab onClick={this.handleClickOnTreatments} value={0} label="Treatments" style={labelTitle}>
                     <div>
-                        Treatments
+                        <Rx.Components.RXContainer/>
                     </div>
                     </Tab>
 
                     <Tab onClick={this.handleClickOnVisits} value={1} label="Visits" style={labelTitle}>
                     <div>
-                        
+                        <Visits.Components.VisitsContainer/>
                         <Visits.Components.VisitDrawer/>
                     </div>
                     </Tab>
@@ -194,6 +191,7 @@ class PatientContainer extends React.Component<P,S>{
 
                     <div>
                     <div>
+                        <Tests.Components.TestOrdersContainer/>
                         <Tests.Components.AddTestSection/>
                     </div>
                     </div>

@@ -15,8 +15,8 @@ import * as Actions from './actions';
       switch(action.type){
         case Actions.ActionType.LOAD_ALL:
             return { ...state, state}
-        case Actions.ActionType.LOAD_ALL_COMPLETED:
-            return { ...state , testorders: action.value }
+        case Actions.ActionType.LOAD_ALL_DONE:
+            return { ...state , others: action.value }
         case Actions.ActionType.LOAD_ALL_FAILED:
             return { ...state, error: action.value}
         default: 

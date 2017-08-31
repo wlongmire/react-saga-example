@@ -11,11 +11,21 @@ import {
     DateTimeDropDownTemplate
 } from '../../common/UIComponents';
 
+import ApplicationState from '../../common';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {  Dispatch } from "redux";
+
+import * as wellnessActions from '../actions';
 
 interface S {
     payload: object
 }
 
+interface WellnessProps {
+    wellness : any,
+    loadAllWellness : () => void
+}
 
 const style = {
     backgroundColor: '#f84445',
@@ -29,7 +39,7 @@ const style = {
   }
 
 
-export class WellnessComponent extends React.Component<{}, S>{
+class WellnessContainer extends React.Component<WellnessProps, S>{
     constructor(){
         super();
         this.state = {
@@ -37,6 +47,9 @@ export class WellnessComponent extends React.Component<{}, S>{
         }
     }
     
+    componentDidMount(){
+        this.props.loadAllWellness()
+    }
     
     onTableTemplateChange = (templateName:string) => (items: object[]) => {
         this.setState(prevState => ({
@@ -106,3 +119,18 @@ export class WellnessComponent extends React.Component<{}, S>{
         )
     }
 }
+
+const mapStateToProps = (state: ApplicationState.IState) => {
+    return {
+        wellness : state.wellness,
+    }
+}
+
+const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
+    {
+        loadAllWellness : wellnessActions.getAllWellness 
+    },
+    dispatch
+)
+
+export const WellnessComponent = connect<{}, WellnessProps, {}>(mapStateToProps, mapDispatchToProps)(WellnessContainer)

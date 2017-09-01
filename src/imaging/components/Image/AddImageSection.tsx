@@ -1,15 +1,14 @@
 import * as React from 'react';
-import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
     DropDownTemplate, 
     TextInputTemplate,
-    PanelTemplate
+    TableTemplate
 } from '../../../common/UIComponents';
 import DatePicker from 'material-ui/DatePicker';
 let FileInput = require('react-file-input');
 
-import './AddTestSection.css';
+import './styles.css';
 
 const btnStyle = {
     backgroundColor: '#f84445'
@@ -32,17 +31,33 @@ const stubbedData = {
         {value:4, primaryText:"Finalized"},
         {value:5, primaryText:"Cancelled"}
     ],
-    'clinics': [
+    'location': [
         {value:1, primaryText:"Nomad LifeCo, 79 Madison Ave, New York, NY10016"},
     ],
+    'timeChoice': [
+        {value:1, primaryText:"A.M"},
+        {value:2, primaryText:"P.M"},
+    ],
+    'actualTime': [
+        {value:1, primaryText:"6:30A.M"},
+        {value:2, primaryText:"6:30P.M"},
+
+    ],
+    'imagingType': [
+        {value:1, primaryText:"CAT Scan"},
+        {value:2, primaryText:"MRI"},
+
+    ],
+    
 
 }
 
 interface S {
-    payload : object;
+    payload : object
 }
+
 interface P {
-    closeTestsCard: () => void;
+    closeImagingCard: () => void;
 }
 const getNamedValue = (name:string, v?:number) => {
     let theArrays = Object.keys(stubbedData);
@@ -58,7 +73,7 @@ const getNamedValue = (name:string, v?:number) => {
 
 }
 
-export class AddTestSection extends React.Component<P, S>{
+export class AddImageSection extends React.Component<P, S>{
     constructor(){
         super()
         this.state = {
@@ -92,10 +107,19 @@ export class AddTestSection extends React.Component<P, S>{
         console.log('Selected file:', event.target.files[0]);
     }
 
+    onChipDropDownChange = (name:string) => (v:number, s:string) => {
+        let st = Object.assign({}, this.state.payload);
+        if(!st[name]) st[name] = [];
+        st[name].push(s);
+        this.setState({
+            payload: st
+        })
+    };
+
     render(){
         return(
-            <form id='test-section' onSubmit={this._handleSubmit}>
-            <span className="test-add-new"> Add New Test</span>
+            <form id='image-section' onSubmit={this._handleSubmit}>
+            <span className="test-add-new"> Add New Image</span>
             <DropDownTemplate
                 title="Status"
                 dataArray={
@@ -114,77 +138,64 @@ export class AddTestSection extends React.Component<P, S>{
                     }}
                 />
             <TextInputTemplate
-                name="order-name"
-                title="Order Name"
-                multiLine={false}
-                rows={1}
-                defaultValue={"Sinus Infection Check"}
-            />
-            
-            <TextInputTemplate
                 name="patient-name"
                 title="Patient Name"
                 multiLine={false}
                 rows={1}
                 defaultValue={"Pete Patient"}
             />
-       
-             <PanelTemplate
-                onChange={this.onTableTemplateChange('panels')}
-                headerTitle="Panels"     
+
+            <DropDownTemplate
+                title="Imaging Type"
+                dataArray={
+                stubbedData.imagingType
+                }
+                onChange={this.onPlainTextDropDownChange('imagingType')}
             />
 
-            <TextInputTemplate
-                name="order-number"
-                title="Order Number"
-                multiLine={false}
-                rows={1}
-                defaultValue={"#120-12"}
-            />
-            <p className="checkbox-title">Priority</p>
-            <div className="priority-type-section">
-                <div className="priority_type"> 
-                    <span className="label">Routine</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-                <div className="priority_type"> 
-                    <span className="label">Priority</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-            </div>
-            <DatePicker 
-                name="date" 
-                hintText="Collection Date"
-                style={{
+            
+            <div className="scheduled-time-section">
+                <span className="scheduled-title">Scheduled Date and Time</span>
+                <div className="scheduled-time">
+                <div>
+                 <DatePicker 
+                    hintText="Scheduled Date" 
+                    name="scheduled-date"
+                    style={{
                     textAlign:"left",
                     position:"relative",
                     left:'2em',
-                    marginBottom:'.5em'
-                    }}
-            />
+                    marginBottom:'.5em',
+                    }}/>
+                </div>
+                <div>
+                <DropDownTemplate
+                    title="Actual Time"
+                    dataArray={
+                    stubbedData.actualTime
+                    }
+                    onChange={(value, text) => this.onChipDropDownChange('actual-time')(value, text) }
+                />
+                </div>
+                <div>
+                <DropDownTemplate
+                    title="Time Choice"
+                    dataArray={
+                    stubbedData.timeChoice
+                    }
+                    onChange={(value, text) => this.onChipDropDownChange('time-choice')(value, text) }
+                />
+                </div>
+                </div>
+             </div>
 
-            <TextInputTemplate
-                name="collection-location"
-                title="Collection Location"
-                multiLine={false}
-                rows={1}
-                hintText={"Type Something ..."}
-            />
 
-            <DropDownTemplate
-                title="Location"
+             <DropDownTemplate
+                title="Imaging Location"
                 dataArray={
-                   stubbedData.clinics
+                stubbedData.location
                 }
-                onChange={this.onPlainTextDropDownChange("location")}
-            />
-
-            <TextInputTemplate
-                name="testing-supervisor"
-                title="Testing Supervisor"
-                multiLine={false}
-                rows={1}
-                defaultValue={"Shirley Swirl"}
+                onChange={this.onPlainTextDropDownChange('location')}
             />
 
             <FileInput name="Add attachment"
@@ -194,23 +205,21 @@ export class AddTestSection extends React.Component<P, S>{
                    onChange={this.handleChange} />
 
             <TextInputTemplate
-                name="diagnosis"
-                title="Diagnosis"
-                multiLine={false}
-                rows={1}
-                defaultValue={"ICD_10"}
-            />
-
-            <TextInputTemplate
                 name="public-note"
                 title="Public Note"
                 multiLine={true}
                 rows={2}
                 hintText={"Type Something ..."}
             />
+
+            <TableTemplate
+                onChange={this.onTableTemplateChange('internal-notes')}
+                headerTitle="Internal Notes"
+            />
             <br/>
+            
             <RaisedButton 
-                onClick={this.props.closeTestsCard}
+                onClick={this.props.closeImagingCard}
                 label="cancel"
             />
             <RaisedButton 
@@ -220,7 +229,6 @@ export class AddTestSection extends React.Component<P, S>{
                 style={style} 
                 label="save"
             />
-
            
             </form>
         )

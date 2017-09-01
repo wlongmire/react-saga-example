@@ -5,11 +5,11 @@ import './TestOrders.css';
 interface TestOrder {
 
 }
-interface VisitsCollectionProps {
+interface TestCollectionProps {
     testOrders : Array<TestOrder>
 }
 
-const TestOrderCollection = (props: VisitsCollectionProps) => {
+const TestOrderCollection = (props: TestCollectionProps) => {
         return(
             <ul>
                 {props.testOrders.map((v:any, index: number) => {

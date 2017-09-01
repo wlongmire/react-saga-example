@@ -7,7 +7,6 @@ import {  Dispatch } from "redux";
 import * as testOrderActions from '../../actions';
 import TestOrdersCollection from './TestOrdersCollection';
 
-
 interface TestOrdersProps {
     testOrders : Array<any>,
     loadAllTestOrders : () => void;

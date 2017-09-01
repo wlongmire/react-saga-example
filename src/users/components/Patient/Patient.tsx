@@ -201,7 +201,7 @@ class PatientContainer extends React.Component<P,S>{
         })
     } 
     
-    
+
     render(){
         if(!this.props.patient['patient']){
             return(
@@ -253,17 +253,25 @@ class PatientContainer extends React.Component<P,S>{
                     <div>
                         {
                             this.state.createNewTestOrder ?
-                            <Tests.Components.AddTestSection/>:
+                            <Tests.Components.AddTestSection
+                                closeTestsCard={this.handleClickTestOrdersTab}
+                            />:
                             <Tests.Components.TestOrdersContainer/>
                         }
-    
                     </div>
                     </div>
                     </Tab>
 
                     <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
                     <div>
-                        <Imaging.Components.ImagingComponent/>
+                        {
+                            this.state.createNewImaging ? 
+                            <Imaging.Components.AddImageSection
+                                closeImagingCard={this.handleClickImagingTab}
+                            />:
+                            <Imaging.Components.ImagingComponent/>
+                        }
+                        
                     </div>
                     </Tab>
 

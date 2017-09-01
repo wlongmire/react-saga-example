@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
 import * as rxActions from '../../actions';
-
 import TreatmentsCollection from './TreatmentsCollection';
 
 interface RxProps {
@@ -39,7 +38,6 @@ export class Treatments extends React.Component<RxProps, {}>{
                     ]}
                 
                 />
-
             </div>
         )
     }

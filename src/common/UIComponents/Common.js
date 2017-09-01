@@ -19,5 +19,8 @@ export default StyleSheet.create({
     'position': 'relative',
     'right': [{ 'unit': 'em', 'value': 0.2 }],
     'height': [{ 'unit': 'em', 'value': 3.2 }]
+  },
+  'dropdown-component': {
+    'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }]
   }
 });

@@ -16,7 +16,7 @@ interface TableTemplateProps{
     headerTitle : string,
     onChange : (items:Array<any>) => void;
 }
-export class TableTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
+export class PanelTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
     private count:number = 0;
     
     constructor(props:TableTemplateProps){
@@ -76,19 +76,36 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
                                 <div>
                                     <TextField 
                                         id={item.id.toString()}
-                                        name="title"
-                                        hintText="Title"
+                                        name="test"
+                                        hintText="Test"
                                         onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="Title"
+                                        floatingLabelText="Test"
                                     />
                                 </div>
                                 <div>
                                     <TextField 
                                         id={item.id.toString()}
-                                        name="description"
-                                        hintText="Description"
+                                        name="result"
+                                        hintText="Result"
                                         onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="Description"/>
+                                        floatingLabelText="result"/>
+                                </div>
+                                <div>
+                                    <TextField 
+                                        id={item.id.toString()}
+                                        name="status"
+                                        hintText="Status"
+                                        onChange={this.handleChangeInput(index)}
+                                        floatingLabelText="Status"/>
+                                </div>
+
+                                <div>
+                                    <TextField 
+                                        id={item.id.toString()}
+                                        name="comment"
+                                        hintText="Comment"
+                                        onChange={this.handleChangeInput(index)}
+                                        floatingLabelText="Comment"/>
                                 </div>
                                 </div>
                                 )

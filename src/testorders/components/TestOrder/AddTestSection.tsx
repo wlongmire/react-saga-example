@@ -2,14 +2,12 @@ import * as React from 'react';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
-    // TableInputs, 
-    TableTemplate,
     DropDownTemplate, 
     TextInputTemplate,
-    // ChipCollection
+    PanelTemplate
 } from '../../../common/UIComponents';
 import DatePicker from 'material-ui/DatePicker';
-
+let FileInput = require('react-file-input');
 
 import './AddTestSection.css';
 
@@ -19,7 +17,6 @@ const btnStyle = {
 
 const style = {
     backgroundColor: '#f84445',
-    width: '70%',
     marginBottom: '1em',
 }
 
@@ -88,9 +85,14 @@ export class AddTestSection extends React.Component<{}, S>{
         }))
     }
 
+    handleChange = (event:any) => {
+        console.log('Selected file:', event.target.files[0]);
+    }
+
     render(){
         return(
             <form id='test-section' onSubmit={this._handleSubmit}>
+            <span className="test-add-new"> Add New Test</span>
             <DropDownTemplate
                 title="Status"
                 dataArray={
@@ -123,9 +125,10 @@ export class AddTestSection extends React.Component<{}, S>{
                 rows={1}
                 defaultValue={"Pete Patient"}
             />
-            <TableTemplate
+       
+             <PanelTemplate
                 onChange={this.onTableTemplateChange('panels')}
-                headerTitle="Panels"
+                headerTitle="Panels"     
             />
 
             <TextInputTemplate
@@ -148,7 +151,7 @@ export class AddTestSection extends React.Component<{}, S>{
             </div>
             <DatePicker 
                 name="date" 
-                hintText="Date Collected"
+                hintText="Collection Date"
                 style={{
                     textAlign:"left",
                     position:"relative",
@@ -181,6 +184,12 @@ export class AddTestSection extends React.Component<{}, S>{
                 defaultValue={"Shirley Swirl"}
             />
 
+            <FileInput name="Add attachment"
+                   accept=".png,.gif"
+                   placeholder="Add attachment"
+                   className="inputClass"
+                   onChange={this.handleChange} />
+
             <TextInputTemplate
                 name="diagnosis"
                 title="Diagnosis"
@@ -198,12 +207,18 @@ export class AddTestSection extends React.Component<{}, S>{
             />
             <br/>
             <RaisedButton 
+
+                label="cancel"
+            />
+            <RaisedButton 
                 secondary={true}
                 type="submit" 
                 buttonStyle={btnStyle} 
                 style={style} 
                 label="save"
             />
+
+           
             </form>
         )
     }

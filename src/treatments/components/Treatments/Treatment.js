@@ -1,25 +1,26 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  'visit-item': {
+  'treatment-item': {
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr',
     'width': [{ 'unit': '%H', 'value': 0.9 }],
     'fontSize': [{ 'unit': 'string', 'value': 'small' }],
     'boxShadow': [{ 'unit': 'px', 'value': 0.5 }, { 'unit': 'px', 'value': 0.5 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'rgba(0,0,0,.1)' }],
-    'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 4 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 4 }],
+    'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 3 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 3 }],
     'lineHeight': [{ 'unit': 'em', 'value': 2.5 }],
+    'letterSpacing': [{ 'unit': 'px', 'value': 1 }],
     'borderRadius': '3px',
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 2 }, { 'unit': 'string', 'value': 'auto' }]
   },
-  'visit-type': {
+  'treatment-type': {
     'fontSize': [{ 'unit': 'string', 'value': 'large' }],
     'fontWeight': 'bold'
   },
-  'visit-location': {
+  'treatment-detail': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }]
   },
-  'visit-title-card': {
+  'treatment-title-card': {
     'fontWeight': 'bold',
     'textAlign': 'left',
     'display': 'block',
@@ -27,14 +28,14 @@ export default StyleSheet.create({
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
     'color': 'gray'
   },
-  'visit-date-location': {
+  'treatment-details': {
     'lineHeight': [{ 'unit': 'px', 'value': 5 }]
   },
-  'visit-date': {
+  'treatment-date': {
     'color': 'gray',
     'opacity': '.5'
   },
-  'visit-description': {
+  'treatment-description': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }]
   }
 });

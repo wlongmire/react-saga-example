@@ -17,7 +17,7 @@ import './Visit.css';
 
 const style = {
   backgroundColor: '#f84445',
-  width: '70%',
+  width: '10%',
   marginBottom: '1em',
 }
 
@@ -28,6 +28,7 @@ const btnStyle = {
 interface VisitDrawerProps {
     className?: string;
     createVisit?: (visit:any) => void;
+    closeVisitCard?: () => void;
 }
 
 interface VisitDrawerState{
@@ -173,10 +174,10 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
             }
         }))
     }
-
     render(){
         return(
             <form id="visit-drawer" onSubmit={this.handleSubmitVisit}> 
+            <span className="visit-title-card"> Add New Visit</span>
             <DropDownTemplate
                 title="Status"
                 dataArray={
@@ -195,32 +196,13 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     }}
                 />
             <DropDownTemplate
-                title="Assignee"
-                dataArray={
-                   stubbedData.assignee
-                }
-                onChange={this.onPlainTextDropDownChange('assignee')}
-            />
-            <DropDownTemplate
-                title="Patient"
+                title="Patient Name"
                 dataArray={
                    stubbedData.patient
                 }
                 onChange={this.onPlainTextDropDownChange('patient')}
             />
-            <div>
-            <ChipCollection
-                items={this.state.payload.cases || [] } // event render from this.state.payload.tests
-            />
-            <DropDownTemplate
-                title="Add Case"
-                dataArray={
-                   stubbedData.cases
-                }
-                onChange={(value, text) => this.onChipDropDownChange('cases')(value, text) }
-            />
-            </div>
-            <br/>
+
             <p className="checkbox-title">Visit Type</p>
             <div className="visit-type-section">
                 <div className="visit_type"> 
@@ -232,6 +214,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     <Checkbox className="checkbox-value"/>
                 </div>
             </div>
+            <br/>
             <p className="checkbox-title">Maintenance</p>
             <div className="maintenance-type-section">
                 <div className="maintenance_type"> 
@@ -243,6 +226,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     <Checkbox className="checkbox-value"/>
                 </div>
             </div>
+
             <DropDownTemplate
                 title="Doctor"
                 dataArray={
@@ -250,7 +234,8 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 }
                 onChange={(value, text) => this.onChipDropDownChange('doctor')(value, text) }
              />
-            <p className="checkbox-title">Doctor Type</p>
+
+             <p className="checkbox-title">Doctor Type</p>
             <div className="doctor-type-section">
                 <div className="doctor_type"> 
                     <span className="label">Primary</span>
@@ -265,91 +250,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     <Checkbox className="checkbox-value"/>
                 </div>
             </div>
-            <div className="date-options">
-            <p className="location-title">Scheduled Date and Time</p>
-            <DatePicker 
-                name="date" 
-                hintText="Date Created"
-                style={{
-                    textAlign:"left",
-                    position:"relative",
-                    left:'2em',
-                    marginBottom:'.5em'
-                    }}
-                />
-            <DropDownTemplate
-                title="Assignee"
-                dataArray={
-                   stubbedData.assignee
-                }
-                onChange={this.onPlainTextDropDownChange('assignee')}
-            />
-            <DropDownTemplate
-                title="Patient"
-                dataArray={
-                   stubbedData.patient
-                }
-                onChange={this.onPlainTextDropDownChange('patient')}
-            />
-            <div>
-            <ChipCollection
-                items={this.state.payload.cases || [] } // event render from this.state.payload.tests
-            />
-            <DropDownTemplate
-                title="Add Case"
-                dataArray={
-                   stubbedData.cases
-                }
-                onChange={(value, text) => this.onChipDropDownChange('cases')(value, text) }
-            />
-            </div>
-            <br/>
-            <p className="checkbox-title">Visit Type</p>
-            <div className="visit-type-section">
-                <div className="visit_type"> 
-                    <span className="label">LifeCo</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-                <div className="visit_type"> 
-                    <span className="label">External</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-            </div>
-            <p className="checkbox-title">Maintenance</p>
-            <div className="maintenance-type-section">
-                <div className="maintenance_type"> 
-                    <span className="label">Physical</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-                <div className="maintenance_type"> 
-                    <span className="label">Pap Smear</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-            </div>
-            <DropDownTemplate
-                title="Doctor"
-                dataArray={
-                stubbedData.doctors
-                }
-                onChange={(value, text) => this.onChipDropDownChange('doctor')(value, text) }
-             />
-            <p className="checkbox-title">Doctor Type</p>
-            <div className="doctor-type-section">
-                <div className="doctor_type"> 
-                    <span className="label">Primary</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-                <div className="doctor_type"> 
-                    <span className="label">Gynaceologist</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-                <div className="doctor_type"> 
-                    <span className="label">Dermatologist</span>
-                    <Checkbox className="checkbox-value"/>
-                </div>
-            </div>
-            <div>
-            </div>
+
             <DropDownTemplate
                 title="Clinic Location"
                 dataArray={
@@ -392,28 +293,21 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 </div>
                 </div>
              </div>
-            <DropDownTemplate
+             <DropDownTemplate
                 title="Estimated Length of Visits"
                 dataArray={
                 stubbedData.estimatedTime
                 }
                 onChange={(value, text) => this.onChipDropDownChange('estimated-time')(value, text) }
              />
-            <div>
-            <ChipCollection
-                items={this.state.payload.complaints || [] } // event render from this.state.payload.tests
+
+            <TableTemplate
+                onChange={this.onTableTemplateChange('complaints')}
+                headerTitle="Complaints"
             />
-            <DropDownTemplate
-                title="Add Complaints"
-                dataArray={
-                   stubbedData.complaints
-                }
-                onChange={(value, text) => this.onChipDropDownChange('complaints')(value, text) }
-            />
-            </div>
             <TableInputs
                 onChange={this.onTableInputChange}
-            />
+            />    
             <TableTemplate
                 onChange={this.onTableTemplateChange('systems-review')}
                 headerTitle="Systems Review"
@@ -436,22 +330,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 multiLine={true}
                 rows={2}
             />
-            <TextInputTemplate
-                name="objective"
-                title="Objective"
-
-                multiLine={true}
-                rows={2}
-            />
-            <TextInputTemplate
-
-                name="objective"
-                title="Objective"
-
-                multiLine={true}
-                rows={2}
             
-            />
             <TextInputTemplate
 
                 title="Objective"
@@ -481,14 +360,17 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 headerTitle="Internal Notes"
             />
             <br/>
-            <RaisedButton 
-                secondary={true}
-                type="submit" 
-                buttonStyle={btnStyle} 
-                style={style} 
-                label="save"
-            />
-            </div>
+                <RaisedButton  
+                    label="Cancel"
+                    onClick={this.props.closeVisitCard}
+                />
+                <RaisedButton 
+                    secondary={true}
+                    type="submit" 
+                    buttonStyle={btnStyle} 
+                    style={style} 
+                    label="save"
+                />
             </form>
         )
     }

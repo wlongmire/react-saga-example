@@ -3,9 +3,12 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   '#test-section': {
     'position': 'relative',
-    'width': [{ 'unit': '%H', 'value': 1 }],
+    'width': [{ 'unit': '%H', 'value': 0.9 }],
     'height': [{ 'unit': '%V', 'value': 1 }],
-    'textAlign': 'center'
+    'textAlign': 'center',
+    'margin': [{ 'unit': 'em', 'value': 0.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 0.5 }, { 'unit': 'string', 'value': 'auto' }],
+    'boxShadow': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'px', 'value': 30 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'rgba(0,0,0,.1)' }],
+    'borderRadius': '3px'
   },
   'priority-type-section': {
     'width': [{ 'unit': '%H', 'value': 0.7 }],
@@ -29,86 +32,24 @@ export default StyleSheet.create({
     'fontWeight': 'bold',
     'color': 'gray'
   },
-  // .header{
-    min-height: 10%;
-    background: #f84445;
-}
-
-.header p {
-    color: white;
-    font-weight: 900;
-    padding: 1em;
-}
-
-.maintenance-section{
-    font-size: medium;
-    padding: 2em;
-}
-
-.table-element{
-    width: 80%;
-}
-
-.visit-type-section, .maintenance-type-section{
-    width: 70%;
-    margin: 1.5em auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.label, .checkbox-value{
-    display: inline-block;
-    font-size: small;
-}
-.location-title{
-    font-size: small;
-    font-weight: bold;
-    color: gray;
-}
-
-.scheduled-title{
-    font-size: small;
-    font-weight: bold;
-    color: gray;
-    position: relative;
-    left: 2em;
-    text-align: left;
-}
-
-
-.visit_type, .maintenance_type, .doctor_type{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    text-align: left;
-    position: relative;
-    left: 1em;
-}
-
-.checkbox-title{
-    font-size: 15px;
-    text-align: left;
-    position: relative;
-    left:2em;
-    margin-top: 2em;
-    font-weight: bold;
-    color: gray;
-}
-
-.doctor-type-section{
-    width: 90%;
-    margin: 1.5em auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-.scheduled-time{
-    display: grid;
-    position: relative;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 56vw;
-    grid-column-gap: 2em;
-}
-
-.scheduled-time-section{
-    margin-bottom: 1em;
-}
+  'inputClass': {
+    'zIndex': '-1',
+    'border': [{ 'unit': 'string', 'value': 'none' }],
+    'textAlign': 'left',
+    'position': 'relative',
+    'right': [{ 'unit': 'vw', 'value': 20 }],
+    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': 'gray' }],
+    'padding': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }],
+    'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }],
+    'cursor': 'pointer'
+  },
+  'test-add-new': {
+    'display': 'block',
+    'textAlign': 'left',
+    'marginLeft': [{ 'unit': 'em', 'value': 1.5 }],
+    'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
+    'fontWeight': 'bold',
+    'color': 'gray',
+    'padding': [{ 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }]
+  }
 });

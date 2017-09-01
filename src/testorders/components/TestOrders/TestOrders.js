@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  'visit-item': {
+  'test-item': {
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr',
     'width': [{ 'unit': '%H', 'value': 0.9 }],
@@ -9,17 +9,18 @@ export default StyleSheet.create({
     'boxShadow': [{ 'unit': 'px', 'value': 0.5 }, { 'unit': 'px', 'value': 0.5 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'rgba(0,0,0,.1)' }],
     'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 4 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 4 }],
     'lineHeight': [{ 'unit': 'em', 'value': 2.5 }],
+    'letterSpacing': [{ 'unit': 'px', 'value': 1 }],
     'borderRadius': '3px',
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 2 }, { 'unit': 'string', 'value': 'auto' }]
   },
-  'visit-type': {
+  'test-type': {
     'fontSize': [{ 'unit': 'string', 'value': 'large' }],
     'fontWeight': 'bold'
   },
-  'visit-location': {
+  'test-detail': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }]
   },
-  'visit-title-card': {
+  'test-title-card': {
     'fontWeight': 'bold',
     'textAlign': 'left',
     'display': 'block',
@@ -27,14 +28,14 @@ export default StyleSheet.create({
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
     'color': 'gray'
   },
-  'visit-date-location': {
+  'test-details': {
     'lineHeight': [{ 'unit': 'px', 'value': 5 }]
   },
-  'visit-date': {
+  'test-date': {
     'color': 'gray',
     'opacity': '.5'
   },
-  'visit-description': {
+  'test-description': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }]
   }
 });

@@ -55,6 +55,7 @@
 .delete-title{
     font-size: medium;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .add-user-title{
@@ -64,4 +65,34 @@
     left: 5em;
     display: block;
     font-weight: bold;
+}
+
+#confirm-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.modal-body{
+    width: 60%;
+    margin: 20% auto;
+    background: white;
+    text-align: center;
+    border-radius: 3px;
+    padding: 2em;
+    
+}
+
+.confirm,
+.cancel{
+    display: inline-block;
+    background: #f84445;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 3px;
+    color: white;
 }

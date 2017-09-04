@@ -49,7 +49,8 @@ export default StyleSheet.create({
   },
   'delete-title': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
-    'textDecoration': 'underline'
+    'textDecoration': 'underline',
+    'cursor': 'pointer'
   },
   'add-user-title': {
     'fontSize': [{ 'unit': 'em', 'value': 1.5 }],
@@ -58,5 +59,38 @@ export default StyleSheet.create({
     'left': [{ 'unit': 'em', 'value': 5 }],
     'display': 'block',
     'fontWeight': 'bold'
+  },
+  '#confirm-modal': {
+    'position': 'fixed',
+    'top': [{ 'unit': 'px', 'value': 0 }],
+    'left': [{ 'unit': 'px', 'value': 0 }],
+    'background': 'rgba(0,0,0,.5)',
+    'width': [{ 'unit': '%H', 'value': 1 }],
+    'height': [{ 'unit': '%V', 'value': 1 }],
+    'zIndex': '5'
+  },
+  'modal-body': {
+    'width': [{ 'unit': '%H', 'value': 0.6 }],
+    'margin': [{ 'unit': '%V', 'value': 0.2 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': '%V', 'value': 0.2 }, { 'unit': 'string', 'value': 'auto' }],
+    'background': 'white',
+    'textAlign': 'center',
+    'borderRadius': '3px',
+    'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }]
+  },
+  'confirm': {
+    'display': 'inline-block',
+    'background': '#f84445',
+    'padding': [{ 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 10 }],
+    'margin': [{ 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }],
+    'borderRadius': '3px',
+    'color': 'white'
+  },
+  'cancel': {
+    'display': 'inline-block',
+    'background': '#f84445',
+    'padding': [{ 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 10 }],
+    'margin': [{ 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }, { 'unit': 'px', 'value': 5 }],
+    'borderRadius': '3px',
+    'color': 'white'
   }
 });

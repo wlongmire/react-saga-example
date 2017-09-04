@@ -1,0 +1,64 @@
+.users-table{
+    margin: 4em auto;
+    font-size: medium;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+}
+thead{
+    color: gray;
+    font-weight: bold;
+}
+
+tbody{
+    font-weight: medium;
+}
+
+tr{
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+}
+
+.user-avatar{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: 4em;
+}
+
+td{
+    padding: 10px 0 10px 0;
+}
+
+.action-bar{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+}
+
+.users-title{
+    position: relative;
+    left: 5em;
+    font-size: 1.5em;
+    font-weight: bold;
+
+
+}
+
+.main-section{
+    margin-top: 5em;
+}
+
+.create-new{
+    text-align: right;
+}
+
+.new-user{
+    background: #f84445;
+    padding: .5em 2em;
+    position: relative;
+    right: 8em;
+    border-radius: 3px;
+    cursor: pointer;
+}

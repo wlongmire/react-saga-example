@@ -10,7 +10,7 @@ export default StyleSheet.create({
     'position': 'relative',
     'display': 'inline-block',
     'cursor': 'pointer',
-    'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }],
+    'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 1.5 }],
     'transition': 'color .3s ease-in-out'
   },
   'top-navigation li:hover': {

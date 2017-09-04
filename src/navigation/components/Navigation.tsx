@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Navigation.css';
-
+import {Link} from 'react-router-dom';
 
 export const Navigation = () => {
     return (
@@ -20,6 +20,9 @@ export const Navigation = () => {
             </li>
             <li className="menu-items">
                 Profile
+            </li>
+            <li className="menu-items">
+                <Link style={{color:"black"}} to="/users">Admin</Link>
             </li>
         </ul>
         <hr/>

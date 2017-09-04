@@ -22,5 +22,21 @@ export default StyleSheet.create({
   },
   'dropdown-component': {
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }]
+  },
+  'custom-dropdown-component': {
+    'borderBottom': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': 'black' }],
+    'width': [{ 'unit': '%H', 'value': 1 }]
+  },
+  'custom-dropdown-label': {
+    'color': 'gray',
+    'fontSize': [{ 'unit': 'string', 'value': 'small' }],
+    'position': 'relative',
+    'top': [{ 'unit': 'em', 'value': 2.5 }]
+  },
+  'custom-dropdown-value': {
+    'textAlign': 'left',
+    'position': 'relative',
+    'right': [{ 'unit': 'em', 'value': 1.2 }],
+    'top': [{ 'unit': 'em', 'value': 1 }]
   }
 });

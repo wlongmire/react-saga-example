@@ -10,44 +10,44 @@
 
 }
 
-.header{
+#visit-drawer .header{
     min-height: 10%;
     background: #f84445;
 }
 
-.header p {
+#visit-drawer.header p {
     color: white;
     font-weight: 900;
     padding: 1em;
 }
 
-.maintenance-section{
+#visit-drawer .maintenance-section{
     font-size: medium;
     padding: 2em;
 }
 
-.table-element{
+#visit-drawer .table-element{
     width: 80%;
 }
 
-.visit-type-section, .maintenance-type-section{
+#visit-drawer .visit-type-section, .maintenance-type-section{
     width: 70%;
     margin: 1.5em auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.label, .checkbox-value{
+#visit-drawer.label,#visit-drawer .checkbox-value{
     display: inline-block;
     font-size: small;
 }
-.location-title{
+#visit-drawer.location-title{
     font-size: small;
     font-weight: bold;
     color: gray;
 }
 
-.scheduled-title{
+#visit-drawer.scheduled-title{
     font-size: small;
     font-weight: bold;
     color: gray;
@@ -57,7 +57,7 @@
 }
 
 
-.visit_type, .maintenance_type, .doctor_type{
+#visit-drawer.visit_type, #visit-drawer.maintenance_type, #visit-drawer.doctor_type{
     display: grid;
     grid-template-columns: 1fr 1fr;
     text-align: left;
@@ -65,7 +65,7 @@
     left: 1em;
 }
 
-.checkbox-title{
+#visit-drawer.checkbox-title{
     font-size: 15px;
     text-align: left;
     position: relative;
@@ -75,13 +75,13 @@
     color: gray;
 }
 
-.doctor-type-section{
+#visit-drawer.doctor-type-section{
     width: 90%;
     margin: 1.5em auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
-.scheduled-time{
+#visit-drawer.scheduled-time{
     display: grid;
     position: relative;
     grid-template-columns: 1fr 1fr 1fr;
@@ -89,7 +89,7 @@
     grid-column-gap: 2em;
 }
 
-.scheduled-time-section{
+#visit-drawer.scheduled-time-section{
     margin-bottom: 1em;
 }
 

@@ -8,8 +8,9 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
-    padding:0 2em;
+    padding:0 1.5em;
     transition: color .3s ease-in-out;
+    font-weight: bold;
 }
 
 .top-navigation li:hover{
@@ -26,4 +27,8 @@
 
 hr{
     border: 1px solid #dedede;
+}
+
+li > a:hover{
+    color:#f84445;
 }

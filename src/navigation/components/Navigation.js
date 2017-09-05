@@ -11,7 +11,8 @@ export default StyleSheet.create({
     'display': 'inline-block',
     'cursor': 'pointer',
     'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }],
-    'transition': 'color .3s ease-in-out'
+    'transition': 'color .3s ease-in-out',
+    'fontWeight': 'bold'
   },
   'top-navigation li:hover': {
     'color': '#f84445'
@@ -25,5 +26,8 @@ export default StyleSheet.create({
   },
   'hr': {
     'border': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }]
+  },
+  'li > a:hover': {
+    'color': '#f84445'
   }
 });

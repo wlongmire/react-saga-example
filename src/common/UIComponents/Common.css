@@ -21,3 +21,31 @@
 .dropdown-component{
     margin: 2em 0;
 }
+
+.custom-dropdown-component{
+    border-bottom: 1px solid black;
+    width:100%;
+}
+
+.custom-dropdown-label{
+    color: gray;
+    font-size: small;
+    position: relative;
+    top: 2.5em;
+}
+
+.custom-dropdown-value{
+    text-align: left;
+    position: relative;
+    right: 1.2em;
+    top: 1em;
+}
+
+.schedule-dropdown-component{
+    border: 1px solid black;
+    width: 40%;
+    height: 3.5em;
+    color: #dedede;
+    font-size: medium;
+    font-weight: bold;
+}

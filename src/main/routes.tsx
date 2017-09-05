@@ -6,6 +6,9 @@ import * as Zoo from '../zoo';
 import * as Visits from '../visits';
 import * as Users from '../users';
 import * as Auth from '../auth';
+import * as Admin from '../admin';
+import * as Schedule from '../schedule';
+
 import { AuthService } from '../services';
 import { history } from '../common';
 
@@ -34,10 +37,22 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     render={(props) => <Users.Components.Patients {...props} />}
                 />
                 <Route 
+                    path="/users"
+                    render={(props) => <Admin.Components.Users {...props} />}
+                />
+                <Route 
+                    path="/add-user"
+                    render={(props) => <Admin.Components.AddUserPage {...props} />}
+                    />
+               <Route
+                    path="/schedule"
+                    render={(props) => <Schedule.Components.Schedules {...props} />}                />
+                <Route 
                     exact={true}
                     path="/patient/:patientId"
                     render={(props) => <Users.Components.Patient {...props} />}
                 />
+                
                 <Route 
                     path="/zoo"
                     render={(props) => <Zoo.Components.Main {...props} />}

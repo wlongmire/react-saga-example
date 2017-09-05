@@ -72,7 +72,6 @@ class PatientContainer extends React.Component<P,S>{
     
         this.setState({
           open: false,
-          anchorEl: event.currentTarget,
         });
       };
 

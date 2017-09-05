@@ -72,7 +72,6 @@ class PatientContainer extends React.Component<P,S>{
     
         this.setState({
           open: false,
-          anchorEl: event.currentTarget,
         });
       };
 
@@ -253,7 +252,9 @@ class PatientContainer extends React.Component<P,S>{
                     <div>
                         {
                             this.state.createNewTestOrder ?
-                            <Tests.Components.AddTestSection/>:
+                            <Tests.Components.AddTestSection
+                                closeTestsCard={this.handleClickTestOrdersTab}
+                            />:
                             <Tests.Components.TestOrdersContainer/>
                         }
                     </div>
@@ -262,7 +263,14 @@ class PatientContainer extends React.Component<P,S>{
 
                     <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
                     <div>
-                        <Imaging.Components.ImagingComponent/>
+                        {
+                            this.state.createNewImaging ? 
+                            <Imaging.Components.AddImageSection
+                                closeImagingCard={this.handleClickImagingTab}
+                            />:
+                            <Imaging.Components.ImagingComponent/>
+                        }
+                        
                     </div>
                     </Tab>
 

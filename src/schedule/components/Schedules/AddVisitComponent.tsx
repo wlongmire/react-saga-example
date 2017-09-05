@@ -9,11 +9,6 @@ import {
     TextInputTemplate,
     ChipCollection
 } from '../../../common/UIComponents';
-import * as visitActions from '../../actions';
-import {  Dispatch, bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-import './Visit.css';
 
 const style = {
   backgroundColor: '#f84445',
@@ -29,7 +24,6 @@ interface VisitDrawerProps {
     className?: string;
     createVisit?: (visit:any) => void;
     closeVisitCard?: () => void;
-    enclosingIdName?: string
 }
 
 interface VisitDrawerState{
@@ -109,7 +103,7 @@ const getNamedValue = (name:string, v?:number) => {
 }
  
 
-class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawerState>{
+export default class AddVisitComponent extends React.Component<VisitDrawerProps, VisitDrawerState>{
     constructor(){
         super()
         this.handleSubmitVisit = this.handleSubmitVisit.bind(this);
@@ -177,7 +171,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
     }
     render(){
         return(
-            <form id={this.props.enclosingIdName || "visit-drawer"} onSubmit={this.handleSubmitVisit}> 
+            <form id="visit-drawer" onSubmit={this.handleSubmitVisit}> 
             <span className="visit-title-card"> Add New Visit</span>
             <DropDownTemplate
                 title="Status"
@@ -376,13 +370,3 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
         )
     }
 }
-
-
-const mapDispatchToProps = (dispatch : Dispatch<{}>) => bindActionCreators(
-    {
-        createVisit: visitActions.add
-    },
-    dispatch
-)
-
-export const VisitDrawer = connect<VisitDrawerState, {}, VisitDrawerProps>(null, mapDispatchToProps)(VisitDrawerComponent)

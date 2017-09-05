@@ -39,4 +39,14 @@
     position: relative;
     right: 1.2em;
     top: 1em;
+
+}
+
+.schedule-dropdown-component{
+    border: 1px solid black;
+    width: 40%;
+    height: 3.5em;
+    color: #dedede;
+    font-size: medium;
+    font-weight: bold;
 }

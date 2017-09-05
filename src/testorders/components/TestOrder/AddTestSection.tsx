@@ -39,7 +39,10 @@ const stubbedData = {
 }
 
 interface S {
-    payload : object
+    payload : object;
+}
+interface P {
+    closeTestsCard: () => void;
 }
 const getNamedValue = (name:string, v?:number) => {
     let theArrays = Object.keys(stubbedData);
@@ -55,7 +58,7 @@ const getNamedValue = (name:string, v?:number) => {
 
 }
 
-export class AddTestSection extends React.Component<{}, S>{
+export class AddTestSection extends React.Component<P, S>{
     constructor(){
         super()
         this.state = {
@@ -207,7 +210,7 @@ export class AddTestSection extends React.Component<{}, S>{
             />
             <br/>
             <RaisedButton 
-
+                onClick={this.props.closeTestsCard}
                 label="cancel"
             />
             <RaisedButton 

@@ -10,23 +10,23 @@ export default StyleSheet.create({
     'margin': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1 }, { 'unit': 'string', 'value': 'auto' }],
     'boxShadow': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'px', 'value': 30 }, { 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'rgba(0,0,0,.1)' }]
   },
-  'header': {
+  '#visit-drawer header': {
     'minHeight': [{ 'unit': '%V', 'value': 0.1 }],
     'background': '#f84445'
   },
-  'header p': {
+  '#visit-drawerheader p': {
     'color': 'white',
     'fontWeight': '900',
     'padding': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }]
   },
-  'maintenance-section': {
+  '#visit-drawer maintenance-section': {
     'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
     'padding': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }]
   },
-  'table-element': {
+  '#visit-drawer table-element': {
     'width': [{ 'unit': '%H', 'value': 0.8 }]
   },
-  'visit-type-section': {
+  '#visit-drawer visit-type-section': {
     'width': [{ 'unit': '%H', 'value': 0.7 }],
     'margin': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }],
     'display': 'grid',
@@ -38,20 +38,20 @@ export default StyleSheet.create({
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr'
   },
-  'label': {
+  '#visit-drawerlabel': {
     'display': 'inline-block',
     'fontSize': [{ 'unit': 'string', 'value': 'small' }]
   },
-  'checkbox-value': {
+  '#visit-drawer checkbox-value': {
     'display': 'inline-block',
     'fontSize': [{ 'unit': 'string', 'value': 'small' }]
   },
-  'location-title': {
+  '#visit-drawerlocation-title': {
     'fontSize': [{ 'unit': 'string', 'value': 'small' }],
     'fontWeight': 'bold',
     'color': 'gray'
   },
-  'scheduled-title': {
+  '#visit-drawerscheduled-title': {
     'fontSize': [{ 'unit': 'string', 'value': 'small' }],
     'fontWeight': 'bold',
     'color': 'gray',
@@ -59,28 +59,28 @@ export default StyleSheet.create({
     'left': [{ 'unit': 'em', 'value': 2 }],
     'textAlign': 'left'
   },
-  'visit_type': {
+  '#visit-drawervisit_type': {
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr',
     'textAlign': 'left',
     'position': 'relative',
     'left': [{ 'unit': 'em', 'value': 1 }]
   },
-  'maintenance_type': {
+  '#visit-drawermaintenance_type': {
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr',
     'textAlign': 'left',
     'position': 'relative',
     'left': [{ 'unit': 'em', 'value': 1 }]
   },
-  'doctor_type': {
+  '#visit-drawerdoctor_type': {
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr',
     'textAlign': 'left',
     'position': 'relative',
     'left': [{ 'unit': 'em', 'value': 1 }]
   },
-  'checkbox-title': {
+  '#visit-drawercheckbox-title': {
     'fontSize': [{ 'unit': 'px', 'value': 15 }],
     'textAlign': 'left',
     'position': 'relative',
@@ -89,20 +89,20 @@ export default StyleSheet.create({
     'fontWeight': 'bold',
     'color': 'gray'
   },
-  'doctor-type-section': {
+  '#visit-drawerdoctor-type-section': {
     'width': [{ 'unit': '%H', 'value': 0.9 }],
     'margin': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }],
     'display': 'grid',
     'gridTemplateColumns': '1fr 1fr 1fr'
   },
-  'scheduled-time': {
+  '#visit-drawerscheduled-time': {
     'display': 'grid',
     'position': 'relative',
     'gridTemplateColumns': '1fr 1fr 1fr',
     'width': [{ 'unit': 'vw', 'value': 56 }],
     'gridColumnGap': '2em'
   },
-  'scheduled-time-section': {
+  '#visit-drawerscheduled-time-section': {
     'marginBottom': [{ 'unit': 'em', 'value': 1 }]
   }
 });

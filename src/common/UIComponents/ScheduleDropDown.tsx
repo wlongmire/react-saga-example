@@ -12,7 +12,6 @@ interface DropDownTemplateProps {
     dataArray: dataObject[];
     onChange: (v: number, s : string) => void;
     leftCaretPosition ?: number;
-    className?:string
 }
 
 interface dataObject {
@@ -24,7 +23,7 @@ const underlineStyle = {
     display: "none"
 }
 
-export class CustomDropDown extends React.Component<DropDownTemplateProps, S>{
+export class ScheduleDropDown extends React.Component<DropDownTemplateProps, S>{
     constructor() {
         super();
         this.state = { value: 1 };
@@ -42,12 +41,11 @@ export class CustomDropDown extends React.Component<DropDownTemplateProps, S>{
 
     render() {
         return (
-            <div className="custom-dropdown-component">
-                <span className="custom-dropdown-label">{this.props.title}</span>
-                <div className="custom-dropdown-value">
+            <div className="schedule-dropdown-component">
+                <span className="schedule-dropdown-label">{this.props.title}</span>
+                <div className="schedule-dropdown-value">
                 <DropDownMenu 
-                className={this.props.className}
-                iconStyle={{left: 500}}
+                iconStyle={{left: 160}}
                 underlineStyle={underlineStyle} 
                 value={this.state.value} 
                 onChange={this.handleChange}>

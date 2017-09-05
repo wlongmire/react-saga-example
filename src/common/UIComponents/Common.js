@@ -38,5 +38,13 @@ export default StyleSheet.create({
     'position': 'relative',
     'right': [{ 'unit': 'em', 'value': 1.2 }],
     'top': [{ 'unit': 'em', 'value': 1 }]
+  },
+  'schedule-dropdown-component': {
+    'border': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': 'black' }],
+    'width': [{ 'unit': '%H', 'value': 0.4 }],
+    'height': [{ 'unit': 'em', 'value': 3.5 }],
+    'color': '#dedede',
+    'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
+    'fontWeight': 'bold'
   }
 });

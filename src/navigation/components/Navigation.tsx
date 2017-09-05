@@ -16,7 +16,7 @@ export const Navigation = () => {
                 Monitor
             </li>
             <li className="menu-items">
-                Schedule
+                <Link to="/schedule" style={{color: "black"}}> Schedule</Link>
             </li>
             <li className="menu-items">
                 Profile

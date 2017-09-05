@@ -1,1 +1,2 @@
-export * from './Imaging';
+export * from './Images';
+export * from './Image';

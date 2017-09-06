@@ -10,7 +10,7 @@ export const Navigation = () => {
                 LifeCo
             </li>
             <li className="menu-items">
-                Home
+                <Link style={{color:"black"}} to="/">Home</Link>
             </li>
             <li className="menu-items">
                 Monitor

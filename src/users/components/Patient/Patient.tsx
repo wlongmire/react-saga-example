@@ -230,8 +230,12 @@ class PatientContainer extends React.Component<P,S>{
                     <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
                     <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
                     <div>
-                        
-                        <Rx.Components.RXContainer/>
+                        {
+                            this.state.createNewTreatment ?
+                            <Rx.Components.TreatmentsComponent/>:
+                            <Rx.Components.RXContainer/>
+                        }
+                       
                     </div>
                     </Tab>
 

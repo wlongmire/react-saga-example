@@ -8,7 +8,6 @@ import * as Users from '../users';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
-
 import { AuthService } from '../services';
 import { history } from '../common';
 

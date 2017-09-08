@@ -17,5 +17,10 @@ export default StyleSheet.create({
     'fontSize': [{ 'unit': 'string', 'value': 'x-large' }],
     'fontWeight': 'bold',
     'cursor': 'pointer'
+  },
+  'component-entry': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 1fr',
+    'width': [{ 'unit': '%H', 'value': 0.8 }]
   }
 });

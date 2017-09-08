@@ -15,6 +15,8 @@ import { connect } from 'react-redux';
 
 import './Visit.css';
 
+let FaCalendar = require('react-icons/lib/fa/calendar');
+
 const style = {
   backgroundColor: '#f84445',
   width: '10%',
@@ -25,6 +27,9 @@ const btnStyle = {
     backgroundColor: '#f84445'
 }
 
+const underlineStyle = {
+    display : "none"
+}
 interface VisitDrawerProps {
     className?: string;
     createVisit?: (visit:any) => void;
@@ -186,6 +191,9 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 }
                 onChange={this.onPlainTextDropDownChange('status')}
             />
+            <div>
+            <span className="date-section-title">Date Created</span>
+            <div className="date-picker-section">
             <DatePicker 
                 name="date" 
                 hintText="Date Created"
@@ -195,7 +203,13 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                     left:'2em',
                     marginBottom:'.5em'
                     }}
+                underlineStyle={underlineStyle}
                 />
+            <div className="calendar-icon">
+            <FaCalendar/>
+            </div>
+            </div>
+            </div>
             <DropDownTemplate
                 title="Patient Name"
                 dataArray={
@@ -207,24 +221,26 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
             <p className="checkbox-title">Visit Type</p>
             <div className="visit-type-section">
                 <div className="visit_type"> 
-                    <span className="label">LifeCo</span>
                     <Checkbox className="checkbox-value"/>
+                    <span className="label">LifeCo</span>
                 </div>
                 <div className="visit_type"> 
-                    <span className="label">External</span>
                     <Checkbox className="checkbox-value"/>
+                    <span className="label">External</span>
+                    
                 </div>
             </div>
             <br/>
             <p className="checkbox-title">Maintenance</p>
             <div className="maintenance-type-section">
                 <div className="maintenance_type"> 
-                    <span className="label">Physical</span>
                     <Checkbox className="checkbox-value"/>
+                    <span className="label">Physical</span>
+                    
                 </div>
                 <div className="maintenance_type"> 
-                    <span className="label">Pap Smear</span>
                     <Checkbox className="checkbox-value"/>
+                    <span className="label">Pap Smear</span>
                 </div>
             </div>
 
@@ -239,16 +255,17 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
              <p className="checkbox-title">Doctor Type</p>
             <div className="doctor-type-section">
                 <div className="doctor_type"> 
+                    <Checkbox className="checkbox-value"/>
                     <span className="label">Primary</span>
-                    <Checkbox className="checkbox-value"/>
+                    
                 </div>
                 <div className="doctor_type"> 
+                    <Checkbox className="checkbox-value"/>
                     <span className="label">Gynaceologist</span>
-                    <Checkbox className="checkbox-value"/>
                 </div>
                 <div className="doctor_type"> 
-                    <span className="label">Dermatologist</span>
                     <Checkbox className="checkbox-value"/>
+                    <span className="label">Dermatologist</span>
                 </div>
             </div>
 
@@ -263,20 +280,24 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
              <div className="scheduled-time-section">
                 <span className="scheduled-title">Scheduled Date and Time</span>
                 <div className="scheduled-time">
-                <div>
+                <div className="scheduled-date-box">
                  <DatePicker 
                     hintText="Scheduled Date" 
                     name="scheduled-date"
+                    underlineStyle={underlineStyle}
                     style={{
                     textAlign:"left",
                     position:"relative",
                     left:'2em',
                     marginBottom:'.5em',
                     }}/>
+                <div className="calendar-icon-schedule">
+                    <FaCalendar/>
+                </div>
                 </div>
                 <div>
                 <DropDownTemplate
-                    title="Actual Time"
+                    title=""
                     dataArray={
                     stubbedData.actualTime
                     }
@@ -285,7 +306,7 @@ class VisitDrawerComponent extends React.Component<VisitDrawerProps, VisitDrawer
                 </div>
                 <div>
                 <DropDownTemplate
-                    title="Time Choice"
+                    title=""
                     dataArray={
                     stubbedData.timeChoice
                     }

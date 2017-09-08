@@ -37,7 +37,7 @@ export default StyleSheet.create({
     'border': [{ 'unit': 'string', 'value': 'none' }],
     'textAlign': 'left',
     'position': 'relative',
-    'right': [{ 'unit': 'vw', 'value': 20 }],
+    'right': [{ 'unit': 'vw', 'value': 11 }],
     'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': 'gray' }],
     'padding': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }],
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }],

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   'dropdown-label': {
-    'fontSize': [{ 'unit': 'string', 'value': 'small' }],
+    'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
     'fontWeight': 'bold',
     'color': 'gray',
     'display': 'inline-block',
@@ -14,11 +14,12 @@ export default StyleSheet.create({
     'width': [{ 'unit': '%H', 'value': 0.9 }],
     'display': 'inline-block',
     'textAlign': 'left',
-    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }],
-    'borderRadius': '3px',
+    'border': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#C6D3D1' }],
+    'borderRadius': '4px',
     'position': 'relative',
     'right': [{ 'unit': 'em', 'value': 0.2 }],
-    'height': [{ 'unit': 'em', 'value': 3.2 }]
+    'height': [{ 'unit': 'em', 'value': 2.8 }],
+    'top': [{ 'unit': 'em', 'value': 0.5 }]
   },
   'dropdown-component': {
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'px', 'value': 0 }]

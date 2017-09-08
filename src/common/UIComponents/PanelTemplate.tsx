@@ -8,6 +8,11 @@ interface IAdditionalItem {
     description: string;
 
 }
+
+const underlineStyle = {
+    display : "none"
+}
+
 interface TableTemplateState {
     items: Array<IAdditionalItem>
 }
@@ -72,7 +77,7 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                         {
                             this.state.items.map((item:IAdditionalItem, index:number, array)=>{
                                 return(
-                                <div key={item.id}>
+                                <div key={item.id} className="component-entry-panels">
                                 <div>
                                     <TextField 
                                         id={item.id.toString()}
@@ -80,6 +85,7 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                                         hintText="Test"
                                         onChange={this.handleChangeInput(index)}
                                         floatingLabelText="Test"
+                                        underlineStyle={underlineStyle}
                                     />
                                 </div>
                                 <div>
@@ -88,13 +94,15 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                                         name="result"
                                         hintText="Result"
                                         onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="result"/>
+                                        underlineStyle={underlineStyle}
+                                        floatingLabelText="Result"/>
                                 </div>
                                 <div>
                                     <TextField 
                                         id={item.id.toString()}
                                         name="status"
                                         hintText="Status"
+                                        underlineStyle={underlineStyle}
                                         onChange={this.handleChangeInput(index)}
                                         floatingLabelText="Status"/>
                                 </div>
@@ -102,6 +110,7 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                                 <div>
                                     <TextField 
                                         id={item.id.toString()}
+                                        underlineStyle={underlineStyle}
                                         name="comment"
                                         hintText="Comment"
                                         onChange={this.handleChangeInput(index)}

@@ -72,7 +72,7 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
                         {
                             this.state.items.map((item:IAdditionalItem, index:number, array)=>{
                                 return(
-                                <div key={item.id}>
+                                <div key={item.id} className="component-entry">
                                 <div>
                                     <TextField 
                                         id={item.id.toString()}

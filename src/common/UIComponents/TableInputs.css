@@ -18,3 +18,15 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.component-entry{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+}
+
+.component-entry-panels{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 800px;
+}

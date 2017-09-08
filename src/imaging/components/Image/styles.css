@@ -9,17 +9,19 @@
     
 }
 .priority-type-section{
-    width: 70%;
-    margin: 1.5em auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    width: 30%;
+    margin-left: 1em;
 }
 .priority_type {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50px 1fr;
+}
+.priority_type .label{
     text-align: left;
-    position: relative;
-    left: 1em;
+    font-size: medium;
+    width: 100px
 }
 
 .checkbox-title{
@@ -37,11 +39,14 @@
     border: none;
     text-align: left;
     position: relative;
-    right:11vw;
-    border: 2px solid gray;
+    right:17rem;
+    background: #C6D3D1;
     padding: 1em;
     margin: 2em;
+    height: 2.5rem;
+    border-radius: 3px;
     cursor: pointer;
+    width: 10rem;
 }
 
 .image-add-new{
@@ -64,4 +69,22 @@
 
 .scheduled-time-section{
     margin-bottom: 1em;
+}
+
+
+/*
+==============================
+File Input Section Attachment
+==============================
+*/
+
+.file-input-section{
+    display: grid;
+    grid-template-columns: 1fr 20px;
+}
+
+.att-icon{
+    display: inline-block;
+    position: relative;
+    right: 32em;
 }

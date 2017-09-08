@@ -1,9 +1,10 @@
 .input-title{
     display: block;
-    font-size: small;
+    font-size: medium;
     font-weight: bold;
     text-align: left;
     position: relative;
     left: 3em;
-    color: gray
+    color: gray;
+    margin: 1em 0;
 }

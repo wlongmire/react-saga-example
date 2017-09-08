@@ -1,24 +1,9 @@
 import * as React from 'react';
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 
 import './TableInputs.css';
-
-const TableStyles = {
-    width: '70%',
-    margin: '0 auto'
-}
-
-
 
 const vitalsObject = [
     {id: 0, name: 'Weight' },
@@ -96,41 +81,41 @@ export class TableInputs extends React.Component<TableInputProps, TableInputsSta
                 <MenuItem key={v.id} value={v.name} primaryText={v.name} />
             )
         })
-        const TableInputRow =
+        const VitalInputRow =
             this.state.myVitals.map((vital: IVital) => {
                 return (
-                    <TableRow key={vital.id}>
-                        <TableRowColumn>
+                    <div key={vital.id} className="component-entry">
+                        <div>
                             <DropDownMenu value={vital.name} onChange={(e,k,v) => {
                                 this.handleChange(e,vital.id,v)}
                                 
                                 }>
                                 {VitalOptions}
                             </DropDownMenu>
-                        </TableRowColumn>
-                        <TableRowColumn>
+                        </div>
+                        <div>
                             <TextField 
                             id={vital.id.toString()}
                             name={vital.name}
                             hintText={vital.name} 
                             floatingLabelText={vital.value}
                             onChange={(e,v) => this.handleTextInput(e,v,vital.id)}/>
-                        </TableRowColumn>
-                    </TableRow>
+                        </div>
+                    </div>
                 )
             })
         return (
-            <Table style={TableStyles}>
-                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                    <TableRow>
-                        <TableHeaderColumn>Vitals</TableHeaderColumn>
-                        <TableHeaderColumn><span onClick={this.handleAddVital} className="add">+</span></TableHeaderColumn>
-                    </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false}>
-                    {TableInputRow}
-                </TableBody>
-            </Table>
+            <div id="add-component">
+                <div>
+                    <div className="add-component-header">
+                        <div>Vitals</div>
+                        <div><span onClick={this.handleAddVital} className="add">+</span></div>
+                    </div>
+                </div>
+                <div>
+                    {VitalInputRow}
+                </div>
+            </div>
         )
     }
 }

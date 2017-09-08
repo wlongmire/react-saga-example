@@ -7,11 +7,19 @@ import {
 } from '../../../common/UIComponents';
 import DatePicker from 'material-ui/DatePicker';
 let FileInput = require('react-file-input');
+let FaAttachment = require('react-icons/lib/md/attach-file');
+let FaCalendar = require('react-icons/lib/fa/calendar');
+
+
 
 import './styles.css';
 
 const btnStyle = {
     backgroundColor: '#f84445'
+}
+
+const underlineStyle = {
+    display : "none"
 }
 
 const style = {
@@ -154,40 +162,44 @@ export class AddImageSection extends React.Component<P, S>{
             />
 
             
-            <div className="scheduled-time-section">
-                <span className="scheduled-title">Scheduled Date and Time</span>
-                <div className="scheduled-time">
-                <div>
-                 <DatePicker 
-                    hintText="Scheduled Date" 
-                    name="scheduled-date"
-                    style={{
-                    textAlign:"left",
-                    position:"relative",
-                    left:'2em',
-                    marginBottom:'.5em',
-                    }}/>
-                </div>
-                <div>
-                <DropDownTemplate
-                    title="Actual Time"
-                    dataArray={
-                    stubbedData.actualTime
-                    }
-                    onChange={(value, text) => this.onChipDropDownChange('actual-time')(value, text) }
-                />
-                </div>
-                <div>
-                <DropDownTemplate
-                    title="Time Choice"
-                    dataArray={
-                    stubbedData.timeChoice
-                    }
-                    onChange={(value, text) => this.onChipDropDownChange('time-choice')(value, text) }
-                />
-                </div>
-                </div>
-             </div>
+                <div className="scheduled-time-section">
+                    <span className="scheduled-title">Scheduled Date and Time</span>
+                    <div className="scheduled-time">
+                    <div className="scheduled-date-box">
+                    <DatePicker 
+                        hintText="Scheduled Date" 
+                        name="scheduled-date"
+                        underlineStyle={underlineStyle}
+                        style={{
+                        textAlign:"left",
+                        position:"relative",
+                        left:'2em',
+                        marginBottom:'.5em',
+                        }}/>
+                    <div className="calendar-icon-schedule">
+                        <FaCalendar/>
+                    </div>
+                    </div>
+                    <div>
+                    <DropDownTemplate
+                        title=""
+                        dataArray={
+                        stubbedData.actualTime
+                        }
+                        onChange={(value, text) => this.onChipDropDownChange('actual-time')(value, text) }
+                    />
+                    </div>
+                    <div>
+                    <DropDownTemplate
+                        title=""
+                        dataArray={
+                        stubbedData.timeChoice
+                        }
+                        onChange={(value, text) => this.onChipDropDownChange('time-choice')(value, text) }
+                    />
+                    </div>
+                    </div>
+            </div>
 
 
              <DropDownTemplate
@@ -198,11 +210,16 @@ export class AddImageSection extends React.Component<P, S>{
                 onChange={this.onPlainTextDropDownChange('location')}
             />
 
+            <div className="file-input-section">
             <FileInput name="Add attachment"
                    accept=".png,.gif"
                    placeholder="Add attachment"
                    className="inputClass"
                    onChange={this.handleChange} />
+            <div className="att-icon">
+            <FaAttachment/>
+            </div>
+            </div>
 
             <TextInputTemplate
                 name="public-note"

@@ -15,16 +15,15 @@ export const PatientsList = (props:PatientsListProps) => {
                props.patients.map((patient:Model.Patient, index:number)=> {
                     return(
                         <tr key={index} className="patients-row" onClick={props.onClickSinglePatient}>
-                        <td className="avatar">
-                           <img className="avatar-img" src={patient.avatar}/>
-
-                        </td>
-                        <td>
-                        <Link to={'patient/' + patient.id}><span className="patient-name">{patient.name}</span></Link>
-                        </td>
-                        <td className="message-indicator">
-                            <span className="new-message-alert">2</span><span className="message-text">New Message</span>
-                        </td>
+                            <td className="avatar">
+                                <img className="avatar-img" src={patient.avatar}/>
+                            </td>
+                            <td>
+                                <Link to={'patient/' + patient.id}><span className="patient-name">{patient.name}</span></Link>
+                            </td>
+                            <td className="message-indicator">
+                                <span className="new-message-alert">2</span><span className="message-text">New Message</span>
+                            </td>
                         </tr>
                     )
                 })

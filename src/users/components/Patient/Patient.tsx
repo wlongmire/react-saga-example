@@ -69,7 +69,7 @@ const labelBackground = {
 }
 
 class PatientContainer extends React.Component<P,S>{
-    constructor(){
+    constructor() {
         super();
         this.state = {
             open: false,
@@ -96,6 +96,7 @@ class PatientContainer extends React.Component<P,S>{
         // this.props.loadSinglePatient(this.props.match.params.patientId)
 
     }
+
     handleClosePopOver = (event: any) => {
         // This prevents ghost click.
         event.preventDefault();

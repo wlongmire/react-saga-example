@@ -17,9 +17,7 @@ export module ActionType {
     export const LOAD_PATIENT = 'users/LOAD_PATIENT';
     export const LOAD_PATIENT_SUCCESS = 'users/LOAD_PATIENT_SUCCESS';
     export const LOAD_PATIENT_FAILURE = 'users/LOAD_PATIENT_FAILURE';
-
 }
-
 
 export const loadAllPatients = ():Common.ActionResult<{}> =>  {
     return {

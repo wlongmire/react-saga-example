@@ -51,3 +51,64 @@
     font-size: medium;
     font-weight: bold;
 }
+
+/*
+==========================
+Custom Tab Component
+==========================
+*/
+
+#wrapper{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 1fr;
+    height: 70vh;
+    
+}
+
+.chat-section,
+.right-section{
+    /* border-right: 1px solid #c6d3d1; */
+}
+
+.right-section{
+    grid-template-rows: 20px 1fr;
+}
+
+.tabs{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 50%;
+}
+
+.tab-header,
+.tab-header-clicked{
+    /* border-top: 1px solid #c6d3d1;
+    border-right: 1px solid #c6d3d1;
+    border-left: 1px solid #c6d3d1; */
+    padding: .5em;
+    margin: 0 .2em 0 0;
+    text-align: center;
+    font-size: medium;
+    cursor: pointer;
+}
+.tab-header{
+    background: #f7f9f8;
+    position: relative;
+    top: 3px;
+}
+.tab-header-clicked{
+    border-top: 1px solid #c6d3d1;
+    border-right: 1px solid #c6d3d1;
+    border-left: 1px solid #c6d3d1;
+    background: white;
+    position: relative;
+    top: 1px;
+    z-index: 2
+}
+
+.tab-content{
+    border-top: 1px solid rgba(198, 211, 209, 1);
+    z-index: 1
+}

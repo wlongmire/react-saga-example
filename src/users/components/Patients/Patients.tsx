@@ -23,7 +23,6 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
 
     componentDidMount() {
         this.props.loadAllPatients();
-
     }
 
     handleNavigateToSinglePatient = () => {

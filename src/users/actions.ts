@@ -1,7 +1,7 @@
 import * as Common from '../common';
 import * as Model from './models';
 
-const BASE_URL = 'https://my-json-server.typicode.com/kimani-ndegwa/temp-lifeco/patients/'
+const BASE_URL = 'https://api.life.cheap/exposed/list_my_patients'
 /**
  * Action types for Patients.
  */
@@ -17,9 +17,7 @@ export module ActionType {
     export const LOAD_PATIENT = 'users/LOAD_PATIENT';
     export const LOAD_PATIENT_SUCCESS = 'users/LOAD_PATIENT_SUCCESS';
     export const LOAD_PATIENT_FAILURE = 'users/LOAD_PATIENT_FAILURE';
-
 }
-
 
 export const loadAllPatients = ():Common.ActionResult<{}> =>  {
     return {
@@ -66,24 +64,32 @@ export const loadPatientFailure = (error: Error): Common.ActionResult<Error> => 
 export const loadPatients = () => {
     return (dispatch:any) => {
         dispatch(loadAllPatients)
+        const accessToken = localStorage.getItem('access_token');
+        const headers = new Headers();
+        headers.append('Authorization', `Token ${accessToken}`);
         return fetch(BASE_URL, {
             method: 'GET',
-            headers:{
-                'Access-Control-Allow-Origin':''
-            }
-        }).then((response:any)=>{
-            console.log(response, 'Response here')
-            if(response.ok){
-                
+            headers,
+            mode: 'cors',
+            cache: 'default'
+        }).then((response:any) => {
+            if(response.ok) {
                 return response.json()
             }
-            return response.json().then((err:Error)=>{
+            return response.json().then((err:Error) => {
                 throw new Error;
             })
         }).then((data:any) => {
-            dispatch (loadAllPatientsSuccess(data))
-        }).catch(err=> {
-            console.log(err)
+            const patients = data.map((raw: any) => {
+                return <Model.Patient>{
+                    id: raw.user_id,
+                    name: `${raw.first} ${raw.last}`,
+                    primaryChannel: raw.primary_channel,
+                    avatar: 'http://www.gravatar.com/avatar/1f27b03f119910811d8cc8ff9dc1e922?s=48&d=identicon' // replace with raw when available
+                };
+            });
+            dispatch (loadAllPatientsSuccess(patients))
+        }).catch(err => {
             dispatch(loadAllPatientsSuccess(err))
         })
     }
@@ -92,11 +98,14 @@ export const loadPatients = () => {
 export const loadSinglePatient = (id:number) => {
     return(dispatch:any) => {
         dispatch(loadPatient)
+        const accessToken = localStorage.getItem('access_token');
+        const headers = new Headers();
+        headers.append('Authorization', `Token ${accessToken}`);
         return fetch(BASE_URL + id.toString(), {
             method: 'GET',
-            headers:{
-                'Access-Control-Allow-Origin':'*'
-            }
+            headers,
+            mode: 'cors',
+            cache: 'default'
         }).then((response: any)=>{
             if(response.ok){
                 return response.json()

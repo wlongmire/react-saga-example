@@ -55,7 +55,7 @@ const labelBackground = {
 }
 
 class PatientContainer extends React.Component<P,S>{
-    constructor(){
+    constructor() {
         super();
         this.state = {
             open: false,
@@ -63,9 +63,11 @@ class PatientContainer extends React.Component<P,S>{
             createNewVisit: false
         };
     }
+
     componentDidMount(){
         this.props.loadSinglePatient(this.props.match.params.patientId)
     }
+
     handleClosePopOver = (event: any) => {
         // This prevents ghost click.
         event.preventDefault();
@@ -228,70 +230,69 @@ class PatientContainer extends React.Component<P,S>{
                     </section>
                     <section className="biodrive-section">
                     <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                    <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
-                    <div>
-                        {
-                            this.state.createNewTreatment ?
-                            <Rx.Components.TreatmentsComponent/>:
-                            <Rx.Components.RXContainer/>
-                        }
-                       
-                    </div>
-                    </Tab>
+                        <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
+                            <div>
+                                {
+                                    this.state.createNewTreatment ?
+                                    <Rx.Components.TreatmentsComponent/>:
+                                    <Rx.Components.RXContainer/>
+                                }
+                            
+                            </div>
+                        </Tab>
 
-                    <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
-                    <div>
-                        { this.state.createNewVisit ? 
-                        <Visits.Components.VisitDrawer
-                            closeVisitCard={this.handleClickVisitsTab}
-                        />:
-                        <Visits.Components.VisitsContainer/> 
-                        }
-                    </div>
-                    </Tab>
+                        <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
+                            <div>
+                                { this.state.createNewVisit ? 
+                                <Visits.Components.VisitDrawer
+                                    closeVisitCard={this.handleClickVisitsTab}
+                                />:
+                                <Visits.Components.VisitsContainer/> 
+                                }
+                            </div>
+                        </Tab>
 
-                    <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
+                        <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
+                            <div>
+                                <div>
+                                    {
+                                        this.state.createNewTestOrder ?
+                                        <Tests.Components.AddTestSection
+                                            closeTestsCard={this.handleClickTestOrdersTab}
+                                        />:
+                                        <Tests.Components.TestOrdersContainer/>
+                                    }
+                                </div>
+                            </div>
+                        </Tab>
 
-                    <div>
-                    <div>
-                        {
-                            this.state.createNewTestOrder ?
-                            <Tests.Components.AddTestSection
-                                closeTestsCard={this.handleClickTestOrdersTab}
-                            />:
-                            <Tests.Components.TestOrdersContainer/>
-                        }
-                    </div>
-                    </div>
-                    </Tab>
+                        <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
+                            <div>
+                                {
+                                    this.state.createNewImaging ? 
+                                    <Imaging.Components.AddImageSection
+                                        closeImagingCard={this.handleClickImagingTab}
+                                    />:
+                                    <Imaging.Components.ImagingComponent/>
+                                }
+                                
+                            </div>
+                        </Tab>
 
-                    <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
-                    <div>
-                        {
-                            this.state.createNewImaging ? 
-                            <Imaging.Components.AddImageSection
-                                closeImagingCard={this.handleClickImagingTab}
-                            />:
-                            <Imaging.Components.ImagingComponent/>
-                        }
-                        
-                    </div>
-                    </Tab>
+                        <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
+                            <div>
+                                <Wellness.Components.WellnessComponent/>
+                            </div>
+                        </Tab>
 
-                    <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
-                    <div>
-                        <Wellness.Components.WellnessComponent/>
-                    </div>
-                    </Tab>
-
-                    <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
-                    <div>
-                        <Others.Components.OthersComponent/>
-                    </div>
-                    </Tab>
+                        <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
+                            <div>
+                                <Others.Components.OthersComponent/>
+                            </div>
+                        </Tab>
                     </Tabs>
 
-                        {this.state.open &&
+                    {this.state.open &&
                         <PopOverComponent.PopOver
                             _handleClickTest = {this.handleClickOnAddTests}
                             _handleClickImaging = {this.handleClickOnAddImaging}
@@ -300,21 +301,18 @@ class PatientContainer extends React.Component<P,S>{
                             _handleClickWellness = {this.handleClickOnAddWellness}
                             _handleClickOthers = {this.handleClickOnAddOthers}
                         />
-                        }
-                        <div id="add-event-btn"
+                    }
+                    <div 
+                        id="add-event-btn"
                         className={this.state.open ? "floating-btn":"floating-btn-rotate"}
-
-                        >
-                        <div
-                        >
-                        <FloatingBtn.FloatingBtn
-                        onMouseEnter={this._handleShowPopOver}
-                        onClick={this.handleClosePopOver}
-                        
-                        />
+                    >
+                        <div>
+                            <FloatingBtn.FloatingBtn
+                                onMouseEnter={this._handleShowPopOver}
+                                onClick={this.handleClosePopOver}
+                            />
                         </div>
-                        
-                         </div>
+                        </div>
                     </section>
                 </div>
             </div>

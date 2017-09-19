@@ -11,17 +11,19 @@ export default StyleSheet.create({
     'borderRadius': '3px'
   },
   'priority-type-section': {
-    'width': [{ 'unit': '%H', 'value': 0.7 }],
-    'margin': [{ 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 1.5 }, { 'unit': 'string', 'value': 'auto' }],
     'display': 'grid',
-    'gridTemplateColumns': '1fr 1fr'
+    'gridTemplateColumns': '1fr 1fr',
+    'width': [{ 'unit': '%H', 'value': 0.3 }],
+    'marginLeft': [{ 'unit': 'em', 'value': 1 }]
   },
   'priority_type': {
     'display': 'grid',
-    'gridTemplateColumns': '1fr 1fr',
+    'gridTemplateColumns': '50px 1fr'
+  },
+  'priority_type label': {
     'textAlign': 'left',
-    'position': 'relative',
-    'left': [{ 'unit': 'em', 'value': 1 }]
+    'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
+    'width': [{ 'unit': 'px', 'value': 100 }]
   },
   'checkbox-title': {
     'fontSize': [{ 'unit': 'px', 'value': 15 }],
@@ -37,11 +39,14 @@ export default StyleSheet.create({
     'border': [{ 'unit': 'string', 'value': 'none' }],
     'textAlign': 'left',
     'position': 'relative',
-    'right': [{ 'unit': 'vw', 'value': 11 }],
-    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': 'gray' }],
+    'right': [{ 'unit': 'rem', 'value': 17 }],
+    'background': '#C6D3D1',
     'padding': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }],
     'margin': [{ 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }, { 'unit': 'em', 'value': 2 }],
-    'cursor': 'pointer'
+    'height': [{ 'unit': 'rem', 'value': 2.5 }],
+    'borderRadius': '3px',
+    'cursor': 'pointer',
+    'width': [{ 'unit': 'rem', 'value': 10 }]
   },
   'image-add-new': {
     'display': 'block',
@@ -61,5 +66,17 @@ export default StyleSheet.create({
   },
   'scheduled-time-section': {
     'marginBottom': [{ 'unit': 'em', 'value': 1 }]
+  },
+  // ==============================
+File Input Section Attachment
+==============================
+  'file-input-section': {
+    'display': 'grid',
+    'gridTemplateColumns': '1fr 20px'
+  },
+  'att-icon': {
+    'display': 'inline-block',
+    'position': 'relative',
+    'right': [{ 'unit': 'em', 'value': 32 }]
   }
 });

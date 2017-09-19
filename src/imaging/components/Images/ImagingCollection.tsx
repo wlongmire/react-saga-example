@@ -15,17 +15,19 @@ const ImagesCollection = (props: ImageCollectionProps) => {
                 {props.images.map((v:any, index: number) => {
                     return (
                         <li className="image-item" key={index}>
-                        <div>
-                        <p className="image-type">{v.image_type}</p>
-                        <div className="image-details">
-                        <p className="image-detail"> {v.detail}</p>
-                        <p className="image-date">{v.date}</p>
-                        </div>
+                            <div className="image-date"> 
+                            <p><span>{v.date}</span></p>
+                            </div>
 
-                        </div>
-                        <div>
-                        <p className="image-description">{v.description}</p>
-                        </div>
+                            <div className="image-details">
+                                    <p className="image-type">{v.image_type}</p>
+                                    <p className="image-detail"> {v.detail}</p>
+                                    
+                            </div>
+
+                            <div>
+                                    <p className="image-description">{v.description}</p>
+                             </div>
                         </li>
                     )
                 })}

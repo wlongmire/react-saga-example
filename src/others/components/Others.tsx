@@ -3,8 +3,20 @@ import {
     TextInputTemplate,
 } from '../../common/UIComponents';
 
-import './Others.css'
-export class OthersComponent extends React.Component<{}, {}>{
+import ApplicationState from '../../common';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {  Dispatch } from "redux";
+
+import * as actions from '../actions';
+
+import './Others.css';
+
+interface OthersProps {
+    others : any,
+    loadAllOthers : () => void
+}
+class OthersComponent extends React.Component<OthersProps, {}>{
     render(){
         return(
             <div className="others-component">
@@ -33,3 +45,18 @@ export class OthersComponent extends React.Component<{}, {}>{
         )
     }
 }
+
+const mapStateToProps = (state: ApplicationState.IState) => {
+    return {
+        others : state.others,
+    }
+}
+
+const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
+    {
+        loadAllOthers: actions.getAllOthersItems
+    },
+    dispatch
+) 
+
+export const OthersContainer = connect<{},OthersProps, {}>(mapStateToProps, mapDispatchToProps)(OthersComponent)

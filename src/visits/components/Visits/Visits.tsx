@@ -56,14 +56,14 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
                             "doctor_type": "Chiropractor",
                             "location": "25 BroadWay, New York, NY 3880",
                             "description": "Visiting Dr.Peters for ANC",
-                            "date": "AUG 27 2017"
+                            "date": "27 Sept"
                         },
                         {
                             "visit_type": "Chiropractor",
                             "doctor_type": "Chiropractor",
                             "location": "25 BroadWay, New York, NY 3880",
                             "description": "Visiting Dr.Peters for ANC",
-                            "date": "AUG 27 2017"
+                            "date": "28 Sept"
                         }
                     ]}
                 />

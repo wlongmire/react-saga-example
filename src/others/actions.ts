@@ -30,7 +30,7 @@ export const loadAllOthersFailed = (error: Error): Common.ActionResult<Error> =>
     }
 }
 
-export const getAllWOthersItems = () => {
+export const getAllOthersItems = () => {
     return(dispatch:any) => {
         dispatch(loadAllOthers)
         return fetch(BASE_URL_OTHERS, {

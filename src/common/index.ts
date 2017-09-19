@@ -59,6 +59,10 @@ declare module ApplicationState {
     interface TestOrder {
 
     }
+
+    interface Other {
+
+    }
     /**
      * To improve on pattern here
      */
@@ -70,7 +74,8 @@ declare module ApplicationState {
         patient?: IPatient;
         treatments?: Array<Rx>;
         wellness?: Array<Wellness>;
-        testorders?: Array<TestOrder>
+        testorders?: Array<TestOrder>;
+        others?: Array<Other>
     }
 }
 

@@ -1,7 +1,7 @@
 import * as Common from '../common';
 import * as Model from './models';
 
-const BASE_URL = 'https://my-json-server.typicode.com/kimani-ndegwa/temp-lifeco/patients/'
+// const BASE_URL = 'https://my-json-server.typicode.com/kimani-ndegwa/temp-lifeco/patients/'
 /**
  * Action types for Patients.
  */
@@ -63,51 +63,62 @@ export const loadPatientFailure = (error: Error): Common.ActionResult<Error> => 
 
 
 // Redux Thunk operations begin here
-export const loadPatients = () => {
-    return (dispatch:any) => {
-        dispatch(loadAllPatients)
-        return fetch(BASE_URL, {
-            method: 'GET',
-            headers:{
-                'Access-Control-Allow-Origin':''
-            }
-        }).then((response:any)=>{
-            console.log(response, 'Response here')
-            if(response.ok){
+// export const loadPatients = () => {
+//     return (dispatch:any) => {
+//         dispatch(loadAllPatients)
+//         return fetch(BASE_URL, {
+//             method: 'GET',
+//             headers:{
+//                 'Access-Control-Allow-Origin':''
+//             }
+//         }).then((response:any)=>{
+//             console.log(response, 'Response here')
+//             if(response.ok){
                 
-                return response.json()
-            }
-            return response.json().then((err:Error)=>{
-                throw new Error;
-            })
-        }).then((data:any) => {
-            dispatch (loadAllPatientsSuccess(data))
-        }).catch(err=> {
-            console.log(err)
-            dispatch(loadAllPatientsSuccess(err))
-        })
-    }
+//                 return response.json()
+//             }
+//             return response.json().then((err:Error)=>{
+//                 throw new Error;
+//             })
+//         }).then((data:any) => {
+//             dispatch (loadAllPatientsSuccess(data))
+//         }).catch(err=> {
+//             console.log(err)
+//             dispatch(loadAllPatientsSuccess(err))
+//         })
+//     }
+// }
+
+// export const loadSinglePatient = (id:number) => {
+//     return(dispatch:any) => {
+//         dispatch(loadPatient)
+//         return fetch(BASE_URL + id.toString(), {
+//             method: 'GET',
+//             headers:{
+//                 'Access-Control-Allow-Origin':'*'
+//             }
+//         }).then((response: any)=>{
+//             if(response.ok){
+//                 return response.json()
+//             }
+//             return response.json().then((err:Error)=>{
+//                 throw new Error;
+//             })
+//         }).then((patient:Model.Patient)=>{
+//             dispatch(loadPatientSuccess(patient))
+//         }).catch(err=>{
+//             dispatch(loadPatientFailure(err))
+//         })
+//     }
+// }
+
+export const loadPatients = () => {
+    return Model.patientsList;
 }
 
-export const loadSinglePatient = (id:number) => {
-    return(dispatch:any) => {
-        dispatch(loadPatient)
-        return fetch(BASE_URL + id.toString(), {
-            method: 'GET',
-            headers:{
-                'Access-Control-Allow-Origin':'*'
-            }
-        }).then((response: any)=>{
-            if(response.ok){
-                return response.json()
-            }
-            return response.json().then((err:Error)=>{
-                throw new Error;
-            })
-        }).then((patient:Model.Patient)=>{
-            dispatch(loadPatientSuccess(patient))
-        }).catch(err=>{
-            dispatch(loadPatientFailure(err))
-        })
-    }
+export const loadSinglePatient = (id:string) => {
+    let patient = Model.patientsList.filter((patient:any)=>{
+        return patient.id == id
+    })
+    return patient[0];
 }

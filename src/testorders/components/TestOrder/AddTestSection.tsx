@@ -8,6 +8,9 @@ import {
 } from '../../../common/UIComponents';
 import DatePicker from 'material-ui/DatePicker';
 let FileInput = require('react-file-input');
+let FaCalendar = require('react-icons/lib/fa/calendar');
+let FaAttachment = require('react-icons/lib/md/attach-file')
+
 
 import './AddTestSection.css';
 
@@ -15,6 +18,9 @@ const btnStyle = {
     backgroundColor: '#f84445'
 }
 
+const underlineStyle = {
+    display : "none"
+}
 const style = {
     backgroundColor: '#f84445',
     marginBottom: '1em',
@@ -103,16 +109,23 @@ export class AddTestSection extends React.Component<P, S>{
                 }
                 onChange={this.onPlainTextDropDownChange('status')}
             />
-            <DatePicker 
-                name="date" 
-                hintText="Date Created"
-                style={{
-                    textAlign:"left",
-                    position:"relative",
-                    left:'2em',
-                    marginBottom:'.5em'
-                    }}
-                />
+            <span className="date-section-title">Date Created</span>
+            <div className="date-picker-section">
+                <DatePicker 
+                    name="date" 
+                    hintText="Date Created"
+                    underlineStyle={underlineStyle}
+                    style={{
+                        textAlign:"left",
+                        position:"relative",
+                        left:'2em',
+                        marginBottom:'.5em'
+                        }}
+                    />
+                    <div className="calendar-icon">
+                        <FaCalendar/>
+                    </div>
+            </div>
             <TextInputTemplate
                 name="order-name"
                 title="Order Name"
@@ -144,25 +157,33 @@ export class AddTestSection extends React.Component<P, S>{
             <p className="checkbox-title">Priority</p>
             <div className="priority-type-section">
                 <div className="priority_type"> 
+                    <Checkbox className="checkbox-value"/>  
                     <span className="label">Routine</span>
-                    <Checkbox className="checkbox-value"/>
+                    
                 </div>
                 <div className="priority_type"> 
-                    <span className="label">Priority</span>
                     <Checkbox className="checkbox-value"/>
+                    <span className="label">Priority</span>
                 </div>
             </div>
-            <DatePicker 
-                name="date" 
-                hintText="Collection Date"
-                style={{
-                    textAlign:"left",
-                    position:"relative",
-                    left:'2em',
-                    marginBottom:'.5em'
-                    }}
-            />
-
+            <span className="date-section-title">Collection Date</span>
+            <div className="date-picker-section">
+                <DatePicker 
+                    name="date" 
+                    hintText="Collection Date"
+                    underlineStyle={underlineStyle}
+                    style={{
+                        textAlign:"left",
+                        position:"relative",
+                        left:'2em',
+                        marginBottom:'.5em'
+                        }}
+                    />
+                    <div className="calendar-icon">
+                        <FaCalendar/>
+                    </div>
+            </div>
+ 
             <TextInputTemplate
                 name="collection-location"
                 title="Collection Location"
@@ -186,12 +207,16 @@ export class AddTestSection extends React.Component<P, S>{
                 rows={1}
                 defaultValue={"Shirley Swirl"}
             />
-
+            <div className="file-input-section">
             <FileInput name="Add attachment"
                    accept=".png,.gif"
                    placeholder="Add attachment"
                    className="inputClass"
                    onChange={this.handleChange} />
+            <div className="att-icon">
+            <FaAttachment/>
+            </div>
+            </div>
 
             <TextInputTemplate
                 name="diagnosis"

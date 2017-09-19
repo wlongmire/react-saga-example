@@ -35,11 +35,11 @@ export default StyleSheet.create({
     'color': 'white',
     'boxShadow': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 20 }, { 'unit': 'string', 'value': '#f84445' }]
   },
-  '#main-section': {
-    'borderTop': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#dedede' }],
-    'display': 'grid',
-    'gridTemplateColumns': '30% 1fr'
-  },
+  // #main-section{
+    border-top: 1px solid #dedede;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+}
   'chat-title': {
     'textAlign': 'center',
     'display': 'block',

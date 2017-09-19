@@ -28,7 +28,7 @@ export class TextInputTemplate extends React.Component<P, {}>{
                 <span className="input-title">{this.props.title}</span>
                 <TextField
                 style={{
-                    border:'2px solid #dedede',
+                    border:'1px solid #C6D3D1',
                     position: "relative",
                     right: ".5em",
                     padding: "1em",

@@ -10,20 +10,30 @@ import {Navigation} from '../../../navigation/components/Navigation';
 import * as Model from '../../models';
 import './Patients.css';
 
-export interface PatientProps {
+interface PatientProps {
     patients: Array<Model.Patient>;
     loadAllPatients: () => void;
 }
 
-export class PatientsContainer extends React.Component<PatientProps, {}> {
+interface IPatient {}
+
+
+interface S {
+    patients : Array<IPatient>
+}
+
+export class PatientsContainer extends React.Component<PatientProps, S> {
 
     constructor(props: PatientProps) {
-        super(props);    
+        super(props);  
+        this.state = {
+            patients: []
+        }  
     }
 
-    componentDidMount() {
-        this.props.loadAllPatients();
-
+    componentWillMount() {
+        let patients = patientActions.loadPatients();
+        this.setState({patients})
     }
 
     handleNavigateToSinglePatient = () => {
@@ -31,7 +41,7 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
     }
 
     render() {
-        if(this.props.patients.length ===  0 ){
+        if(this.state.patients.length ===  0 ){
             return(
                 <div>Loading ...</div>
             )
@@ -46,7 +56,7 @@ export class PatientsContainer extends React.Component<PatientProps, {}> {
                 <span className="patients-title"> Patients </span>
             </div>
             <PatientsList
-                patients={this.props.patients['patients']}
+                patients={this.state.patients}
                 onClickSinglePatient={this.handleNavigateToSinglePatient}
             />
             </div>
@@ -63,7 +73,6 @@ const mapStateToProps = (state: ApplicationState.IState ) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators(
     {
-        loadAllPatients: patientActions.loadPatients
     }, 
     dispatch);
 

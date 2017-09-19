@@ -42,6 +42,7 @@ interface S {
     showWellnessSection?:boolean;
     showOthersSection?: boolean;
     selectedTab : number;
+    patient: object
 }
 
 const labelBackground = {
@@ -61,11 +62,15 @@ class PatientContainer extends React.Component<P,S>{
         this.state = {
             open: false,
             selectedTab: 0,
-            createNewVisit: false
+            createNewVisit: false,
+            patient: {}
         };
     }
-    componentDidMount(){
-        this.props.loadSinglePatient(this.props.match.params.patientId)
+    componentWillMount(){
+        let patient = patientActions.loadSinglePatient(this.props.match.params.patientId);
+        this.setState({patient})
+        // this.props.loadSinglePatient(this.props.match.params.patientId)
+
     }
     handleClosePopOver = (event: any) => {
         // This prevents ghost click.
@@ -203,12 +208,12 @@ class PatientContainer extends React.Component<P,S>{
     
 
     render(){
-        if(!this.props.patient['patient']){
+        let patientData = this.state.patient;
+        if(Object.keys(patientData).length === 0){
             return(
                 <div>Loading ...</div>
             )
         }
-        let patientData = this.props.patient['patient'];
         let bioDriveData = (<div id="main-section">
         <section className="biodrive-section">
         <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
@@ -270,7 +275,7 @@ class PatientContainer extends React.Component<P,S>{
 
         <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
         <div>
-            <Others.Components.OthersComponent/>
+            <Others.Components.OthersContainer/>
         </div>
         </Tab>
         </Tabs>
@@ -282,12 +287,12 @@ class PatientContainer extends React.Component<P,S>{
                 <Navigation/>
                 <div className="patient-details">
                     <div>
-                        <img className="patient-avatar" src={patientData.avatar}/>
+                        <img className="patient-avatar" src={patientData['avatar']}/>
                     </div>
                     <div>
-                    <p className="patient-name-details">{patientData.name}</p>
-                    <span>{patientData.gender}</span>,
-                    <span>{patientData.age}</span>
+                    <p className="patient-name-details">{patientData['name']}</p>
+                    <span>{patientData['gender']}</span>,
+                    <span>{patientData['age']}</span>
                     </div>
                 </div>
                 <CustomTabComponent

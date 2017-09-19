@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import * as Model from '../../models';
 
 type PatientsListProps = {
-    patients : Array<Model.Patient>;
+    patients : Array<any>;
     onClickSinglePatient?: () => void
 }
 export const PatientsList = (props:PatientsListProps) => {

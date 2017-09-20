@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+// import Paper from 'material-ui/Paper';
+// import RaisedButton from 'material-ui/RaisedButton';
+// import TextField from 'material-ui/TextField';
 import { ActionResult } from '../../../common';
 import { AuthLoginCredentials } from '../../../services/auth';
 import { AuthState } from '../../model';
@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { login } from '../../actions';
 
 import './Login.css';
+
+const FaSlashEye = require('react-icons/lib/fa/eye-slash');
 
 /**
  * 
@@ -90,12 +92,43 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    * Renders the element in the dom.
    */
   render() {
-    const fieldStyle = {
-          display: 'block'
-        };
+    // const fieldStyle = {
+    //       display: 'block'
+    //     };
 
     return (
-      <div className="login-form">
+      <div id="wrapper-login">
+        <div className="header-top">
+          <span className="lifeco-label">LifeCo</span>
+        </div>
+        <span className="intro">Welcome to LifeCo</span>
+        <div className="login-body">
+          <form className="login-form">
+          <input
+            type='text'
+            className="form-input"
+            placeholder="Email"
+          />
+          <input
+            type='password'
+            className="form-input"
+            placeholder="Password"
+          />
+          <span className="slashIcon">
+          <FaSlashEye/>
+          </span>
+          <input
+            type='submit'
+            className="form-input"
+            placeholder="Email"
+            value="Log In"
+          >
+          </input>
+          <span className="forgot-password">Forgot Password</span>
+      
+          </form>
+        </div>
+      {/* <div className="login-form">
         <Paper zDepth={2}>
           <h2 className="login-label">LifeCo EHR</h2>
           <TextField
@@ -129,6 +162,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
             </div>
           }
         </Paper>
+      </div> */}
       </div>
     );
   }

@@ -28,3 +28,99 @@
     margin-top: 15px;
     font-size: 13px;
 }
+
+/* 
+================
+New Log In Component
+================
+*/
+
+#wrapper-login{
+    display: grid;
+    grid-template-rows: 80px 20px 1fr;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.lifeco-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+    background: #F42C3D;
+    position: absolute;
+    margin: 2em 0 0 8em;
+    text-align: center;
+    vertical-align: middle;
+    font-size: small;
+    font-weight: bold;
+    color: white
+}
+
+.login-body .login-form{
+    position: relative;
+    top: 35%;
+    margin: 0 auto;
+    width: 50%
+}
+
+.login-body .login-form .form-input[type="text"],
+.login-body .login-form .form-input[type="password"]{
+    margin: .8em 0;
+    width: 60%;
+    background: #fff !important;
+}
+
+.login-body .login-form .form-input {
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 100;
+    border: 1px solid #9b9b9b;
+    padding: 1em;
+}
+.login-body .login-form .form-input:focus{
+    outline: none;
+}
+/* .login-body .login-form .form-input:visited{
+    background: #fff;
+} */
+.login-body .login-form .form-input::placeholder{
+    font-weight: medium;
+    color: #BFBFBF;
+}
+.login-body .login-form .form-input[type="submit"]{
+    background: #F42C3D;
+    color: white;
+    width: 60%;
+    margin: 2em 0;
+    font-weight: medium;
+}
+
+.intro{
+    display: block;
+    color: #F42C3D;
+    text-align: center;
+    margin: 3em 0 3em 0;
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+.forgot-password{
+    position: relative;
+    text-align: center;
+    color: #BFBFBF;
+    font-size: medium;
+}
+
+.slashIcon{
+    position: absolute;
+    display: inline-block;
+    left: 85%;
+    top: 38%;
+    opacity: .4;
+    transform: scale(1.2)
+}
+
+

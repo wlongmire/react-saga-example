@@ -18,7 +18,8 @@ import * as FloatingBtn from '../../../common/UIComponents';
 import * as Imaging from '../../../imaging';
 
 interface Params {
-    patientId: string
+    patientId: string,
+    patient?: Model.Patient
 }
 
 interface MatchParams{
@@ -65,7 +66,7 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     componentDidMount(){
-        this.props.loadSinglePatient(this.props.match.params.patientId)
+        // this.props.loadSinglePatient(this.props.match.params.patientId)
     }
 
     handleClosePopOver = (event: any) => {
@@ -202,14 +203,14 @@ class PatientContainer extends React.Component<P,S>{
         })
     } 
     
-
     render(){
-        if(!this.props.patient['patient']){
-            return(
-                <div>Loading ...</div>
-            )
-        }
-        let patientData = this.props.patient['patient'];
+        // if(!this.props.patient['patient']){
+        //     return(
+        //         <div>Loading ...</div>
+        //     )
+        // }
+        // let patientData = this.props.patient['patient'];
+        let patientData = this.props.patient;
         console.log(this.state)
         return(
             <div className="patient-view">
@@ -234,7 +235,7 @@ class PatientContainer extends React.Component<P,S>{
                             <div>
                                 {
                                     this.state.createNewTreatment ?
-                                    <Rx.Components.TreatmentsComponent/>:
+                                    <Rx.Components.Treatment/>:
                                     <Rx.Components.RXContainer/>
                                 }
                             

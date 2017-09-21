@@ -1,15 +1,20 @@
 import {
     RXContainer,
-    TreatmentsComponent
+    Treatment
 
 } from './components';
 import {reducer} from './reducer';
+import {root} from './sagas';
 
 export const Reducers = {
     root: reducer
 }
+
 export const Components = {
     RXContainer,
-    TreatmentsComponent
+    Treatment
 }
 
+export const Sagas = {
+    root
+}

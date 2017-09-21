@@ -3,7 +3,7 @@ import ApplicationState from '../../../common';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
-import * as rxActions from '../../actions';
+// import * as rxActions from '../../actions';
 import TreatmentsCollection from './TreatmentsCollection';
 
 interface RxProps {
@@ -16,7 +16,7 @@ export class Treatments extends React.Component<RxProps, {}>{
     }
 
     componentDidMount(){
-        this.props.loadAllRx()
+        // this.props.loadAllRx()
     }
     render(){
         return (
@@ -51,7 +51,7 @@ const mapStateToProps = (state: ApplicationState.IState) => {
 
 const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
     {
-        loadAllRx : rxActions.getAllTreatments
+        // loadAllRx : rxActions.getAllTreatments
     },
     dispatch
 )

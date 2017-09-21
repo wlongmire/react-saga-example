@@ -62,37 +62,37 @@ export const loadPatientFailure = (error: Error): Common.ActionResult<Error> => 
 
 // Redux Thunk operations begin here
 export const loadPatients = () => {
-    return (dispatch:any) => {
-        dispatch(loadAllPatients)
-        const accessToken = localStorage.getItem('access_token');
-        const headers = new Headers();
-        headers.append('Authorization', `Token ${accessToken}`);
-        return fetch(BASE_URL, {
-            method: 'GET',
-            headers,
-            mode: 'cors',
-            cache: 'default'
-        }).then((response:any) => {
-            if(response.ok) {
-                return response.json()
-            }
-            return response.json().then((err:Error) => {
-                throw new Error;
-            })
-        }).then((data:any) => {
-            const patients = data.map((raw: any) => {
-                return <Model.Patient>{
-                    id: raw.user_id,
-                    name: `${raw.first} ${raw.last}`,
-                    primaryChannel: raw.primary_channel,
-                    avatar: 'http://www.gravatar.com/avatar/1f27b03f119910811d8cc8ff9dc1e922?s=48&d=identicon' // replace with raw when available
-                };
-            });
-            dispatch (loadAllPatientsSuccess(patients))
-        }).catch(err => {
-            dispatch(loadAllPatientsSuccess(err))
-        })
-    }
+    // return (dispatch:any) => {
+    //     dispatch(loadAllPatients)
+    //     const accessToken = localStorage.getItem('access_token');
+    //     const headers = new Headers();
+    //     headers.append('Authorization', `Token ${accessToken}`);
+    //     return fetch(BASE_URL, {
+    //         method: 'GET',
+    //         headers,
+    //         mode: 'cors',
+    //         cache: 'default'
+    //     }).then((response:any) => {
+    //         if(response.ok) {
+    //             return response.json()
+    //         }
+    //         return response.json().then((err:Error) => {
+    //             throw new Error;
+    //         })
+    //     }).then((data:any) => {
+    //         const patients = data.map((raw: any) => {
+    //             return <Model.Patient>{
+    //                 id: raw.user_id,
+    //                 name: `${raw.first} ${raw.last}`,
+    //                 primaryChannel: raw.primary_channel,
+    //                 avatar: 'http://www.gravatar.com/avatar/1f27b03f119910811d8cc8ff9dc1e922?s=48&d=identicon' // replace with raw when available
+    //             };
+    //         });
+    //         dispatch (loadAllPatientsSuccess(patients))
+    //     }).catch(err => {
+    //         dispatch(loadAllPatientsSuccess(err))
+    //     })
+    // }
 }
 
 export const loadSinglePatient = (id:number) => {

@@ -19,7 +19,8 @@ import * as Rx from '../../../treatments';
 import * as Imaging from '../../../imaging';
 
 interface Params {
-    patientId: string
+    patientId: string,
+    patient?: Model.Patient
 }
 
 interface MatchParams{
@@ -95,6 +96,11 @@ class PatientContainer extends React.Component<P,S>{
         this.setState({patient})
         // this.props.loadSinglePatient(this.props.match.params.patientId)
 
+<<<<<<< HEAD
+=======
+    componentDidMount(){
+        // this.props.loadSinglePatient(this.props.match.params.patientId)
+>>>>>>> checkpoint
     }
 
     handleClosePopOver = (event: any) => {

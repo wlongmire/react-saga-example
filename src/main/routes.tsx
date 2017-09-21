@@ -49,7 +49,8 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 <Route 
                     exact={true}
                     path="/patient/:patientId"
-                    render={(props) => <Users.Components.Patient {...props} />}
+                    render={(props) => <Users.Components.Patient {...props} 
+                    />}
                 />
                 
                 <Route 

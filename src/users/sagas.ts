@@ -1,16 +1,18 @@
-import {all, fork, put, takeEvery} from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
+import { Api } from '../services/api'
 
 function* fetchPatients(){
     try {
-        yield(put(Actions.loadAllPatientsSuccess([])));
+        const patients = yield call(()=> Api.users.fetchAllPatients())
+        yield(put(Actions.loadAllPatientsSuccess(patients)));
     } catch(e) {
         yield(put(Actions.loadAllPatientsFailure(e)))
     }
 }
 
 function* watchFetchAllPatients(){
-    yield takeEvery(Actions.loadAllPatients, fetchPatients)
+    yield takeEvery(Actions.ActionType.LOAD_ALL_PATIENTS, fetchPatients)
 }
 
 

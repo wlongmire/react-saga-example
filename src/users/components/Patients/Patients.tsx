@@ -1,13 +1,16 @@
 import * as React from 'react';
+// import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {  Dispatch } from 'redux';
+// import { bindActionCreators } from 'redux';
+// import {  Dispatch } from 'redux';
 import ApplicationState from '../../../common';
 // import { getAllPatients } from '../../selectors';
-import * as patientActions  from '../../actions';
+import { loadAllPatients } from '../../actions';
 import {PatientsList} from './PatientsList';
 import {Navigation} from '../../../navigation/components/Navigation';
 import * as Model from '../../models';
+import { history } from '../../../common';
+
 import './Patients.css';
 
 interface PatientProps {
@@ -36,8 +39,8 @@ export class PatientsContainer extends React.Component<PatientProps, S> {
         this.setState({patients})
     }
 
-    handleNavigateToSinglePatient = () => {
-        console.log('Clicked')
+    handleNavigateToSinglePatient = (patient: Model.Patient) => {
+        history.push(`/patient/${patient.id}`, patient);
     }
 
     render() {
@@ -76,4 +79,6 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators(
     }, 
     dispatch);
 
-export const Patients =  connect<{}, PatientProps, {}>(mapStateToProps, mapDispatchToProps)(PatientsContainer);
+export const Patients =  connect<{}, PatientProps, {}>(mapStateToProps, {
+    loadAllPatients
+})(PatientsContainer);

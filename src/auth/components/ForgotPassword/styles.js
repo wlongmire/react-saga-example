@@ -157,6 +157,9 @@ Update Password Form
     'width': [{ 'unit': '%H', 'value': 0.6 }],
     'margin': [{ 'unit': 'em', 'value': 2.5 }, { 'unit': 'string', 'value': 'auto' }, { 'unit': 'em', 'value': 2.5 }, { 'unit': 'string', 'value': 'auto' }]
   },
+  'reset-password-button:focus': {
+    'outline': 'none'
+  },
   'reset-password-input': {
     'border': [{ 'unit': 'px', 'value': 1 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#9b9b9b' }],
     'padding': [{ 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }, { 'unit': 'em', 'value': 1 }],
@@ -170,18 +173,17 @@ Update Password Form
     'borderRadius': '5px'
   },
   'reset-password-input:focus': {
-    'outline': 'none'
+    'outline': '2px solid #F42C3D',
+    'borderRadius': '5px'
   },
   'repeat-password-input:focus': {
-    'outline': 'none'
+    'outline': '2px solid #F42C3D',
+    'borderRadius': '5px'
   },
   'reset-password-input::placeholder': {
     'opacity': '.6'
   },
   'repeat-password-input::placeholder': {
     'opacity': '.6'
-  },
-  // ===================
-Succesful password change
-===================
+  }
 });

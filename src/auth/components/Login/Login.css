@@ -112,8 +112,12 @@ New Log In Component
     text-align: center;
     color: #BFBFBF;
     font-size: medium;
+    transition: color .3s ease-in-out; 
 }
 
+.forgot-password:hover{
+    color: #F42C3D;
+}
 .slashIcon{
     position: absolute;
     display: inline-block;

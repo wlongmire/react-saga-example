@@ -112,6 +112,10 @@ Update Password Form
     margin: 2.5em auto
 }
 
+.reset-password-button:focus{
+    outline: none;
+}
+
 .reset-password-input,
 .repeat-password-input{
     border: 1px solid #9b9b9b;
@@ -122,15 +126,10 @@ Update Password Form
 
 .reset-password-input:focus,
 .repeat-password-input:focus{
-    outline: none;
+    outline: 2px solid #F42C3D;
+    border-radius: 5px;
 }
 .reset-password-input::placeholder,
 .repeat-password-input::placeholder{
     opacity: .6;
 }
-
-/*
-===================
-Succesful password change
-===================
-*/

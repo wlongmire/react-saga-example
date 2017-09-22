@@ -95,7 +95,6 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    */
 
   render() {
-    console.log('Here', this.props)
     return (
       <div id="wrapper-login">
         <Common.Components.HeaderLabel/>

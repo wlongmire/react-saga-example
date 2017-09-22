@@ -5,7 +5,8 @@ import './styles.css';
 
 
 interface S {
-    resetButtonClicked : boolean
+    resetButtonClicked : boolean;
+    email: string
 }
 
 
@@ -13,7 +14,8 @@ export class EmailResetForm extends React.Component<{}, S>{
     constructor(){
         super();
         this.state = {
-            resetButtonClicked: false
+            resetButtonClicked: false,
+            email: ''
         }
     }
 
@@ -23,6 +25,14 @@ export class EmailResetForm extends React.Component<{}, S>{
             resetButtonClicked: true
         })
     }
+
+    handleChangeOnReset = (e:any) => {
+        this.setState({
+            email: e.target.value
+        })
+    }
+
+
 
     render(){
         return(
@@ -45,25 +55,26 @@ export class EmailResetForm extends React.Component<{}, S>{
             
             
             :
-            <form className="reset-body">
+            <form className="reset-body" onSubmit={this._handleClickResetPassword}>
                 <h2 className="text">
                     Enter Your Email, and we'll send you instructions
                     on how to reset your password.
                 </h2>
                 <input
                 className="email-reset-input"
+                name="email"
                 placeholder="Email"
                 type="email"
+                onChange = {this.handleChangeOnReset}
                 required={true}
-
                 />
 
                 <input
-                className="email-reset-button"
-                type="submit"
+                className="email-reset-button"    
+                type="submit"            
                 value="Send reset instructions"
-                onClick={this._handleClickResetPassword}
                 />
+                 
 
             </form>
             }

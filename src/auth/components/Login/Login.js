@@ -121,7 +121,11 @@ New Log In Component
     'position': 'relative',
     'textAlign': 'center',
     'color': '#BFBFBF',
-    'fontSize': [{ 'unit': 'string', 'value': 'medium' }]
+    'fontSize': [{ 'unit': 'string', 'value': 'medium' }],
+    'transition': 'color .3s ease-in-out'
+  },
+  'forgot-password:hover': {
+    'color': '#F42C3D'
   },
   'slashIcon': {
     'position': 'absolute',

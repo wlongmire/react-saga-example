@@ -95,6 +95,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    */
 
   render() {
+    console.log('Here', this.props)
     return (
       <div id="wrapper-login">
         <Common.Components.HeaderLabel/>
@@ -117,6 +118,13 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
               required={true}
               onChange={this.onPasswordChange}
             />
+            {this.props.auth.authError &&
+            <div>
+              <p className="error-label">
+                { this.props.auth.authError }
+              </p>
+            </div>
+            }
             <input
               type='submit'
               className="login-submit-button"
@@ -128,13 +136,6 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
           <span className="slashIcon">
             <FaSlashEye />
           </span>
-          {this.props.auth.authError &&
-            <div>
-              <p className="error-label">
-                {/* { this.props.auth.authError } */}
-              </p>
-            </div>
-          }
           <Link to="/reset-password"><span className="forgot-password">Forgot Password</span></Link>
 
 

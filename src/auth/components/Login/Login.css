@@ -124,3 +124,7 @@ New Log In Component
 }
 
 
+.error-label{
+    color: #F42C3D;
+    font-size: small;
+}

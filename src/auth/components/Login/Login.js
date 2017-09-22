@@ -130,5 +130,9 @@ New Log In Component
     'top': [{ 'unit': 'em', 'value': 7 }],
     'opacity': '.2',
     'transform': 'scale(1.2)'
+  },
+  'error-label': {
+    'color': '#F42C3D',
+    'fontSize': [{ 'unit': 'string', 'value': 'small' }]
   }
 });

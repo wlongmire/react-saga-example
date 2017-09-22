@@ -28,6 +28,11 @@ export function reducer(state: AuthState = initialState, action: Common.ActionRe
                 userChannel
             };
         case ActionType.LOGIN_FAIL:
+        console.log('Hapa Reducer', {
+            ...state,
+            isAuthenticated: false,
+            authError: action.value
+        })
             return {
                 ...state,
                 isAuthenticated: false,

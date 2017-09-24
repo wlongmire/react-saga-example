@@ -83,6 +83,15 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     path="/update-password"
                     render={(props) => <Auth.Components.UpdatePasswordForm />}
                 />
+
+                <Route 
+                    path="/reset-password"
+                    render={(props) => <Auth.Components.EmailResetForm />}
+                />
+                <Route 
+                    path="/update-password"
+                    render={(props) => <Auth.Components.UpdatePasswordForm />}
+                />
             </div>
         </Router>
     );

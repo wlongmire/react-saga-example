@@ -7,7 +7,7 @@ export class AuthLoginCredentials {
     constructor(
         public email: string,
         public password: string
-    ) {}
+    ) { }
 }
 
 /**
@@ -18,7 +18,7 @@ export class AuthLoginResponse {
         public clientToken: string,
         public userRole: number,
         public userChannel: number
-    ) {}
+    ) { }
 }
 
 /**
@@ -33,7 +33,7 @@ export class AuthService {
     static login(credentials: AuthLoginCredentials) {
         const requestInit: RequestInit = {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Accept-Language': `Token ${process.env.REACT_APP_API_TOKEN}`
             },
             body: JSON.stringify({
@@ -41,15 +41,24 @@ export class AuthService {
                 password: credentials.password
             })
         };
-
         const url = makeUrl('exposed', 'register_client');
         const request = new Request(url, requestInit);
-
         return fetch(request)
-            .then(response => response.json())
+            .then((response: any) => {
+                if (response.ok) {
+        
+                    return response.json()
+                }
+                else {
+                    return response.json().then((err: Error) => {
+                        throw err;
+                    })
+                }
+            })
             .then(result => {
                 switch (result.status) {
                     case 200:
+                  
                         localStorage.setItem('access_token', result.new_client_token);
                         localStorage.setItem('role_id', result.role_id);
                         localStorage.setItem('user_channel', result.user_channel);
@@ -64,7 +73,11 @@ export class AuthService {
                     default:
                         return Promise.reject(result.error);
                 }
-            });
+            })
+            .catch(() => {
+                const errorMessage = `We don't recognize this e-mail or password. Double-check your information and try again.`;
+                return Promise.reject(errorMessage);
+            })
     }
 
     /**

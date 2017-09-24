@@ -33,7 +33,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route 
                     path="/patients"
-                    render={(props) => <Users.Components.Patients/>}
+                    render={(props) => <Users.Components.Patients {...props} />}
                 />
                 <Route 
                     path="/users"
@@ -72,6 +72,15 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ):( <Visits.Components.VisitsContainer {...props} />)
                     )}
+                />
+
+                <Route 
+                    path="/reset-password"
+                    render={(props) => <Auth.Components.EmailResetForm />}
+                />
+                <Route 
+                    path="/update-password"
+                    render={(props) => <Auth.Components.UpdatePasswordForm />}
                 />
             </div>
         </Router>

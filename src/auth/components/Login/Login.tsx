@@ -1,14 +1,19 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+// import Paper from 'material-ui/Paper';
+// import RaisedButton from 'material-ui/RaisedButton';
+// import TextField from 'material-ui/TextField';
 import { ActionResult } from '../../../common';
 import { AuthLoginCredentials } from '../../../services/auth';
 import { AuthState } from '../../model';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
 
+import {Link} from 'react-router-dom';
+import * as Common from '../common';
+
 import './Login.css';
+
+const FaSlashEye = require('react-icons/lib/fa/eye-slash');
 
 /**
  * 
@@ -17,7 +22,7 @@ export class LoginComponentProps {
   login: (credentials: AuthLoginCredentials) => ActionResult<AuthLoginCredentials>;
   auth: AuthState;
 }
-  
+
 /**
  * 
  */
@@ -51,11 +56,11 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    * @param event 
    * @param newValue 
    */
-  onEmailChange(event: object, newValue: string) {
-    this.setState(
-      { email: newValue }, 
-      () => this.validate() 
-    );
+
+  onEmailChange(event: object) {
+    this.setState({
+      email: event['target'].value
+    }, () => this.validate())
   }
 
   /**
@@ -63,17 +68,17 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    * @param event 
    * @param newValue 
    */
-  onPasswordChange(event: object, newValue: string) {
-    this.setState(
-      { password: newValue },
-      () => this.validate()
-    );
+  onPasswordChange(event: object) {
+    this.setState({
+      password: event['target'].value
+    }, () => this.validate())
   }
 
   /**
    * Handler for submit button.
    */
-  onSubmit() {
+  onSubmit(event: any) {
+    event.preventDefault()
     if (this.props.login) {
       this.props.login(new AuthLoginCredentials(this.state.email, this.state.password));
     }
@@ -85,50 +90,55 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
   validate() {
     this.setState({ isValid: (this.state.email.length > 0 && this.state.password.length > 0) });
   }
-
   /**
    * Renders the element in the dom.
    */
-  render() {
-    const fieldStyle = {
-          display: 'block'
-        };
 
+  render() {
     return (
-      <div className="login-form">
-        <Paper zDepth={2}>
-          <h2 className="login-label">LifeCo EHR</h2>
-          <TextField
-            className="login-email-input"
-            style={fieldStyle}
-            floatingLabelText="Email"
-            type="email"
-            onChange={this.onEmailChange}
-          />
-          <TextField
-            className="login-password-input"
-            style={fieldStyle}
-            floatingLabelText="Password"
-            type="password"
-            onChange={this.onPasswordChange}
-          />
-          <div className="login-submit-button-container">
-            <RaisedButton
-              className="login-submit-button"
-              label="Sign In"
-              primary={true}
-              disabled={!this.state.isValid}
-              onClick={this.onSubmit}
+      <div id="wrapper-login">
+        <Common.Components.HeaderLabel/>
+        <div className="intro">Welcome to LifeCo</div>
+        <div className="login-body">
+          <form onSubmit={this.onSubmit}>
+            <input
+              name="email"
+              type='email'
+              className="login-email-input"
+              placeholder="Email"
+              onChange={this.onEmailChange}
+              required={true}
             />
-          </div>
-          {this.props.auth.authError &&
+            <input
+              name="password"
+              type='password'
+              className="login-password-input"
+              placeholder="Password"
+              required={true}
+              onChange={this.onPasswordChange}
+            />
+            {this.props.auth.authError &&
             <div>
               <p className="error-label">
                 { this.props.auth.authError }
               </p>
             </div>
-          }
-        </Paper>
+            }
+            <input
+              type='submit'
+              className="login-submit-button"
+              placeholder="Email"
+              value="Log In"
+              disabled={!this.state.isValid}
+            />
+          </form>
+          <span className="slashIcon">
+            <FaSlashEye />
+          </span>
+          <Link to="/reset-password"><span className="forgot-password">Forgot Password</span></Link>
+
+
+        </div>
       </div>
     );
   }

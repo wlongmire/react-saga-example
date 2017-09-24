@@ -1,12 +1,12 @@
-.login-form {
+/* .login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 100px;
-}
+} */
 
-.login-form > div:first-of-type {
+/* .login-form > div:first-of-type {
     padding: 25px;
 }
 
@@ -27,4 +27,108 @@
     max-width: 260px;
     margin-top: 15px;
     font-size: 13px;
+} */
+
+/* 
+================
+New Log In Component
+================
+*/
+
+#wrapper-login{
+    display: grid;
+    grid-template-rows: 80px 20px 1fr;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.login-body{
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center
+}
+
+.login-email-input,
+.login-password-input{
+    margin: .8em 0;
+    width: 60%;
+    background: #fff !important;
+}
+
+.login-email-input,
+.login-password-input {
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 100;
+    border: 1px solid #9b9b9b;
+    padding: 1em;
+}
+.login-email-input:focus,
+.login-password-input:focus,
+.login-submit-button:focus{
+    outline: none;
+}
+
+.login-email-input::placeholder,
+.login-password-input::placeholder,
+.login-submit-button::placeholder{
+    font-weight: medium;
+    color: #BFBFBF;
+}
+
+.login-submit-button{
+    background: #F42C3D;
+    color: white;
+    width: 60%;
+    border-radius: 5px;
+    margin: 2em 0;
+    font-weight: medium;
+    cursor: pointer;
+    border: none;
+    font-size: 1em;
+    padding: 1em;
+    transition: all.3s ease-in-out;
+}
+
+.login-submit-button:hover{
+    background: #ECEEEE;
+    color: black;
+}
+
+.intro{
+    display: block;
+    color: #F42C3D;
+    text-align: center;
+    margin: 6em 0 3em 0;
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+.forgot-password{
+    position: relative;
+    text-align: center;
+    color: #BFBFBF;
+    font-size: medium;
+    transition: color .3s ease-in-out; 
+}
+
+.forgot-password:hover{
+    color: #F42C3D;
+}
+.slashIcon{
+    position: absolute;
+    display: inline-block;
+    left: 85%;
+    top: 7em;
+    opacity: .2;
+    transform: scale(1.2)
+}
+
+
+.error-label{
+    color: #F42C3D;
+    font-size: small;
 }

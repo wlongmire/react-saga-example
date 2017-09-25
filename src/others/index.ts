@@ -1,4 +1,4 @@
-import {OthersComponent} from './components';
+import {OthersContainer} from './components';
 import {reducer} from './reducer';
 
 export const Reducers = {
@@ -6,6 +6,6 @@ export const Reducers = {
 }
 
 export const Components = {
-    OthersComponent
+    OthersContainer
 }
 

@@ -27,13 +27,13 @@ export class Treatments extends React.Component<RxProps, {}>{
                             "treatment_type": "Rimabotulinumotoxin:Pharmacy Received",
                             "description": "Albumin levels were higher than expected.Updated your case to the flu",
                             "detail": "Albumin, Nitried and 2 More",
-                            "date": "AUG 27 2017"
+                            "date": "27 Aug"
                         },
                         {
                             "treatment_type": "Rimabotulinumotoxin:Pharmacy Received",
                             "description": "Albumin levels were higher than expected.Updated your case to the cold bruh",
                             "detail": "Lipid Panel",
-                            "date": "AUG 27 2017"
+                            "date": "27 Aug"
                         },
                     ]}
                 

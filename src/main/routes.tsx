@@ -46,6 +46,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route 
                     path="/patients"
+<<<<<<< HEAD
                     exact={true}
                     render={(props) => (
                         !AuthService.isAuthenticated() ? (
@@ -57,6 +58,9 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <PatientListContainer {...props} /> )
                     )}
+=======
+                    render={(props) => <Users.Components.Patients/>}
+>>>>>>> develop
                 />
                 <Route 
                     path="/users"

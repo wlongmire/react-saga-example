@@ -1,1 +1,1 @@
-export {OthersComponent} from './Others';
+export {OthersContainer} from './Others';

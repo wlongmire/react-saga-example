@@ -1,28 +1,28 @@
-import * as Model from '../../users/models';
+import { Patient } from '../../patients';
 
 const BASE_URL = 'https://api.life.cheap/exposed/list_my_patients'
 
-export class UserService {
+export class PatientService {
 
-    static fetchAllPatients() {
+    static fetchAll() {
         const accessToken = localStorage.getItem('access_token');
         const headers = new Headers();
         headers.append('Authorization', `Token ${accessToken}`);
+
         return fetch(BASE_URL, {
             method: 'GET',
             headers,
             mode: 'cors',
             cache: 'default'
-        }).then((response:any) => {
-            if(response.ok) {
+        }).then((response: any) => {
+            if (response.ok) { 
                 return response.json()
+            } else {
+                throw new Error('fetch patients failed');
             }
-            return response.json().then((err:Error) => {
-                throw new Error;
-            })
-        }).then((data:any) => {
+        }).then((data: any) => {
             return data.map((raw: any) => {
-                return <Model.Patient>{
+                return <Patient>{
                     id: raw.user_id,
                     name: `${raw.first} ${raw.last}`,
                     primaryChannel: raw.primary_channel,
@@ -31,4 +31,5 @@ export class UserService {
             });
         })
     }
+
 }

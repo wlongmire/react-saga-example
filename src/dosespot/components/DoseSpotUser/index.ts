@@ -1,0 +1,1 @@
+export { DoseSpotUser } from './DoseSpotUser';

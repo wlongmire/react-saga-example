@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Dialog from 'material-ui/Dialog';
 import { connect } from 'react-redux';
 import { fetchSingleSignOnInfo } from '../../actions';
 import { SingleSignOnInfo } from '../../model';
@@ -31,7 +32,8 @@ interface TreatmentsComponentState {
     height?: number,
     weight?: number,
     heightMetric?: number,
-    weightMetric?: number
+    weightMetric?: number,
+    open: boolean
 }
 
 interface TreatmentsComponentProps {
@@ -65,7 +67,8 @@ class TreatmentsComponent extends React.Component<TreatmentsComponentProps, Trea
             height: undefined,
             weight: undefined,
             heightMetric: undefined,
-            weightMetric: undefined
+            weightMetric: undefined,
+            open: false
         };
 
         this.onClick = this.onClick.bind(this);
@@ -107,27 +110,47 @@ class TreatmentsComponent extends React.Component<TreatmentsComponentProps, Trea
         const url = this.buildUrl();
         fetch(url, {
             method: 'POST',
-            cache: 'default'
+            cache: 'no-cache',
+            mode: 'no-cors'
         }).then((response) => {
-            console.log('response:', response);
+            console.log('response_url: ' + JSON.stringify(response.headers));
+            // console.log('location: ' + response.headers.get('Location'));
         })
+        .catch((err: Error) => {
+            console.log('error: ' + err);
+        });
     }
 
     onClick() {
         this.createUserRecord();
     }
 
+    handleOpen() {
+        this.setState({ open: true });
+    }
+
+    handleClose() {
+        this.setState({ open: false });
+    }
+
     render() {
         // todo 1: fix 401 unauthorized on server (cors?)
         // todo 2: don't load this until after we have sso info
         if (!this.props.singleSignOnInfo) return(<div></div>);
-        // const url = this.buildUrl();
+        const url = this.buildUrl();
         // console.log('url', url);
 
         return(
             <div>
-                {/* <iframe className="dosespot-base" width="80%" height="750px" src={ url }></iframe> */}
-                <button onClick={this.onClick}>Run!</button>
+                <Dialog
+                    title="DoseSpot"
+                    modal={true}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                    autoScrollBodyContent={true}>
+                    <iframe className="dosespot-base" width="80%" height="750px" src={ url }></iframe>
+                </Dialog>
+                
             </div>
         )
     }

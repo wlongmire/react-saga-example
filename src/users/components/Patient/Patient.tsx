@@ -7,15 +7,16 @@ import ApplicationState from '../../../common';
 import * as Model from '../../models';
 import {Navigation} from '../../../navigation/components/Navigation';
 import {
-    CustomTabComponent
+    PopOver,
+    FloatingBtn
 } from '../../../common/UIComponents';
 import './Patient.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import * as Visits from '../../../visits'
 import * as Tests from '../../../testorders';
 import * as Wellness from '../../../wellness';
-import * as Others from '../../../others';
-import * as Rx from '../../../treatments';
+// import * as Others from '../../../others';
+// import * as Rx from '../../../treatments';
 import * as Imaging from '../../../imaging';
 
 interface Params {
@@ -67,17 +68,9 @@ class PatientContainer extends React.Component<P,S>{
             patient: {}
         };
     }
-<<<<<<< HEAD
 
     componentDidMount(){
         // this.props.loadSinglePatient(this.props.match.params.patientId)
-=======
-    componentWillMount(){
-        let patient = patientActions.loadSinglePatient(this.props.match.params.patientId);
-        this.setState({patient})
-        // this.props.loadSinglePatient(this.props.match.params.patientId)
-
->>>>>>> develop
     }
 
     handleClosePopOver = (event: any) => {
@@ -244,11 +237,11 @@ class PatientContainer extends React.Component<P,S>{
                     <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
                         <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
                             <div>
-                                {
+                                {/* {
                                     this.state.createNewTreatment ?
                                     <Rx.Components.Treatment/>:
                                     <Rx.Components.RXContainer/>
-                                }
+                                } */}
                             
                             </div>
                         </Tab>
@@ -299,13 +292,13 @@ class PatientContainer extends React.Component<P,S>{
 
                         <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
                             <div>
-                                <Others.Components.OthersComponent/>
+                                {/* <Others.Components.OthersComponent/> */}
                             </div>
                         </Tab>
                     </Tabs>
 
                     {this.state.open &&
-                        <PopOverComponent.PopOver
+                        <PopOver
                             _handleClickTest = {this.handleClickOnAddTests}
                             _handleClickImaging = {this.handleClickOnAddImaging}
                             _handleClickTreatments = {this.handleClickOnAddTreatments}
@@ -319,7 +312,7 @@ class PatientContainer extends React.Component<P,S>{
                         className={this.state.open ? "floating-btn":"floating-btn-rotate"}
                     >
                         <div>
-                            <FloatingBtn.FloatingBtn
+                            <FloatingBtn
                                 onMouseEnter={this._handleShowPopOver}
                                 onClick={this.handleClosePopOver}
                             />
@@ -327,9 +320,9 @@ class PatientContainer extends React.Component<P,S>{
                         </div>
                     </section>
                 </div>
-                <CustomTabComponent
-                bioDriveComponent={bioDriveData}
-                />
+                {/* <CustomTabComponent
+                    bioDriveComponent={bioDriveData}
+                /> */}
 
             </div>
         )

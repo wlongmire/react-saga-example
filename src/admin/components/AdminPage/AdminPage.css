@@ -1,0 +1,16 @@
+.admin-title{
+    position: relative;
+    left: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.admin-page-wrapper {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.red {
+    color: red;
+}

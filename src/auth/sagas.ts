@@ -15,7 +15,7 @@ export function* login(action: Common.ActionResult<AuthLoginCredentials>) {
         }
         const { clientToken, userRole, userChannel } = yield call(AuthService.login, action.value);
         yield(put(Actions.loginSuccess({ clientToken, userRole, userChannel })));
-        yield(put(Navigation.Actions.navigate('/')));
+        yield(put(Navigation.navigate('/')));
     } catch (e) {
         yield(put(Actions.loginFail(e)));
     }
@@ -32,7 +32,7 @@ export function* logout(action: Common.ActionResult<{}>) {
             yield(put(Actions.logoutFail(result.error)));
         } else {
             yield(put(Actions.logoutSuccess()));
-            yield(put(Navigation.Actions.navigate('/')));
+            yield(put(Navigation.navigate('/')));
         }
     } catch (e) {
         yield(put(Actions.logoutFail(e)));

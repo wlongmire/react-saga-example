@@ -2,7 +2,7 @@ import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router-dom';
 import * as auth from '../../../auth';
-import * as Navigation from '../../../navigation';
+// import * as Navigation from '../../../navigation';
 
 
 import './App.css';
@@ -18,7 +18,7 @@ class App extends React.Component<{}, {}> {
   render() {
     return (
       <div className="App">
-        <Navigation.Components.Navigation/>
+        {/* <Navigation.Components.Navigation/> */}
             <p className="App-intro">
               Welcome
             </p>

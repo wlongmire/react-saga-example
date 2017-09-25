@@ -7,7 +7,7 @@ import ApplicationState from '../../../common';
 // import { getAllPatients } from '../../selectors';
 import { loadAllPatients } from '../../actions';
 import {PatientsList} from './PatientsList';
-import {Navigation} from '../../../navigation/components/Navigation';
+// import {Navigation} from '../../../navigation/components/Navigation';
 import * as Model from '../../models';
 import { history } from '../../../common';
 
@@ -50,7 +50,7 @@ export class PatientsContainer extends React.Component<PatientProps, S> {
         }
         return (
             <div>
-                <Navigation/>
+                {/* <Navigation/> */}
                 <div className="patients-list-wrapper">
                     <div className="patients-list-title">
                         <h2>Hi Dr. Lee</h2>

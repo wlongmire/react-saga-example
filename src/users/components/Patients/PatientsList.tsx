@@ -4,13 +4,8 @@ import {Link} from 'react-router-dom';
 import * as Model from '../../models';
 
 type PatientsListProps = {
-<<<<<<< HEAD
     patients : Array<Model.Patient>;
     onClickSinglePatient?: (patient: Model.Patient) => void
-=======
-    patients : Array<any>;
-    onClickSinglePatient?: () => void
->>>>>>> develop
 }
 
 export const PatientsList = (props:PatientsListProps) => {

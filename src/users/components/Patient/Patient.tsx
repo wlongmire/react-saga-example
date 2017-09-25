@@ -215,7 +215,6 @@ class PatientContainer extends React.Component<P,S>{
     } 
     
     render(){
-<<<<<<< HEAD
         // if(!this.props.patient['patient']){
         //     return(
         //         <div>Loading ...</div>
@@ -327,94 +326,6 @@ class PatientContainer extends React.Component<P,S>{
                         </div>
                         </div>
                     </section>
-=======
-        let patientData = this.state.patient;
-        if(Object.keys(patientData).length === 0){
-            return(
-                <div>Loading ...</div>
-            )
-        }
-        let bioDriveData = (<div id="main-section">
-        <section className="biodrive-section">
-        <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-        <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
-        <div>
-            {
-                this.state.createNewTreatment ?
-                <Rx.Components.TreatmentsComponent/>:
-                <Rx.Components.RXContainer/>
-            }
-           
-        </div>
-        </Tab>
-
-        <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
-        <div>
-            { this.state.createNewVisit ? 
-            <Visits.Components.VisitDrawer
-                closeVisitCard={this.handleClickVisitsTab}
-            />:
-            <Visits.Components.VisitsContainer/> 
-            }
-        </div>
-        </Tab>
-
-        <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
-
-        <div>
-        <div>
-            {
-                this.state.createNewTestOrder ?
-                <Tests.Components.AddTestSection
-                    closeTestsCard={this.handleClickTestOrdersTab}
-                />:
-                <Tests.Components.TestOrdersContainer/>
-            }
-        </div>
-        </div>
-        </Tab>
-
-        <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
-        <div>
-            {
-                this.state.createNewImaging ? 
-                <Imaging.Components.AddImageSection
-                    closeImagingCard={this.handleClickImagingTab}
-                />:
-                <Imaging.Components.ImagingComponent/>
-            }
-            
-        </div>
-        </Tab>
-
-        <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
-        <div>
-            <Wellness.Components.WellnessComponent/>
-        </div>
-        </Tab>
-
-        <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
-        <div>
-            <Others.Components.OthersContainer/>
-        </div>
-        </Tab>
-        </Tabs>
-        </section>
-    </div>
-    )
-        return(
-            <div className="patient-view">
-                <Navigation/>
-                <div className="patient-details">
-                    <div>
-                        <img className="patient-avatar" src={patientData['avatar']}/>
-                    </div>
-                    <div>
-                    <p className="patient-name-details">{patientData['name']}</p>
-                    <span>{patientData['gender']}</span>,
-                    <span>{patientData['age']}</span>
-                    </div>
->>>>>>> develop
                 </div>
                 <CustomTabComponent
                 bioDriveComponent={bioDriveData}

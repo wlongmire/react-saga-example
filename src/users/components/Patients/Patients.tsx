@@ -7,7 +7,7 @@ import ApplicationState from '../../../common';
 // import { getAllPatients } from '../../selectors';
 import { loadAllPatients } from '../../actions';
 import {PatientsList} from './PatientsList';
-import {Navigation} from '../../../navigation/components/Navigation';
+// import {Navigation} from '../../../navigation/components/Navigation';
 import * as Model from '../../models';
 import { history } from '../../../common';
 

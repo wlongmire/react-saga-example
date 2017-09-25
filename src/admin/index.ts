@@ -1,6 +1,5 @@
-import {Users,AddUserPage} from './components';
-
-export const Components = {
-    Users,
+export { 
+    AdminPage,
+    Users, 
     AddUserPage
-}
+} from './components';

@@ -9,6 +9,6 @@ export {PopOver} from './PopOver';
 export {FloatingBtn} from './FloatingIconButton';
 export {PanelTemplate} from './PanelTemplate';
 export {CustomTextInput} from './CustomTextInput';
-export {CustomDropDown} from './CustomDropDown';
+export {CustomDropDown, CustomDropDownProps, DropDownItem} from './CustomDropDown';
 export {ScheduleDropDown} from './ScheduleDropDown';
 export {CustomTabComponent} from './CustomTabComponent';

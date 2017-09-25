@@ -5,7 +5,7 @@ import {  Dispatch } from 'redux';
 import * as patientActions  from '../../actions';
 import ApplicationState from '../../../common';
 import * as Model from '../../models';
-import {Navigation} from '../../../navigation/components/Navigation';
+// import {Navigation} from '../../../navigation/components/Navigation';
 import {
     CustomTabComponent
 } from '../../../common/UIComponents';
@@ -400,7 +400,7 @@ class PatientContainer extends React.Component<P,S>{
         
         return(
             <div className="patient-view">
-                <Navigation/>
+                {/* <Navigation/> */}
                 <div className="patient-details">
                     <div>
                         <img className="patient-avatar" src={patientData['avatar']}/>

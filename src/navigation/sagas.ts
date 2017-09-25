@@ -1,5 +1,5 @@
 import { all, fork, take } from 'redux-saga/effects';
-import * as Actions from './actions';
+import { ActionType } from './actions';
 import { history } from '../common';
 
 /**
@@ -7,7 +7,8 @@ import { history } from '../common';
  */
 function* watchNavigate() {
     while (true) {
-        const{ value } = yield take(Actions.ActionType.NAVIGATE);
+        const{ value } = yield take(ActionType.NAVIGATE);
+        
         if (value === undefined) {
             history.push(history.location.state.referrer);
         } else {

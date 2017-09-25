@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CollatedSchedules} from './CollatedSchedules';
-import {Navigation} from '../../../navigation/components/Navigation';
+// import {Navigation} from '../../../navigation/components/Navigation';
 import  {ScheduleDropDown} from '../../../common/UIComponents';
 import * as FloatingBtn from '../../../common/UIComponents';
 import * as Visits from '../../../visits';
@@ -184,7 +184,7 @@ export class Schedules extends React.Component<{}, S>{
     render(){
             return(
             <div>
-            <Navigation/>
+            {/* <Navigation/> */}
 
             <div className="dropDown">
                 <span className="dd-title">Schedule</span>

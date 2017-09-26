@@ -77,9 +77,7 @@ Custom Tab Component
 }
 
 .tabs{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 50%;
+    display: flex;
 }
 
 .tab-header,
@@ -87,11 +85,11 @@ Custom Tab Component
     /* border-top: 1px solid #c6d3d1;
     border-right: 1px solid #c6d3d1;
     border-left: 1px solid #c6d3d1; */
-    padding: .5em;
     margin: 0 .2em 0 0;
     text-align: center;
     font-size: medium;
     cursor: pointer;
+    padding: .5em 2em;
 }
 .tab-header{
     background: #f7f9f8;
@@ -111,4 +109,19 @@ Custom Tab Component
 .tab-content{
     border-top: 1px solid rgba(198, 211, 209, 1);
     z-index: 1
+}
+.add-icon{
+    background: #D8E7E5;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    position: relative;
+    top: .5em;
+    left: .1em;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transform: scale(1.2)
 }

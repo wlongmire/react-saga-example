@@ -44,6 +44,10 @@ export class CustomTabComponent extends React.Component<P, S>{
             hormoneTabClicked: false
         })
     }
+
+    _handleAddTab = () => {
+        console.log("Click Add Tab")
+    }
     render(){
         console.log(this.state)
         return(
@@ -54,8 +58,9 @@ export class CustomTabComponent extends React.Component<P, S>{
                         <div onClick={this._handleClickBioDrive} className={this.state.biodriveClicked ? "tab-header-clicked":"tab-header"}>BioDrive</div>
                         <div onClick={this._handleClickHormoneTab} className={this.state.hormoneTabClicked ? "tab-header-clicked":"tab-header"}>Hormone Test</div>
                         <div onClick={this._handleClickVisitsTab} className={this.state.visitTabClicked ? "tab-header-clicked":"tab-header"}>LifeCo Visit</div>
+                    <span onClick={this._handleAddTab}className="add-icon"> + </span>
                     </div>
-
+                    
                     <div className="tab-content">
                         {
                             this.state.biodriveClicked && !this.state.hormoneTabClicked && !this.state.visitTabClicked &&

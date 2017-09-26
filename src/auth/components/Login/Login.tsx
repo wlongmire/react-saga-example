@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { ActionResult } from '../../../common';
 import { AuthLoginCredentials } from '../../../services/auth';
-import { AuthState } from '../../model';
+import { AuthState } from '../../reducer';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
 

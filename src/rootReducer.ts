@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import * as Cases from './cases';
 // import * as Patients from './users';
 import * as Visits from './visits';
-import * as Auth from './auth';
+// import * as Auth from './auth';
 import * as TestOrders from './testorders';
 import * as Others from './others';
 import * as Wellness from './wellness';
@@ -10,6 +10,8 @@ import * as Rx from './treatments';
 
 import { patientsReducer, PatientsState } from './patients';
 import { doseSpotReducer, DoseSpotState } from './dosespot';
+import { authReducer, AuthState } from './auth';
+import { adminReducer, DoseSpotState as AdminDoseSpotState } from './admin';
 
 // NOTE: ADD MODULE REDUCERS HERE
 const casesReducer = Cases.Reducers.root;
@@ -20,7 +22,7 @@ const othersReducer = Others.Reducers.root;
 const wellnessReducer = Wellness.Reducers.root;
 const rxReducer = Rx.Reducers.root;
 // todo: ... other reducers
-const authReducer = Auth.Reducers.root;
+// const authReducer = Auth.root;
 
 // NOTE: REGISTER MODULE REDUCERS HERE
 export default combineReducers({
@@ -32,10 +34,13 @@ export default combineReducers({
     others:othersReducer,
     treatments: rxReducer,
     patients: patientsReducer,
-    dosespot: doseSpotReducer
+    dosespot: doseSpotReducer,
+    admin: adminReducer
 });
 
 export interface GlobalState {
     patients: PatientsState;
-    dosespot: DoseSpotState
+    dosespot: DoseSpotState;
+    auth: AuthState;
+    admin: AdminDoseSpotState
 }

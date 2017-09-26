@@ -18,28 +18,27 @@ class App extends React.Component<{}, {}> {
   render() {
     return (
       <div className="App">
-        {/* <Navigation.Components.Navigation/> */}
-            <p className="App-intro">
-              Welcome
-            </p>
-              <Link to="/visits">
-              <RaisedButton
-                label="Go to Visit Section"
-                secondary={true}
-                buttonStyle={btnStyle}
-              />
-              </Link>
-              <br/>
-              <auth.Components.ConnectedLogoutButton />
-              <br/>
-              <Link to="/patients">
+          <p className="App-intro">
+            Welcome
+          </p>
+          <Link to="/visits">
+            <RaisedButton
+              label="Go to Visit Section"
+              secondary={true}
+              buttonStyle={btnStyle}
+            />
+          </Link>
+          <br/>
+            <auth.ConnectedLogoutButton />
+          <br/>
+          <Link to="/patients">
               <RaisedButton
                 label="Go to Patients List Section"
                 secondary={true}
                 buttonStyle={btnStyle}
               />
-              </Link>
-              <br/>
+          </Link>
+          <br/>
         </div>
     );
   }

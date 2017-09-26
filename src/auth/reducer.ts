@@ -1,6 +1,19 @@
 import * as Common from '../common';
 import { ActionType } from './actions';
-import { AuthState, AuthInfo } from './model';
+
+export interface AuthState {
+    isAuthenticated: boolean;
+    clientToken?: string;
+    userRole?: number;
+    userChannel?: number;
+    authError?: string;
+}
+
+export interface AuthInfo {
+    clientToken: string;
+    userRole: number;
+    userChannel: number;
+}
 
 // initial reducer state
 const initialState: AuthState = {
@@ -16,7 +29,7 @@ const initialState: AuthState = {
  * @param state
  * @param action 
  */
-export function reducer(state: AuthState = initialState, action: Common.ActionResult<{}>) {
+export default function reducer(state: AuthState = initialState, action: Common.ActionResult<{}>) {
     switch (action.type) {
         case ActionType.LOGIN_SUCCESS:
             const { clientToken, userRole, userChannel } = <AuthInfo> action.value;

@@ -1,6 +1,5 @@
-import { reducer } from './reducer';
+import { default as reducer, AuthInfo } from './reducer';
 import * as actions from './actions';
-import { AuthInfo } from './model';
 
 describe('auth reducer', () => {
     it('should return the initial state', () => {

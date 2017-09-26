@@ -2,11 +2,22 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
 import { Api } from '../services/api'
 
+
 function* fetchSingleSignOnInfo() {
-    console.log('fetching...');
+    console.log('here');
     try {
-        const result = yield call(() => Api.dosespot.fetchSingleSignOnInfo());
-        console.log('result: ', result);
+        if (localStorage.getItem('clinicId') === null) {
+            localStorage.setItem('clinicId', '1141');
+        }
+
+        if (localStorage.getItem('clinicianId') === null) {
+            localStorage.setItem('clinicianId', '44747');
+        }
+
+        const clinicId = Number(localStorage.getItem('clinicId'));
+        const clinicianId = Number(localStorage.getItem('clinicianId'));
+        
+        const result = yield call(() => Api.dosespot.fetchSingleSignOnInfo(clinicId, clinicianId));
         yield(put(Actions.fetchSingleSignOnInfoSuccess(result)));
     } catch (e) {
         yield(put(Actions.fetchSingleSignOnInfoFailed(e)));

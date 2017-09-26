@@ -16,7 +16,7 @@ export class PatientService {
             cache: 'default'
         }).then((response: any) => {
             if (response.ok) { 
-                return response.json()
+                return response.json();
             } else {
                 throw new Error('fetch patients failed');
             }

@@ -58,7 +58,7 @@ function* watchForLogout() {
 /**
  * The root saga.
  */
-export function* root() {
+export default function* root() {
     yield all([
         fork(watchForLogin),
         fork(watchForLogout)

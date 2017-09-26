@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
+// import { logout } from '../../../auth';
 
 import './Navbar.css';
 

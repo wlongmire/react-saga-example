@@ -10,20 +10,20 @@ export interface SingleSignOnInfo {
     singleSignOnUrl: string
 }
 
+export interface SingleSignOnCredentials {
+    clinicId: number,
+    clinicianId: number
+}
+
 export class DoseSpotState {
+    isFetching: boolean;
     sso: SingleSignOnInfo | null | undefined;
 }
 
 function initialState(): DoseSpotState {
     return {
-        sso: {
-            clinicId: 1,
-            userId: 2,
-            ssoPhraseLength: 32,
-            singleSignOnCode: '',
-            singleSignOnUserIdVerify: '',
-            singleSignOnUrl: ''
-        }
+        isFetching: false,
+        sso: null
     }
 }
 

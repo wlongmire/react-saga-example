@@ -1,12 +1,16 @@
 import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
 import * as Actions from './actions';
+import { ActionResult } from '../common';
 import { Api } from '../services/api'
+import { SingleSignOnCredentials } from '../dosespot';
 
-function* fetchSingleSignOnInfo() {
-    console.log('fetching...');
+function* fetchSingleSignOnInfo(action: ActionResult<SingleSignOnCredentials>) {
     try {
-        const result = yield call(() => Api.dosespot.fetchSingleSignOnInfo());
-        console.log('result: ', result);
+        if (!action.value) {
+            throw new Error('action is missing required SingleSignOnCredentials value');
+        }
+        const { clinicId, clinicianId } = action.value;
+        const result = yield call(() => Api.dosespot.fetchSingleSignOnInfo(clinicId, clinicianId));
         yield(put(Actions.fetchSingleSignOnInfoSuccess(result)));
     } catch (e) {
         yield(put(Actions.fetchSingleSignOnInfoFailed(e)));

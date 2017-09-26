@@ -74,25 +74,25 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
         this.state = {
             isDoseSpotOpen: false,
             patientId: undefined,
-            prefix: 'Mr',
-            first: 'Rick',
-            middle: 'Middle',
-            last: 'Johnson',
-            suffix: 'Jr',
-            dateOfBirth: '1/24/2001',
-            gender: 'Male',
+            prefix: '',
+            first: '',
+            middle: '',
+            last: '',
+            suffix: '',
+            dateOfBirth: '',
+            gender: '',
             medicalRecordNumber: undefined,
-            address1: '716 Main Street',
-            address2: '2nd Floor',
-            city: 'Waltham',
-            state: 'Massachusetts',
-            zipCode: '02451',
-            primaryPhone: '781 777-7777',
-            primaryPhoneType: 'Home',
-            phoneAdditional1: '781 444-4444',
-            phoneAdditionalType1: 'Cell',
-            phoneAdditional2: '781 555-5555',
-            phoneAdditionalType2: 'Work',
+            address1: '',
+            address2: '',
+            city: '',
+            state: '',
+            zipCode: '',
+            primaryPhone: '',
+            primaryPhoneType: '',
+            phoneAdditional1: '',
+            phoneAdditionalType1: '',
+            phoneAdditional2: '',
+            phoneAdditionalType2: '',
 
             patientIdError: '',
             prefixError: '',
@@ -515,6 +515,11 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
     handleOpen() {
         if (!this.validateForm()) return;
         this.setState({ isDoseSpotOpen: true });
+
+        // other
+        // get sso 
+        // use it to build patient url
+        // chain it
     }
 
     handleClose() {
@@ -525,7 +530,57 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
         console.log(e);
     }
 
+    savePatient() {
+        if (localStorage.getItem('clinicId') === null) {
+            localStorage.setItem('clinicId', '1141');
+        }
+
+        if (localStorage.getItem('clinicianId') === null) {
+            localStorage.setItem('clinicianId', '44747');
+        }
+
+        const clinicId = Number(localStorage.getItem('clinicId'));
+        const clinicianId = Number(localStorage.getItem('clinicianId'));
+        const body = {
+            prefix: this.state.prefix,
+            first: this.state.first,
+            middle: this.state.middle,
+            last: this.state.last,
+            suffix: this.state.suffix,
+            dateOfBirth: this.state.dateOfBirth,
+            gender: this.state.gender,
+            address1: this.state.address1,
+            address2: this.state.address2,
+            city: this.state.city,
+            state: this.state.state,
+            zipCode: this.state.zipCode,
+            primaryPhone: this.state.primaryPhone,
+            primaryPhoneType: this.state.primaryPhoneType,
+            phoneAdditional1: this.state.phoneAdditional1,
+            phoneAdditionalType1: this.state.phoneAdditionalType1,
+            phoneAdditional2: this.state.phoneAdditional2,
+            phoneAdditionalType2: this.state.phoneAdditionalType2,
+            patientID: this.state.patientId
+        }
+
+        return fetch(`http://localhost:3001/clinics/${clinicId}/clinicians/${clinicianId}/patient`, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'default',
+            body: body
+        }).then((response: any) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log('error saving');
+            }
+        }).then((patient: any) => {
+            this.setState({ patientId: patient.patientId});
+        });
+    }
+
     buildPatientUrl() {
+        if (!this.props.singleSignOn) return;
         const { clinicId, userId, ssoPhraseLength, singleSignOnCode, singleSignOnUserIdVerify } = this.props.singleSignOn;
         return SafeUrlAssembler('http://my.staging.dosespot.com')
             .segment('LoginSingleSignOn.aspx')
@@ -581,7 +636,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             mode: 'no-cors'
         }).then((response: any) => {
             console.log('redirected?: ' + JSON.stringify(response));
-            // console.log('location: ' + response.headers.get('Location'));
         })
         .catch((err: Error) => {
             console.log('error: ' + err);
@@ -590,7 +644,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
     
     render() {
         const patientUrl = this.buildPatientUrl();
-        const refillsErrorsUrl = this.buildRefillsErrorsUrl();
         const actions = [
             <RaisedButton
                 label="Cancel"
@@ -599,10 +652,7 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
         ]
         return (
             <form>
-                <div>
-                    <a className="refills-errors-link" href={ refillsErrorsUrl } target="_blank">Refills Errors Count</a>
-                </div>
-                <div>
+                <div className="test-dosespot-form">
                     <TextField 
                         hintText="Prefix" 
                         name="prefix" 
@@ -726,6 +776,7 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
                         errorText={this.state.phoneAdditional1Error}
                         value={this.state.phoneAdditionalType1}
                         onChange={this.handlePrimaryPhoneTypeChange1}>
+                        <MenuItem value="" primaryText="" />
                         <MenuItem value="Home" primaryText="Home" />
                         <MenuItem value="Cell" primaryText="Cell" />
                         <MenuItem value="Work" primaryText="Work" />
@@ -745,6 +796,7 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
                         value={this.state.phoneAdditionalType2}
                         errorText={this.state.phoneAdditionalType2Error}
                         onChange={this.handlePrimaryPhoneTypeChange2}>
+                        <MenuItem value="" primaryText="" />
                         <MenuItem value="Home" primaryText="Home" />
                         <MenuItem value="Cell" primaryText="Cell" />
                         <MenuItem value="Work" primaryText="Work" />
@@ -759,12 +811,12 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
                         value={this.state.phoneAdditional2} />
                 </div>
                 <div>
-                    <TextField 
+                    {/* <TextField 
                         hintText="Patient Id" 
                         name="patientId" 
                         errorText={this.state.patientIdError}
                         onChange={this.handleFieldChange} 
-                        value={this.state.patientId} />
+                        value={this.state.patientId} /> */}
                 </div>
                 <div>
                     <RaisedButton label="Save" primary={true} style={{margin:12}} onClick={this.handleSubmit} />
@@ -774,14 +826,21 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
                     title="DoseSpot"
                     modal={true}
                     actions={actions}
+                    bodyStyle={{
+                        padding: 0
+                    }}
                     style={{
-                        width: 800,
-                        height: 500
+                        maxWidth: null
+                    }}
+                    contentStyle={{
+                        maxWidth: 1000
                     }}
                     open={this.state.isDoseSpotOpen}
                     onRequestClose={this.handleClose}
                     autoScrollBodyContent={true}>
-                    <iframe className="dosespot-base" src={ patientUrl } onLoad={this.handleLoad} ></iframe>
+                    <div className="admin-dosespot-dialog-wrapper">
+                        <iframe className="admin-dosespot-iframe" src={ patientUrl } ></iframe>
+                    </div>
                 </Dialog>
             </form>
         )

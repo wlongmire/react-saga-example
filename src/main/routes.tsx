@@ -11,6 +11,7 @@ import * as Schedule from '../schedule';
 import { Navbar } from '../navigation';
 import { PatientListContainer, PatientDetail } from '../patients';
 import { AuthService } from '../services';
+import { DoseSpotUser } from '../dosespot';
 import { history } from '../common';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
@@ -58,6 +59,20 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                     }} 
                             />
                         ) : ( <PatientListContainer {...props} /> )
+                    )}
+                />
+                <Route 
+                    path="/dosespot"
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/dosespot' }
+                                    }} 
+                            />
+                        ) : ( <DoseSpotUser {...props} /> )
                     )}
                 />
                 <Route 
@@ -121,7 +136,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route
                     path="/login"
-                    render={(props) => <Auth.Components.LoginContainer {...props} />}
+                    render={(props) => <Auth.LoginContainer {...props} />}
                 />
                 {/* <Route 
                     path="/visits" 

@@ -38,7 +38,7 @@ export class LoginZoo extends React.Component<{}, {}> {
       <div className="login-zoo">
         <h1>Login Components</h1>
         <div>
-            <Auth.Components.Login {...props} />
+            <Auth.Login {...props} />
         </div>
         <div>
           <h4>Usage</h4>

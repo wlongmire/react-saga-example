@@ -1,6 +1,6 @@
 import * as Common from '../common';
 import { AuthLoginCredentials } from '../services/auth';
-import { AuthInfo } from './model';
+import { AuthInfo } from './reducer';
 
 /**
  * Action Types

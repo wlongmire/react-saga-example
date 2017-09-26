@@ -14,3 +14,15 @@
 .red {
     color: red;
 }
+
+.admin-dosespot-dialog-wrapper {
+    width: 1000px;
+    height: 584px;
+}
+
+.admin-dosespot-iframe {
+    border: none;
+    width: 100%;
+    display: block;
+    height: 100%;
+}

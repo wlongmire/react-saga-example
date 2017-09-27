@@ -8,7 +8,8 @@ interface P {
 
 interface S {
     tabState: object;
-    tabs: Array<any>
+    tabs: Array<any>;
+    clickedTab: string
     // biodriveClicked: boolean;
     // hormoneTabClicked: boolean;
     // visitTabClicked: boolean;
@@ -20,35 +21,15 @@ export class CustomTabComponent extends React.Component<P, S>{
         super(props)
         this.state = {
             tabState : {
-            biodrive: true,
-            hormone: false,
-            visit: false
-            },
-        tabs : ['biodrive', 'hormone', 'visit']
+                biodrive: true,
+                hormone: false,
+                visit: false
+                },
+            tabs : ['biodrive', 'hormone', 'visit'],
+            clickedTab: ''
         }
     }
 
-    // _handleClickBioDrive = () => {
-    //     this.setState({
-    //         biodriveClicked: true,
-    //         visitTabClicked: false,
-    //         hormoneTabClicked: false
-    //     })
-    // }
-    // _handleClickHormoneTab = () => {
-    //     this.setState({
-    //         biodriveClicked: false,
-    //         visitTabClicked: false,
-    //         hormoneTabClicked: true
-    //     })
-    // }
-    // _handleClickVisitsTab = () => {
-    //     this.setState({
-    //         biodriveClicked: false,
-    //         visitTabClicked: true,
-    //         hormoneTabClicked: false
-    //     })
-    // }
 
     _handleClickTab = (tabSelected:string) => {
         /**
@@ -65,12 +46,21 @@ export class CustomTabComponent extends React.Component<P, S>{
         let k = clickedState[0]
         resetState[k] = true;
         this.setState({
-            tabState: resetState
+            tabState: resetState,
+            clickedTab : clickedState[0]
         })
     }
 
     _handleAddTab = () => {
-        console.log("cliked")
+        let currentState = {...this.state.tabState};
+        let currentTabs = [...this.state.tabs]
+        currentState['new'] = false
+        currentTabs.push('new');
+        this.setState({
+           tabState: currentState, 
+           tabs: currentTabs
+        })
+
     }
 
     capitalizeFirstLetter = (s:string) => {
@@ -78,7 +68,7 @@ export class CustomTabComponent extends React.Component<P, S>{
     }
 
     render(){
-        console.log(this.state)
+        let tabContent = <div>{this.state.clickedTab}</div>
         return(
             <div id="wrapper">
                 <div className="chat-section"></div>
@@ -87,7 +77,7 @@ export class CustomTabComponent extends React.Component<P, S>{
                         {
                             this.state.tabs.map((t:any, index:number)=>{
                                 return (
-                                    <div key={index} className="tab-header" onClick={() => this._handleClickTab(t)} >{this.capitalizeFirstLetter(t)}</div>
+                                    <div key={index} className={t === this.state.clickedTab ? "tab-header-clicked": "tab-header"} onClick={() => this._handleClickTab(t)} >{this.capitalizeFirstLetter(t)}</div>
                                 )
                             })
                         }
@@ -95,22 +85,7 @@ export class CustomTabComponent extends React.Component<P, S>{
                     </div>
                     
                     <div className="tab-content">
-                        {/* {
-                            this.state.biodriveClicked && !this.state.hormoneTabClicked && !this.state.visitTabClicked &&
-                            <div>{this.props.bioDriveComponent}</div>
-                        }
-
-                        {
-                            !this.state.biodriveClicked && this.state.hormoneTabClicked && !this.state.visitTabClicked &&
-                            <div>hormoneTabClicked</div>
-                        }
-
-                        {
-                            !this.state.biodriveClicked && !this.state.hormoneTabClicked && this.state.visitTabClicked &&
-                            <div>visitTabClicked</div>
-                        } */}
-
-
+                        {tabContent}
 
                     </div>
                 </div>            

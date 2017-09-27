@@ -1,8 +1,5 @@
 import * as React from 'react';
-// import { VisitDrawer } from '../Visit/VisitDrawer';
 import VisitCollection from './VisitsCollection';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import {getAllVisits} from '../../selectors';
 import ApplicationState from '../../../common';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,10 +8,6 @@ import * as visitsActions from '../../actions';
 import * as VisitModels from '../../model';
 import './Visits.css';
 
-
-// const style = {
-//     backgroundColor: '#f84445',
-// }
 
 interface VisitsProps {
     visits : VisitModels.Visits,
@@ -44,6 +37,10 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
             openDrawer: !this.state.openDrawer
         })
     }
+
+    _handleGetSingleVisit = () => {
+        console.log('Clicked Single Visit')
+    }
     render() {
         console.log("Here Visits", this.props.visits.visits['result'])
 
@@ -66,6 +63,8 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
                             "date": "28 Sept"
                         }
                     ]}
+
+                    getVisitDetail={this._handleGetSingleVisit}
                 />
             </div>
         )

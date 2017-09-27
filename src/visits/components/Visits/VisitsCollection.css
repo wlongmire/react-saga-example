@@ -6,6 +6,7 @@
     width: 90%;
     margin: 1em auto;
     z-index: 5;
+    cursor: pointer;
 }
 
 .visit-date{
@@ -55,10 +56,6 @@
     font-weight: bold
 }
 
-.visit-date{
-    color: gray;
-    opacity: .5;
-}
 
 .visit-description{
     font-size: medium;

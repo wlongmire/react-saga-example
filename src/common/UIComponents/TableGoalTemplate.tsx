@@ -54,7 +54,6 @@ export class TableGoalTemplate extends React.Component<TableTemplateProps, Table
         
     }
 
-    this.handleAddItem = this.handleAddItem.bind(this);
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {
@@ -67,10 +66,6 @@ export class TableGoalTemplate extends React.Component<TableTemplateProps, Table
             items: prevState.items.concat(newItem)
         }))
     }
-
-    // handleSubmit = (e:any, value:any) => {
-    //     console.log
-    // }
 
     handleChangeInput = (index: number) => (e:any) => {
         let items = [...this.state.items];

@@ -42,7 +42,10 @@ interface S {
     showWellnessSection?:boolean;
     showOthersSection?: boolean;
     selectedTab : number;
-    patient: object
+    patient: object;
+    tabs: Array<string>;
+    tabState : object;
+    clickedTab: string;
 }
 
 const labelBackground = {
@@ -63,7 +66,14 @@ class PatientContainer extends React.Component<P,S>{
             open: false,
             selectedTab: 0,
             createNewVisit: false,
-            patient: {}
+            patient: {},
+            tabs : ['biodrive', 'hormone'],
+            tabState : {
+                biodrive: true,
+                hormone: false,
+                visit: false
+                },
+            clickedTab: ''
         };
     }
     componentWillMount(){
@@ -205,16 +215,54 @@ class PatientContainer extends React.Component<P,S>{
           selectedTab:5
         })
     } 
-    
 
-    render(){
-        let patientData = this.state.patient;
-        if(Object.keys(patientData).length === 0){
-            return(
-                <div>Loading ...</div>
-            )
+    _handleClickTab = (tabSelected:string) => {
+        /**
+         * Make an entirely new copy of state every time you click
+         */
+        let resetState = {...this.state.tabState};
+        Object.keys(resetState).forEach((s:string)=>{
+            resetState[s] = false
+        })
+        let clickedState = Object.keys(resetState).filter((t:string) => {
+            return t === tabSelected
         }
-        let bioDriveData = (<div id="main-section">
+        )
+        let k = clickedState[0]
+        resetState[k] = true;
+        this.setState({
+            tabState: resetState,
+            clickedTab : clickedState[0]
+        })
+    }
+
+    _handleAddTab = () => {
+        let currentState = {...this.state.tabState};
+        let currentTabs = [...this.state.tabs]
+        currentState['new'] = false
+        currentTabs.push('new');
+        this.setState({
+           tabState: currentState, 
+           tabs: currentTabs
+        })
+
+    }
+
+    _handleGetSingleVisit = (id:number) => {
+        let visitClicked = Visits.utils.getSingleVisit(id);
+        let currentState = {...this.state.tabState};
+        let currentTabs = [...this.state.tabs]
+        currentState[visitClicked.visit_type] = false
+        currentTabs.push(visitClicked.visit_type);
+        this.setState({
+            tabState: currentState, 
+            tabs: currentTabs
+         })
+    }
+
+
+    _renderBiodrive = () => {
+        return (<div id="main-section">
         <section className="biodrive-section">
         <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
         <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
@@ -234,7 +282,9 @@ class PatientContainer extends React.Component<P,S>{
             <Visits.Components.VisitDrawer
                 closeVisitCard={this.handleClickVisitsTab}
             />:
-            <Visits.Components.VisitsContainer/> 
+            <Visits.Components.VisitsContainer
+                getSingleVisit={this._handleGetSingleVisit}
+            /> 
             }
         </div>
         </Tab>
@@ -282,6 +332,33 @@ class PatientContainer extends React.Component<P,S>{
         </section>
     </div>
     )
+    }
+    
+
+    _handleRenderComponent = (tab: string) => {
+        let component;
+        switch(tab){
+            case 'biodrive': 
+                component = this._renderBiodrive()
+                break;
+            default:
+                this._renderBiodrive()
+                break
+
+        }
+
+        return component;
+    }
+
+    render(){
+        console.log(this.state)
+        let patientData = this.state.patient;
+        if(Object.keys(patientData).length === 0){
+            return(
+                <div>Loading ...</div>
+            )
+        }
+        
         return(
             <div className="patient-view">
                 <Navigation/>
@@ -296,7 +373,11 @@ class PatientContainer extends React.Component<P,S>{
                     </div>
                 </div>
                 <CustomTabComponent
-                bioDriveComponent={bioDriveData}
+                tabs={this.state.tabs}
+                handleClickTab={this._handleClickTab}
+                appComponent={this._handleRenderComponent(this.state.clickedTab)}
+                handleAddTab={this._handleAddTab}
+                clickedTab={this.state.clickedTab}
                 />
 
             </div>

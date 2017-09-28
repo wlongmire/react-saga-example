@@ -3,7 +3,7 @@ import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
 import * as Application from '../application';
 import * as Zoo from '../zoo';
-import * as Visits from '../visits';
+// import * as Visits from '../visits';
 import * as Users from '../users';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
@@ -60,7 +60,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     path="/login"
                     render={(props) => <Auth.Components.LoginContainer {...props} />}
                 />
-                <Route 
+                {/* <Route 
                     path="/visits" 
                     render={(props) => (
                         !AuthService.isAuthenticated() ? (
@@ -72,7 +72,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ):( <Visits.Components.VisitsContainer {...props} />)
                     )}
-                />
+                /> */}
 
                 <Route 
                     path="/reset-password"

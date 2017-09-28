@@ -7,7 +7,7 @@ interface IVisit {
 }
 interface VisitsCollectionProps {
     visits : Array<IVisit>;
-    getVisitDetail?: () => void;
+    getVisitDetail: (id:number) => void;
 }
 
 const VisitsCollection = (props: VisitsCollectionProps) => {
@@ -15,7 +15,7 @@ const VisitsCollection = (props: VisitsCollectionProps) => {
             <ul>
                 {props.visits.map((v:any, index: number) => {
                     return (
-                        <li className="visit-item" key={index} onClick={props.getVisitDetail}>
+                        <li className="visit-item" key={index} onClick={() => props.getVisitDetail(v.id)}>
 
                             <div className="image-date"> 
                                     <p><span>{v.date}</span></p>

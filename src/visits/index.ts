@@ -3,7 +3,7 @@ import {getAllVisits} from './selectors';
 import {root} from './sagas';
 import {VisitItem} from './model';
 import {reducer} from './reducer';
-import { VisitsContainer, VisitDrawer} from './components';
+import { VisitsContainer, VisitDrawer, getSingleVisit} from './components';
 
 
 export const Components = {
@@ -11,6 +11,9 @@ export const Components = {
     VisitDrawer
 }
 
+export const utils = {
+    getSingleVisit
+}
 export const Actions = {
     ActionType
 }

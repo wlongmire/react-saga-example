@@ -1,17 +1,19 @@
 import * as React from 'react';
 import VisitCollection from './VisitsCollection';
-import ApplicationState from '../../../common';
-import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {  Dispatch } from "redux";
-import * as visitsActions from '../../actions';
+// import ApplicationState from '../../../common';
+// import {connect} from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import {  Dispatch } from "redux";
+// import * as visitsActions from '../../actions';
 import * as VisitModels from '../../model';
+import * as Visits from './stubbedVisits';
 import './Visits.css';
 
 
 interface VisitsProps {
-    visits : VisitModels.Visits,
-    loadAllVisits : () => void
+    visits ?: VisitModels.Visits,
+    loadAllVisits ?: () => void,
+    getSingleVisit: (id:number) => void;
 }
 
 interface VisitComponentState {
@@ -19,7 +21,7 @@ interface VisitComponentState {
     visits?: Array<any>
 }
 
-export class Visits extends React.Component<VisitsProps, VisitComponentState>{
+export class VisitsContainer extends React.Component<VisitsProps, VisitComponentState>{
     constructor() {
         super()
         this.state = {
@@ -28,9 +30,9 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         this.toggleDrawer = this.toggleDrawer.bind(this);
     }
 
-    componentDidMount(){    
-        this.props.loadAllVisits();
-    }
+    // componentDidMount(){    
+    //     this.props.loadAllVisits();
+    // }
 
     toggleDrawer() {
         this.setState({
@@ -38,50 +40,33 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
 
-    _handleGetSingleVisit = () => {
-        console.log('Clicked Single Visit')
-    }
+    // _handleGetSingleVisit = (id:number) => {
+    //     console.log('Clicked Single Visit', id)
+    // }
     render() {
-        console.log("Here Visits", this.props.visits.visits['result'])
 
         return (
             <div>
                 <VisitCollection
-                    visits={[
-                        {
-                            "visit_type": "LifeCo",
-                            "doctor_type": "Chiropractor",
-                            "location": "25 BroadWay, New York, NY 3880",
-                            "description": "Visiting Dr.Peters for ANC",
-                            "date": "27 Sept"
-                        },
-                        {
-                            "visit_type": "Chiropractor",
-                            "doctor_type": "Chiropractor",
-                            "location": "25 BroadWay, New York, NY 3880",
-                            "description": "Visiting Dr.Peters for ANC",
-                            "date": "28 Sept"
-                        }
-                    ]}
-
-                    getVisitDetail={this._handleGetSingleVisit}
+                    visits={Visits.getAllVisits}
+                    getVisitDetail={this.props.getSingleVisit}
                 />
             </div>
         )
     }
 }
 
-const mapStateToProps = (state: ApplicationState.IState) => {
-    return {
-        visits : state.visits,
-    }
-}
+// const mapStateToProps = (state: ApplicationState.IState) => {
+//     return {
+//         visits : state.visits,
+//     }
+// }
 
-const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
-    {
-        loadAllVisits : visitsActions.getAllVisits
-    },
-    dispatch
-)
+// const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
+//     {
+//         loadAllVisits : visitsActions.getAllVisits
+//     },
+//     dispatch
+// )
 
-export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, mapDispatchToProps)(Visits)
+// export const VisitsContainer = connect<{}, VisitsProps, {}>(mapStateToProps, mapDispatchToProps)(Visits)

@@ -70,8 +70,7 @@ class PatientContainer extends React.Component<P,S>{
             tabs : ['biodrive', 'hormone'],
             tabState : {
                 biodrive: true,
-                hormone: false,
-                visit: false
+                hormone: false
                 },
             clickedTab: ''
         };
@@ -230,6 +229,7 @@ class PatientContainer extends React.Component<P,S>{
         )
         let k = clickedState[0]
         resetState[k] = true;
+        console.log(clickedState)
         this.setState({
             tabState: resetState,
             clickedTab : clickedState[0]
@@ -249,17 +249,24 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     _handleGetSingleVisit = (id:number) => {
-        let visitClicked = Visits.utils.getSingleVisit(id);
+        // let visitClicked = Visits.utils.getSingleVisit(id);
         let currentState = {...this.state.tabState};
         let currentTabs = [...this.state.tabs]
-        currentState[visitClicked.visit_type] = false
-        currentTabs.push(visitClicked.visit_type);
+        currentState['visit'] = false
+        currentTabs.push('visit');
         this.setState({
             tabState: currentState, 
-            tabs: currentTabs
+            tabs: currentTabs,
+            clickedTab: 'visit' // Allows us to be able to redirect to the right tab
          })
+         
     }
 
+    _renderVisit = () =>{
+        return (
+            <Visits.Components.VisitDrawer
+        />)
+    }
 
     _renderBiodrive = () => {
         return (<div id="main-section">
@@ -333,21 +340,24 @@ class PatientContainer extends React.Component<P,S>{
     </div>
     )
     }
+
+    _renderHormoneSection = () => {
+        return (<div>Here</div>)
+    }
     
 
     _handleRenderComponent = (tab: string) => {
-        let component;
         switch(tab){
             case 'biodrive': 
-                component = this._renderBiodrive()
-                break;
+                return this._renderBiodrive();
+            case 'visit': 
+                return this._renderVisit();
+            case 'hormone':
+                return this._renderHormoneSection();
             default:
-                this._renderBiodrive()
-                break
+                return this._renderBiodrive();
 
         }
-
-        return component;
     }
 
     render(){

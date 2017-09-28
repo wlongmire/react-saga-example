@@ -1,25 +1,38 @@
 import * as React from 'react';
 import './Common.css';
 
+// interface TabDescription {
+//     default?: boolean;
+//     type?: string;
+//     id: string;
+//     component?: JSX.Element; 
+//     props?: object; 
+// }
 
 interface P {
     appComponent ?: JSX.Element;
     tabs: Array<string>;
-
+    clickedTab: string;
     handleClickTab: (t:string) => void;
     handleAddTab: () => void;
-    clickedTab: string
 }
 
 interface S {
-
+    tabState: object,
+    clickedTab: string
 }
+
+
 
 export class CustomTabComponent extends React.Component<P, S>{
     constructor(props:P){
         super(props)
         this.state = {
-           
+            tabState : {
+                biodrive: true,
+                hormone: false,
+                },
+            clickedTab: ''
         }
     }
 
@@ -27,6 +40,18 @@ export class CustomTabComponent extends React.Component<P, S>{
     capitalizeFirstLetter = (s:string) => {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
+
+    // getComponent = (id: string) => {
+    //     let component;
+    //     if(id === undefined){
+    //         component = this.props.tabs
+    //     } else {
+    //     component = this.props.tabs.filter((t: TabDescription)=>{
+    //         return t.id === id
+    //     })[0];
+    //     }
+    //     return component;
+    // }
 
     render(){
         return(

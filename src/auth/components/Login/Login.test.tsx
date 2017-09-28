@@ -1,8 +1,10 @@
 import * as React from 'react';
+import {BrowserRouter as Router} from 'react-router-dom';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { Login } from '../Login';
 import { mount } from 'enzyme';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
+
 
 const setup = () => {
     const props = {
@@ -18,7 +20,9 @@ const setup = () => {
 
     const wrapper = mount(
         <MuiThemeProvider>
+            <Router>
             <Login {...props} />
+            </Router>
         </MuiThemeProvider>
     );
 
@@ -38,13 +42,13 @@ describe('components', () => {
     describe('Login', () => {
         it('renders correctly', () => {
             const { wrapper } = setup();
-            expect(wrapper.find('.login-form').exists());
+            expect(wrapper.find('.login-body').exists());
             expect(wrapper.find('.login-email-input').exists()).toBeTruthy();
             expect(wrapper.find('.login-password-input').exists()).toBeTruthy();
         
             const loginButton = wrapper.find('.login-submit-button');
-            expect(loginButton.exists()).toBeTruthy();
-            expect(loginButton.childAt(0).prop('disabled')).toBeTruthy();
+            expect(loginButton.exists()).toBeTruthy()
+            expect(loginButton.prop('disabled')).toBeTruthy();
         });
     });
 });

@@ -50,6 +50,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route 
                     path="/patients"
+<<<<<<< HEAD
                     exact={true}
                     render={(props) => (
                         !AuthService.isAuthenticated() ? (
@@ -61,6 +62,9 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <PatientListContainer {...props} /> )
                     )}
+=======
+                    render={(props) => <Users.Components.Patients {...props} />}
+>>>>>>> origin/develop
                 />
                 <Route 
                     path="/dosespot"
@@ -178,6 +182,15 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Admin.AdminPage {...props} />)
                     )}
+                />
+
+                <Route 
+                    path="/reset-password"
+                    render={(props) => <Auth.Components.EmailResetForm />}
+                />
+                <Route 
+                    path="/update-password"
+                    render={(props) => <Auth.Components.UpdatePasswordForm />}
                 />
             </div>
         </Router>

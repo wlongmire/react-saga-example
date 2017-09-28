@@ -1,0 +1,58 @@
+.user-detail-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "avatar form";
+    margin: 0 auto; 
+}
+
+.user-avatar-editor {
+    grid-area: avatar;
+}
+
+.user-avatar-replace-button {
+    display: block;
+    border: none;
+    padding: 1px;
+    font-size: small;
+    width: 140px;
+    height: 31px;
+    background: #f84445;
+    color: #ffffff;
+    border-radius: 3px;
+}
+
+.user-avatar-delete-link {
+    font-size: medium;
+    text-decoration: underline;
+    text-transform: uppercase;
+    color: #000000;
+    cursor: pointer;
+}
+
+.user-avatar-delete-link:hover {
+    color: #f84445;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.user-form-container {
+    grid-area: form;
+}
+
+.user-avatar-title {
+    font-size: small;
+    color: #000000;
+    opacity: 0.6;
+    margin-bottom: 1em;
+    display: block;
+}
+
+.user-save-button {
+    border: none;
+    background: #f84445;
+    margin: 2em 0;
+    color: #ffffff;
+    border-radius: 3px;
+}

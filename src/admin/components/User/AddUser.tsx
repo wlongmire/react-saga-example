@@ -1,62 +1,85 @@
 import * as React from 'react';
 import './styles.css';
-import {Navigation} from '../../../navigation/components/Navigation';
 import {
     CustomDropDown,
     CustomTextInput,
-
+    DropDownItem
 } from '../../../common/UIComponents';
 
-
+import { CustomDropDownProps } from '../../../common/UIComponents';
 import DatePicker from 'material-ui/DatePicker';
 
+const userTypes = [
+    { value:6, primaryText: 'Patient' },
+    { value:1, primaryText: 'Doctor' },
+    { value:4, primaryText: 'Ops' },
+];
 
-const stubbedData = {
-    'userType': [
-        {value:1, primaryText:"Patient"},
-        {value:2, primaryText:"Doctor"},
-        {value:3, primaryText:"Ops"}
-    ],
-    'gender': [
-        {value:1, primaryText:"Male"},
-        {value:2, primaryText:"Female"},
-    ],
-    'states': [
-        {value:1, primaryText:"Illinois"},
-        {value:2, primaryText:"Michigan"},
-    ],
-    'doctorType': [
-        {value:1, primaryText:"Primary Care"},
-        {value:2, primaryText:"Gyna"},
-    ]
-}
+interface StringDropDown { new (props: CustomDropDownProps): CustomDropDown};
+const StringDropDown = CustomDropDown as StringDropDown;
+
+// const genderOptions = [
+//     { value:'male', display: 'Male' },
+//     { value:'female', display: 'Female' },
+//     { value:'unknown', display: 'Unknown' },
+// ];
+// const states = [
+//     { value:'patient', display: 'Patient' },
+// ];
+// const doctorTypes = [
+//     { value:'primary_care', display: 'Primary Care' },
+//     { value:'gynecologist', display: 'Gynecologist' },
+// ];
+
+// const stubbedData = {
+//     'userType': [
+//         {value:1, primaryText:"Patient"},
+//         {value:2, primaryText:"Doctor"},
+//         {value:3, primaryText:"Ops"}
+//     ],
+//     'gender': [
+//         {value:1, primaryText:"Male"},
+//         {value:2, primaryText:"Female"},
+//     ],
+//     'states': [
+//         {value:1, primaryText:"Illinois"},
+//         {value:2, primaryText:"Michigan"},
+//     ],
+//     'doctorType': [
+//         {value:1, primaryText:"Primary Care"},
+//         {value:2, primaryText:"Gyna"},
+//     ]
+// }
 
 const underlineStyle = {
     display:"none"
 }
 
-const getNamedValue = (name:string, v?:number) => {
-    let theArrays = Object.keys(stubbedData);
-    let targetArray = theArrays.filter((s:any)=>{
-        return s === name
-    })
-    let arrayVal = stubbedData[targetArray[0]];
-    let actualValue = arrayVal.filter((a:any) =>{
-        return a.value === v
-    })
+// const getNamedValue = (name:string, v?:number) => {
+//     let theArrays = Object.keys(stubbedData);
 
-    return actualValue[0].primaryText;
+//     let targetArray = theArrays.filter((s:any)=>{
+//         return s === name
+//     });
 
-}
+//     let arrayVal = stubbedData[targetArray[0]];
+    
+//     let actualValue = arrayVal.filter((a:any) => {
+//         return a.value === v
+//     });
 
-interface S{
+//     return actualValue[0].primaryText;
+// }
+
+interface AddUserState{
     payload : object;
     showPatientForm?: boolean,
     showOpsForm?: boolean,
     showDoctorForm?: boolean,
     showConfirmationModal?:boolean
 }
-export class AddUserPage extends React.Component<{}, S>{
+
+export class AddUserPage extends React.Component<{}, AddUserState>{
     constructor(){
         super()
         this.state = {
@@ -66,40 +89,60 @@ export class AddUserPage extends React.Component<{}, S>{
             showOpsForm: false,
             showConfirmationModal : false
         }
+        this.onUserTypeChanged = this.onUserTypeChanged.bind(this);
     }
+
     componentDidMount(){
         this.checkUserType()
     }
 
-    onPlainTextDropDownChange = (name:string) => (v:number) =>{
+    onUserTypeChanged = (item: DropDownItem) => {
+        console.log('item', item);
         this.setState(prevState => ({
             payload: {
                 ...prevState.payload,
-                [name]: getNamedValue(name, v)
+                userType: item.value,
             }
-        }))
-        if(getNamedValue(name,v) === 'Patient'){
-            this.setState({
-                showPatientForm: true,
-                showDoctorForm: false,
-                showOpsForm: false
-            })
-        } else if(getNamedValue(name,v) === "Doctor"){
-            this.setState({
-                showDoctorForm: true,
-                showPatientForm: false,
-                showOpsForm: false
-            })
-         } else if (getNamedValue(name,v) === "Ops"){
-            this.setState({
-                showOpsForm: true,
-                showDoctorForm: false,
-                showPatientForm: false
-            })
-         }
+        }));
+
+        this.setState({
+            showDoctorForm: item.value === 1,
+            showOpsForm: item.value === 4,
+            showPatientForm: item.value === 6
+        });
     }
 
- 
+    onPlainTextDropDownChange = (item: DropDownItem) => {
+        console.log('item', item);
+
+        // this.setState(prevState => ({
+        //     payload: {
+        //         ...prevState.payload,
+        //         [name]: getNamedValue(name, v)
+        //     }
+        // }));
+
+        // if (getNamedValue(name,v) === 'Patient'){
+        //     this.setState({
+        //         showPatientForm: true,
+        //         showDoctorForm: false,
+        //         showOpsForm: false
+        //     });
+        // } else if(getNamedValue(name,v) === "Doctor"){
+        //     this.setState({
+        //         showDoctorForm: true,
+        //         showPatientForm: false,
+        //         showOpsForm: false
+        //     });
+        //  } else if (getNamedValue(name,v) === "Ops"){
+        //     this.setState({
+        //         showOpsForm: true,
+        //         showDoctorForm: false,
+        //         showPatientForm: false
+        //     });
+        //  }
+    }
+
     checkUserType = () => {
         if(this.state.payload['userType'] === undefined){
            this.setState({
@@ -110,18 +153,15 @@ export class AddUserPage extends React.Component<{}, S>{
         }
     }
 
-
     toggleDeleteModal = () => {
         this.setState({
             showConfirmationModal: !this.state.showConfirmationModal
         })
     }
 
-
     render(){
         return(
             <div>
-               <Navigation/> 
                <span className="add-user-title">Create User</span>
 
                <div className="add-user-section">
@@ -148,10 +188,8 @@ export class AddUserPage extends React.Component<{}, S>{
                     <form className="add-user-form">
                     <CustomDropDown
                         title="Type"
-                        dataArray={
-                        stubbedData.userType
-                        }
-                        onChange={this.onPlainTextDropDownChange('userType')}
+                        itemSource={userTypes}
+                        onChange={this.onUserTypeChanged}
                     />
                     {this.state.showPatientForm && !this.state.showDoctorForm && !this.state.showOpsForm &&
                     <div>
@@ -252,13 +290,13 @@ export class AddUserPage extends React.Component<{}, S>{
                         title=""
                     />
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.gender
                         }
                         onChange={this.onPlainTextDropDownChange('gender')}
-                    />
+                    /> */}
 
                     <CustomTextInput
                         multiLine={false}
@@ -296,13 +334,13 @@ export class AddUserPage extends React.Component<{}, S>{
                         title=""
                     />
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.states
                         }
                         onChange={this.onPlainTextDropDownChange('states')}
-                    />
+                    /> */}
 
                     <CustomTextInput
                         multiLine={false}
@@ -424,13 +462,13 @@ export class AddUserPage extends React.Component<{}, S>{
                         title=""
                     />
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.gender
                         }
                         onChange={this.onPlainTextDropDownChange('gender')}
-                    />
+                    /> */}
 
                     <CustomTextInput
                         multiLine={false}
@@ -441,13 +479,13 @@ export class AddUserPage extends React.Component<{}, S>{
                         title=""
                     />
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.doctorType
                         }
                         onChange={this.onPlainTextDropDownChange('doctorType')}
-                    />
+                    /> */}
 
                     <CustomTextInput
                         multiLine={false}
@@ -485,13 +523,13 @@ export class AddUserPage extends React.Component<{}, S>{
                         title=""
                     />
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.states
                         }
                         onChange={this.onPlainTextDropDownChange('states')}
-                    />
+                    /> */}
 
                     <CustomTextInput
                         multiLine={false}
@@ -569,13 +607,14 @@ export class AddUserPage extends React.Component<{}, S>{
                         marginTop: "1em"
                     }}/>
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.gender
                         }
                         onChange={this.onPlainTextDropDownChange('gender')}
                     />
+                     */}
                     <CustomTextInput
                         multiLine={false}
                         rows={1}
@@ -603,13 +642,13 @@ export class AddUserPage extends React.Component<{}, S>{
                         title=""
                     />
 
-                    <CustomDropDown
+                    {/* <CustomDropDown
                         title=""
                         dataArray={
                         stubbedData.states
                         }
                         onChange={this.onPlainTextDropDownChange('states')}
-                    />
+                    /> */}
 
                         </div>
                     }
@@ -631,18 +670,11 @@ export class AddUserPage extends React.Component<{}, S>{
                         floatingText="Country Code"
                         title=""
                     />
-                    <button
-                    type="submit"
-                    className="add-user-btn"
-                    >
-                    Save
+                    <button className="add-user-btn">
+                        Save
                     </button>
-
-                    </form>
-
-                    
-                </div>
+                </form>
             </div>
-        )
-    }
+        </div>
+    )}
 }

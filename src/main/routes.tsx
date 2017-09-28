@@ -1,20 +1,37 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
-import * as Application from '../application';
+// import * as Application from '../application';
 import * as Zoo from '../zoo';
 import * as Visits from '../visits';
-import * as Users from '../users';
+// import * as Users from '../users';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
+import { Navbar } from '../navigation';
+import { PatientListContainer, PatientDetail } from '../patients';
 import { AuthService } from '../services';
+import { DoseSpotUser } from '../dosespot';
+import { UsersContainer, UserDetail } from '../users';
 import { history } from '../common';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
+                <Route
+                    path="/"
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/' }
+                                    }} 
+                            />
+                        ) : ( <Navbar {...props} /> )
+                    )}
+                />
                 <Route 
                     exact={true}
                     path="/"
@@ -26,31 +43,119 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                     state: { referrer: '/' }
                                     }} 
                             />
-                        ) : (
-                            <Application.Components.App {...props} />
-                        )
+                        ) : ( <PatientListContainer {...props} /> )
                     )} 
                 />
                 <Route 
+                    path="/patients/:patientId"
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/patients/:patientId' }
+                                    }} 
+                            />
+                        ) : ( <PatientDetail {...props} /> )
+                    )}
+                />
+                <Route 
                     path="/patients"
-                    render={(props) => <Users.Components.Patients {...props} />}
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/patients' }
+                                    }} 
+                            />
+                        ) : ( <PatientListContainer {...props} /> )
+                    )}
+                />
+                <Route 
+                    path="/dosespot"
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/dosespot' }
+                                    }} 
+                            />
+                        ) : ( <DoseSpotUser {...props} /> )
+                    )}
+                />
+                <Route 
+                    path="/users/add"
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/users/add'}
+                                }}
+                            />
+                        ) : ( <Admin.AddUserPage {...props} /> )
+                    )}
+                />
+                <Route 
+                    path="/users/:userId"
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/users'}
+                                }}
+                            />
+                        ) : ( <UserDetail {...props} /> )
+                    )}
                 />
                 <Route 
                     path="/users"
-                    render={(props) => <Admin.Components.Users {...props} />}
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/users'}
+                                }}
+                            />
+                        ) : ( <UsersContainer {...props} /> )
+                    )}
                 />
-                <Route 
-                    path="/add-user"
-                    render={(props) => <Admin.Components.AddUserPage {...props} />}
-                    />
                <Route
                     path="/schedule"
-                    render={(props) => <Schedule.Components.Schedules {...props} />}                />
-                <Route 
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/schedule'}
+                                }}
+                            />
+                        ) : ( <Schedule.Components.Schedules {...props} /> )
+                    )} />
+                {/* <Route 
                     exact={true}
                     path="/patient/:patientId"
-                    render={(props) => <Users.Components.Patient {...props} />}
-                />
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/patient/:patientId' }
+                                    }} 
+                            />
+                        ) : ( <Users.Components.Patient {...props} /> )
+                    )}
+                /> */}
                 
                 <Route 
                     path="/zoo"
@@ -58,7 +163,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <Route
                     path="/login"
-                    render={(props) => <Auth.Components.LoginContainer {...props} />}
+                    render={(props) => <Auth.LoginContainer {...props} />}
                 />
                 <Route 
                     path="/visits" 
@@ -67,20 +172,33 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             <Redirect
                                 to={{
                                     pathname: '/login',
-                                    state:{ referrer: '/'}
+                                    state:{ referrer: '/visits'}
                                 }}
                             />
-                        ):( <Visits.Components.VisitsContainer {...props} />)
+                        ) : ( <Visits.Components.VisitsContainer {...props} />)
+                    )}
+                />
+                <Route  
+                    path="/admin"
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/admin'}
+                                }}
+                            />
+                        ) : ( <Admin.AdminPage {...props} />)
                     )}
                 />
 
                 <Route 
                     path="/reset-password"
-                    render={(props) => <Auth.Components.EmailResetForm />}
+                    render={(props) => <Auth.EmailResetForm />}
                 />
                 <Route 
                     path="/update-password"
-                    render={(props) => <Auth.Components.UpdatePasswordForm />}
+                    render={(props) => <Auth.UpdatePasswordForm />}
                 />
             </div>
         </Router>

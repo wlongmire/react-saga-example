@@ -1,4 +1,4 @@
-import * as Common from '../common';
+import { ActionResult } from '../common';
 
 /**
  * Action Types
@@ -11,7 +11,7 @@ export module ActionType {
  * Navigates to the specified pathname or if undefined, navigates to root.
  * @param pathname The path to navigate to or undefined.
  */
-export const navigate = (pathname: string | undefined): Common.ActionResult<string> => {
+export const navigate = (pathname: string | undefined): ActionResult<string> => {
     return {
         type: ActionType.NAVIGATE,
         value: pathname

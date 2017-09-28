@@ -1,17 +1,17 @@
 import * as React from 'react';
 import UsersList from './UsersList';
-import {Navigation} from '../../../navigation/components/Navigation';
+// import {Navigation} from '../../../navigation/components/Navigation';
 import {Link} from 'react-router-dom';
 
 export class Users extends React.Component<{}, {}>{
     render(){
         return(
             <div>
-            <Navigation/>
+            {/* <Navigation/> */}
             <div className="main-section">
             <div className="action-bar">
                 <span className="users-title">Users</span>
-                <span className="create-new"><Link to="/add-user" className="new-user">+ Create New</Link></span>
+                <span className="create-new"><Link to="/users/add" className="new-user">+ Create New</Link></span>
             </div>
             <UsersList
             users={[

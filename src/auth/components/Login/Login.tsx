@@ -4,11 +4,11 @@ import * as React from 'react';
 // import TextField from 'material-ui/TextField';
 import { ActionResult } from '../../../common';
 import { AuthLoginCredentials } from '../../../services/auth';
-import { AuthState } from '../../model';
+import { AuthState } from '../../reducer';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
 
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Common from '../common';
 
 import './Login.css';

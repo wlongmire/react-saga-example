@@ -1,11 +1,17 @@
-import { 
-    ActionType, 
+export {
+    ActionType,
     login,
     loginFail,
-    loginSuccess
+    loginSuccess,
+    logout,
+    logoutSuccess,
+    logoutFail,
+    forgotPassword,
+    forgotPasswordFail,
+    forgotPasswordSuccess
 } from './actions';
 
-import { 
+export { 
     Login, 
     LoginContainer, 
     LogoutButton, 
@@ -13,29 +19,5 @@ import {
     EmailResetForm,
     UpdatePasswordForm
 } from './components';
-import { root } from './sagas';
-import { reducer } from './reducer';
-
-export const Actions = {
-    ActionType, 
-    login,
-    loginSuccess,
-    loginFail
-};
-
-export const Components = {
-    LoginContainer,
-    Login,
-    LogoutButton,
-    ConnectedLogoutButton,
-    EmailResetForm,
-    UpdatePasswordForm
-};
-
-export const Sagas = {
-    root
-};  
-
-export const Reducers = {
-    root: reducer
-};
+export { default as authSaga } from './sagas';
+export { AuthState, AuthInfo, default as authReducer } from './reducer';

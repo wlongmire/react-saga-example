@@ -15,7 +15,6 @@ export function* login(action: Common.ActionResult<AuthLoginCredentials>) {
         }
         const { clientToken, userRole, userChannel } = yield call(AuthService.login, action.value);
         yield(put(Actions.loginSuccess({ clientToken, userRole, userChannel })));
-        yield(put(Navigation.Actions.navigate('/')));
     } catch (e) {
         yield(put(Actions.loginFail(e)));
     }
@@ -32,11 +31,27 @@ export function* logout(action: Common.ActionResult<{}>) {
             yield(put(Actions.logoutFail(result.error)));
         } else {
             yield(put(Actions.logoutSuccess()));
-            yield(put(Navigation.Actions.navigate('/')));
         }
     } catch (e) {
         yield(put(Actions.logoutFail(e)));
     }
+}
+
+export function* onForgotPassword(action: Common.ActionResult<string>) {
+    try {
+        yield call(AuthService.forgotPassword, action.value);
+        yield(put(Actions.forgotPasswordSuccess()));
+    } catch (e) {
+        yield(put(Actions.forgotPasswordFail(e)));
+    }
+}
+
+function* onLoginSuccess() {
+    yield(put(Navigation.navigate('/')));
+}
+
+function* onLogoutSuccess() {
+    yield(put(Navigation.navigate('/')));
 }
 
 /**
@@ -45,6 +60,18 @@ export function* logout(action: Common.ActionResult<{}>) {
  */
 function* watchForLogin() {
     yield takeEvery(Actions.ActionType.LOGIN, login);
+}
+
+function* watchForLoginSuccess() {
+    yield takeEvery(Actions.ActionType.LOGIN_SUCCESS, onLoginSuccess);
+}
+
+function* watchForLogoutSuccess() {
+    yield takeEvery(Actions.ActionType.LOGOUT_SUCCESS, onLogoutSuccess);
+}
+
+function* watchForForgotPassword() {
+    yield takeEvery(Actions.ActionType.FORGOT_PASSWORD, onForgotPassword);
 }
 
 /**
@@ -58,9 +85,12 @@ function* watchForLogout() {
 /**
  * The root saga.
  */
-export function* root() {
+export default function* root() {
     yield all([
         fork(watchForLogin),
-        fork(watchForLogout)
+        fork(watchForLogout),
+        fork(watchForLoginSuccess),
+        fork(watchForLogoutSuccess),
+        fork(watchForForgotPassword)
     ]);
 }

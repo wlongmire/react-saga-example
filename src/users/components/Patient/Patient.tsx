@@ -2,26 +2,26 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from 'redux';
-import * as patientActions  from '../../actions';
+// import * as patientActions  from '../../actions';
 import ApplicationState from '../../../common';
-import * as Model from '../../models';
+// import * as Model from '../../models';
 // import {Navigation} from '../../../navigation/components/Navigation';
-import {
-    PopOver,
-    FloatingBtn
-} from '../../../common/UIComponents';
-import './Patient.css';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import * as Visits from '../../../visits'
-import * as Tests from '../../../testorders';
-import * as Wellness from '../../../wellness';
+// import {
+//     PopOver,
+//     FloatingBtn
+// } from '../../../common/UIComponents';
+// import './Patient.css';
+// import {Tabs, Tab} from 'material-ui/Tabs';
+// import * as Visits from '../../../visits'
+// import * as Tests from '../../../testorders';
+// import * as Wellness from '../../../wellness';
 // import * as Others from '../../../others';
 // import * as Rx from '../../../treatments';
-import * as Imaging from '../../../imaging';
+// import * as Imaging from '../../../imaging';
 
 interface Params {
     patientId: string,
-    patient?: Model.Patient
+    // patient?: Model.Patient
 }
 
 interface MatchParams{
@@ -31,7 +31,7 @@ interface MatchParams{
 interface P {
     loadSinglePatient:(id:string)=>void;
     match : MatchParams;
-    patient: Model.Patient
+    // patient: Model.Patient
 }
 
 interface S {
@@ -47,16 +47,16 @@ interface S {
     patient: object
 }
 
-const labelBackground = {
-    backgroundColor: 'white',
-  }
+// const labelBackground = {
+//     backgroundColor: 'white',
+//   }
   
-  const labelTitle = {
-    color: "black",
-  }
-  const lableUnderline = {
-    backgroundColor: '#f84445'
-}
+//   const labelTitle = {
+//     color: "black",
+//   }
+//   const lableUnderline = {
+//     backgroundColor: '#f84445'
+// }
 
 class PatientContainer extends React.Component<P,S>{
     constructor() {
@@ -208,124 +208,126 @@ class PatientContainer extends React.Component<P,S>{
     } 
     
     render(){
+        // placeholder
+        return(<div></div>);
         // if(!this.props.patient['patient']){
         //     return(
         //         <div>Loading ...</div>
         //     )
         // }
         // let patientData = this.props.patient['patient'];
-        let patientData = this.props.patient;
-        console.log(this.state)
-        return(
-            <div className="patient-view">
-                {/* <Navigation/> */}
-                <div className="patient-details">
-                    <div>
-                        <img className="patient-avatar" src={patientData.avatar}/>
-                    </div>
-                    <div>
-                    <p className="patient-name-details">{patientData.name}</p>
-                    <span>{patientData.gender}</span>,
-                    <span>{patientData.age}</span>
-                    </div>
-                </div>
-                <div id="main-section">
-                    <section className="chat-section">
-                        <span className="chat-title">Chat</span>
-                    </section>
-                    <section className="biodrive-section">
-                    <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                        <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
-                            <div>
-                                {/* {
-                                    this.state.createNewTreatment ?
-                                    <Rx.Components.Treatment/>:
-                                    <Rx.Components.RXContainer/>
-                                } */}
+        // let patientData = this.props.patient;
+        // console.log(this.state)
+        // return(
+        //     <div className="patient-view">
+        //         {/* <Navigation/> */}
+        //         <div className="patient-details">
+        //             <div>
+        //                 <img className="patient-avatar" src={patientData.avatar}/>
+        //             </div>
+        //             <div>
+        //             <p className="patient-name-details">{patientData.name}</p>
+        //             <span>{patientData.gender}</span>,
+        //             <span>{patientData.age}</span>
+        //             </div>
+        //         </div>
+        //         <div id="main-section">
+        //             <section className="chat-section">
+        //                 <span className="chat-title">Chat</span>
+        //             </section>
+        //             <section className="biodrive-section">
+        //             <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
+        //                 <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
+        //                     <div>
+        //                         {/* {
+        //                             this.state.createNewTreatment ?
+        //                             <Rx.Components.Treatment/>:
+        //                             <Rx.Components.RXContainer/>
+        //                         } */}
                             
-                            </div>
-                        </Tab>
+        //                     </div>
+        //                 </Tab>
 
-                        <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
-                            <div>
-                                { this.state.createNewVisit ? 
-                                <Visits.Components.VisitDrawer
-                                    closeVisitCard={this.handleClickVisitsTab}
-                                />:
-                                <Visits.Components.VisitsContainer/> 
-                                }
-                            </div>
-                        </Tab>
+        //                 <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
+        //                     <div>
+        //                         { this.state.createNewVisit ? 
+        //                         <Visits.Components.VisitDrawer
+        //                             closeVisitCard={this.handleClickVisitsTab}
+        //                         />:
+        //                         <Visits.Components.VisitsContainer/> 
+        //                         }
+        //                     </div>
+        //                 </Tab>
 
-                        <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
-                            <div>
-                                <div>
-                                    {
-                                        this.state.createNewTestOrder ?
-                                        <Tests.Components.AddTestSection
-                                            closeTestsCard={this.handleClickTestOrdersTab}
-                                        />:
-                                        <Tests.Components.TestOrdersContainer/>
-                                    }
-                                </div>
-                            </div>
-                        </Tab>
+        //                 <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
+        //                     <div>
+        //                         <div>
+        //                             {
+        //                                 this.state.createNewTestOrder ?
+        //                                 <Tests.Components.AddTestSection
+        //                                     closeTestsCard={this.handleClickTestOrdersTab}
+        //                                 />:
+        //                                 <Tests.Components.TestOrdersContainer/>
+        //                             }
+        //                         </div>
+        //                     </div>
+        //                 </Tab>
 
-                        <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
-                            <div>
-                                {
-                                    this.state.createNewImaging ? 
-                                    <Imaging.Components.AddImageSection
-                                        closeImagingCard={this.handleClickImagingTab}
-                                    />:
-                                    <Imaging.Components.ImagingComponent/>
-                                }
+        //                 <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
+        //                     <div>
+        //                         {
+        //                             this.state.createNewImaging ? 
+        //                             <Imaging.Components.AddImageSection
+        //                                 closeImagingCard={this.handleClickImagingTab}
+        //                             />:
+        //                             <Imaging.Components.ImagingComponent/>
+        //                         }
                                 
-                            </div>
-                        </Tab>
+        //                     </div>
+        //                 </Tab>
 
-                        <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
-                            <div>
-                                <Wellness.Components.WellnessComponent/>
-                            </div>
-                        </Tab>
+        //                 <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
+        //                     <div>
+        //                         <Wellness.Components.WellnessComponent/>
+        //                     </div>
+        //                 </Tab>
 
-                        <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
-                            <div>
-                                {/* <Others.Components.OthersComponent/> */}
-                            </div>
-                        </Tab>
-                    </Tabs>
+        //                 <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
+        //                     <div>
+        //                         {/* <Others.Components.OthersComponent/> */}
+        //                     </div>
+        //                 </Tab>
+        //             </Tabs>
 
-                    {this.state.open &&
-                        <PopOver
-                            _handleClickTest = {this.handleClickOnAddTests}
-                            _handleClickImaging = {this.handleClickOnAddImaging}
-                            _handleClickTreatments = {this.handleClickOnAddTreatments}
-                            _handleClickVisits = {this.handleClickOnAddVisits}
-                            _handleClickWellness = {this.handleClickOnAddWellness}
-                            _handleClickOthers = {this.handleClickOnAddOthers}
-                        />
-                    }
-                    <div 
-                        id="add-event-btn"
-                        className={this.state.open ? "floating-btn":"floating-btn-rotate"}
-                    >
-                        <div>
-                            <FloatingBtn
-                                onMouseEnter={this._handleShowPopOver}
-                                onClick={this.handleClosePopOver}
-                            />
-                        </div>
-                        </div>
-                    </section>
-                </div>
-                {/* <CustomTabComponent
-                    bioDriveComponent={bioDriveData}
-                /> */}
+        //             {this.state.open &&
+        //                 <PopOver
+        //                     _handleClickTest = {this.handleClickOnAddTests}
+        //                     _handleClickImaging = {this.handleClickOnAddImaging}
+        //                     _handleClickTreatments = {this.handleClickOnAddTreatments}
+        //                     _handleClickVisits = {this.handleClickOnAddVisits}
+        //                     _handleClickWellness = {this.handleClickOnAddWellness}
+        //                     _handleClickOthers = {this.handleClickOnAddOthers}
+        //                 />
+        //             }
+        //             <div 
+        //                 id="add-event-btn"
+        //                 className={this.state.open ? "floating-btn":"floating-btn-rotate"}
+        //             >
+        //                 <div>
+        //                     <FloatingBtn
+        //                         onMouseEnter={this._handleShowPopOver}
+        //                         onClick={this.handleClosePopOver}
+        //                     />
+        //                 </div>
+        //                 </div>
+        //             </section>
+        //         </div>
+        //         {/* <CustomTabComponent
+        //             bioDriveComponent={bioDriveData}
+        //         /> */}
 
-            </div>
-        )
+        //     </div>
+        // )
     }
 }
 
@@ -337,7 +339,7 @@ const mapStateToProps = (state:ApplicationState.IState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators(
     {
-        loadSinglePatient : patientActions.loadSinglePatient
+        // loadSinglePatient : patientActions.loadSinglePatient
     },
     dispatch
 )

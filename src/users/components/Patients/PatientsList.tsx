@@ -1,11 +1,11 @@
 import * as React from 'react';
 import './Patients.css';
-import {Link} from 'react-router-dom';
-import * as Model from '../../models';
+// import {Link} from 'react-router-dom';
+// import * as Model from '../../models';
 
 type PatientsListProps = {
-    patients : Array<Model.Patient>;
-    onClickSinglePatient?: (patient: Model.Patient) => void
+    // patients : Array<Model.Patient>;
+    // onClickSinglePatient?: (patient: Model.Patient) => void
 }
 
 export const PatientsList = (props:PatientsListProps) => {
@@ -13,7 +13,7 @@ export const PatientsList = (props:PatientsListProps) => {
         <table>
             <tbody>
             {
-                props.patients &&
+                {/* props.patients &&
                     props.patients.map((patient: Model.Patient, index: number) => {
                             return (
                                 <tr key={index} className="patients-row" onClick={ () => {
@@ -34,7 +34,7 @@ export const PatientsList = (props:PatientsListProps) => {
                                     </td>
                                 </tr>
                             )
-                        })
+                        }) */}
             }
             </tbody>
         </table>

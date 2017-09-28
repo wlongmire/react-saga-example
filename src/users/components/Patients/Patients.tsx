@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 // import {  Dispatch } from 'redux';
 import ApplicationState from '../../../common';
 // import { getAllPatients } from '../../selectors';
-import { loadAllPatients } from '../../actions';
-import {PatientsList} from './PatientsList';
+// import { loadAllPatients } from '../../actions';
+// import {PatientsList} from './PatientsList';
 // import {Navigation} from '../../../navigation/components/Navigation';
-import * as Model from '../../models';
-import { history } from '../../../common';
+// import * as Model from '../../models';
+// import { history } from '../../../common';
 
 import './Patients.css';
 
 interface PatientProps {
-    patients: Array<Model.Patient>;
-    loadAllPatients: () => void;
+    // patients: Array<Model.Patient>;
+    // loadAllPatients: () => void;
 }
 
 interface IPatient {}
@@ -35,12 +35,12 @@ export class PatientsContainer extends React.Component<PatientProps, S> {
     }
 
     componentDidMount() {
-        this.props.loadAllPatients();
+        // this.props.loadAllPatients();
     }
 
-    handleNavigateToSinglePatient = (patient: Model.Patient) => {
-        history.push(`/patient/${patient.id}`, patient);
-    }
+    // handleNavigateToSinglePatient = (patient: Model.Patient) => {
+    //     history.push(`/patient/${patient.id}`, patient);
+    // }
 
     render() {
         if(this.state.patients.length ===  0 ){
@@ -57,10 +57,10 @@ export class PatientsContainer extends React.Component<PatientProps, S> {
                         <h3>You have <span className="chat-count">2 New Chats</span></h3>
                         <span className="patients-title"> Patients </span>
                     </div>
-                    <PatientsList
+                    {/* <PatientsList
                         patients={this.props.patients['patients']}
                         onClickSinglePatient={this.handleNavigateToSinglePatient}
-                    />
+                    /> */}
                 </div>
             </div>
         );
@@ -80,5 +80,5 @@ const mapStateToProps = (state: ApplicationState.IState ) => {
 //     dispatch);
 
 export const Patients =  connect<{}, PatientProps, {}>(mapStateToProps, {
-    loadAllPatients
+    // loadAllPatients
 })(PatientsContainer);

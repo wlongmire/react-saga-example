@@ -11,7 +11,10 @@ import {
     LogoutButton, 
     ConnectedLogoutButton,
     EmailResetForm,
-    UpdatePasswordForm
+    UpdatePasswordForm,
+    LinkExpired,
+    ConfirmIdentity
+
 } from './components';
 import { root } from './sagas';
 import { reducer } from './reducer';
@@ -29,7 +32,9 @@ export const Components = {
     LogoutButton,
     ConnectedLogoutButton,
     EmailResetForm,
-    UpdatePasswordForm
+    UpdatePasswordForm,
+    LinkExpired,
+    ConfirmIdentity
 };
 
 export const Sagas = {

@@ -48,3 +48,11 @@
     margin-bottom: 1em;
     display: block;
 }
+
+.user-save-button {
+    border: none;
+    background: #f84445;
+    margin: 2em 0;
+    color: #ffffff;
+    border-radius: 3px;
+}

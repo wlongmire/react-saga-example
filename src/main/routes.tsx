@@ -19,7 +19,19 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
-                <Navbar />
+                <Route
+                    path="/"
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect 
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/' }
+                                    }} 
+                            />
+                        ) : ( <Navbar {...props} /> )
+                    )}
+                />
                 <Route 
                     exact={true}
                     path="/"
@@ -182,11 +194,11 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
 
                 <Route 
                     path="/reset-password"
-                    render={(props) => <Auth.Components.EmailResetForm />}
+                    render={(props) => <Auth.EmailResetForm />}
                 />
                 <Route 
                     path="/update-password"
-                    render={(props) => <Auth.Components.UpdatePasswordForm />}
+                    render={(props) => <Auth.UpdatePasswordForm />}
                 />
             </div>
         </Router>

@@ -7,8 +7,9 @@ import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 // import { DoseSpotClinicianList } from '../../../dosespot';
+import { UsersContainer } from '../../../users';
 
-import { Users } from '../';
+// import { Users } from '../';
 
 import './AdminPage.css';
 
@@ -63,7 +64,7 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
                 <Tabs>
                     <Tab label="Manage Users" >
                         <div>
-                            <Users />
+                            <UsersContainer />
                         </div>
                     </Tab>
                     <Tab label="Dosespot" onActive={this.handleActive} >

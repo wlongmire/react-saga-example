@@ -12,6 +12,9 @@ export module ActionType {
     export const LOGOUT = 'auth/LOGOUT';
     export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
     export const LOGOUT_FAIL = 'auth/LOGOUT_FAIL';
+    export const FORGOT_PASSWORD = 'auth/FORGOT_PASSWORD';
+    export const FORGOT_PASSWORD_SUCCESS = 'auth/FORGOT_PASSWORD_SUCCESS';
+    export const FORGOT_PASSWORD_FAILURE = 'auth/FORGOT_PASSWORD_FAILURE';
 }
 
 /**
@@ -76,3 +79,23 @@ export const logoutFail = (e: Error): Common.ActionResult<{}> => {
         value: e
     };
 };
+
+export const forgotPassword = (email: string): Common.ActionResult<string> => {
+    return {
+        type: ActionType.FORGOT_PASSWORD,
+        value: email
+    }
+}
+
+export const forgotPasswordSuccess = (): Common.ActionResult<{}> => {
+    return {
+        type: ActionType.FORGOT_PASSWORD_SUCCESS
+    }
+}
+
+export const forgotPasswordFail = (error: Error): Common.ActionResult<Error> => {
+    return {
+        type: ActionType.FORGOT_PASSWORD_FAILURE,
+        value: error
+    }
+}

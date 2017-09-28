@@ -17,8 +17,7 @@ export const Navbar = () => {
                     iconButtonElement={
                         <Avatar 
                             backgroundColor="#f84445"
-                            color="#ffffff"
-                            size={48}>
+                            color="#ffffff">
                             A
                         </Avatar>
                     }

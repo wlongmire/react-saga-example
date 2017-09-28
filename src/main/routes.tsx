@@ -5,6 +5,8 @@ import { Route, Router, Redirect } from 'react-router-dom';
 import * as Zoo from '../zoo';
 // import * as Visits from '../visits';
 import * as Users from '../users';
+import * as Visits from '../visits';
+// import * as Users from '../users';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
@@ -12,6 +14,7 @@ import { Navbar } from '../navigation';
 import { PatientListContainer, PatientDetail } from '../patients';
 import { AuthService } from '../services';
 import { DoseSpotUser } from '../dosespot';
+import { UsersContainer, UserDetail } from '../users';
 import { history } from '../common';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
@@ -90,6 +93,20 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     )}
                 />
                 <Route 
+                    path="/users/:userId"
+                    exact={true}
+                    render={(props) => (
+                        !AuthService.isAuthenticated() ? (
+                            <Redirect
+                                to={{
+                                    pathname: '/login',
+                                    state: { referrer: '/users'}
+                                }}
+                            />
+                        ) : ( <UserDetail {...props} /> )
+                    )}
+                />
+                <Route 
                     path="/users"
                     exact={true}
                     render={(props) => (
@@ -100,7 +117,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                     state: { referrer: '/users'}
                                 }}
                             />
-                        ) : ( <Admin.Users {...props} /> )
+                        ) : ( <UsersContainer {...props} /> )
                     )}
                 />
                <Route
@@ -115,7 +132,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Schedule.Components.Schedules {...props} /> )
                     )} />
-                <Route 
+                {/* <Route 
                     exact={true}
                     path="/patient/:patientId"
                     render={(props) => (
@@ -128,7 +145,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Users.Components.Patient {...props} /> )
                     )}
-                />
+                /> */}
                 
                 <Route 
                     path="/zoo"

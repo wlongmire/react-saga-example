@@ -10,6 +10,83 @@ body {
   margin: 0;
 }
 
+.content-container {
+  margin-top: 5em;
+}
+
+.content-container-title-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "title actions";
+  margin: 0 auto; 
+}
+
+.inline-title {
+  grid-area: title;
+  position: relative;
+  left: 5em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.inline-title-actions {
+  grid-area: actions;
+  justify-self: end;
+  padding-right: 8em;
+}
+
+.inline-title-action-button {
+  background: #f84445;
+  padding: .5em 2em;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.list-table {
+  font-size: medium;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.list-table thead {
+  color: gray;
+  font-weight: bold;
+}
+
+.list-table thead tr {
+  height: 44px;
+}
+
+.list-table tbody {
+  font-weight: medium;
+}
+
+.list-table tbody tr {
+  border-bottom: 1px solid #dedede;
+  width: 100%;
+  height: 68px;
+}
+
+.list-table-hover-row {
+  cursor: pointer;
+}
+
+.list-table-hover-row:hover {
+  background-color: lightgray;
+}
+
+.list-table td {
+  padding: 10px 0 10px 0;
+}
+
+.table-column-icon {
+  width: 123px;
+  text-align: center;
+}
+
 .right {
   float: right;
 }

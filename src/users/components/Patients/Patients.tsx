@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 // import {  Dispatch } from 'redux';
 import ApplicationState from '../../../common';
 // import { getAllPatients } from '../../selectors';
-import { loadAllPatients } from '../../actions';
-import {PatientsList} from './PatientsList';
+// import { loadAllPatients } from '../../actions';
+// import {PatientsList} from './PatientsList';
 // import {Navigation} from '../../../navigation/components/Navigation';
-import * as Model from '../../models';
-import { history } from '../../../common';
+// import * as Model from '../../models';
+// import { history } from '../../../common';
 
 import './Patients.css';
 
 interface PatientProps {
-    patients: Array<Model.Patient>;
-    loadAllPatients: () => void;
+    // patients: Array<Model.Patient>;
+    // loadAllPatients: () => void;
 }
 
 interface IPatient {}
@@ -39,9 +39,9 @@ export class PatientsContainer extends React.Component<PatientProps, S> {
         this.setState({patients})
     }
 
-    handleNavigateToSinglePatient = (patient: Model.Patient) => {
-        history.push(`/patient/${patient.id}`, patient);
-    }
+    // handleNavigateToSinglePatient = (patient: Model.Patient) => {
+    //     history.push(`/patient/${patient.id}`, patient);
+    // }
 
     render() {
         if(this.state.patients.length ===  0 ){
@@ -80,5 +80,5 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators(
     dispatch);
 
 export const Patients =  connect<{}, PatientProps, {}>(mapStateToProps, {
-    loadAllPatients
+    // loadAllPatients
 })(PatientsContainer);

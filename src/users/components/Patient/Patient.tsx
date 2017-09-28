@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from 'redux';
-import * as patientActions  from '../../actions';
+// import * as patientActions  from '../../actions';
 import ApplicationState from '../../../common';
-import * as Model from '../../models';
+// import * as Model from '../../models';
 // import {Navigation} from '../../../navigation/components/Navigation';
 import {
     CustomTabComponent
@@ -20,7 +20,7 @@ import * as Imaging from '../../../imaging';
 
 interface Params {
     patientId: string,
-    patient?: Model.Patient
+    // patient?: Model.Patient
 }
 
 interface MatchParams{
@@ -58,16 +58,16 @@ interface S {
     visit?: IVisit;
 }
 
-const labelBackground = {
-    backgroundColor: 'white',
-  }
+// const labelBackground = {
+//     backgroundColor: 'white',
+//   }
   
-  const labelTitle = {
-    color: "black",
-  }
-  const lableUnderline = {
-    backgroundColor: '#f84445'
-}
+//   const labelTitle = {
+//     color: "black",
+//   }
+//   const lableUnderline = {
+//     backgroundColor: '#f84445'
+// }
 
 class PatientContainer extends React.Component<P,S>{
     constructor() {
@@ -96,11 +96,6 @@ class PatientContainer extends React.Component<P,S>{
         this.setState({patient})
         // this.props.loadSinglePatient(this.props.match.params.patientId)
 
-<<<<<<< HEAD
-=======
-    componentDidMount(){
-        // this.props.loadSinglePatient(this.props.match.params.patientId)
->>>>>>> checkpoint
     }
 
     handleClosePopOver = (event: any) => {
@@ -419,8 +414,8 @@ class PatientContainer extends React.Component<P,S>{
                 clickedTab={this.state.clickedTab}
                 />
 
-            </div>
-        )
+        //     </div>
+        // )
     }
 }
 
@@ -432,7 +427,7 @@ const mapStateToProps = (state:ApplicationState.IState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => bindActionCreators(
     {
-        loadSinglePatient : patientActions.loadSinglePatient
+        // loadSinglePatient : patientActions.loadSinglePatient
     },
     dispatch
 )

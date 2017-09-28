@@ -58,7 +58,6 @@ export class AuthService {
             .then(result => {
                 switch (result.status) {
                     case 200:
-                  
                         localStorage.setItem('access_token', result.new_client_token);
                         localStorage.setItem('role_id', result.role_id);
                         localStorage.setItem('user_channel', result.user_channel);
@@ -78,6 +77,40 @@ export class AuthService {
                 const errorMessage = `We don't recognize this e-mail or password. Double-check your information and try again.`;
                 return Promise.reject(errorMessage);
             })
+    }
+
+    static forgotPassword(email: string) {
+        return Promise.resolve();
+        // const requestInit: RequestInit = {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept-Language': `Token ${process.env.REACT_APP_API_TOKEN}`
+        //     },
+        //     body: JSON.stringify({
+        //         email: email
+        //     })
+        // };
+        // const url = makeUrl('exposed', 'request_token');
+        // const request = new Request(url, requestInit);
+        // return fetch(request)
+        //     .then((response:any) => {
+        //         if (response.ok) {
+        //             return response.json()
+        //         } else {
+        //             throw new Error('Error requesting a password reset');
+        //         }
+        //     })
+        //     .then(result => {
+        //         switch (result.status) {
+        //             case 200:
+        //                 return Promise.resolve();
+        //             default:
+        //                 return Promise.reject('Error requesting a password reset');
+        //         }
+        //     })
+        //     .catch(() => {
+        //         return Promise.reject('Error requested a password reset');
+        //     })
     }
 
     /**

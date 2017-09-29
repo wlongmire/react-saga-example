@@ -3,12 +3,13 @@ import {getAllVisits} from './selectors';
 import {root} from './sagas';
 import {VisitItem} from './model';
 import {reducer} from './reducer';
-import { VisitsContainer, VisitDrawer, getSingleVisit} from './components';
+import { VisitsContainer, VisitDrawer, getSingleVisit, VisitContainer} from './components';
 
 
 export const Components = {
     VisitsContainer,
-    VisitDrawer
+    VisitDrawer,
+    VisitContainer
 }
 
 export const utils = {

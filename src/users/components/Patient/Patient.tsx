@@ -29,7 +29,15 @@ interface MatchParams{
 interface P {
     loadSinglePatient:(id:string)=>void;
     match : MatchParams;
-    patient: Model.Patient
+    patient: Model.Patient;
+}
+
+interface IVisit {
+    id: number;
+    description?: string;
+    doctor_type: string;
+    location: string;
+    visit_type: string;
 }
 
 interface S {
@@ -46,6 +54,7 @@ interface S {
     tabs: Array<string>;
     tabState : object;
     clickedTab: string;
+    visit?: IVisit;
 }
 
 const labelBackground = {
@@ -72,7 +81,13 @@ class PatientContainer extends React.Component<P,S>{
                 biodrive: true,
                 hormone: false
                 },
-            clickedTab: ''
+            clickedTab: '',
+            visit: {
+                id: 0,
+                visit_type: '',
+                doctor_type :'',
+                location: ''
+            }
         };
     }
     componentWillMount(){
@@ -249,7 +264,7 @@ class PatientContainer extends React.Component<P,S>{
     }
 
     _handleGetSingleVisit = (id:number) => {
-        // let visitClicked = Visits.utils.getSingleVisit(id);
+        let visitClicked = Visits.utils.getSingleVisit(id);
         let currentState = {...this.state.tabState};
         let currentTabs = [...this.state.tabs]
         currentState['visit'] = false
@@ -257,6 +272,7 @@ class PatientContainer extends React.Component<P,S>{
         this.setState({
             tabState: currentState, 
             tabs: currentTabs,
+            visit: visitClicked,
             clickedTab: 'visit' // Allows us to be able to redirect to the right tab
          })
          
@@ -264,7 +280,13 @@ class PatientContainer extends React.Component<P,S>{
 
     _renderVisit = () =>{
         return (
-            <Visits.Components.VisitDrawer
+            <Visits.Components.VisitContainer
+                visit={this.state.visit || {
+                id: 0,
+                visit_type: '',
+                doctor_type :'',
+                location: ''
+            }}
         />)
     }
 

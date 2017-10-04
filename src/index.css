@@ -16,6 +16,14 @@ a {
   text-decoration: none;
 }
 
+.content-body {
+  margin-top: 67px;
+}
+
+.content-container {
+  margin-bottom: 100px;
+}
+
 .content-container .alert {
   margin-top: -2px; 
 }

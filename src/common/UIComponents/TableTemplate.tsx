@@ -43,7 +43,7 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
     }
 
     handleSubmit = (e:any, value:any) => {
-        console.log
+        
     }
 
     handleChangeInput = (index: number) => (e:any) => {

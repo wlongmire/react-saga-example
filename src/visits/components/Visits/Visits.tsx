@@ -44,7 +44,6 @@ export class VisitsContainer extends React.Component<VisitsProps, VisitComponent
     //     console.log('Clicked Single Visit', id)
     // }
     render() {
-
         return (
             <div>
                 <VisitCollection

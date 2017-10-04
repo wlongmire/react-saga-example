@@ -159,7 +159,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         } 
         
-        console.log('prefix ok');
         this.setState({ prefixError: ''});
         return true;
     }
@@ -175,7 +174,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('first ok');
         this.setState({ firstError: ''});
         return true;
     }
@@ -186,26 +184,21 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return;
         }
 
-        console.log('middle ok');
         this.setState({ middleError: ''});
         return true;
     }
 
     isLastValid(): boolean {
-        console.log('in last');
         if (this.state.last.length == 0) {
-            console.log('last length');
             this.setState({ lastError: 'Last name is required' });
             return false;
         }
 
         if (this.state.last.length > 35) {
-            console.log('last length 35');
             this.setState({ lastError: 'Last name must not exceed 35 characters' });
             return false;
         }
 
-        console.log('last ok');
         this.setState({ lastError: ''});
         return true;
     }
@@ -216,7 +209,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         } 
         
-        console.log('suffix ok');
         this.setState({ suffixError: ''});
         return true;
     }
@@ -239,7 +231,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false
         }
 
-        console.log('dob ok');
         this.setState( { dateOfBirthError: ''});
         return true;
     }
@@ -255,7 +246,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('gender ok');
         this.setState({ genderError: ''});
         return true;
     }
@@ -271,7 +261,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('address 1 ok');
         this.setState({ address1Error: ''});
         return true;
     }
@@ -282,7 +271,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('address 2 ok');
         this.setState({ address2Error: ''});
         return true;
     }
@@ -298,7 +286,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('city ok');
         this.setState({ cityError: ''});
         return true;
     }
@@ -417,7 +404,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('state ok');
         this.setState({ stateError: ''});
         return true;
     }
@@ -433,7 +419,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('zip ok');
         this.setState({ zipCodeError: ''});
         return true;
     }
@@ -449,7 +434,6 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             return false;
         }
 
-        console.log('ph type ok');
         this.setState({ primaryPhoneTypeError: ''});
         return true;
     }
@@ -475,13 +459,11 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
         //     return false;
         // }
 
-        console.log('area code ok');
         this.setState({ primaryPhoneError: ''});
         return true;
     }
 
     validateForm(): boolean {
-        console.log('validation');
         if (!this.isPrefixValid() 
             || !this.isFirstValid()
             || !this.isMiddleValid()
@@ -497,11 +479,9 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             || !this.isPhoneTypeValid()
             || !this.isAreaCodeValid()
         ) {
-            console.log('has errors');
             this.setState({ hasErrors: true });
             return false;
         } else {
-            console.log('no errors');
             this.setState({ hasErrors: false });
             return true;
         }
@@ -527,7 +507,7 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
     }
 
     handleLoad(e: any) {
-        console.log(e);
+    
     }
 
     savePatient() {
@@ -572,7 +552,7 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             if (response.ok) {
                 return response.json();
             } else {
-                console.log('error saving');
+                
             }
         }).then((patient: any) => {
             this.setState({ patientId: patient.patientId});
@@ -635,10 +615,10 @@ class _DoseSpotUser extends React.Component<DoseSpotUserProps, DoseSpotUserState
             cache: 'no-cache',
             mode: 'no-cors'
         }).then((response: any) => {
-            console.log('redirected?: ' + JSON.stringify(response));
+            
         })
         .catch((err: Error) => {
-            console.log('error: ' + err);
+            
         });
     }
     

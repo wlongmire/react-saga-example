@@ -17,7 +17,6 @@ export const login = (email: string, password: string) => {
     return fetch(request)
         .then((response: any) => {
             if (response.ok) {
-    
                 return response.json()
             }
             else {
@@ -27,7 +26,6 @@ export const login = (email: string, password: string) => {
             }
         })
         .then(result => {
-            console.log('login result: ', result);
             switch (result.status) {
                 case 200:
                     const userIdentity = new UserIdentity(
@@ -45,6 +43,7 @@ export const login = (email: string, password: string) => {
                 case 403:
                     const errorMessage = `We don't recognize this e-mail or password. Double-check your information and try again.`;
                     return Promise.reject(errorMessage);
+
                 default:
                     return Promise.reject(result.error);
             }

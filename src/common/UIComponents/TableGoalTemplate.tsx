@@ -31,15 +31,14 @@ const getNamedValue = (name:string, v?:number) => {
     let theArrays = Object.keys(stubbedData);
     let targetArray = theArrays.filter((s:any)=>{
         return s === name
-    })
-    console.log(targetArray,'Here')
+    });
+    
     let arrayVal = stubbedData[targetArray[0]];
     let actualValue = arrayVal.filter((a:any) =>{
         return a.value === v
-    })
+    });
 
     return actualValue[0].primaryText;
-
 }
 
 export class TableGoalTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
@@ -70,6 +69,7 @@ export class TableGoalTemplate extends React.Component<TableTemplateProps, Table
     handleChangeInput = (index: number) => (e:any) => {
         let items = [...this.state.items];
         const item = items[index];
+        
         items[index] = {
             ...item,
             [e.target.name]: e.target.value

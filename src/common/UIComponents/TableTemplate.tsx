@@ -31,15 +31,15 @@ export class TableTemplate extends React.Component<TableTemplateProps, TableTemp
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {
-        console.log('event: ', e.target);
         const newItem: IAdditionalItem = {
             id:this.count++,
             title:'',
             description:''
-        }
+        };
+
         this.setState(prevState => ({
             items: prevState.items.concat(newItem)
-        }))
+        }));
     }
 
     handleSubmit = (e:any, value:any) => {

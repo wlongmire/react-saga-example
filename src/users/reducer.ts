@@ -335,11 +335,8 @@ export default function reducer(state = initialState(), action: Common.ActionRes
 
         case ActionType.UPDATE_USER_SUCCESS:
             const updated = <User>action.value;
-            console.log('reducer updated:', updated);
             const idx = state.items.findIndex((user: User) => user.id === updated.id );
-            console.log('found idx: ', idx);
             state.items.splice(idx, 1, updated);
-            console.log('mutated', state.items);
             return { ...state, isFetching: false, fetchError: null};
 
         case ActionType.UPDATE_USER_FAILURE:

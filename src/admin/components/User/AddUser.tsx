@@ -97,7 +97,6 @@ export class AddUserPage extends React.Component<{}, AddUserState>{
     }
 
     onUserTypeChanged = (item: DropDownItem) => {
-        console.log('item', item);
         this.setState(prevState => ({
             payload: {
                 ...prevState.payload,
@@ -113,34 +112,7 @@ export class AddUserPage extends React.Component<{}, AddUserState>{
     }
 
     onPlainTextDropDownChange = (item: DropDownItem) => {
-        console.log('item', item);
-
-        // this.setState(prevState => ({
-        //     payload: {
-        //         ...prevState.payload,
-        //         [name]: getNamedValue(name, v)
-        //     }
-        // }));
-
-        // if (getNamedValue(name,v) === 'Patient'){
-        //     this.setState({
-        //         showPatientForm: true,
-        //         showDoctorForm: false,
-        //         showOpsForm: false
-        //     });
-        // } else if(getNamedValue(name,v) === "Doctor"){
-        //     this.setState({
-        //         showDoctorForm: true,
-        //         showPatientForm: false,
-        //         showOpsForm: false
-        //     });
-        //  } else if (getNamedValue(name,v) === "Ops"){
-        //     this.setState({
-        //         showOpsForm: true,
-        //         showDoctorForm: false,
-        //         showPatientForm: false
-        //     });
-        //  }
+        
     }
 
     checkUserType = () => {
@@ -149,7 +121,7 @@ export class AddUserPage extends React.Component<{}, AddUserState>{
                showPatientForm: true
            })
         } else{
-            console.log('Not Undefined')
+            
         }
     }
 

@@ -7,9 +7,6 @@
 
 .admin-page-wrapper {
     margin-top: 2px;
-    /* width: 60%;
-    margin-left: auto;
-    margin-right: auto; */
 }
 
 .red {
@@ -44,7 +41,6 @@
 .admin-sidebar-nav-item {
     border: 10px;
     box-sizing: border-box;
-    /* cursor: pointer; */
     text-decoration: none;
     margin: 0px;
     padding: 0px;

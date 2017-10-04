@@ -54,13 +54,13 @@ export class UpdatePassword extends React.Component<{}, UpdatePasswordState>{
         }
     }
 
-    _onChangeNewPassword = (e:any) => {
+    _onChangeNewPassword = (e: any) => {
         this.setState({
             newPassword: e.target.value
         })
     }
 
-    _onChangeConfirmPassword = (e:any) => {
+    _onChangeConfirmPassword = (e: any) => {
         this.setState({
             confirmPassword: e.target.value
         })
@@ -71,54 +71,49 @@ export class UpdatePassword extends React.Component<{}, UpdatePasswordState>{
             <div>
                 <Common.HeaderLabel/>
                 { this.state.resetSuccesful ? 
-                <div className="success">
-                    <h2 className="success-message">Success!</h2>
-                    <h2 className="text-response">
-                        Please use your password with all LifeCo applications.
-                    </h2>
-                    <Link to ="/">
-                    <input
-                    className="home-redirect-btn"
-                    type="submit"
-                    value="LifeCo Home"
-                    />
-                    </Link>
-                </div>
+                    <div className="success">
+                        <h2 className="success-message">Success!</h2>
+                        <h2 className="text-response">
+                            Please use your password with all LifeCo applications.
+                        </h2>
+                        <Link to ="/">
+                            <input
+                                className="home-redirect-btn"
+                                type="submit"
+                                value="LifeCo Home"
+                            />
+                        </Link>
+                    </div>
+                    :
+                    <form className="update-body" onSubmit={this._handleResetPassword}>
+                        <h2>Update your password</h2>
+                        <h2 className="text">
+                            Please use 8 characters (one number, one symbol)
+                        </h2>
+                        <input
+                            className="reset-password-input"
+                            placeholder="New Password"
+                            name="newPassword"
+                            type="password"
+                            onChange={this._onChangeNewPassword}
+                            value={this.state.newPassword}
 
-                :
-                <form className="update-body" onSubmit={this._handleResetPassword}>
-                    <h2>Update your password</h2>
-                    <h2 className="text">
-                        Please use 8 characters (one number, one symbol)
-                    </h2>
-                    <input
-                    className="reset-password-input"
-                    placeholder="New Password"
-                    name="newPassword"
-                    type="password"
-                    onChange={this._onChangeNewPassword}
-                    value={this.state.newPassword}
-
-                    />
-
-                    <input
-                    className="repeat-password-input"
-                    placeholder="Confirm Password"
-                    type="password"
-                    name="confirmPassword"
-                    onChange={this._onChangeConfirmPassword}
-                    value={this.state.confirmPassword}
-                    />
-            
-                    <h5 className="error-label">{this.state.validationError}</h5>
-                    
-                    <input
-                    className="reset-password-button"
-                    type="submit"
-                    value="Reset Password"
-                    />
-
-                </form>
+                        />
+                        <input
+                            className="repeat-password-input"
+                            placeholder="Confirm Password"
+                            type="password"
+                            name="confirmPassword"
+                            onChange={this._onChangeConfirmPassword}
+                            value={this.state.confirmPassword}
+                        />
+                        <h5 className="error-label">{this.state.validationError}</h5>
+                        <input
+                            className="reset-password-button"
+                            type="submit"
+                            value="Reset Password"
+                        />
+                    </form>
                 }
             </div>
         )

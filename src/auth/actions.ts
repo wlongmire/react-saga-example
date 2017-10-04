@@ -1,10 +1,7 @@
 import * as Common from '../common';
-import { AuthLoginCredentials } from '../services/auth';
 import { AuthInfo } from './reducer';
+import { AuthCredentials } from './reducer';
 
-/**
- * Action Types
- */
 export module ActionType {
     export const LOGIN = 'auth/LOGIN';
     export const LOGIN_SUCCESS = 'auth/SUCCESS';
@@ -14,24 +11,22 @@ export module ActionType {
     export const LOGOUT_FAIL = 'auth/LOGOUT_FAIL';
     export const FORGOT_PASSWORD = 'auth/FORGOT_PASSWORD';
     export const FORGOT_PASSWORD_SUCCESS = 'auth/FORGOT_PASSWORD_SUCCESS';
-    export const FORGOT_PASSWORD_FAILURE = 'auth/FORGOT_PASSWORD_FAILURE';
+    export const FORGOT_PASSWORD_FAIL = 'auth/FORGOT_PASSWORD_FAIL';
+    export const VERIFY_CODE = 'auth/VERIFY_CODE';
+    export const VERIFY_CODE_SUCCESS = 'auth/VERIFY_CODE_SUCCESS';
+    export const VERIFY_CODE_FAIL = 'auth/VERIFY_CODE_FAIL';
+    export const RESEND_CODE = 'auth/RESEND_CODE';
+    export const RESEND_CODE_SUCCESS = 'auth/RESEND_CODE_SUCCESS';
+    export const RESEND_CODE_FAIL = 'auth/RESEND_CODE_FAIL';
 }
 
-/**
- * 
- * @param credentials 
- */
-export const login = (credentials: AuthLoginCredentials): Common.ActionResult<AuthLoginCredentials> => {
+export const login = (credentials: AuthCredentials): Common.ActionResult<AuthCredentials> => {
     return {
         type: ActionType.LOGIN,
         value: credentials
     };
 };
 
-/**
- * 
- * @param response 
- */
 export const loginSuccess = (authInfo: AuthInfo): Common.ActionResult<AuthInfo> => {
     return {
         type: ActionType.LOGIN_SUCCESS,
@@ -39,10 +34,6 @@ export const loginSuccess = (authInfo: AuthInfo): Common.ActionResult<AuthInfo> 
     };
 };
 
-/**
- * 
- * @param error 
- */
 export const loginFail = (error: string): Common.ActionResult<{}> => {
     return {
         type: ActionType.LOGIN_FAIL,
@@ -50,9 +41,6 @@ export const loginFail = (error: string): Common.ActionResult<{}> => {
     };
 };
 
-/**
- * 
- */
 export const  logout = (): Common.ActionResult<{}> => {
     const action = {
         type: ActionType.LOGOUT
@@ -60,19 +48,12 @@ export const  logout = (): Common.ActionResult<{}> => {
     return action;
 };
 
-/**
- * 
- */
 export const logoutSuccess = (): Common.ActionResult<{}> => {
     return {
         type: ActionType.LOGOUT_SUCCESS
     };
 };
 
-/**
- * 
- * @param e 
- */
 export const logoutFail = (e: Error): Common.ActionResult<{}> => {
     return {
         type: ActionType.LOGOUT_FAIL,
@@ -95,7 +76,46 @@ export const forgotPasswordSuccess = (): Common.ActionResult<{}> => {
 
 export const forgotPasswordFail = (error: Error): Common.ActionResult<Error> => {
     return {
-        type: ActionType.FORGOT_PASSWORD_FAILURE,
+        type: ActionType.FORGOT_PASSWORD_FAIL,
         value: error
+    }
+}
+
+export const verifyCode = (code: string): Common.ActionResult<string> => {
+    return {
+        type: ActionType.VERIFY_CODE,
+        value: code
+    }
+}
+
+export const verifyCodeSuccess = (): Common.ActionResult<{}> => {
+    return {
+        type: ActionType.VERIFY_CODE_SUCCESS
+    }
+}
+
+export const verifyCodeFail = (e: Error): Common.ActionResult<Error> => {
+    return {
+        type: ActionType.VERIFY_CODE_FAIL,
+        value: e
+    }
+}
+
+export const resendCode = (): Common.ActionResult<{}> => {
+    return {
+        type: ActionType.RESEND_CODE
+    }
+}
+
+export const resendCodeSuccess = (): Common.ActionResult<{}> => {
+    return {
+        type: ActionType.RESEND_CODE_SUCCESS
+    }
+}
+
+export const resendCodeFail = (e: Error): Common.ActionResult<Error> => {
+    return {
+        type: ActionType.RESEND_CODE_FAIL,
+        value: e
     }
 }

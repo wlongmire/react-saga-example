@@ -1,9 +1,12 @@
 import * as React from 'react';
-import './styles.css';
+import { Link } from 'react-router-dom';
+
+import './HeaderLabel.css';
 
 const HeaderLabel = () => {
     return (
-            <span className="lifeco-label">LifeCo</span>
+        <Link to="/" className="lifeco-label">LifeCo</Link>
+        // <span className="lifeco-label">LifeCo</span>
     )
 }
 

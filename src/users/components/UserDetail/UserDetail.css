@@ -49,10 +49,17 @@
     display: block;
 }
 
-.user-save-button {
-    border: none;
-    background: #f84445;
+.user-form-save-button {
+    height: 36px;
+    width: 198px;
+    border-radius: 2px;
+    background-color: #F74646;
+    border: #F74646;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 14px;
+    /* background: #f84445;
     margin: 2em 0;
     color: #ffffff;
-    border-radius: 3px;
+    border-radius: 3px; */
 }

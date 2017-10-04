@@ -61,7 +61,7 @@ export class UserList extends React.Component<UserListProps, UserListState> {
                         return (
                             <tr key={user.id} className="list-table-hover-row" onClick={() => this.handleEditUser(user)}>
                                 <td className="table-column-icon">
-                                    {this.getUserAvatar(user)}
+                                    { this.getUserAvatar(user) }
                                 </td>
                                 <td className="table-column-type">{user.type}</td>
                                 <td className="table-column-first-name">{user.firstName}</td>

@@ -16,8 +16,9 @@ export {
     LoginContainer, 
     LogoutButton, 
     ConnectedLogoutButton,
-    EmailResetForm,
-    UpdatePasswordForm
+    ForgotPassword,
+    MFACodeEntry,
+    UpdatePassword
 } from './components';
 export { default as authSaga } from './sagas';
 export { AuthState, AuthInfo, default as authReducer } from './reducer';

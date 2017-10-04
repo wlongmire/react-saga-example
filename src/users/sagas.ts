@@ -1,6 +1,8 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+
 import { User } from './reducer';
 import * as Actions from './actions';
+import { ActionResult } from '../common';
 import { Api } from '../services/api'
 
 function* fetchAllUsers() {
@@ -12,18 +14,24 @@ function* fetchAllUsers() {
     }
 }
 
-function* createUser(user: User) {
+function* createUser(action: ActionResult<User>) {
     try {
-        const updatedUser = yield call(() => Api.users.createUser(user));
+        if (action.value === undefined) {
+            throw new Error('action is missing required user value');
+        }
+        const updatedUser = yield call(Api.users.createUser, action.value);
         yield(put(Actions.createUserSuccess(updatedUser)));
     } catch(e) {
         yield(put(Actions.createUserFailure(e)));
     }
 }
 
-function* updateUser(user: User) {
+function* updateUser(action: ActionResult<User>) {
     try {
-        const updatedUser = yield call(() => Api.users.updateUser(user));
+        if (action.value === undefined) {
+            throw new Error('action is missing required user value');
+        }
+        const updatedUser = yield call(Api.users.updateUser, action.value);
         yield(put(Actions.updateUserSuccess(updatedUser)));
     } catch(e) {
         yield(put(Actions.updateUserFailure(e)));

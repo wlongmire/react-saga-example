@@ -1,19 +1,21 @@
-import { AuthService } from '../services';
+import * as AuthService from './service';
 import * as Common from '../common';
 import * as actions from './actions';
 import { call, put } from 'redux-saga/effects';
 import { login } from './sagas';
-import { AuthLoginCredentials, AuthLoginResponse } from '../services/auth';
+import { AuthCredentials, AuthInfo, UserIdentity } from './reducer';
+// import { AuthLoginCredentials, AuthLoginResponse } from '../services/auth';
 
 describe('auth sagas', () => {
     it('should generate a loginSuccess action', () => {
         const email = 'test@email.com';
         const password = 'password';
     
-        const credentials = new AuthLoginCredentials(email, password);
-        const response = new AuthLoginResponse('', 6, 1);
+        const credentials = <AuthCredentials>{email, password};
+        const identity = new UserIdentity(6, '71', 1, 1);
+        const response = new AuthInfo('abacadaba', identity);
     
-        const action = <Common.ActionResult<AuthLoginCredentials>>{ 
+        const action = <Common.ActionResult<AuthCredentials>>{ 
             type: actions.ActionType.LOGIN, 
             value: credentials
         };
@@ -21,7 +23,7 @@ describe('auth sagas', () => {
         const generator = login(action);
     
         let next = generator.next(credentials);
-        expect(next.value).toEqual(call(AuthService.login, credentials));
+        expect(next.value).toEqual(call(AuthService.login, credentials.email, credentials.password));
     
         next = generator.next(response);
         expect(next.value).toEqual(put(actions.loginSuccess(response)));

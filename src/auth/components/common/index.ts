@@ -1,6 +1,1 @@
-import HeaderLabel from './HeaderLabel'
-
-
-export const Components = {
-    HeaderLabel
-}
+export { default as HeaderLabel } from './HeaderLabel';

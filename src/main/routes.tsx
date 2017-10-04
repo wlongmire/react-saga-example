@@ -1,16 +1,13 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
-// import * as Application from '../application';
-import * as Zoo from '../zoo';
 import * as Visits from '../visits';
-// import * as Users from '../users';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
+import * as AuthService from '../auth/service'
 import { Navbar } from '../navigation';
 import { PatientListContainer, PatientDetail } from '../patients';
-import { AuthService } from '../services';
 import { DoseSpotUser } from '../dosespot';
 import { UsersContainer, UserDetail } from '../users';
 import { history } from '../common';
@@ -19,6 +16,21 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
+                <Route 
+                    path="/reset-password"
+                    exact={true}
+                    render={(props) => <Auth.ForgotPassword {...props} />}
+                />
+                <Route 
+                    path="/update-password"
+                    exact={true}
+                    render={(props) => <Auth.UpdatePassword {...props} />}
+                />
+                <Route
+                    path="/verify-code"
+                    exact={true}
+                    render={(props) => <Auth.MFACodeEntry {...props} />}
+                />
                 <Route
                     path="/"
                     render={(props) => (
@@ -89,20 +101,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     )}
                 />
                 <Route 
-                    path="/users/add"
-                    exact={true}
-                    render={(props) => (
-                        !AuthService.isAuthenticated() ? (
-                            <Redirect
-                                to={{
-                                    pathname: '/login',
-                                    state: { referrer: '/users/add'}
-                                }}
-                            />
-                        ) : ( <Admin.AddUserPage {...props} /> )
-                    )}
-                />
-                <Route 
                     path="/users/:userId"
                     exact={true}
                     render={(props) => (
@@ -142,25 +140,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Schedule.Components.Schedules {...props} /> )
                     )} />
-                {/* <Route 
-                    exact={true}
-                    path="/patient/:patientId"
-                    render={(props) => (
-                        !AuthService.isAuthenticated() ? (
-                            <Redirect 
-                                to={{
-                                    pathname: '/login',
-                                    state: { referrer: '/patient/:patientId' }
-                                    }} 
-                            />
-                        ) : ( <Users.Components.Patient {...props} /> )
-                    )}
-                /> */}
-                
-                <Route 
-                    path="/zoo"
-                    render={(props) => <Zoo.Components.Main {...props} />}
-                />
                 <Route
                     path="/login"
                     render={(props) => <Auth.LoginContainer {...props} />}
@@ -190,15 +169,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Admin.AdminPage {...props} />)
                     )}
-                />
-
-                <Route 
-                    path="/reset-password"
-                    render={(props) => <Auth.EmailResetForm />}
-                />
-                <Route 
-                    path="/update-password"
-                    render={(props) => <Auth.UpdatePasswordForm />}
                 />
             </div>
         </Router>

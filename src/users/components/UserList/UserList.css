@@ -1,4 +1,5 @@
 .table-column-type {
+    text-transform: capitalize;
     width: 142px;
 }
 

@@ -1,10 +1,6 @@
 import * as React from 'react';
-// import Paper from 'material-ui/Paper';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import TextField from 'material-ui/TextField';
-import { ActionResult } from '../../../common';
-import { AuthLoginCredentials } from '../../../services/auth';
-import { AuthState } from '../../reducer';
+import { ActionResult } from '../../../common'
+import { AuthState, AuthCredentials } from '../../reducer';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
 
@@ -19,7 +15,7 @@ const FaSlashEye = require('react-icons/lib/fa/eye-slash');
  * 
  */
 export class LoginComponentProps {
-  login: (credentials: AuthLoginCredentials) => ActionResult<AuthLoginCredentials>;
+  login: (credentials: AuthCredentials) => ActionResult<AuthCredentials>;
   auth: AuthState;
 }
 
@@ -79,9 +75,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    */
   onSubmit(event: any) {
     event.preventDefault()
-    if (this.props.login) {
-      this.props.login(new AuthLoginCredentials(this.state.email, this.state.password));
-    }
+    this.props.login(new AuthCredentials(this.state.email, this.state.password));
   }
 
   /**
@@ -97,10 +91,10 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
   render() {
     return (
       <div id="wrapper-login">
-        <Common.Components.HeaderLabel/>
+        <Common.HeaderLabel/>
         <div className="intro">Welcome to LifeCo</div>
         <div className="login-body">
-          <form onSubmit={this.onSubmit}>
+          <form className="login-form" onSubmit={this.onSubmit}>
             <input
               name="email"
               type='email'
@@ -135,9 +129,7 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
           <span className="slashIcon">
             <FaSlashEye />
           </span>
-          <Link to="/reset-password"><span className="forgot-password">Forgot Password</span></Link>
-
-
+          <Link to="/reset-password" className="forgot-password">Forgot Password</Link>
         </div>
       </div>
     );

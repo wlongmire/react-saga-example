@@ -1,2 +1,1 @@
-export {EmailResetForm} from './EmailReset';
-export {UpdatePasswordForm} from './UpdatePassword';
+export { ForgotPassword } from './ForgotPassword'

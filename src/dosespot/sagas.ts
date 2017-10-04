@@ -4,7 +4,6 @@ import { Api } from '../services/api'
 
 
 function* fetchSingleSignOnInfo() {
-    console.log('here');
     try {
         if (localStorage.getItem('clinicId') === null) {
             localStorage.setItem('clinicId', '1141');

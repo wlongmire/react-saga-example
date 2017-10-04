@@ -14,7 +14,6 @@ export default class AddSection extends React.Component<P, {}>{
     }
 
     handleCloseModal = (event:any) => {
-        console.log('Here', event.target)
     
     }
 

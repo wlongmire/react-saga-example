@@ -90,7 +90,6 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     componentDidMount() {
         if (this.props.location.state) {
-            console.log('in state');
             const { user } = this.props.location.state;
 
             if (user) {
@@ -99,7 +98,6 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
             }
         }
 
-        console.log('match', this.props.match);
         const { params } = this.props.match;
 
         if (params['userId']) {

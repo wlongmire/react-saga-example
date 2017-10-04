@@ -28,7 +28,6 @@ class PatientList extends React.Component<PatientListProps, {}> {
     }
 
     handlePatientClick(patient: Patient) {
-        console.log('patient: ', patient);
         this.props.history.push(`/patients/${patient.id}`, patient);
     }
 

@@ -128,8 +128,6 @@ export default class AddVisitComponent extends React.Component<VisitDrawerProps,
         let newPayload = Object.assign({}, currentPayload, _payload)
         // newPayload has all the necessary info for the dispatch.
         if(this.props.createVisit) {this.props.createVisit(newPayload)};
-        console.log(newPayload)
-
     }
 
     handleChange = (event:any, index:number, value:number) => this.setState({value});

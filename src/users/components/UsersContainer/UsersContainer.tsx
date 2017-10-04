@@ -51,10 +51,6 @@ export class _UsersContainer extends React.Component<UsersContainerProps, UsersC
                         <div className="action-right">
                             <Link to="/users/add" className="right action-button">+ Create New</Link>
                         </div>
-                        {/* <span className="action-left">Users</span>
-                        <span className="action-right">
-                            <Link to="/users/add" className="right action-button">+ Create New</Link>
-                        </span> */}
                     </div>
                     <UserList 
                         className="users-container-user-list" 

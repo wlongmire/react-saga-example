@@ -5,17 +5,10 @@ import { GlobalState } from '../../../rootReducer';
 import { List, ListItem } from 'material-ui/List';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import MapsLocalPharmacy from 'material-ui/svg-icons/maps/local-pharmacy';
-// import {Tabs, Tab} from 'material-ui/Tabs';
-// import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-// import Chip from 'material-ui/Chip';
 import { Route, RouteComponentProps } from 'react-router-dom';
-// import Badge from 'material-ui/Badge';
-// import { DoseSpotClinicianList } from '../../../dosespot';
 import { UsersContainer } from '../../../users';
-
-// import { Users } from '../';
 
 import './AdminPage.css';
 
@@ -79,7 +72,6 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
             selectedTab: 'users'
         };
 
-        this.handleActive = this.handleActive.bind(this);
         this.handleCloseDialog = this.handleCloseDialog.bind(this);
         this.handleOpenDialog = this.handleOpenDialog.bind(this);
         this.handleNavigate = this.handleNavigate.bind(this);
@@ -87,10 +79,6 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
 
     componentDidMount() {
         this.props.fetchDoseSpotStatus();
-    }
-
-    handleActive(tab: any) {
-        // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     }
 
     handleCloseDialog() {
@@ -108,11 +96,8 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
     }
 
     render() {
-        console.log('clinicians: ', this.props.clinicians);
-        console.log('selectedTab: ', this.state.selectedTab);
         return(
             <div className="admin-page-wrapper">
-                {/* <h2 className="admin-title">Admin</h2> */}
                 <aside className="admin-sidebar">
                     <List>
                         <ListItem 
@@ -140,47 +125,6 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
                     <Route path={`${this.props.match.url}/users`} exact={true} component={UsersContainer} />
                     <Route path={`${this.props.match.url}/dosespot`} exact={true} component={Placeholder} />
                 </section>
-                {/* <Tabs>
-                    <Tab label="Manage Users" >
-                        <div>
-                            <UsersContainer />
-                        </div>
-                    </Tab>
-                    <Tab label="Dosespot" onActive={this.handleActive} >
-                        <div>                           
-                            <table className="users-table">
-                                <thead>
-                                    <tr>
-                                        <td>Clincian ID</td>
-                                        <td>Refill Requests</td>
-                                        <td>Transmission Errors</td>
-                                        <td>Pending Prescriptions</td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        this.props.statuses.map((status: DoseSpotStatus, index: number) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>{status.clinicianId}</td>
-                                                    <td>{status.refillRequestsCount}</td>
-                                                    <td>{status.transactionErrorsCount}</td>
-                                                    <td>{status.pendingPrescriptionsCount}</td>
-                                                    <td>
-                                                    <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
-                                                        <i className="material-icons red">error</i>
-                                                    </IconButton>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </Tab>
-                </Tabs> */}
                 <Dialog
                     title="DoseSpot"
                     modal={true}

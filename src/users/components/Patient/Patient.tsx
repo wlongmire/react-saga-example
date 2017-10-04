@@ -207,7 +207,7 @@ class PatientContainer extends React.Component<P,S>{
         })
     } 
     
-    render(){
+    render() {
         // placeholder
         return(<div></div>);
         // if(!this.props.patient['patient']){
@@ -217,7 +217,6 @@ class PatientContainer extends React.Component<P,S>{
         // }
         // let patientData = this.props.patient['patient'];
         // let patientData = this.props.patient;
-        // console.log(this.state)
         // return(
         //     <div className="patient-view">
         //         {/* <Navigation/> */}

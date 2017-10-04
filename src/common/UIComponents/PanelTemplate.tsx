@@ -36,19 +36,19 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {
-        console.log('event: ', e.target);
         const newItem: IAdditionalItem = {
             id:this.count++,
             title:'',
             description:''
-        }
+        };
+
         this.setState(prevState => ({
             items: prevState.items.concat(newItem)
-        }))
+        }));
     }
 
     handleSubmit = (e:any, value:any) => {
-        console.log
+        
     }
 
     handleChangeInput = (index: number) => (e:any) => {

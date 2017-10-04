@@ -4,7 +4,6 @@ import * as actions from './actions';
 import { call, put } from 'redux-saga/effects';
 import { login } from './sagas';
 import { AuthCredentials, AuthInfo, UserIdentity } from './reducer';
-// import { AuthLoginCredentials, AuthLoginResponse } from '../services/auth';
 
 describe('auth sagas', () => {
     it('should generate a loginSuccess action', () => {

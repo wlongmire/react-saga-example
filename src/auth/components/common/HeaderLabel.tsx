@@ -6,7 +6,6 @@ import './HeaderLabel.css';
 const HeaderLabel = () => {
     return (
         <Link to="/" className="lifeco-label">LifeCo</Link>
-        // <span className="lifeco-label">LifeCo</span>
     )
 }
 

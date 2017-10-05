@@ -1020,6 +1020,8 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                 { this.renderFirstNameField(true) }
                 { this.renderMiddleNameField() }
                 { this.renderLastNameField(true) }
+                { this.renderPrimaryPhoneField(true) }
+                { this.renderPrimaryPhoneTypeField(true) }
                 { this.renderDobField(true) }
                 { this.renderSSNField() }
                 { this.renderSexField(true) }
@@ -1046,10 +1048,11 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                 { this.state.isNew &&
                     this.renderPasswordField(true)
                 }
-                { this.renderTestField(true) }
                 { this.renderFirstNameField(true) }
                 { this.renderMiddleNameField() }
                 { this.renderLastNameField(true) }
+                { this.renderPrimaryPhoneField(true) }
+                { this.renderPrimaryPhoneTypeField(true) }
                 { this.renderDobField(true) }
                 { this.renderSexField(true) }
                 { this.renderAddressLine1Field() }

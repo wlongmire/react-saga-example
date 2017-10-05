@@ -5,7 +5,6 @@ import { Api } from '../services/api'
 function* fetchPatients(){
     try {
         const patients = yield call(()=> Api.patients.fetchAll());
-        console.log('patients: ', patients);
         yield(put(fetchAllPatientsSuccess(patients)));
     } catch(e) {
         yield(put(fetchAllPatientsFailure(e)));

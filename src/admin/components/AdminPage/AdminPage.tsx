@@ -2,18 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { DoseSpotStatus, fetchDoseSpotStatus } from '../../';
 import { GlobalState } from '../../../rootReducer';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import IconButton from 'material-ui/IconButton';
+import { List, ListItem } from 'material-ui/List';
+import SocialPerson from 'material-ui/svg-icons/social/person';
+import MapsLocalPharmacy from 'material-ui/svg-icons/maps/local-pharmacy';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-// import { DoseSpotClinicianList } from '../../../dosespot';
+import { Route, RouteComponentProps } from 'react-router-dom';
 import { UsersContainer } from '../../../users';
-
-// import { Users } from '../';
 
 import './AdminPage.css';
 
-interface AdminPageProps {
+interface AdminPageProps extends RouteComponentProps<{}> {
     statuses: DoseSpotStatus[];
     clinicians: number[];
     fetchDoseSpotStatus: () => void;
@@ -21,6 +20,44 @@ interface AdminPageProps {
 
 interface AdminPageState {
     isDoseSpotOpen: boolean;
+    selectedTab: string;
+}
+
+const Placeholder = () => {
+    return (
+        <div>                           
+            <table>
+                <thead>
+                    <tr>
+                        <td>Clincian ID</td>
+                        <td>Refill Requests</td>
+                        <td>Transmission Errors</td>
+                        <td>Pending Prescriptions</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* {
+                        this.props.statuses.map((status: DoseSpotStatus, index: number) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{status.clinicianId}</td>
+                                    <td>{status.refillRequestsCount}</td>
+                                    <td>{status.transactionErrorsCount}</td>
+                                    <td>{status.pendingPrescriptionsCount}</td>
+                                    <td>
+                                    <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
+                                        <i className="material-icons red">error</i>
+                                    </IconButton>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    } */}
+                </tbody>
+            </table>
+        </div>
+    )
 }
 
 export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> {
@@ -31,20 +68,17 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
         super();
 
         this.state = {
-            isDoseSpotOpen: false
+            isDoseSpotOpen: false,
+            selectedTab: 'users'
         };
 
-        this.handleActive = this.handleActive.bind(this);
         this.handleCloseDialog = this.handleCloseDialog.bind(this);
         this.handleOpenDialog = this.handleOpenDialog.bind(this);
+        this.handleNavigate = this.handleNavigate.bind(this);
     }
 
     componentDidMount() {
         this.props.fetchDoseSpotStatus();
-    }
-
-    handleActive(tab: Tab) {
-        // alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
     }
 
     handleCloseDialog() {
@@ -55,53 +89,42 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
         this.setState({ isDoseSpotOpen: true });
     }
 
+    handleNavigate(subpath: string) {
+        this.setState({ selectedTab: subpath}, () => {
+            this.props.history.push(`${this.props.match.url}/${subpath}`)
+        });
+    }
+
     render() {
-        console.log(this.props.clinicians);
-        
         return(
             <div className="admin-page-wrapper">
-                <h2 className="admin-title">Admin</h2>
-                <Tabs>
-                    <Tab label="Manage Users" >
-                        <div>
-                            <UsersContainer />
-                        </div>
-                    </Tab>
-                    <Tab label="Dosespot" onActive={this.handleActive} >
-                        <div>                           
-                            <table className="users-table">
-                                <thead>
-                                    <tr>
-                                        <td>Clincian ID</td>
-                                        <td>Refill Requests</td>
-                                        <td>Transmission Errors</td>
-                                        <td>Pending Prescriptions</td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        this.props.statuses.map((status: DoseSpotStatus, index: number) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>{status.clinicianId}</td>
-                                                    <td>{status.refillRequestsCount}</td>
-                                                    <td>{status.transactionErrorsCount}</td>
-                                                    <td>{status.pendingPrescriptionsCount}</td>
-                                                    <td>
-                                                    <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
-                                                        <i className="material-icons red">error</i>
-                                                    </IconButton>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </Tab>
-                </Tabs>
+                <aside className="admin-sidebar">
+                    <List>
+                        <ListItem 
+                            primaryText="Users" 
+                            leftIcon={<SocialPerson />} 
+                            onClick={ () => this.handleNavigate('users') } 
+                            style={{ 
+                                backgroundColor: this.state.selectedTab == 'users' ? '#f3f3f3' : 'unset'
+                            }} 
+                        />
+                        <ListItem 
+                            primaryText="DoseSpot" 
+                            className="dosespot-list-item" 
+                            data-count={3} 
+                            leftIcon={<MapsLocalPharmacy data-count={3} className="item-icon-alert" />} 
+                            onClick={ () => this.handleNavigate('dosespot')} 
+                            style={{
+                                backgroundColor: this.state.selectedTab == 'dosespot' ? '#f3f3f3' : 'unset'
+                            }}
+                        />
+                    </List>
+                </aside>
+                <section className="admin-content">
+                    <Route path={`${this.props.match.url}/`} exact={true} component={UsersContainer} />
+                    <Route path={`${this.props.match.url}/users`} exact={true} component={UsersContainer} />
+                    <Route path={`${this.props.match.url}/dosespot`} exact={true} component={Placeholder} />
+                </section>
                 <Dialog
                     title="DoseSpot"
                     modal={true}

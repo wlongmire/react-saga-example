@@ -38,14 +38,13 @@ const getNamedValue = (name:string, v?:number) => {
     let targetArray = theArrays.filter((s:any)=>{
         return s === name
     })
-    console.log(targetArray,'Here')
+    
     let arrayVal = stubbedData[targetArray[0]];
-    let actualValue = arrayVal.filter((a:any) =>{
+    let actualValue = arrayVal.filter((a:any) => {
         return a.value === v
-    })
+    });
 
     return actualValue[0].primaryText;
-
 }
 
 export class DateTimeDropDownTemplate extends React.Component<TableTemplateProps, TableTemplateState>{

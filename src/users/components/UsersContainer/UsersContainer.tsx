@@ -29,7 +29,6 @@ export class _UsersContainer extends React.Component<UsersContainerProps, UsersC
     }
 
     handleUserItemClick(user: User) {
-        console.log(`${user.id} clicked`);
         const location: History.LocationDescriptor = {
             pathname: `/users/${user.id}`,
             state: { user }
@@ -40,17 +39,25 @@ export class _UsersContainer extends React.Component<UsersContainerProps, UsersC
     render() {
         return (
             <div className="content-container">
-                <div className="content-container-title-bar">
-                    <span className="inline-title">Users</span>
-                    <span className="inline-title-actions">
-                        <Link to="/users/add" className="inline-title-action-button">+ Create New</Link>
-                    </span>
+                <div className="alert alert-success hidden">
+                    You have successfully added a new user!
                 </div>
-                <UserList 
-                    className="users-container-user-list" 
-                    users={this.props.users}  
-                    onItemClick={this.handleUserItemClick}
-                />
+                <div className="content-wrapper">
+                    <div className="content-container-title-bar">
+                        <span className="title">Users</span>
+                    </div>
+                    <div className="content-container-action-bar">
+                        <div className="action-left"></div>
+                        <div className="action-right">
+                            <Link to="/users/add" className="right action-button">+ Create New</Link>
+                        </div>
+                    </div>
+                    <UserList 
+                        className="users-container-user-list" 
+                        users={this.props.users}  
+                        onItemClick={this.handleUserItemClick}
+                    />
+                </div>
             </div>
         )
     }

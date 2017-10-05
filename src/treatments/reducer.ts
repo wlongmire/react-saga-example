@@ -20,9 +20,6 @@ import * as Actions from './actions';
         case Actions.ActionType.LOAD_ALL_FAILED:
             return { ...state, error: action.value}
         case Actions.ActionType.FETCH_SSO_INFO_SUCCESS:
-            // let newState = { ...state, singleSignOnInfo: action.value };
-            // console.log('newState: ', newState);
-            // return newState;
             return { ...state, singleSignOnInfo: action.value}
         default: 
           return state

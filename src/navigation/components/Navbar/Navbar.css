@@ -1,6 +1,10 @@
-nav {
+nav.lc-nav {
     width: 100%;
     line-height: 24px;
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 1;
 }
 
 nav .lc-nav-wrapper {
@@ -54,4 +58,5 @@ nav .lc-nav-action-menu {
 hr {
     border: 1px solid #dedede;
     width: 100%;
+    margin: 0;
 }

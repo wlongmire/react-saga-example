@@ -73,7 +73,7 @@ export class AddTestSection extends React.Component<P, S>{
     }
 
     _handleSubmit = () => {
-        console.log('Here')
+
     }
 
     onPlainTextDropDownChange = (name:string) => (v:number) =>{
@@ -95,7 +95,7 @@ export class AddTestSection extends React.Component<P, S>{
     }
 
     handleChange = (event:any) => {
-        console.log('Selected file:', event.target.files[0]);
+        
     }
 
     render(){

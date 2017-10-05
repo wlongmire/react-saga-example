@@ -1,4 +1,5 @@
-.lifeco-label{
+
+.lifeco-label { 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,5 +12,6 @@
     vertical-align: middle;
     font-size: small;
     font-weight: bold;
-    color: white
+    color: white;
+    text-decoration: none;
 }

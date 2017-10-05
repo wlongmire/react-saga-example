@@ -17,7 +17,7 @@ export class ChipCollection extends React.Component<ChipCollectionProps, {}>{
      
     }
     handleRequestDelete = () => {
-        console.log("Delete")
+        
     }
     render(){
             return(

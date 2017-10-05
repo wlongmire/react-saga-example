@@ -113,11 +113,10 @@ class TreatmentsComponent extends React.Component<TreatmentsComponentProps, Trea
             cache: 'no-cache',
             mode: 'no-cors'
         }).then((response) => {
-            console.log('response_url: ' + JSON.stringify(response.headers));
-            // console.log('location: ' + response.headers.get('Location'));
+
         })
         .catch((err: Error) => {
-            console.log('error: ' + err);
+            
         });
     }
 
@@ -138,7 +137,6 @@ class TreatmentsComponent extends React.Component<TreatmentsComponentProps, Trea
         // todo 2: don't load this until after we have sso info
         if (!this.props.singleSignOnInfo) return(<div></div>);
         const url = this.buildUrl();
-        // console.log('url', url);
 
         return(
             <div>
@@ -157,7 +155,6 @@ class TreatmentsComponent extends React.Component<TreatmentsComponentProps, Trea
 }
 
 function mapStateToProps(state: any) {
-    console.log('state: ', state);
     return {
         singleSignOnInfo: state.treatments.singleSignOnInfo
     };

@@ -44,9 +44,8 @@ export class CustomTabComponent extends React.Component<P, S>{
             hormoneTabClicked: false
         })
     }
-    render(){
-        console.log(this.state)
-        return(
+    render() {
+        return (
             <div id="wrapper">
                 <div className="chat-section"></div>
                 <div className="right-section">

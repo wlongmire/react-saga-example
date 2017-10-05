@@ -65,9 +65,6 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
     }
 
     render() {
-        const { state } = this.props.location;
-        console.log('state', state.id);
-
         let tabItemContainerStyle = {
             width: '90%'
         };

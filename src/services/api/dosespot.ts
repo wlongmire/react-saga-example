@@ -35,7 +35,7 @@ export class DoseSpotService {
     }
 
     static fetchSingleSignOnInfo(clinicId: number, clinicianId: number) {
-        return fetch(`http://localhost:3001/clinics/${clinicId}/clinicians/${clinicianId}/sso`, {
+        return fetch(`http://${process.env.REACT_APP_DOSESPOT_API_HOST}/clinics/${clinicId}/clinicians/${clinicianId}/sso`, {
             method: 'GET',
             mode: 'cors',
             cache: 'default'
@@ -63,7 +63,7 @@ export class DoseSpotService {
     }
 
     static fetchStatus(clinicId: number, clinicianId: number) {
-        return fetch(`http://localhost:3001/clinics/${clinicId}/clinicians/${clinicianId}/status`, {
+        return fetch(`http://${process.env.REACT_APP_DOSESPOT_API_HOST}/clinics/${clinicId}/clinicians/${clinicianId}/status`, {
             method: 'GET',
             mode: 'cors',
             cache: 'default'

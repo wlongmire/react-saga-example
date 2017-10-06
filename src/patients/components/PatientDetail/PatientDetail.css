@@ -1,17 +1,40 @@
 .patient-detail {
-    width: 80%;
+    width: 100;
 }
 
-.patient-detail > div:first-of-type > div:first-of-type:after {
-    position: relative;
-    left: 40px;
-    top: 10px;
-    content: '';
-    width: 28px;
-    height: 26px;
-    color: #fff;
-    border-radius: 28px;
-    margin: 2px 0 0;
-    background: #c55500;
-    cursor: pointer;
+.patient-detail-header {
+    height: 110px;
+    border-bottom: 0.6px solid #e6e6e6;
+    width: 100%;
+    padding: 16px 27px;
+}
+
+.patient-detail-header-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    margin-left: 16px;
+}
+
+.patient-detail-header-title {
+    font-size: 32px;
+}
+
+.patient-detail-header-subtitle {
+    font-size: 16px
+}
+
+.patient-detail-body {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    grid-template-areas: "chat info";
+    height: 100vh;
+    width: 100vw;
+}
+
+.patient-detail-chat {
+    grid-area: chat;
+}
+
+.patient-detail-info {
+    grid-area: info;
 }

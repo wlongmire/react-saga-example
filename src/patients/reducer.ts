@@ -8,6 +8,7 @@ export interface Patient {
     age?: string;
     gender?: string;
     avatar?: string;
+    sso?: SingleSignOnInfo;
 }
 
 export interface SingleSignOnInfo {

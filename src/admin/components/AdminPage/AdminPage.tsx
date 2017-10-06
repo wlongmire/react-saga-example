@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { DoseSpotStatus, fetchDoseSpotStatus } from '../../';
 import { GlobalState } from '../../../rootReducer';
 import { List, ListItem } from 'material-ui/List';
+import { IconButton } from 'material-ui/IconButton';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import MapsLocalPharmacy from 'material-ui/svg-icons/maps/local-pharmacy';
 import Dialog from 'material-ui/Dialog';
@@ -21,43 +22,6 @@ interface AdminPageProps extends RouteComponentProps<{}> {
 interface AdminPageState {
     isDoseSpotOpen: boolean;
     selectedTab: string;
-}
-
-const Placeholder = () => {
-    return (
-        <div>                           
-            <table>
-                <thead>
-                    <tr>
-                        <td>Clincian ID</td>
-                        <td>Refill Requests</td>
-                        <td>Transmission Errors</td>
-                        <td>Pending Prescriptions</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/* {
-                        this.props.statuses.map((status: DoseSpotStatus, index: number) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{status.clinicianId}</td>
-                                    <td>{status.refillRequestsCount}</td>
-                                    <td>{status.transactionErrorsCount}</td>
-                                    <td>{status.pendingPrescriptionsCount}</td>
-                                    <td>
-                                    <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
-                                        <i className="material-icons red">error</i>
-                                    </IconButton>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    } */}
-                </tbody>
-            </table>
-        </div>
-    )
 }
 
 export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> {
@@ -95,7 +59,57 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
         });
     }
 
+    getStatusErrorsCount(): number {
+        if (!this.props.statuses || this.props.statuses.length == 0) return 0;
+        const status = this.props.statuses[0];
+        return status.transactionErrorsCount;
+    }
+
+    getStatusErrorsUrl(): string {
+        if (!this.props.statuses || this.props.statuses.length == 0) return '';
+        const status = this.props.statuses[0];
+        return status.url;
+    }
+
+    renderDoseSpotInfo() {
+        return (
+            <div>                           
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Clincian ID</td>
+                            <td>Refill Requests</td>
+                            <td>Transmission Errors</td>
+                            <td>Pending Prescriptions</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.props.statuses.map((status: DoseSpotStatus, index: number) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{status.clinicianId}</td>
+                                        <td>{status.refillRequestsCount}</td>
+                                        <td>{status.transactionErrorsCount}</td>
+                                        <td>{status.pendingPrescriptionsCount}</td>
+                                        <td>
+                                        <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
+                                            <i className="material-icons red">error</i>
+                                        </IconButton>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
     render() {
+        console.log('statuses: ', this.props.statuses);
         return(
             <div className="admin-page-wrapper">
                 <aside className="admin-sidebar">
@@ -111,8 +125,8 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
                         <ListItem 
                             primaryText="DoseSpot" 
                             className="dosespot-list-item" 
-                            data-count={3} 
-                            leftIcon={<MapsLocalPharmacy data-count={3} className="item-icon-alert" />} 
+                            data-count={this.getStatusErrorsCount()} 
+                            leftIcon={<MapsLocalPharmacy data-count={this.getStatusErrorsCount()} className="item-icon-alert" />} 
                             onClick={ () => this.handleNavigate('dosespot')} 
                             style={{
                                 backgroundColor: this.state.selectedTab == 'dosespot' ? '#f3f3f3' : 'unset'
@@ -123,7 +137,11 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
                 <section className="admin-content">
                     <Route path={`${this.props.match.url}/`} exact={true} component={UsersContainer} />
                     <Route path={`${this.props.match.url}/users`} exact={true} component={UsersContainer} />
-                    <Route path={`${this.props.match.url}/dosespot`} exact={true} component={Placeholder} />
+                    <Route path={`${this.props.match.url}/dosespot`} exact={true} render={(props) => { return (
+                        <div className="admin-dosespot-dialog-wrapper">
+                            <iframe className="admin-dosespot-iframe" src={ this._doseSpotUrl } ></iframe>
+                        </div>
+                    )}} />
                 </section>
                 <Dialog
                     title="DoseSpot"
@@ -147,13 +165,46 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
                     onRequestClose={this.handleCloseDialog}
                     autoScrollBodyContent={true}>
                     <div className="admin-dosespot-dialog-wrapper">
-                        <iframe className="admin-dosespot-iframe" src={ this._doseSpotUrl } ></iframe>
+                        <iframe className="admin-dosespot-iframe" src={ this.getStatusErrorsUrl() } ></iframe>
                     </div>
                 </Dialog>
             </div>
         )
     }
 }
+
+{/* <div>                           
+    <table>
+        <thead>
+            <tr>
+                <td>Clincian ID</td>
+                <td>Refill Requests</td>
+                <td>Transmission Errors</td>
+                <td>Pending Prescriptions</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                this.props.statuses.map((status: DoseSpotStatus, index: number) => {
+                    return (
+                        <tr key={index}>
+                            <td>{status.clinicianId}</td>
+                            <td>{status.refillRequestsCount}</td>
+                            <td>{status.transactionErrorsCount}</td>
+                            <td>{status.pendingPrescriptionsCount}</td>
+                            <td>
+                            <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
+                                <i className="material-icons red">error</i>
+                            </IconButton>
+                            </td>
+                        </tr>
+                    )
+                })
+            }
+        </tbody>
+    </table>
+</div> */}
 
 const mapStateToProps= (state: GlobalState) => {
     return {

@@ -69,7 +69,7 @@ export class UpdatePassword extends React.Component<{}, UpdatePasswordState>{
     render(){
         return(
             <div>
-                <Common.HeaderLabel/>
+                <Common.Components.HeaderLabel/>
                 { this.state.resetSuccesful ? 
                     <div className="success">
                         <h2 className="success-message">Success!</h2>

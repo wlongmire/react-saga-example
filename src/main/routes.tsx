@@ -47,24 +47,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         ) : ( <Navbar {...props} /> )
                     )}
                 />
-
-                <Route 
-                    path="/reset-password"
-                    render={(props) => <Auth.Components.EmailResetForm />}
-                />
-                <Route 
-                    path="/confirm-identity"
-                    render={(props) => <Auth.Components.ConfirmIdentity />}
-                />
-                <Route 
-                    path="/update-password"
-                    render={(props) => <Auth.Components.UpdatePasswordForm />}
-                />
-
-                <Route 
-                    path="/link-expired"
-                    render={(props) => <Auth.Components.LinkExpired/>}
-                />
                 <div className="content-body">
                     <Route 
                         exact={true}

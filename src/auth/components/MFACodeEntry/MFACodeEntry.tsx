@@ -48,7 +48,7 @@ class _MFACodeEntry extends React.Component<MFACodeEntryProps, MFACodeEntryState
     render() {
         return (
             <div>
-                <Common.HeaderLabel/>
+                <Common.Components.HeaderLabel/>
                 <form className="mfa-enter-code-body">
                     <h2 className="text">
                         We sent an SMS with a code to your phone <br />

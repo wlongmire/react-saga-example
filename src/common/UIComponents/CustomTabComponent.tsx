@@ -44,13 +44,13 @@ export class CustomTabComponent extends React.Component<P, S>{
             hormoneTabClicked: false
         })
     }
-
     _handleAddTab = () => {
         console.log("Click Add Tab")
     }
     render(){
         console.log(this.state)
         return(
+
             <div id="wrapper">
                 <div className="chat-section"></div>
                 <div className="right-section">

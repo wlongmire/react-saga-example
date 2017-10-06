@@ -90,7 +90,7 @@ export class AddImageSection extends React.Component<P, S>{
     }
 
     _handleSubmit = () => {
-        console.log('Here')
+        
     }
 
     onPlainTextDropDownChange = (name:string) => (v:number) =>{
@@ -112,7 +112,7 @@ export class AddImageSection extends React.Component<P, S>{
     }
 
     handleChange = (event:any) => {
-        console.log('Selected file:', event.target.files[0]);
+        
     }
 
     onChipDropDownChange = (name:string) => (v:number, s:string) => {

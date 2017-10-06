@@ -45,8 +45,6 @@ export class Visits extends React.Component<VisitsProps, VisitComponentState>{
         })
     }
     render() {
-        console.log("Here Visits", this.props.visits.visits['result'])
-
         return (
             <div>
                 <VisitCollection

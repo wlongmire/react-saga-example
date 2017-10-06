@@ -1,0 +1,17 @@
+.patient-detail {
+    width: 80%;
+}
+
+.patient-detail > div:first-of-type > div:first-of-type:after {
+    position: relative;
+    left: 40px;
+    top: 10px;
+    content: '';
+    width: 28px;
+    height: 26px;
+    color: #fff;
+    border-radius: 28px;
+    margin: 2px 0 0;
+    background: #c55500;
+    cursor: pointer;
+}

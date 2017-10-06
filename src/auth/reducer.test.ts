@@ -1,6 +1,5 @@
-import { reducer } from './reducer';
+import { default as reducer, AuthInfo, UserIdentity } from './reducer';
 import * as actions from './actions';
-import { AuthInfo } from './model';
 
 describe('auth reducer', () => {
     it('should return the initial state', () => {
@@ -10,10 +9,16 @@ describe('auth reducer', () => {
     });
 
     it('should handle LOGIN_SUCCESS', () => {
-        const authInfo: AuthInfo = {
-            clientToken: '',
-            userRole: 6,
+        const userIdentity: UserIdentity = {
+            roleId: 6,
+            phoneHint: '71',
+            userId: 1,
             userChannel: 1
+        };
+
+        const authInfo: AuthInfo = {
+            clientToken: 'abacadaba',
+            userIdentity
         };
 
         expect(
@@ -22,10 +27,14 @@ describe('auth reducer', () => {
                 value: authInfo
             })
         ).toEqual({
-            isAuthenticated: true,
-            clientToken: '',
-            userRole: 6,
-            userChannel: 1
+            isAuthenticated: false,
+            clientToken: 'abacadaba',
+            userIdentity: {
+                roleId: 6,
+                phoneHint: '71',
+                userId: 1,
+                userChannel: 1
+            }
         });
     });
 

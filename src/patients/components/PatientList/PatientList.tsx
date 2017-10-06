@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Patient, fetchAllPatients } from '../../';
+import { fetchSingleSignOnInfo } from '../../../dosespot';
 import { GlobalState } from '../../../rootReducer';
+import { SingleSignOnInfo } from '../../';
 import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -12,7 +14,9 @@ import './PatientList.css';
 
 interface PatientListProps extends RouteComponentProps<{}> {
     patients : Array<Patient>;
+    singleSignOn: SingleSignOnInfo;
     fetchAllPatients: () => void;
+    fetchSingleSignOnInfo: () => void;
 }
 
 class PatientList extends React.Component<PatientListProps, {}> {
@@ -25,9 +29,11 @@ class PatientList extends React.Component<PatientListProps, {}> {
 
     componentDidMount() {
         this.props.fetchAllPatients();
+        this.props.fetchSingleSignOnInfo();
     }
 
     handlePatientClick(patient: Patient) {
+        patient.sso = this.props.singleSignOn;
         this.props.history.push(`/patients/${patient.id}`, patient);
     }
 
@@ -57,8 +63,9 @@ class PatientList extends React.Component<PatientListProps, {}> {
 
 const mapStateToProps= (state: GlobalState) => {
     return {
-        patients: state.patients.items
+        patients: state.patients.items,
+        singleSignOn: state.dosespot.sso
     }
 }
 
-export const PatientListContainer = connect<{}, PatientListProps, {}>(mapStateToProps, { fetchAllPatients })(PatientList);
+export const PatientListContainer = connect<{}, PatientListProps, {}>(mapStateToProps, { fetchAllPatients, fetchSingleSignOnInfo })(PatientList);

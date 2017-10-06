@@ -1,0 +1,56 @@
+.chat-message {
+    width: 227px;
+    font-size: 16px;
+}
+
+.chat-message.my-message {
+    color: #ffffff;
+}
+
+.chat-message:not(.my-message) {
+    color: #000000;
+}
+
+.chat-message-content {
+    padding: 10px 15px;
+}
+
+.chat-message-avatar {
+    height: 30px;
+}
+
+.chat-message:not(.my-message) > .chat-message-avatar {
+    text-align: left;
+}
+
+.chat-message.my-message > .chat-message-avatar {
+    text-align: right;
+}
+
+.chat-message.my-message > .chat-message-content {
+    background-color: #67b2a6;
+    border-radius: 11px 0px 11px 11px;
+}
+
+.chat-message:not(.my-message) > .chat-message-content {
+    background-color: #f7f9f8;
+    border-radius: 0px 11px 11px 11px;
+}
+
+.chat-message > .chat-message-time {
+    height: 20px;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 12px;
+    color: #c6d3d1;
+    padding: 4px 15px;
+}
+
+.chat-message:not(.my-message) > .chat-message-time {
+    text-align: left;
+}
+
+
+.chat-message.my-message > .chat-message-time {
+    text-align: right;
+}

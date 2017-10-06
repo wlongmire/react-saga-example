@@ -1,0 +1,52 @@
+.chat-container {
+    display: grid;
+    grid-template-rows: 0px 1fr 60px;
+    grid-template-areas:
+        "header"
+        "body"
+        "footer";
+    height: 100vh;
+}
+
+.chat-container-header {
+    grid-area: header;
+}
+
+.chat-container-body {
+    grid-area: body;
+    overflow-y: scroll;
+    padding: 30px;
+}
+
+.chat-container-footer {
+    display: grid;
+    grid-template-columns: 50px 1fr 75px;
+    grid-template-areas: "attachments text send";
+    grid-area: footer;
+    background-color: #f7f9f8;
+    vertical-align: middle;
+}
+
+.chat-attachments-button {
+    grid-area: attachments;
+    background-color: transparent;
+}
+
+.chat-text-input {
+    grid-area: text;
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    font-size: 16px;
+}
+
+.chat-send-button {
+    grid-area: send;
+    border: none;
+    color: #979797;
+    background-color: transparent;
+    padding: 0;
+    font-size: 16px;
+    cursor: pointer;
+}

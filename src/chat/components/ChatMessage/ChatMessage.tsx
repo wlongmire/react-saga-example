@@ -9,9 +9,13 @@ import './ChatMessage.css';
 interface ChatMessageProps {
     message: Model.ChatMessage
     isSender: boolean;
+    showAvatar: boolean;
+    contentUrl?: string;
 }
 
-interface ChatMessageState {}
+interface ChatMessageState {
+    contentType?: string;
+}
 
 export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageState> {
 
@@ -24,22 +28,22 @@ export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageSt
     }
 
     render() {
-        // console.log(this.props.message.recorded);
-        // console.log(Moment(Number(this.props.message.recorded)));
-        // console.log(new Date(Number(this.props.message.recorded)));
+        console.log('contentType:', this.props.message.payload.content_type);
         return (
             <div className={classNames('chat-message', {'my-message': this.props.isSender})}>
-                <div className="chat-message-avatar">
-                    <Avatar 
-                        size={28}
-                        src={this.getWebAvatarUrl(this.props.message)}>
-                    </Avatar>
-                </div>
+                {this.props.showAvatar &&
+                    <div className="chat-message-avatar">
+                        <Avatar 
+                            size={28}
+                            src={this.getWebAvatarUrl(this.props.message)}>
+                        </Avatar>   
+                    </div>
+                }
                 <div className={classNames('chat-message-content')}>
                     {this.props.message.payload.content_text}
                 </div>
                 <div className="chat-message-time">
-                    {Moment(this.props.message.recorded).format('h:mmA')}
+                    {Moment(this.props.message.recorded, 'X').format('h:mm A')}
                 </div>
             </div>
         )

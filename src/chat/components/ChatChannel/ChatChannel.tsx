@@ -4,7 +4,7 @@ import * as Model from '../../reducer';
 import { Patient } from '../../../patients';
 import { ChatMessage } from '../ChatMessage';
 import * as uuidv4 from 'uuid/v4';
-// import { ChatConversation } from '../ChatConversation';
+import * as Moment from 'moment';
 
 import './ChatChannel.css';
 
@@ -23,7 +23,8 @@ interface ChatChannelState {
 }
 
 class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
-    private messagesEnd: HTMLDivElement | null;
+    private chatContainerBody: HTMLDivElement | null;
+    private chatTextInput: HTMLInputElement | null;
 
     constructor() {
         super();
@@ -46,14 +47,26 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         // wss://api.life.cheap -- hit a different server instead - koa, express
         // let token = localStorage.getItem('access_token') as string;
         // console.log('token');
-        // let target = "wss://@api.life.co/phi";
-        // const socket = new WebSocket(target, '235caa2f-cac5-4a58-b57e-dec99a398db2');
-        const socket = new WebSocket(`ws://${process.env.REACT_APP_CHAT_API_HOST}`);
+        // let target = "wss://api.life.co/phi";
+        // const socket = new WebSocket(target, '6ECC5C6A-3E3F-4AAF-BFD3-BA095AA2E62B');
+        const socket = new WebSocket(`ws://@${process.env.REACT_APP_CHAT_API_HOST}`, '6ECC5C6A-3E3F-4AAF-BFD3-BA095AA2E62B');
         socket.addEventListener('open', this.onSocketOpen);
         socket.addEventListener('message', this.onSocketMessageReceived);
         socket.addEventListener('error', this.onSocketError);
         socket.addEventListener('close', this.onSocketClose);
         this.setState({ socket });
+
+        if (this.chatTextInput) {
+            this.chatTextInput.focus();
+        }
+    }
+
+    componentWillUnmount() {
+        const socket = this.state.socket;
+        if (socket) {
+            socket.close();
+        }
+        this.setState({ socket: undefined});
     }
 
     handleKeyDown(e: any) {
@@ -146,8 +159,8 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         const messages = this.state.messages;
         messages.push(msg);
         this.setState({messages}, () => {
-            if (!this.messagesEnd) return;
-            this.messagesEnd.scrollIntoView();
+            if (!this.chatContainerBody) return;
+            this.chatContainerBody.scrollTop = this.chatContainerBody.scrollHeight;
         });
     }
 
@@ -159,19 +172,47 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         return (
             <div className="chat-container">
                 <div className="chat-container-header"></div>
-                <div className="chat-container-body">
+                <div className="chat-container-body" ref={(el) => this.chatContainerBody = el}>
                     {
-                        this.state.messages.map((message: Model.ChatMessage, index: number) => {
-                            return (<ChatMessage key={index} message={message} isSender={this.props.userId == message.user_id} />)
+                        this.state.messages.map((message: Model.ChatMessage, index: number, array: Model.ChatMessage[]) => {
+                            let showAvatar = true;
+                            let showDayHeader = true;
+                            if (index > 0) {
+                                const prev = array[index - 1];
+                                showAvatar = prev.user_id != message.user_id;
+                                
+                                const prevDate = Moment(prev.recorded, 'X');
+                                const currentDate = Moment(message.recorded, 'X');
+
+                                showDayHeader = !prevDate.isSame(currentDate, 'month');
+                            }
+                            
+                            return (
+                                <div className="chat-message-container">
+                                    {showDayHeader &&
+                                        <div className="chat-message-day-title">{Moment(message.recorded, 'X').format('MMMM Do')}</div>
+                                    }
+                                    <ChatMessage 
+                                        key={index} 
+                                        message={message} 
+                                        isSender={this.props.userId == message.user_id} 
+                                        showAvatar={showAvatar}
+                                    />
+                                </div>
+                            )
                         })
                     }
-                    <div ref={(el) => this.messagesEnd = el}></div>
                 </div>
                 <div className="chat-container-footer">
                     <a className="chat-attachments-button">
-
+                        <i className="material-icons">attach_file</i>
                     </a>
-                    <input className="chat-text-input" value={this.state.messageText} onChange={this.handleTextChange} onKeyDown={this.handleKeyDown} />
+                    <input 
+                        className="chat-text-input" 
+                        ref={(el) => this.chatTextInput = el }
+                        value={this.state.messageText} 
+                        onChange={this.handleTextChange} 
+                        onKeyDown={this.handleKeyDown} />
                     <input type="button" className="chat-send-button" onClick={this.handleSubmit} value="Send" />
                 </div>
             </div>

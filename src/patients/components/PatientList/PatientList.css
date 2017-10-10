@@ -1,0 +1,24 @@
+.patient-list{
+    display: grid;
+    width: 80%;
+    margin: 2.5em auto;
+}
+
+.patient-list .subheader h4{
+    font-size: 1.5em;
+}
+
+.patient-list .subheader span{
+    color: #f84445;
+    font-weight: bold;
+}
+
+.patient-list .subheader span,
+.patient-list .subheader p{
+    font-size: 1.1em;
+}
+
+.patient-list .subheader .list-title{
+    color: #686868;
+    font-size: .9em;
+}

@@ -6,7 +6,6 @@ import { GlobalState } from '../../../rootReducer';
 import { SingleSignOnInfo } from '../../';
 import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -38,10 +37,19 @@ class PatientList extends React.Component<PatientListProps, {}> {
     }
 
     render() {
+        if(this.props.patients.length === 0){
+            return (
+                <div>Loading ...</div>
+            )
+        }
         return (
             <div className="patient-list">
+                <div className="subheader">
+                    <h4>Hi Dr.Lee</h4>
+                    <p>You have <span>2 New Messages</span></p>
+                    <span className="list-title">Patients</span>
+                </div>
                 <List>
-                    <Subheader>Patients</Subheader>
                     { this.props.patients &&
                         this.props.patients.map((patient: Patient, index: number) => {
                             return (
@@ -50,6 +58,7 @@ class PatientList extends React.Component<PatientListProps, {}> {
                                     primaryText={patient.name}
                                     leftAvatar={<Avatar src={patient.avatar } />}
                                     rightIcon={<CommunicationChatBubble />}
+                                    style={{borderTop:"1px solid rgba(0,0,0,.12)"}}
                                     onClick={() => this.handlePatientClick(patient)}
                                 />
                             );

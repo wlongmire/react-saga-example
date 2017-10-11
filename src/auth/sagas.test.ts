@@ -3,7 +3,7 @@ import * as Common from '../common';
 import * as actions from './actions';
 import { call, put } from 'redux-saga/effects';
 import { login } from './sagas';
-import { AuthCredentials, AuthInfo, UserIdentity } from './reducer';
+import { AuthCredentials, AuthInfo } from './reducer';
 
 describe('auth sagas', () => {
     it('should generate a loginSuccess action', () => {
@@ -11,8 +11,8 @@ describe('auth sagas', () => {
         const password = 'password';
     
         const credentials = <AuthCredentials>{email, password};
-        const identity = new UserIdentity(6, '71', 1, 1);
-        const response = new AuthInfo('abacadaba', identity);
+        // const identity = new Identity(6, '71', 1, 1);
+        const response = new AuthInfo('abacadaba', 1, 1, '00');
     
         const action = <Common.ActionResult<AuthCredentials>>{ 
             type: actions.ActionType.LOGIN, 

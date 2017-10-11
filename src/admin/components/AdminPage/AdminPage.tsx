@@ -109,7 +109,6 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
     }
 
     render() {
-        console.log('statuses: ', this.props.statuses);
         return(
             <div className="admin-page-wrapper">
                 <aside className="admin-sidebar">

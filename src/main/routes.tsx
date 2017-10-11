@@ -5,14 +5,17 @@ import * as Visits from '../visits';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
-import * as AuthService from '../auth/service'
 import { Navbar } from '../navigation';
-import { PatientListContainer, PatientDetail } from '../patients';
+import { PatientList } from '../patients';
 import { DoseSpotUser } from '../dosespot';
 import { UsersContainer, UserDetail } from '../users';
+import { GlobalState } from '../rootReducer';
 import { history } from '../common';
+import { isAuthenticated } from '../utils/auth-util';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
+    const state = store.getState() as GlobalState;
+    console.dir('state', state);
     return (
         <Router history={history}>
             <div>
@@ -34,7 +37,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 <Route
                     path="/"
                     render={(props) => (
-                        !AuthService.isAuthenticated() ? (
+                        !isAuthenticated() ? (
                             <Redirect 
                                 to={{
                                     pathname: '/login',
@@ -46,52 +49,55 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <div className="content-body">
                     <Route 
-                        exact={true}
                         path="/"
+                        exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect 
                                     to={{
                                         pathname: '/login',
                                         state: { referrer: '/' }
                                         }} 
                                 />
-                            ) : ( <PatientListContainer {...props} /> )
+                            ) : ( 
+                                <Redirect to={{pathname: '/patients'}} /> 
+                            )
                         )} 
                     />
-                    <Route 
+                    {/* <Route 
                         path="/patients/:patientId"
                         exact={true}
-                        render={(props) => (
-                            !AuthService.isAuthenticated() ? (
-                                <Redirect 
-                                    to={{
-                                        pathname: '/login',
-                                        state: { referrer: '/patients/:patientId' }
-                                        }} 
-                                />
-                            ) : ( <PatientDetail {...props} /> )
-                        )}
-                    />
+                        render={(props) => { 
+                            console.dir(props);
+                            return (
+                                !AuthService.isAuthenticated() ? (
+                                    <Redirect 
+                                        to={{
+                                            pathname: '/login',
+                                            state: { referrer: '/patients/:patientId' }
+                                            }} 
+                                    />
+                                ) : ( <PatientDetail {...props} /> )
+                        )}}
+                    /> */}
                     <Route 
-                        path="/patients"
-                        exact={true}
+                        path="/patients/:patientId?"
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect 
                                     to={{
                                         pathname: '/login',
                                         state: { referrer: '/patients' }
                                         }} 
                                 />
-                            ) : ( <PatientListContainer {...props} /> )
+                            ) : ( <PatientList {...props} /> )
                         )}
                     />
                     <Route 
                         path="/dosespot"
                         exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect 
                                     to={{
                                         pathname: '/login',
@@ -105,7 +111,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         path="/users/:userId"
                         exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -119,7 +125,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         path="/users"
                         exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -132,7 +138,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 <Route
                         path="/schedule"
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -148,7 +154,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     <Route 
                         path="/visits" 
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -161,7 +167,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     <Route  
                         path="/admin"
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',

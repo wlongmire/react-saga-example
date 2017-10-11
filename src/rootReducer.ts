@@ -12,6 +12,7 @@ import { patientsReducer, PatientsState } from './patients';
 import { doseSpotReducer, DoseSpotState } from './dosespot';
 import { authReducer, AuthState } from './auth';
 import { adminReducer, DoseSpotState as AdminDoseSpotState } from './admin';
+import { chatReducer, ChatState } from './chat';
 import { userReducer, UserState } from './users';
 
 // NOTE: ADD MODULE REDUCERS HERE
@@ -27,12 +28,13 @@ const rxReducer = Rx.Reducers.root;
 
 // NOTE: REGISTER MODULE REDUCERS HERE
 export default combineReducers({
-    cases : casesReducer,
+    cases: casesReducer,
+    chat: chatReducer,
     visits: visitsReducer,
     auth: authReducer,
     testorders: testOrdersReducer,
     wellness: wellnessReducer,
-    others:othersReducer,
+    others: othersReducer,
     treatments: rxReducer,
     patients: patientsReducer,
     dosespot: doseSpotReducer,
@@ -45,5 +47,6 @@ export interface GlobalState {
     dosespot: DoseSpotState;
     auth: AuthState;
     admin: AdminDoseSpotState;
-    users: UserState
+    users: UserState;
+    chat: ChatState;
 }

@@ -9,14 +9,13 @@ import * as Moment from 'moment';
 import './ChatChannel.css';
 
 interface ChatChannelProps {
-    channel: number;
+    channel?: Model.ChatChannelInfo;
     userId: number;
     patient: Patient
-    accessToken: string;
+    onSendMessage: (message: Model.ChatMessage) => void;
 }
 
 interface ChatChannelState {
-    socket?: WebSocket;
     messages: Array<Model.ChatMessage>;
     messageText?: string;
     pendingSends: string[];
@@ -34,39 +33,48 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
             pendingSends: []
         };
 
-        this.onSocketClose = this.onSocketClose.bind(this);
-        this.onSocketError = this.onSocketError.bind(this);
-        this.onSocketMessageReceived = this.onSocketMessageReceived.bind(this);
-        this.onSocketOpen = this.onSocketOpen.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     componentDidMount() {
-        // wss://api.life.cheap -- hit a different server instead - koa, express
-        // let token = localStorage.getItem('access_token') as string;
-        // console.log('token');
-        // let target = "wss://api.life.co/phi";
-        // const socket = new WebSocket(target, '6ECC5C6A-3E3F-4AAF-BFD3-BA095AA2E62B');
-        const socket = new WebSocket(`ws://@${process.env.REACT_APP_CHAT_API_HOST}`, '6ECC5C6A-3E3F-4AAF-BFD3-BA095AA2E62B');
-        socket.addEventListener('open', this.onSocketOpen);
-        socket.addEventListener('message', this.onSocketMessageReceived);
-        socket.addEventListener('error', this.onSocketError);
-        socket.addEventListener('close', this.onSocketClose);
-        this.setState({ socket });
+        if (this.chatContainerBody) {
+            this.chatContainerBody.scrollTop = this.chatContainerBody.scrollHeight;
+        }
 
         if (this.chatTextInput) {
             this.chatTextInput.focus();
         }
     }
 
-    componentWillUnmount() {
-        const socket = this.state.socket;
-        if (socket) {
-            socket.close();
+    componentDidUpdate() {
+        this.refreshPending();
+
+        if (this.chatContainerBody) {
+            this.chatContainerBody.scrollTop = this.chatContainerBody.scrollHeight;
         }
-        this.setState({ socket: undefined});
+
+        if (this.chatTextInput) {
+            this.chatTextInput.focus();
+        }
+    }
+
+    refreshPending() {
+        // clear pending sends
+        const pendingSends = this.state.pendingSends;
+        
+        if (this.props.channel) {
+            this.props.channel.messages.forEach((message: Model.ChatMessage) => {
+                const itemIndex = pendingSends.indexOf(message.event_id);
+                
+                if (itemIndex != -1) {
+                    pendingSends.splice(itemIndex, 1);
+                    this.setState({pendingSends});
+                    this.setState({messageText: ''});
+                }
+            });
+        }
     }
 
     handleKeyDown(e: any) {
@@ -80,47 +88,46 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
     }
 
     doSubmit() {
-        if (!this.state.socket || (this.state.messageText == '')) return;
+        if (!this.props.onSendMessage || !this.state.messageText) return;
         
             const id = uuidv4();
             const pendingSends = this.state.pendingSends;
             pendingSends.push(id);
             this.setState({ pendingSends });
-    
-            this.state.socket.send(JSON.stringify(
-                {
-                    channel_id: this.props.channel,
-                    event_id: id,
-                    user_id: `${this.props.userId}`,
-                    event_name: "chat_message",
-                    version_major: 1,
-                    version_minor: 1,
-                    payload: {
-                        content_text: this.state.messageText,
-                        sender_meta: {
+
+            const message: Model.ChatMessage = {
+                channel_id: this.props.channel ? this.props.channel.channelId : -1,
+                event_id: id,
+                user_id: this.props.userId,
+                event_type: "chat_message",
+                version_major: 1,
+                version_minor: 1,
+                payload: {
+                    content_text: this.state.messageText,
+                    sender_meta: {
                             user_id: this.props.patient.id,
-                            // first_name: user.firstName,
-                            // last_name: user.lastName,
-                            // title: user.title,
+                            first_name: this.props.patient.firstName,
+                            last_name: this.props.patient.lastName,
                             avatar_urls: {
                                 ios: {
-                                    url: 'https://randomuser.me/api/portraits/thumb/men/47.jpg'
+                                    url: ''
                                 },
                                 android: {
-                                    url: 'https://randomuser.me/api/portraits/thumb/men/47.jpg'
+                                    url: ''
                                 },
                                 web: {
-                                    url: 'https://randomuser.me/api/portraits/thumb/men/47.jpg'
+                                    url: ''
                                 }
-                            },
-                            content_type: 'application/x-vnd.lifeco.schedule;version=1.0.0',
-                            content_uri: '8a80709f-d0aa-44cc-83ea-79897f8829be',
-                            content_preview_uri: '8a80709f-d0aa-44cc-83ea-79897f8829be',
-                            content_action_url: 'schedule/123'
-                        }
+                            }
+                        },
+                    content_type: 'text/plain',
+                    content_uri: undefined,
+                    content_preview_uri: undefined,
+                    content_action_uri: undefined
                     }
-                }
-            ));
+                };
+
+        this.props.onSendMessage(message);
     }
 
     handleSubmit(e: any) {
@@ -132,51 +139,16 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         return JSON.parse(data) as Model.ChatMessage;
     }
 
-    onSocketError(e: any) {
-        console.log('error: ', e);
-    }
-
-    onSocketOpen(e: any) {
-        console.log('open: ', e);
-    }
-
-    onSocketMessageReceived(e: any) {
-        const msg = this.parseMessage(e.data);
-        console.log('message: ', msg);
-
-        const pendingSends = this.state.pendingSends;
-
-        console.log('eventId:', msg.event_id);
-        const itemIndex = pendingSends.indexOf(msg.event_id);
-        console.log('index:', itemIndex);
-
-        if (itemIndex != -1) {
-            pendingSends.splice(itemIndex, 1);
-            this.setState({pendingSends});
-            this.setState({messageText: ''});
-        }
-        
-        const messages = this.state.messages;
-        messages.push(msg);
-        this.setState({messages}, () => {
-            if (!this.chatContainerBody) return;
-            this.chatContainerBody.scrollTop = this.chatContainerBody.scrollHeight;
-        });
-    }
-
-    onSocketClose(e: any) {
-        console.log('close: ', e);
-    }
-
     render() {
         return (
             <div className="chat-container">
                 <div className="chat-container-header"></div>
                 <div className="chat-container-body" ref={(el) => this.chatContainerBody = el}>
-                    {
-                        this.state.messages.map((message: Model.ChatMessage, index: number, array: Model.ChatMessage[]) => {
+                    {this.props.channel &&
+                        this.props.channel.messages.map((message: Model.ChatMessage, index: number, array: Model.ChatMessage[]) => {
                             let showAvatar = true;
                             let showDayHeader = true;
+
                             if (index > 0) {
                                 const prev = array[index - 1];
                                 showAvatar = prev.user_id != message.user_id;
@@ -184,11 +156,11 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
                                 const prevDate = Moment(prev.recorded, 'X');
                                 const currentDate = Moment(message.recorded, 'X');
 
-                                showDayHeader = !prevDate.isSame(currentDate, 'month');
+                                showDayHeader = !prevDate.isSame(currentDate, 'day');
                             }
                             
                             return (
-                                <div className="chat-message-container">
+                                <div key={index} className="chat-message-container">
                                     {showDayHeader &&
                                         <div className="chat-message-day-title">{Moment(message.recorded, 'X').format('MMMM Do')}</div>
                                     }
@@ -220,4 +192,4 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
     }
 }
 
-export const ChatChannel = connect<{}, ChatChannelProps, ChatChannelProps>(null, { })(_ChatChannel);
+export const ChatChannel = connect<{}, ChatChannelProps, ChatChannelProps>(null, {  })(_ChatChannel);

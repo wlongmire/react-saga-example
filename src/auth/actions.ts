@@ -1,6 +1,5 @@
-import * as Common from '../common';
-import { AuthInfo } from './reducer';
-import { AuthCredentials } from './reducer';
+import { ActionResult } from '../common';
+import { AuthCredentials, AuthInfo, Identity } from './reducer';
 
 export module ActionType {
     export const LOGIN = 'auth/LOGIN';
@@ -18,104 +17,127 @@ export module ActionType {
     export const RESEND_CODE = 'auth/RESEND_CODE';
     export const RESEND_CODE_SUCCESS = 'auth/RESEND_CODE_SUCCESS';
     export const RESEND_CODE_FAIL = 'auth/RESEND_CODE_FAIL';
+    export const FETCH_IDENTITY = 'auth/FETCH_IDENTITY';
+    export const FETCH_IDENTITY_SUCCESS = 'auth/FETCH_IDENTITY_SUCCESS';
+    export const FETCH_IDENTITY_FAIL = 'auth/FETCH_IDENTITY_FAIL';
 }
 
-export const login = (credentials: AuthCredentials): Common.ActionResult<AuthCredentials> => {
+export const login = (credentials: AuthCredentials): ActionResult<AuthCredentials> => {
     return {
         type: ActionType.LOGIN,
         value: credentials
     };
 };
 
-export const loginSuccess = (authInfo: AuthInfo): Common.ActionResult<AuthInfo> => {
+export const loginSuccess = (info: AuthInfo): ActionResult<AuthInfo> => {
     return {
         type: ActionType.LOGIN_SUCCESS,
-        value: authInfo
+        value: info
     };
 };
 
-export const loginFail = (error: string): Common.ActionResult<{}> => {
+export const loginFail = (error: string): ActionResult<{}> => {
     return {
         type: ActionType.LOGIN_FAIL,
         value: error
     };
 };
 
-export const  logout = (): Common.ActionResult<{}> => {
+export const  logout = (): ActionResult<{}> => {
     const action = {
         type: ActionType.LOGOUT
     };
     return action;
 };
 
-export const logoutSuccess = (): Common.ActionResult<{}> => {
+export const logoutSuccess = (): ActionResult<{}> => {
     return {
         type: ActionType.LOGOUT_SUCCESS
     };
 };
 
-export const logoutFail = (e: Error): Common.ActionResult<{}> => {
+export const logoutFail = (e: Error): ActionResult<{}> => {
     return {
         type: ActionType.LOGOUT_FAIL,
         value: e
     };
 };
 
-export const forgotPassword = (email: string): Common.ActionResult<string> => {
+export const forgotPassword = (email: string): ActionResult<string> => {
     return {
         type: ActionType.FORGOT_PASSWORD,
         value: email
     }
 }
 
-export const forgotPasswordSuccess = (): Common.ActionResult<{}> => {
+export const forgotPasswordSuccess = (): ActionResult<{}> => {
     return {
         type: ActionType.FORGOT_PASSWORD_SUCCESS
     }
 }
 
-export const forgotPasswordFail = (error: Error): Common.ActionResult<Error> => {
+export const forgotPasswordFail = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FORGOT_PASSWORD_FAIL,
         value: error
     }
 }
 
-export const verifyCode = (code: string): Common.ActionResult<string> => {
+export const verifyCode = (code: string): ActionResult<string> => {
     return {
         type: ActionType.VERIFY_CODE,
         value: code
     }
 }
 
-export const verifyCodeSuccess = (): Common.ActionResult<{}> => {
+export const verifyCodeSuccess = (): ActionResult<{}> => {
     return {
         type: ActionType.VERIFY_CODE_SUCCESS
     }
 }
 
-export const verifyCodeFail = (e: Error): Common.ActionResult<Error> => {
+export const verifyCodeFail = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.VERIFY_CODE_FAIL,
         value: e
     }
 }
 
-export const resendCode = (): Common.ActionResult<{}> => {
+export const resendCode = (): ActionResult<{}> => {
     return {
         type: ActionType.RESEND_CODE
     }
 }
 
-export const resendCodeSuccess = (): Common.ActionResult<{}> => {
+export const resendCodeSuccess = (): ActionResult<null> => {
     return {
         type: ActionType.RESEND_CODE_SUCCESS
     }
 }
 
-export const resendCodeFail = (e: Error): Common.ActionResult<Error> => {
+export const resendCodeFail = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.RESEND_CODE_FAIL,
         value: e
+    }
+}
+
+export const fetchIdentity = (): ActionResult<null> => {
+    return {
+        type: ActionType.FETCH_IDENTITY
+    }
+}
+
+export const fetchIdentitySuccess = (identity: Identity): ActionResult<Identity> => {
+    return {
+        type: ActionType.FETCH_IDENTITY_SUCCESS,
+        value: identity
+    }
+}
+
+export const fetchIdentityFail = (error: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.FETCH_IDENTITY_FAIL,
+        value: error
     }
 }

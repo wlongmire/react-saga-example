@@ -18,9 +18,8 @@ interface ChatMessageState {
 }
 
 export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageState> {
-
     getWebAvatarUrl(message: Model.ChatMessage): string | undefined {
-        if (message.payload.sender_meta.avatar_urls.web) {
+        if (message.payload.sender_meta.avatar_urls && message.payload.sender_meta.avatar_urls.web) {
             return message.payload.sender_meta.avatar_urls.web.url;
         }
 
@@ -28,7 +27,6 @@ export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageSt
     }
 
     render() {
-        console.log('contentType:', this.props.message.payload.content_type);
         return (
             <div className={classNames('chat-message', {'my-message': this.props.isSender})}>
                 {this.props.showAvatar &&

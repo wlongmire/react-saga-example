@@ -1,14 +1,20 @@
 import { ActionResult } from '../common';
 import * as Actions from './actions';
+import { ChatChannelInfo } from '../chat';
 
 export interface Patient {
     id: number;
+    firstName: string;
+    lastName: string;
     name: string;
     primaryChannel: number;
     age?: string;
     gender?: string;
     avatar?: string;
+    phone?: string;
+    email?: string;
     sso?: SingleSignOnInfo;
+    channel?: ChatChannelInfo;
 }
 
 export interface SingleSignOnInfo {
@@ -23,20 +29,22 @@ export interface SingleSignOnInfo {
 export class PatientsState {
     isFetching: boolean;
     items: Array<Patient>;
-    lastFetchError: Error | undefined | null;
-    ssoInfo: SingleSignOnInfo | undefined | null;
+    lastFetchError?: Error;
+    ssoInfo?: SingleSignOnInfo;
+    selectedPatient?: Patient;
 }
 
 function initialState(): PatientsState {
     return {
         isFetching: false,
         items: [],
-        lastFetchError: null,
-        ssoInfo: null
+        lastFetchError: undefined,
+        ssoInfo: undefined,
+        selectedPatient: undefined
     }
 }
 
-export default function reducer(state = initialState(), action: ActionResult<{}>){
+export default function reducer(state = initialState(), action: ActionResult<{}>) {
 
     switch(action.type) {
         case Actions.ActionType.FETCH_ALL_PATIENTS:
@@ -69,6 +77,12 @@ export default function reducer(state = initialState(), action: ActionResult<{}>
 
         case Actions.ActionType.FETCH_PATIENT_FAILURE:
             return { ...state, isFetching: false, lastFetchError: action.value }
+
+        case Actions.ActionType.SELECT_PATIENT:
+            return { ...state, selectedPatient: action.value as Patient };
+
+        case Actions.ActionType.UNSELECT_PATIENT:
+            return { ...state, selectedPatient: undefined };
 
         default: 
             return state;

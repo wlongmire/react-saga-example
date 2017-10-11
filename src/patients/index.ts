@@ -1,6 +1,6 @@
 
-export { ActionType, fetchAllPatients } from './actions';
-export { PatientListContainer, PatientDetail } from './components';
+export { ActionType, fetchAllPatients, selectPatient, unselectPatient } from './actions';
+export { PatientList, PatientDetail } from './components';
 export { default as patientsSaga } from './sagas';
 export { default as patientsReducer, 
                     PatientsState, 

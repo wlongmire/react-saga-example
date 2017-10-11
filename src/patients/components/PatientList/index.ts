@@ -1,1 +1,1 @@
-export { PatientListContainer } from './PatientList';
+export { PatientList } from './PatientList';

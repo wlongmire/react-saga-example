@@ -15,7 +15,7 @@ function* watchFetchAllPatients(){
     yield takeEvery(ActionType.FETCH_ALL_PATIENTS, fetchPatients)
 }
 
-export default function* root(){
+export default function* root() {
     yield all([
         fork(watchFetchAllPatients)
     ])

@@ -1,3 +1,4 @@
+import { getAuthToken } from './auth-util';
 
 export const BASE_URL = `https://${process.env.REACT_APP_API_HOST}/exposed`
 
@@ -21,8 +22,8 @@ export const makeUrl = (basePath: string, extendedPath?: string) => {
 };
 
 export const getRequestInit = (method: string, body: any = null, useAppToken: boolean = false, contentType?: string): RequestInit => {
-    const accessToken = useAppToken ? process.env.REACT_APP_API_TOKEN : localStorage.getItem('access_token');
-    const headers = new Headers({Authorization: `Token ${accessToken}`});
+    const token = useAppToken ? process.env.REACT_APP_API_TOKEN : getAuthToken();
+    const headers = new Headers({Authorization: `Token ${token}`});
 
     if (contentType) {
         headers.append('Content-Type', contentType);

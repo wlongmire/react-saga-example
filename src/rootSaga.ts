@@ -10,6 +10,7 @@ import { patientsSaga } from './patients';
 import { doseSpotSaga } from './dosespot';
 import { adminSaga } from './admin';
 import { userSaga } from './users';
+import { chatSaga } from './chat';
 
 export default function* root() {
     yield all([
@@ -19,7 +20,8 @@ export default function* root() {
         fork(userSaga),
         fork(patientsSaga),
         fork(doseSpotSaga),
-        fork(adminSaga)
+        fork(adminSaga),
+        fork(chatSaga)
         // fork(treatments.Sagas.root)
         // fork(users.Sagas.root),
     ]);

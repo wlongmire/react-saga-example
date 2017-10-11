@@ -1,9 +1,13 @@
-import { default as reducer } from './reducer';
+import { default as reducer, AuthState } from './reducer';
 import * as actions from './actions';
 
 describe('auth reducer', () => {
+    const initialState: AuthState = {
+        isAuthenticated: false
+    }
+
     it('should return the initial state', () => {
-        expect(reducer(undefined, { type: actions.ActionType.LOGIN })).toEqual({
+        expect(reducer(initialState, { type: actions.ActionType.LOGIN })).toEqual({
             isAuthenticated: false
         });
     });
@@ -12,14 +16,16 @@ describe('auth reducer', () => {
         const token = 'abacadaba';
 
         expect(
-            reducer(undefined, {
+            reducer(initialState, {
                 type: actions.ActionType.LOGIN_SUCCESS,
                 value: token
             })
         ).toEqual({
-            isAuthenticated: false,
-            clientToken: 'abacadaba',
-            
+            auth: 'abacadaba',
+            clientToken: undefined,
+            clientTokenVerificationError: undefined,
+            clientTokenVerified: undefined,
+            isAuthenticated: false
         });
     });
 

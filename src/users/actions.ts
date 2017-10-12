@@ -1,7 +1,7 @@
 import { ActionResult } from '../common';
 import { User } from './reducer';
 
-// import * as Model from './models';
+import * as Model from './models';
 
 // const BASE_URL = 'https://api.life.cheap/exposed/list_my_patients'
 

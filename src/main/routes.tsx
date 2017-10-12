@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
 // import * as Application from '../application';
-import * as Zoo from '../zoo';
+// import * as Zoo from '../zoo';
 // import * as Visits from '../visits';
-import * as Users from '../users';
-import * as Visits from '../visits';
+// import * as Users from '../users';
+// import * as Visits from '../visits';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
@@ -94,7 +94,9 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                         state: { referrer: '/patients' }
                                         }} 
                                 />
-                            ) : ( <PatientList {...props} /> )
+                            ) : ( 
+                                    <PatientList {...props} /> 
+                                )
                         )}
                     />
                     <Route 
@@ -139,71 +141,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             ) : ( <UsersContainer {...props} /> )
                         )}
                     />
-                <Route
-<<<<<<< HEAD
-                    path="/login"
-                    render={(props) => <Auth.LoginContainer {...props} />}
-                />
-                {/* <Route 
-                    path="/visits" 
-                    render={(props) => (
-                        !AuthService.isAuthenticated() ? (
-                            <Redirect
-                                to={{
-                                    pathname: '/login',
-                                    state:{ referrer: '/visits'}
-                                }}
-                            />
-                        ) : ( <Visits.Components.VisitsContainer {...props} />)
-                    )}
-                /> */}
-
-                <Route 
-                    path="/reset-password"
-                    render={(props) => <Auth.Components.EmailResetForm />}
-                />
-                <Route 
-                    path="/update-password"
-                    render={(props) => <Auth.Components.UpdatePasswordForm />}
-                />
-
-                <Route 
-                    path="/reset-password"
-                    render={(props) => <Auth.Components.EmailResetForm />}
-                />
-                <Route 
-                    path="/update-password"
-                    render={(props) => <Auth.Components.UpdatePasswordForm />}
-                />
-                <Route  
-                    path="/admin"
-                    render={(props) => (
-                        !AuthService.isAuthenticated() ? (
-                            <Redirect
-                                to={{
-                                    pathname: '/login',
-                                    state: { referrer: '/admin'}
-                                }}
-                            />
-                        ) : ( <Admin.AdminPage {...props} />)
-                    )}
-                />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-                <Route 
-                    path="/reset-password"
-                    render={(props) => <Auth.EmailResetForm />}
-                />
-                <Route 
-                    path="/update-password"
-                    render={(props) => <Auth.UpdatePasswordForm />}
-                />
->>>>>>> wire up forgot password
-=======
->>>>>>> Updates to auth flows + user management
-=======
+                    <Route
                         path="/schedule"
                         render={(props) => (
                             !isAuthenticated() ? (
@@ -214,7 +152,8 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                     }}
                                 />
                             ) : ( <Schedule.Components.Schedules {...props} /> )
-                        )} />
+                        )} 
+                    />
                     <Route
                         path="/login"
                         render={(props) => <Auth.LoginContainer {...props} />}
@@ -226,10 +165,13 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                 <Redirect
                                     to={{
                                         pathname: '/login',
-                                        state:{ referrer: '/visits'}
+                                        state: { referrer: '/visits' }
                                     }}
                                 />
-                            ) : ( <Visits.Components.VisitsContainer {...props} />)
+                            ) : ( 
+                                {/* <Visits.Components.VisitsContainer {...props} /> */}
+                                
+                            )
                         )}
                     />
                     <Route  
@@ -246,7 +188,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         )}
                     />
                 </div>
->>>>>>> minor refactor + style updates
             </div>
         </Router>
     );

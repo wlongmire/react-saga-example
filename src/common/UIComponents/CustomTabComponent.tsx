@@ -53,25 +53,29 @@ export class CustomTabComponent extends React.Component<P, S>{
     //     return component;
     // }
 
-    render(){
+    render() {
+        console.log('custom tab');
         return(
             <div id="wrapper">
                 <div className="chat-section"></div>
                 <div className="right-section">
                     <div className="tabs">
                         {
-                            this.props.tabs.map((t:string, index:number)=>{
+                            this.props.tabs.map((t: string, index: number) => {
+                                console.log('tab iteration: ', t);
                                 return (
                                     <div key={index} className={t === this.props.clickedTab ? "tab-header-clicked": "tab-header"} onClick={() => this.props.handleClickTab(t)} >{this.capitalizeFirstLetter(t)}</div>
                                 )
                             })
                         }
-                    <span onClick={this.props.handleAddTab}className="add-icon"> + </span>
+                        <span onClick={this.props.handleAddTab} className="add-icon"> + </span>
                     </div>
                     
                     <div className="tab-content">
-
-                        {this.props.appComponent}
+                        {this.props.appComponent &&
+                            this.props.appComponent
+                        }
+                        {/* {this.props.appComponent} */}
 
                     </div>
                 </div>            

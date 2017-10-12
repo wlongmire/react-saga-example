@@ -92,6 +92,7 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     }
 
     renderPatientDetail(patient: Patient, channel?: ChatChannelInfo) {
+        console.log('fired');
         return (
             <PatientDetail patient={patient} channel={channel} onSendMessage={this.onSendMessage} />
         )

@@ -7,8 +7,8 @@ export const getAuthToken = () => {
         return auth.clientToken;
     }
     return null;
-}
+};
 
 export const isAuthenticated = () => {
     return getAuthToken() != null;
-}
+};

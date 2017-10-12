@@ -1,1 +1,1 @@
-export {Patient} from './Patient';
+// export {Patient} from './Patient';

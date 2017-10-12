@@ -5,6 +5,7 @@ import './VisitsCollection.css';
 interface IVisit {
 
 }
+
 interface VisitsCollectionProps {
     visits : Array<IVisit>;
     getVisitDetail: (id:number) => void;

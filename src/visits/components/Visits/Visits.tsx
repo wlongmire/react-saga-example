@@ -1,12 +1,12 @@
 import * as React from 'react';
-import VisitCollection from './VisitsCollection';
+// import VisitCollection from './VisitsCollection';
 // import ApplicationState from '../../../common';
 // import {connect} from 'react-redux';
 // import { bindActionCreators } from 'redux';
 // import {  Dispatch } from "redux";
 // import * as visitsActions from '../../actions';
 import * as VisitModels from '../../model';
-import * as Visits from './stubbedVisits';
+// import * as Visits from './stubbedVisits';
 import './Visits.css';
 
 
@@ -46,10 +46,10 @@ export class VisitsContainer extends React.Component<VisitsProps, VisitComponent
     render() {
         return (
             <div>
-                <VisitCollection
+                {/* <VisitCollection
                     visits={Visits.getAllVisits}
                     getVisitDetail={this.props.getSingleVisit}
-                />
+                /> */}
             </div>
         )
     }

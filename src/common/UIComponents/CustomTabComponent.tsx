@@ -40,22 +40,8 @@ export class CustomTabComponent extends React.Component<P, S>{
     capitalizeFirstLetter = (s:string) => {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
-
-    // getComponent = (id: string) => {
-    //     let component;
-    //     if(id === undefined){
-    //         component = this.props.tabs
-    //     } else {
-    //     component = this.props.tabs.filter((t: TabDescription)=>{
-    //         return t.id === id
-    //     })[0];
-    //     }
-    //     return component;
-    // }
-
     render() {
-        console.log('custom tab');
-        return(
+        return (
             <div id="wrapper">
                 <div className="chat-section"></div>
                 <div className="right-section">

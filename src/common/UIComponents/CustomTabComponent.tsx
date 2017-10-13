@@ -22,8 +22,6 @@ interface S {
     clickedTab: string
 }
 
-
-
 export class CustomTabComponent extends React.Component<P, S>{
     constructor(props:P){
         super(props)
@@ -36,10 +34,10 @@ export class CustomTabComponent extends React.Component<P, S>{
         }
     }
 
-
     capitalizeFirstLetter = (s:string) => {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
+    
     render() {
         return (
             <div id="wrapper">
@@ -48,7 +46,6 @@ export class CustomTabComponent extends React.Component<P, S>{
                     <div className="tabs">
                         {
                             this.props.tabs.map((t: string, index: number) => {
-                                console.log('tab iteration: ', t);
                                 return (
                                     <div key={index} className={t === this.props.clickedTab ? "tab-header-clicked": "tab-header"} onClick={() => this.props.handleClickTab(t)} >{this.capitalizeFirstLetter(t)}</div>
                                 )
@@ -61,8 +58,6 @@ export class CustomTabComponent extends React.Component<P, S>{
                         {this.props.appComponent &&
                             this.props.appComponent
                         }
-                        {/* {this.props.appComponent} */}
-
                     </div>
                 </div>            
             </div>

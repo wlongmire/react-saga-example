@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as Model from '../../reducer';
 import { Patient } from '../../../patients';
 import { ChatMessage } from '../ChatMessage';
+import { Identity } from '../../../auth';
 import * as uuidv4 from 'uuid/v4';
 import * as Moment from 'moment';
 
@@ -10,8 +11,8 @@ import './ChatChannel.css';
 
 interface ChatChannelProps {
     channel?: Model.ChatChannelInfo;
-    userId: number;
-    patient: Patient
+    user: Identity;
+    patient: Patient;
     onSendMessage: (message: Model.ChatMessage) => void;
 }
 
@@ -90,6 +91,8 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
     doSubmit() {
         if (!this.props.onSendMessage || !this.state.messageText) return;
         
+            const { user } = this.props;
+            if (!user.userInfo) return;
             const id = uuidv4();
             const pendingSends = this.state.pendingSends;
             pendingSends.push(id);
@@ -98,16 +101,17 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
             const message: Model.ChatMessage = {
                 channel_id: this.props.channel ? this.props.channel.channelId : -1,
                 event_id: id,
-                user_id: this.props.userId,
+                user_id: user.userId,
                 event_type: "chat_message",
                 version_major: 1,
                 version_minor: 1,
                 payload: {
                     content_text: this.state.messageText,
                     sender_meta: {
-                            user_id: this.props.patient.id,
-                            first_name: this.props.patient.firstName,
-                            last_name: this.props.patient.lastName,
+                            user_id: user.userId,
+                            first_name: user.userInfo.first || '',
+                            last_name: user.userInfo.last || '',
+                            title: user.roleName ? user.roleName.toLowerCase() : '',
                             avatar_urls: {
                                 ios: {
                                     url: ''
@@ -167,7 +171,7 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
                                     <ChatMessage 
                                         key={index} 
                                         message={message} 
-                                        isSender={this.props.userId == message.user_id} 
+                                        isSender={this.props.user.userId == message.user_id} 
                                         showAvatar={showAvatar}
                                     />
                                 </div>

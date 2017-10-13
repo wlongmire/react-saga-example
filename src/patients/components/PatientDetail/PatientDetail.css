@@ -1,5 +1,5 @@
 .patient-detail {
-    width: 100;
+    width: 100%;
 }
 
 .patient-detail-header {
@@ -37,4 +37,18 @@
 
 .patient-detail-info {
     grid-area: info;
+}
+
+.new-container {
+    display: flex;
+    padding: 60px 48px;
+}
+
+.new-container .new-container-button {
+    height: 150px;
+    width: 150px;
+    border: 0.5px solid #9b9b9b;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(228,228,228,0.5);
 }

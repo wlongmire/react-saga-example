@@ -15,6 +15,12 @@ export interface Patient {
     email?: string;
     sso?: SingleSignOnInfo;
     channel?: ChatChannelInfo;
+    treatments?: any;
+    visits?: any;
+    tests?: any;
+    imaging?: any;
+    wellness?: any;
+    other?: any;
 }
 
 export interface SingleSignOnInfo {

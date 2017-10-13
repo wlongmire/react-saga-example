@@ -21,4 +21,4 @@ export {
     UpdatePassword
 } from './components';
 export { default as authSaga } from './sagas';
-export { AuthState, AuthInfo, Identity, default as authReducer } from './reducer';
+export { AuthState, AuthInfo, Identity, IdentityUserInfo, default as authReducer } from './reducer';

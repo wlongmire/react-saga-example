@@ -1,0 +1,85 @@
+.bio-drive-list-item {
+    display: grid;
+    grid-template-columns: 24px 1fr 1fr;
+    grid-template-areas: 'date header description';
+    border: 1px solid #d8e7e5;
+    padding: 1em;
+    width: 90%;
+    margin: 1em auto;
+    z-index: 5;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 105px;
+}
+
+.bio-drive-list-item .item-date {
+    grid-area: date;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    right: 2.57em;
+    border: 1px solid #d8e7e5;
+    background: white;
+    z-index: 4;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+    top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-45.5deg);
+}
+
+.item-date .item-date-day {
+    background: #67b2a6;
+    position: relative;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    width: 45px;
+    height: 45px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(45.5deg);
+}
+
+.item-date-day p {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 14px;
+    margin: auto;
+    width: 24px;
+}
+
+.bio-drive-list-item .item-details {
+    grid-area: header;   
+}
+
+.item-details .item-header {
+    height: 24px;
+    line-height: 25px;
+    font-size: 20px;
+    color: #38161E;
+    margin: 4px 0;
+}
+
+.item-details .item-subheader {
+    height: 18px;
+    color: #979797;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 4px 0;
+}
+
+.bio-drive-list-item .item-description {
+    grid-area: description;
+    color: '#000000';
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 22px;
+    height: 22px;
+    margin: 4px 0;
+}

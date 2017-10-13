@@ -4,6 +4,7 @@ import Avatar from 'material-ui/Avatar';
 // import { GlobalState } from '../../../rootReducer';
 import { Patient } from '../../';
 // import { RouteComponentProps } from 'react-router-dom';
+import { BioDriveList, BioDriveListItemInfo } from '../../../biodrive';
 import { ChatChannel } from '../../../chat';
 import { ChatChannelInfo } from '../../../chat';
 import { ChatMessage } from '../../../chat/reducer';
@@ -14,6 +15,8 @@ import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
 import * as Wellness from '../../../wellness';
 import * as Others from '../../../others';
+import { Identity } from '../../../auth';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import {
     CustomTabComponent
@@ -24,18 +27,25 @@ import {
 const labelBackground = {
     backgroundColor: 'white',
 };
-  
-const labelTitle = {
-    color: "black",
+
+const inkBarStyle = {
+    height: 4,
+    backgroundColor: '#67B2A6',
+    borderRadius: 3
 };
 
-const lableUnderline = {
-    backgroundColor: '#f84445'
+const newActionButtonStyle = {
+    height: 150,
+    width: 150,
+    borderRadius: 3,
+    backgroundColor: '#ffffff',
+    margin: 12
 };
 
 import './PatientDetail.css';
 
 interface PatientDetailProps {
+    user: Identity;
     patient: Patient;
     channel?: ChatChannelInfo;
     onSendMessage: (message: ChatMessage) => void;
@@ -55,6 +65,14 @@ interface PatientDetailState {
     tabs: Array<string>;
     tabState : object;
     clickedTab: string;
+    treatments: Array<Treatment>;
+}
+
+interface Treatment {
+    date: Date;
+    header: string;
+    subheader: string;
+    description: string;
 }
 
 export class PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
@@ -71,8 +89,33 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                  biodrive: true,
                  hormone: false
                  },
-            clickedTab: ''
+            clickedTab: '',
+            treatments: [{
+                date: new Date('2017-09-16'),
+                header: 'Rimabotulinumtoxin',
+                subheader: 'Pharmacy Received',
+                description: 'Take once everyday.'
+            },
+            {
+                date: new Date('2017-08-16'),
+                header: 'Rituxan',
+                subheader: 'Pharmacy Received',
+                description: 'Do this all the time.'
+            },
+            {
+                date: new Date('2016-12-16'),
+                header: 'Super Advil',
+                subheader: 'Pharmacy Received',
+                description: 'If yoy notice anything cray call me.'
+            }]
         };
+
+        this.showNewImaging = this.showNewImaging.bind(this);
+        this.showNewTestOrder = this.showNewTestOrder.bind(this);
+        this.showNewImaging = this.showNewImaging.bind(this);
+        this.showNewTreatment = this.showNewTreatment.bind(this);
+        this.showAddNewVisitTab = this.showAddNewVisitTab.bind(this);
+        this.showNewVisit = this.showNewVisit.bind(this);
     }
 
     componentDidMount() {
@@ -88,7 +131,29 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.setState({
            tabState: currentState, 
            tabs: currentTabs
+        }, () => {
+            this.selectTab('new')
         });
+     }
+
+     showAddNewVisitTab() {
+        let currentState = {...this.state.tabState};
+        let currentTabs = [...this.state.tabs];
+        currentState['new'] = false;
+        let idx = currentTabs.indexOf('new');
+        currentTabs.splice(idx, 1);
+        currentTabs.push('LifeCo Visit');
+        this.setState({
+            tabState: currentState,
+            tabs: currentTabs,
+            clickedTab: 'LifeCo Visit'
+        }, () => {
+            this.selectTab('LifeCo Visit')
+        });
+     }
+
+     showEditVisitTab() {
+
      }
 
      handleClickImagingTab = () => {
@@ -100,18 +165,22 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         })
     }
 
-     _handleClickTab = (tabSelected:string) => {
+     _handleClickTab = (tabSelected: string) => {
+        this.selectTab(tabSelected);
+    }
+
+    selectTab(tab: string) {
         /**
          * Make an entirely new copy of state every time you click
          */
         let resetState = {...this.state.tabState};
         
-        Object.keys(resetState).forEach((s:string) => {
+        Object.keys(resetState).forEach((s: string) => {
             resetState[s] = false
         });
 
-        let clickedState = Object.keys(resetState).filter((t:string) => {
-            return t === tabSelected
+        let clickedState = Object.keys(resetState).filter((t: string) => {
+            return t === tab
         });
 
         let k = clickedState[0];
@@ -194,27 +263,94 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'hormone':
                 return this._renderHormoneSection();
 
+            case 'new':
+                return this._renderNew();
+
+            case 'New LifeCo Visit':
+                return this._renderNewVisit();
+
+            case 'New Treatment':
+                return this._renderNewTreatment();
+
             default:
                 return this._renderBiodrive();
         }
+    }
+
+    getLabelTitleStyle(tabIndex: number): object {
+        return {
+            color: this.state.selectedTab == tabIndex ? '#67B2A6' : '#000000'
+        };
+    }
+
+    showNewTreatment() {
+        this.setState({
+            createNewTreatment: true,
+            clickedTab: 'New Treatment'
+        });
+    }
+
+    showNewVisit() {
+        this.setState({
+            createNewVisit: true,
+            clickedTab: 'New LifeCo Visit'
+        });
+    }
+
+    showNewTestOrder() {
+        this.setState({createNewTestOrder: true});
+    }
+
+    showNewImaging() {
+        this.setState({createNewImaging: true});
+    }
+
+    _renderNew() {
+        return (
+            <div className="new-container">
+                <RaisedButton label="Treatment" style={newActionButtonStyle} onClick={this.showNewTreatment} />
+                <RaisedButton label="Visit" style={newActionButtonStyle} onClick={this.showNewVisit} />
+                <RaisedButton label="Test" style={newActionButtonStyle} onClick={this.showNewTestOrder} />
+                <RaisedButton label="Imaging" style={newActionButtonStyle} onClick={this.showNewImaging} />
+            </div>
+        )
+    }
+
+    _renderNewVisit() {
+        return (<Visits.Components.VisitDrawer closeVisitCard={this.handleClickVisitsTab} />)
+    }
+
+    _renderNewTreatment() {
+        console.log('renderNewTreatment');
+        return (<Rx.Components.Treatment />);
     }
 
     _renderBiodrive = () => {
         return (
             <div id="main-section">
                 <section className="biodrive-section">
-                    <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={lableUnderline}>
-                        <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={labelTitle}>
+                    <Tabs value={this.state.selectedTab} tabItemContainerStyle={labelBackground} inkBarStyle={inkBarStyle}>
+                        <Tab onClick={this.handleClickTreatmentsTab} value={0} label="Treatments" style={this.getLabelTitleStyle(0)}>
                             <div>
-                            {
+                                {
+                                    this.state.createNewTreatment ?
+                                    <Rx.Components.Treatment /> :
+                                    <BioDriveList 
+                                        items={this.state.treatments.map((treatment, index) => {
+                                            return treatment as BioDriveListItemInfo;
+                                        })}
+                                        onItemSelected={() => console.log('clicked')} 
+                                    />    
+                                }
+                            {/* {
                                 this.state.createNewTreatment ?
                                 <Rx.Components.Treatment/>:
                                 <Rx.Components.RXContainer/>
-                            }
+                            } */}
                             </div>
                         </Tab>
 
-                        <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={labelTitle}>
+                        <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={this.getLabelTitleStyle(1)}>
                             <div>
                                 { this.state.createNewVisit ? 
                                     <Visits.Components.VisitDrawer
@@ -227,7 +363,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                             </div>
                         </Tab>
 
-                        <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={labelTitle}>
+                        <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={this.getLabelTitleStyle(2)}>
                             <div>
                                 <div>
                                 {
@@ -241,7 +377,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                             </div>
                         </Tab>
 
-                        <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={labelTitle}>
+                        <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={this.getLabelTitleStyle(3)}>
                             <div>
                             {
                                 this.state.createNewImaging ? 
@@ -253,13 +389,13 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                             </div>
                         </Tab>
 
-                        <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={labelTitle}>
+                        <Tab onClick={this.handleClickWellnessTab} value={4} label="Wellness" style={this.getLabelTitleStyle(4)}>
                             <div>
                                 <Wellness.Components.WellnessComponent/>
                             </div>
                         </Tab>
 
-                        <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={labelTitle}>
+                        <Tab onClick={this.handleClickOthersTab} value={5} label="Other" style={this.getLabelTitleStyle(5)}>
                             <div>
                                 <Others.Components.OthersContainer/>
                             </div>
@@ -316,7 +452,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                 <div className="patient-detail-body">
                     <div className="patient-detail-chat">
                         {patient &&
-                            <ChatChannel channel={channel} userId={patient.id} patient={patient} onSendMessage={this.props.onSendMessage} />
+                            <ChatChannel user={this.props.user} channel={channel} patient={patient} onSendMessage={this.props.onSendMessage} />
                         }
                         
                     </div>

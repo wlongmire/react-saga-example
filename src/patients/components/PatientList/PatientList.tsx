@@ -12,22 +12,24 @@ import { RouteComponentProps } from 'react-router-dom';
 import { ChatChannelInfo } from '../../../chat';
 import { ChatMessage } from '../../../chat/reducer';
 import { PatientDetail } from '../PatientDetail';
+import { Identity } from '../../../auth';
 import * as _ from 'lodash';
 import * as classnames from 'classnames';
 
 import './PatientList.css';
 
 interface PatientListProps extends RouteComponentProps<{}> {
+    channels: Object;
+    identity: Identity;
     patients : Array<Patient>;
+    selectedPatient: Patient;
     singleSignOn: SingleSignOnInfo;
     fetchAllPatients: () => void;
     fetchSingleSignOnInfo: () => void;
-    selectPatient: (patient: Patient) => void;
-    unselectPatient: (patient: Patient) => void;
-    socketConnect: () => void;
     messageSend: (message: ChatMessage) => void;
-    channels: Object;
-    selectedPatient: Patient;
+    selectPatient: (patient: Patient) => void;
+    socketConnect: () => void;
+    unselectPatient: (patient: Patient) => void;
 }
 
 class _PatientList extends React.Component<PatientListProps, {}> {
@@ -91,18 +93,17 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         );
     }
 
-    renderPatientDetail(patient: Patient, channel?: ChatChannelInfo) {
-        console.log('fired');
+    renderPatientDetail(currentUser: Identity, patient: Patient, channel?: ChatChannelInfo) {
         return (
-            <PatientDetail patient={patient} channel={channel} onSendMessage={this.onSendMessage} />
+            <PatientDetail user={currentUser} patient={patient} channel={channel} onSendMessage={this.onSendMessage} />
         )
     }
 
     render() {
         if (this.props.selectedPatient) {
-            const patient = this.props.selectedPatient
-            const channel = this.getChannel(patient);
-            return this.renderPatientDetail(patient, channel);
+            const { identity, selectedPatient } = this.props;
+            const channel = this.getChannel(selectedPatient);
+            return this.renderPatientDetail(identity, selectedPatient, channel);
         } else {
             return this.renderPatientList();
         }
@@ -114,7 +115,8 @@ const mapStateToProps = (state: GlobalState) => {
         selectedPatient: state.patients.selectedPatient,
         patients: state.patients.items,
         singleSignOn: state.dosespot.sso,
-        channels: state.chat.channels
+        channels: state.chat.channels,
+        identity: state.auth.identity
     }
 }
 

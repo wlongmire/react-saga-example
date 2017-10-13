@@ -17,6 +17,7 @@ import * as Wellness from '../../../wellness';
 import * as Others from '../../../others';
 import { Identity } from '../../../auth';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
 
 import {
     CustomTabComponent
@@ -65,14 +66,20 @@ interface PatientDetailState {
     tabs: Array<string>;
     tabState : object;
     clickedTab: string;
-    treatments: Array<Treatment>;
+    treatments: Array<BioDriveEntity>;
+    visits: Array<BioDriveEntity>;
+    tests: Array<BioDriveEntity>;
+    imaging: Array<BioDriveEntity>;
+    isDoseSpotOpen: boolean;
 }
 
-interface Treatment {
+interface BioDriveEntity {
     date: Date;
     header: string;
     subheader: string;
     description: string;
+    entityType: string;
+    entityId: string;
 }
 
 export class PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
@@ -94,20 +101,77 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                 date: new Date('2017-09-16'),
                 header: 'Rimabotulinumtoxin',
                 subheader: 'Pharmacy Received',
-                description: 'Take once everyday.'
+                description: 'Take once everyday.',
+                entityType: 'treatment',
+                entityId: '1'
             },
             {
                 date: new Date('2017-08-16'),
                 header: 'Rituxan',
                 subheader: 'Pharmacy Received',
-                description: 'Do this all the time.'
+                description: 'Do this all the time.',
+                entityType: 'treatment',
+                entityId: '2'
             },
             {
                 date: new Date('2016-12-16'),
                 header: 'Super Advil',
                 subheader: 'Pharmacy Received',
-                description: 'If yoy notice anything cray call me.'
-            }]
+                description: 'If yoy notice anything cray call me.',
+                entityType: 'treatment',
+                entityId: '3'
+            }],
+            tests: [
+                {
+                    date: new Date('2017-10-17'),
+                    header: 'Sinus Infection Check',
+                    subheader: 'Albumin, Nitried and 2 More',
+                    description: 'Albumin levels were higher than expected. Updated your case to the cold bruh',
+                    entityType: 'test',
+                    entityId: '1'
+                },
+                {
+                    date: new Date('2017-10-24'),
+                    header: 'Routine Blood Work',
+                    subheader: 'Lipid Panel',
+                    description: 'Albumin levels were higher than expected. Updated your case to the cold bruh',
+                    entityType: 'test',
+                    entityId: '1'
+                }
+            ],
+            visits: [{
+                date: new Date('2017-09-27'),
+                header: 'LifeCo',
+                subheader: '25 Broadway, New York NY 3880',
+                description: 'Visiting Dr. Peters for ANC',
+                entityType: 'visit',
+                entityId: '1'
+            },
+            {
+                date: new Date('2017-09-28'),
+                header: 'Chiropractor',
+                subheader: '25 Broadway, New York NY 3880',
+                description: 'Visiting Dr. Peters for ANC',
+                entityType: 'visit',
+                entityId: '2'
+            }],
+            imaging: [{
+                date: new Date('2017-08-26'),
+                header: 'Imaging: Request',
+                subheader: 'CT Scan',
+                description: 'Albumin levels were higher than expected.',
+                entityType: 'imaging',
+                entityId: '1'
+            },
+            {
+                date: new Date('2017-09-28'),
+                header: 'Imaging: Results In',
+                subheader: 'MRI',
+                description: 'Albumin levels were higher than expected.',
+                entityType: 'imaging',
+                entityId: '2'
+            }],
+            isDoseSpotOpen: false
         };
 
         this.showNewImaging = this.showNewImaging.bind(this);
@@ -116,6 +180,8 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.showNewTreatment = this.showNewTreatment.bind(this);
         this.showAddNewVisitTab = this.showAddNewVisitTab.bind(this);
         this.showNewVisit = this.showNewVisit.bind(this);
+        this.handleCloseDialog = this.handleCloseDialog.bind(this);
+        this.handleOpenDialog = this.handleOpenDialog.bind(this);
     }
 
     componentDidMount() {
@@ -237,6 +303,14 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         })
     }
 
+    handleCloseDialog() {
+        this.setState({ isDoseSpotOpen: false });
+    }
+
+    handleOpenDialog() {
+        this.setState({ isDoseSpotOpen: true });
+    }
+
     _handleGetSingleVisit = (id:number) => {
         // let visitClicked = Visits.utils.getSingleVisit(id);
         let currentState = {...this.state.tabState};
@@ -352,40 +426,77 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
 
                         <Tab onClick={this.handleClickVisitsTab} value={1} label="Visits" style={this.getLabelTitleStyle(1)}>
                             <div>
-                                { this.state.createNewVisit ? 
+                                {
+                                    this.state.createNewTreatment ?
+                                    <Visits.Components.VisitDrawer
+                                        closeVisitCard={this.handleClickVisitsTab}
+                                    /> :
+                                    <BioDriveList 
+                                        items={this.state.visits.map((visit, index) => {
+                                            return visit as BioDriveListItemInfo;
+                                        })}
+                                        onItemSelected={() => console.log('clicked')} 
+                                    />
+                                }  
+                                {/* { 
+                                    this.state.createNewVisit ? 
                                     <Visits.Components.VisitDrawer
                                         closeVisitCard={this.handleClickVisitsTab}
                                     /> :
                                     <Visits.Components.VisitsContainer
                                         getSingleVisit={this._handleGetSingleVisit}
                                     /> 
-                                }
+                                } */}
                             </div>
                         </Tab>
 
                         <Tab onClick={this.handleClickTestOrdersTab} value={2} label="Tests" style={this.getLabelTitleStyle(2)}>
                             <div>
                                 <div>
-                                {
-                                    this.state.createNewTestOrder ?
-                                    <Tests.Components.AddTestSection
-                                        closeTestsCard={this.handleClickTestOrdersTab}
-                                    /> :
-                                    <Tests.Components.TestOrdersContainer/>
-                                }
+                                    {
+                                        this.state.createNewTestOrder ?
+                                        <Tests.Components.AddTestSection
+                                            closeTestsCard={this.handleClickTestOrdersTab}
+                                        /> :
+                                        <BioDriveList 
+                                            items={this.state.tests.map((test, index) => {
+                                                return test as BioDriveListItemInfo;
+                                            })}
+                                            onItemSelected={() => console.log('clicked')} 
+                                        />
+                                    }
+                                    {/* {
+                                        this.state.createNewTestOrder ?
+                                        <Tests.Components.AddTestSection
+                                            closeTestsCard={this.handleClickTestOrdersTab}
+                                        /> :
+                                        <Tests.Components.TestOrdersContainer/>
+                                    } */}
                                 </div>
                             </div>
                         </Tab>
 
                         <Tab onClick={this.handleClickImagingTab} value={3} label="Imaging" style={this.getLabelTitleStyle(3)}>
                             <div>
-                            {
+                                {
+                                    this.state.createNewImaging ? 
+                                    <Imaging.Components.AddImageSection
+                                        closeImagingCard={this.handleClickImagingTab}
+                                    /> :
+                                    <BioDriveList 
+                                        items={this.state.tests.map((test, index) => {
+                                            return test as BioDriveListItemInfo;
+                                        })}
+                                        onItemSelected={() => console.log('clicked')} 
+                                    />
+                                }
+                            {/* {
                                 this.state.createNewImaging ? 
                                 <Imaging.Components.AddImageSection
                                     closeImagingCard={this.handleClickImagingTab}
                                 /> :
                                 <Imaging.Components.ImagingComponent/>
-                            }
+                            } */}
                             </div>
                         </Tab>
 
@@ -400,8 +511,34 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                                 <Others.Components.OthersContainer/>
                             </div>
                         </Tab>
+
                     </Tabs>
                 </section>
+                <Dialog
+                    title="DoseSpot"
+                    modal={true}
+                    bodyStyle={{
+                        padding: 0
+                    }}
+                    style={{
+                        maxWidth: null
+                    }}
+                    contentStyle={{
+                        maxWidth: 1000
+                    }}
+                    actions={[
+                        <RaisedButton
+                            label="Close"
+                            primary={true}
+                            onClick={this.handleCloseDialog} />
+                    ]}
+                    open={this.state.isDoseSpotOpen}
+                    onRequestClose={this.handleCloseDialog}
+                    autoScrollBodyContent={true}>
+                    <div className="admin-dosespot-dialog-wrapper">
+                        <iframe className="admin-dosespot-iframe" src=""></iframe>
+                    </div>
+                </Dialog>
             </div>
         )
     }

@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import * as Rx from '../../../treatments';
 import * as uuidv4 from 'uuid/v4';
 import { VisitComponent } from '../../../visits';
-// import * as Tests from '../../../testorders';
+import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
 // import * as Wellness from '../../../wellness';
 // import * as Others from '../../../others';
@@ -108,13 +108,21 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'test':
                 newItem = {
                     header: info.header,
-                    content: (<div>Edit {entityType}</div>)
+                    content: (
+                        <Tests.Components.AddTestSection
+                            closeTestsCard={() => { console.log('closed tests') }}
+                        />
+                    )
                 } as TabItemInfo;
                 break;
             case 'imaging':
                 newItem = {
                     header: info.header,
-                    content: (<Imaging.Components.ImagingComponent />)
+                    content: (
+                        <Imaging.Components.AddImageSection
+                            closeImagingCard={() => { console.log('closed imaging') }}
+                        />
+                    )
                 } as TabItemInfo;
                 break;                
         }
@@ -145,7 +153,11 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'test':
                 newItem = {
                     header,
-                    content: (<div>{entityType}</div>)
+                    content: (
+                        <Tests.Components.AddTestSection
+                            closeTestsCard={() => { console.log('closed tests') }}
+                        />
+                    )
                 } as TabItemInfo;
                 break;
             case 'imaging':

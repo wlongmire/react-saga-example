@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 // import * as Cases from './cases';
 // import * as Patients from './users';
-import * as Visits from './visits';
+// import * as Visits from './visits';
 // import * as Auth from './auth';
 // import * as TestOrders from './testorders';
 // import * as Others from './others';
@@ -15,10 +15,14 @@ import { adminReducer, DoseSpotState as AdminDoseSpotState } from './admin';
 import { chatReducer, ChatState } from './chat';
 import { userReducer, UserState } from './users';
 
+import { VisitState } from './common';
+
+// import { visitReducer, VisitState } from './visits';
+
 // NOTE: ADD MODULE REDUCERS HERE
 // const casesReducer = Cases.Reducers.root;
 // const patientsReducer = Patients.Reducers.root;
-const visitsReducer = Visits.Reducers.root;
+// const visitsReducer = Visits.Reducers.root;
 // const testOrdersReducer = TestOrders.Reducers.root;
 // const othersReducer = Others.Reducers.root;
 // const wellnessReducer = Wellness.Reducers.root;
@@ -30,7 +34,7 @@ const visitsReducer = Visits.Reducers.root;
 export default combineReducers({
     // cases: casesReducer,
     chat: chatReducer,
-    visits: visitsReducer,
+    // visits: visitReducer,
     auth: authReducer,
     // testorders: testOrdersReducer,
     // wellness: wellnessReducer,
@@ -49,4 +53,5 @@ export interface GlobalState {
     admin: AdminDoseSpotState;
     users: UserState;
     chat: ChatState;
+    visits: VisitState;
 }

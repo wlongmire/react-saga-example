@@ -95,9 +95,9 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                     return new BiodriveListItemInfo(
                                         'visit',
                                         visit.id, 
-                                        visit.scheduledFor || Date.now(), 
-                                        visit.visitType,
-                                        visit.status,
+                                        visit.scheduledFor || new Date(),
+                                        visit.visitType || '',
+                                        visit.status || '',
                                         'Need to build'
                                     );
                                 })} 

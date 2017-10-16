@@ -1,5 +1,12 @@
 import * as React from 'react';
 import * as _ from 'lodash';
+import * as Rx from '../../../treatments';
+import * as uuidv4 from 'uuid/v4';
+import { VisitComponent } from '../../../visits';
+// import * as Tests from '../../../testorders';
+import * as Imaging from '../../../imaging';
+// import * as Wellness from '../../../wellness';
+// import * as Others from '../../../others';
 import Avatar from 'material-ui/Avatar';
 import { Patient } from '../../';
 import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
@@ -7,13 +14,14 @@ import { ChatChannel } from '../../../chat';
 import { ChatChannelInfo } from '../../../chat';
 import { ChatMessage } from '../../../chat/reducer';
 import { Identity } from '../../../auth';
-import { TabControl, TabItemInfo } from '../../../common';
+import { TabControl, TabItemInfo, Visit } from '../../../common';
 
 import './PatientDetail.css';
 
 interface PatientDetailProps {
     user: Identity;
     patient: Patient;
+    patientList: Array<Patient>;
     channel?: ChatChannelInfo;
     onSendMessage: (message: ChatMessage) => void;
 }
@@ -21,7 +29,7 @@ interface PatientDetailProps {
 interface PatientDetailState {
     open : boolean;
     anchorEl?: any;
-    patient: object;
+    patient?: Patient;
     tabItems?: Array<TabItemInfo>;
     selectedTabIndex: number;
 }
@@ -34,7 +42,6 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         super();
         this.state = {
             open: false,
-            patient: {},
             selectedTabIndex: -1
         };
         this.handleBiodriveItemSelected = this.handleBiodriveItemSelected.bind(this);
@@ -72,47 +79,79 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.setState({tabItems: initialTabs, selectedTabIndex: 0});
     }
 
-    handleBiodriveItemSelected(info: BiodriveListItemInfo) {
+    createNewVisit(): Visit {
+        return new Visit(uuidv4());
+    }
 
-        switch (info.entityType) {
+    findVisit(id: string): Visit {
+        if (!this.state.patient) return { } as Visit;
+        return this.state.patient.visits.find((visit) => visit.id === id) || {} as Visit;
+    }
+
+    handleBiodriveItemSelected(info: BiodriveListItemInfo) {
+        let newItem: TabItemInfo | undefined = undefined;
+        let entityType: string = info.entityType;
+
+        switch (entityType) {
             case 'treatment':
+                newItem = {
+                    header: info.header,
+                    content: (<Rx.Components.Treatment />)
+                } as TabItemInfo;
                 break;
             case 'visit':
+                newItem = {
+                    header: info.header,
+                    content: (<VisitComponent patientList={this.props.patientList} visit={this.findVisit(info.id)} />)
+                } as TabItemInfo;
                 break;
             case 'test':
+                newItem = {
+                    header: info.header,
+                    content: (<div>Edit {entityType}</div>)
+                } as TabItemInfo;
                 break;
             case 'imaging':
-                break;
+                newItem = {
+                    header: info.header,
+                    content: (<Imaging.Components.ImagingComponent />)
+                } as TabItemInfo;
+                break;                
         }
+
+        if (newItem === undefined) return;
+        let tabItems: TabItemInfo[] = (this.state.tabItems || []).concat([newItem]);
+        this.setState({ tabItems, selectedTabIndex: tabItems.indexOf(newItem) });
     }
 
     handleClickNew(entityType: string) {
 
         let newItem: TabItemInfo | undefined = undefined;
+        let header: string = `New ${_.upperFirst(entityType)}`;
 
         switch (entityType) {
             case 'treatment':
                 newItem = {
-                    header: `New ${_.upperFirst(entityType)}`,
-                    content: (<div>{entityType}</div>)
+                    header,
+                    content: (<Rx.Components.Treatment />)
                 } as TabItemInfo;
                 break;
             case 'visit':
                 newItem = {
-                    header: `New ${_.upperFirst(entityType)}`,
-                    content: (<div>{entityType}</div>)
+                    header,
+                    content: (<VisitComponent patientList={this.props.patientList} visit={this.createNewVisit()} />)
                 } as TabItemInfo;
                 break;
             case 'test':
                 newItem = {
-                    header: `New ${_.upperFirst(entityType)}`,
+                    header,
                     content: (<div>{entityType}</div>)
                 } as TabItemInfo;
                 break;
             case 'imaging':
                 newItem = {
-                    header: `New ${_.upperFirst(entityType)}`,
-                    content: (<div>{entityType}</div>)
+                    header,
+                    content: (<Imaging.Components.ImagingComponent />)
                 } as TabItemInfo;
                 break;                
         }

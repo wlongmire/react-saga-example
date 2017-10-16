@@ -2,6 +2,8 @@ import * as Actions from './actions';
 import * as _ from 'lodash';
 import { ActionResult } from '../common';
 import { ChatChannelInfo } from '../chat';
+import { InternalNote } from '../common/models';
+import { Visit } from '../common';
 
 export interface Patient {
     id: number;
@@ -39,44 +41,6 @@ export class Treatment {
     endOn?: Date;
     patientId?: number;
     internalNotes?: Array<InternalNote>;
-}
-
-export class Visit {
-    id: string;
-    status: string;
-    assigneeId: string;
-    cases?: Array<string>;
-    patientId: number;
-    visitType: string;
-    maintenance: Array<string>;
-    doctorId: string;
-    doctorType: string;
-    clinic?: Clinic;
-    scheduledFor: Date;
-    estimatedDuration?: number;
-    complaints?: Array<string>;
-    vitals?: Array<object>;
-    systemsReview?: Array<object>;
-    diagnosis?: Array<Diagnosis>;
-    subjective?: string;
-    objective?: string;
-    assessment?: string;
-    nextSteps?: string;
-    internalNotes?: Array<InternalNote>;
-}
-
-export interface Diagnosis {
-    code: string;
-    description: string;
-}
-
-export interface Clinic {
-    name: string;
-    addressLine1: string;
-    addressLine2?: string;
-    city: string;
-    state: string;
-    postalCode: string;
 }
 
 export class Test {
@@ -131,13 +95,6 @@ export class Imaging {
     attachments?: Array<Attachment>;
     publicNote?: string;
     internalNotes?: Array<InternalNote>;
-}
-
-export interface InternalNote {
-    id: string;
-    createdOn: Date;
-    createdBy: Date;
-    note: string;
 }
 
 export class Wellness {

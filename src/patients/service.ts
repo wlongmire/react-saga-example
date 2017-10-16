@@ -104,16 +104,9 @@ export const fetchPatient = (patient: Patient) => {
         patientId: patient.id,
         visitType: 'LifeCo',
         maintenance: ['maintenance'],
-        doctorId: '',
-        doctorType: 'primary',
-        clinic: {
-            name: 'LifeCo',
-            addressLine1: '79 Madison Avenue',
-            addressLine2: '',
-            city: 'New York',
-            state: 'NY',
-            postalCode: '10016'
-        },
+        doctorName: '',
+        doctorType: '',
+        clinic: 'LifeCo, 79 Madison Avenue, New Yok, NY, 10016',
         scheduledFor: new Date('2017-09-27')
     },
     {
@@ -123,16 +116,9 @@ export const fetchPatient = (patient: Patient) => {
         patientId: patient.id,
         visitType: 'Chiropractor',
         maintenance: ['maintenance'],
-        doctorId: '',
+        doctorName: '',
         doctorType: 'chiropractor',
-        clinic: {
-            name: 'LifeCo',
-            addressLine1: '79 Madison Avenue',
-            addressLine2: '',
-            city: 'New York',
-            state: 'NY',
-            postalCode: '10016'
-        },
+        clinic: 'LifeCo, 79 Madison Avenue, New Yok, NY, 10016',
         scheduledFor: new Date('2017-09-27')
     },
     {
@@ -142,16 +128,9 @@ export const fetchPatient = (patient: Patient) => {
         patientId: patient.id,
         visitType: 'LifeCo',
         maintenance: ['maintenance'],
-        doctorId: '',
+        doctorName: '',
         doctorType: 'chiropractor',
-        clinic: {
-            name: 'LifeCo',
-            addressLine1: '79 Madison Avenue',
-            addressLine2: '',
-            city: 'New York',
-            state: 'NY',
-            postalCode: '10016'
-        },
+        clinic: 'LifeCo, 79 Madison Avenue, New Yok, NY, 10016',
         scheduledFor: new Date('2017-09-27')
     }];
     newPatient.imaging = [{

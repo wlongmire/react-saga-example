@@ -93,18 +93,17 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         );
     }
 
-    renderPatientDetail(currentUser: Identity, patient: Patient, channel?: ChatChannelInfo) {
+    renderPatientDetail(currentUser: Identity, patient: Patient, patientList: Array<Patient>, channel?: ChatChannelInfo) {
         return (
-            <PatientDetail user={currentUser} patient={patient} channel={channel} onSendMessage={this.onSendMessage} />
+            <PatientDetail user={currentUser} patient={patient} patientList={patientList} channel={channel} onSendMessage={this.onSendMessage} />
         )
     }
 
     render() {
         if (this.props.selectedPatient) {
-            const { identity, selectedPatient } = this.props;
-            console.log('selectedPatient', selectedPatient);
+            const { identity, selectedPatient, patients } = this.props;
             const channel = this.getChannel(selectedPatient);
-            return this.renderPatientDetail(identity, selectedPatient, channel);
+            return this.renderPatientDetail(identity, selectedPatient, patients, channel);
         } else {
             return this.renderPatientList();
         }

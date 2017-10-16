@@ -1,1 +1,1 @@
-export { BioDriveListGroupHeader } from './BioDriveListGroupHeader';
+export { BiodriveListGroupHeader } from './BiodriveListGroupHeader';

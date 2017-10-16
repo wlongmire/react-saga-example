@@ -102,6 +102,7 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     render() {
         if (this.props.selectedPatient) {
             const { identity, selectedPatient } = this.props;
+            console.log('selectedPatient', selectedPatient);
             const channel = this.getChannel(selectedPatient);
             return this.renderPatientDetail(identity, selectedPatient, channel);
         } else {

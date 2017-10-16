@@ -1,27 +1,29 @@
 import * as React from 'react';
-import { BioDriveListItemInfo } from '../../reducer';
+import { BiodriveListItemInfo } from '../../reducer';
 import * as Moment from 'moment';
 
-import './BioDriveListItem.css';
+import './BiodriveListItem.css';
 
-interface BioDriveListItemProps {
-    item: BioDriveListItemInfo;
+interface BiodriveListItemProps {
+    item: BiodriveListItemInfo;
     groupHeaderText?: string;
-    onItemSelected: (item: BioDriveListItemInfo) => void;
+    onClick: (item: BiodriveListItemInfo) => void;
 }
 
-interface BioDriveListItemState {
+interface BiodriveListItemState {
 
 }
 
-export class BioDriveListItem extends React.Component<BioDriveListItemProps, BioDriveListItemState> {
+export class BiodriveListItem extends React.Component<BiodriveListItemProps, BiodriveListItemState> {
     constructor() {
         super();
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-        console.log('click');
+        if (this.props.onClick) {
+            this.props.onClick(this.props.item);
+        }
     }
 
     render() {

@@ -16,6 +16,9 @@ import { UsersContainer, UserDetail } from '../users';
 import { GlobalState } from '../rootReducer';
 import { history } from '../common';
 import { isAuthenticated } from '../utils/auth-util';
+import { TabControl } from '../common/UIComponents/TabControl/TabControl';
+import { Tab } from '../common/UIComponents/TabControl/Tab';
+import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     const state = store.getState() as GlobalState;
@@ -23,6 +26,36 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
+                <Route
+                    path="/tabs"
+                    exact={true}
+                    render={(props) => 
+                        <TabControl 
+                            canAdd={true}
+                            onAddTab={() => {
+                                return {
+                                    header: 'New Tab',
+                                    content: (<div>New Tab</div>)
+                                } as TabItemInfo
+                            }}
+                            onTabClosed={(tabItemInfo, index) => {
+                                console.log(`removed tab item at ${index}`);
+                            }}
+                        >
+                            <Tab header="Home">
+                                <div>Home</div>
+                            </Tab>
+                            <Tab header="Menu 1">
+                                <div>Menu 1</div>
+                            </Tab>
+                            <Tab header="Menu 2">
+                                <div>Menu 2</div>
+                            </Tab>
+                            <Tab header="Menu 3">
+                                <div>Menu 3</div>
+                            </Tab>
+                        </TabControl>}
+                />
                 <Route 
                     path="/reset-password"
                     exact={true}

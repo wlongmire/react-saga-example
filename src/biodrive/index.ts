@@ -1,2 +1,2 @@
-export { BioDriveList, BioDriveListItem } from './components';
-export { BioDriveListItemInfo } from './reducer';
+export { Biodrive, BiodriveList, BiodriveListItem } from './components';
+export { BiodriveListItemInfo } from './reducer';

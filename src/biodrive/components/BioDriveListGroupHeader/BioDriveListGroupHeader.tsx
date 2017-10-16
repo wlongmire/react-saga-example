@@ -1,11 +1,15 @@
 import * as React from 'react';
 
-import './BioDriveListGroupHeader.css';
+import './BiodriveListGroupHeader.css';
 
-interface BioDriveListGroupHeaderProps {
+interface BiodriveListGroupHeaderProps {
     name?: string;
 }
 
-export const BioDriveListGroupHeader: React.SFC<BioDriveListGroupHeaderProps> = (props) => {
-    return (<li className="list-group-header-item"><div className="list-group-header-item-text">{props.name}</div></li>)
-}
+export const BiodriveListGroupHeader: React.SFC<BiodriveListGroupHeaderProps> = (props) => {
+    return (
+        <li className="list-group-header-item">
+            <div className="list-group-header-item-text">{props.name}</div>
+        </li>
+    );
+};

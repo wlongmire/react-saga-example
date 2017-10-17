@@ -1,1 +1,1 @@
-export { BiodriveList } from './BiodriveList';
+export { BiodriveList } from './BioDriveList';

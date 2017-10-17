@@ -1,4 +1,4 @@
-export { Biodrive } from './Biodrive';
-export { BiodriveList } from './BiodriveList';
-export { BiodriveListItem } from './BiodriveListItem';
-export { BiodriveListGroupHeader } from './BiodriveListGroupHeader';
+export { Biodrive } from './BioDrive';
+export { BiodriveList } from './BioDriveList';
+export { BiodriveListItem } from './BioDriveListItem';
+export { BiodriveListGroupHeader } from './BioDriveListGroupHeader';

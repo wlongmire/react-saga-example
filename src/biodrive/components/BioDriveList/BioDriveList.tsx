@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as Moment from 'moment';
 import * as _ from 'lodash';
 
-import { BiodriveListGroupHeader } from '../BiodriveListGroupHeader';
-import { BiodriveListItem } from '../BiodriveListItem';
+import { BiodriveListGroupHeader } from '../BioDriveListGroupHeader';
+import { BiodriveListItem } from '../BioDriveListItem';
 import { BiodriveListItemInfo } from '../../reducer';
 
 import './BiodriveList.css';

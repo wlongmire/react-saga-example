@@ -6,7 +6,7 @@ import * as React from 'react';
 // import * as Wellness from '../../../wellness';
 // import * as Others from '../../../others';
 import { BiodriveListItemInfo } from '../../reducer';
-import { BiodriveList } from '../BiodriveList';
+import { BiodriveList } from '../BioDriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Patient } from '../../../patients';
 

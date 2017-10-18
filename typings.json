@@ -1,6 +1,0 @@
-{
-  "globalDependencies": {
-    "mock-local-storage": "file:typings/custom/mock-local-storage.d.ts",
-    "window": "file:typings/custom/window.d.ts"
-  }
-}

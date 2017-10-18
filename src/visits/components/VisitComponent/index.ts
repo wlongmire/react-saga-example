@@ -1,1 +1,0 @@
-export { VisitComponent } from './VisitComponent';

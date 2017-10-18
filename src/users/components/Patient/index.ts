@@ -1,1 +1,0 @@
-// export {Patient} from './Patient';

@@ -3,7 +3,6 @@ import { ActionResult } from '../../../common'
 import { AuthState, AuthCredentials } from '../../reducer';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
-
 import { Link } from 'react-router-dom';
 import * as Common from '../common';
 

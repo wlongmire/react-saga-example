@@ -9,7 +9,7 @@ import * as Imaging from '../../../imaging';
 // import * as Others from '../../../others';
 import Avatar from 'material-ui/Avatar';
 import { Patient } from '../../';
-import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
+// import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
 import { ChatChannel } from '../../../chat';
 import { ChatChannelInfo } from '../../../chat';
 import { ChatMessage } from '../../../chat/reducer';
@@ -44,7 +44,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             open: false,
             selectedTabIndex: -1
         };
-        this.handleBiodriveItemSelected = this.handleBiodriveItemSelected.bind(this);
+        // this.handleBiodriveItemSelected = this.handleBiodriveItemSelected.bind(this);
         this.handleClickNew = this.handleClickNew.bind(this);
         this.handleSelectedTabChanged = this.handleSelectedTabChanged.bind(this);
         this.handleTabClosing = this.handleTabClosing.bind(this);
@@ -68,10 +68,11 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                 header: 'Biodrive',
                 disableRemove: true,
                 content: (
-                    <Biodrive 
-                        patient={this.props.patient} 
-                        onDetailItemSelected={this.handleBiodriveItemSelected} 
-                    />
+                    <div></div>
+                    // <Biodrive 
+                    //     patient={this.props.patient} 
+                    //     onDetailItemSelected={this.handleBiodriveItemSelected} 
+                    // />
                 )
             }
         ];
@@ -88,49 +89,49 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         return this.state.patient.visits.find((visit) => visit.id === id) || {} as Visit;
     }
 
-    handleBiodriveItemSelected(info: BiodriveListItemInfo) {
-        let newItem: TabItemInfo | undefined = undefined;
-        let entityType: string = info.entityType;
+    // handleBiodriveItemSelected(info: BiodriveListItemInfo) {
+    //     let newItem: TabItemInfo | undefined = undefined;
+    //     let entityType: string = info.entityType;
 
-        switch (entityType) {
-            case 'treatment':
-                newItem = {
-                    header: info.header,
-                    content: (<Rx.Components.Treatment />)
-                } as TabItemInfo;
-                break;
-            case 'visit':
-                newItem = {
-                    header: info.header,
-                    content: (<VisitComponent patientList={this.props.patientList} visit={this.findVisit(info.id)} />)
-                } as TabItemInfo;
-                break;
-            case 'test':
-                newItem = {
-                    header: info.header,
-                    content: (
-                        <Tests.Components.AddTestSection
-                            closeTestsCard={() => { console.log('closed tests') }}
-                        />
-                    )
-                } as TabItemInfo;
-                break;
-            case 'imaging':
-                newItem = {
-                    header: info.header,
-                    content: (
-                        <Imaging.Components.AddImageSection
-                            closeImagingCard={() => { console.log('closed imaging') }}
-                        />
-                    )
-                } as TabItemInfo;
-                break;                
-        }
+    //     switch (entityType) {
+    //         case 'treatment':
+    //             newItem = {
+    //                 header: info.header,
+    //                 content: (<Rx.Components.Treatment />)
+    //             } as TabItemInfo;
+    //             break;
+    //         case 'visit':
+    //             newItem = {
+    //                 header: info.header,
+    //                 content: (<VisitComponent patientList={this.props.patientList} visit={this.findVisit(info.id)} />)
+    //             } as TabItemInfo;
+    //             break;
+    //         case 'test':
+    //             newItem = {
+    //                 header: info.header,
+    //                 content: (
+    //                     <Tests.Components.AddTestSection
+    //                         closeTestsCard={() => { console.log('closed tests') }}
+    //                     />
+    //                 )
+    //             } as TabItemInfo;
+    //             break;
+    //         case 'imaging':
+    //             newItem = {
+    //                 header: info.header,
+    //                 content: (
+    //                     <Imaging.Components.AddImageSection
+    //                         closeImagingCard={() => { console.log('closed imaging') }}
+    //                     />
+    //                 )
+    //             } as TabItemInfo;
+    //             break;                
+    //     }
 
-        if (newItem === undefined) return;
-        let tabItems: TabItemInfo[] = (this.state.tabItems || []).concat([newItem]);
-        this.setState({ tabItems, selectedTabIndex: tabItems.indexOf(newItem) });
-    }
+    //     if (newItem === undefined) return;
+    //     let tabItems: TabItemInfo[] = (this.state.tabItems || []).concat([newItem]);
+    //     this.setState({ tabItems, selectedTabIndex: tabItems.indexOf(newItem) });
+    // }
 
     handleClickNew(entityType: string) {
 

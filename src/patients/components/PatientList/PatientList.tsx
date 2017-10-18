@@ -67,8 +67,12 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     renderPatientList() {
         return (
             <div className="patient-list">
+                <div className="subheader">
+                    <h4>Hi Dr.Lee</h4>
+                    <p>You have <span>2 New Messages</span></p>
+                    <span className="list-title">Patients</span>
+                </div>
                 <List>
-                    <Subheader>Patients</Subheader>
                     { this.props.patients &&
                         this.props.patients.map((patient: Patient, index: number) => {
                             let channel = this.getChannel(patient);

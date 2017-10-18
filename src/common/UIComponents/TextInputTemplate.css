@@ -1,0 +1,9 @@
+.input-title{
+    display: block;
+    font-size: medium;
+    font-weight: bold;
+    text-align: left;
+    position: relative;
+    color: gray;
+    margin: 1em 0;
+}

@@ -1,0 +1,26 @@
+sudo: true
+language: node_js
+node_js:
+- 7.10.0
+cache:
+  yarn: true
+  directories:
+  - node_modules
+install:
+- npm install
+script:
+- npm test
+- unset CI
+- npm run build
+deploy:
+  provider: s3
+  access_key_id: $DEV_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $DEV_SECRET_ACCESS_KEY
+  bucket: dev-ehr.life.co
+  skip_cleanup: true
+  acl: public_read
+  on:
+    repo: LifeCo/lifeco-emr-web
+    branch: develop
+  local_dir: build

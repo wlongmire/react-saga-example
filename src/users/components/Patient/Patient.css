@@ -1,0 +1,62 @@
+/* im
+
+.patient-view{
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 10% 20% 1fr;
+}
+
+.patient-details {
+    display: block;
+    padding: 2.5em;
+    width: 40%;
+    line-height: 5px;
+    
+}
+
+.patient-details div{
+    display: inline-block;
+}
+
+.patient-avatar{
+    margin-right: 1em;
+    border-radius: 50%;
+}
+
+.patient-name-details{
+    font-weight: bold;
+    font-size: 1.7em;
+}
+
+
+#add-event-btn{
+    background: #f84445;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    text-align: center;
+    position: fixed;
+    right: 53px;
+    bottom: 20px;
+    color: white;
+    box-shadow: 0 0 20px #f84445;
+}
+
+.chat-title{
+    text-align: center;
+    display: block;
+    margin-top: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.floating-btn-rotate{
+    transition: transform .3s ease; 
+}
+.floating-btn{
+    transition: transform .3s ease;
+    transform: rotate(45deg);
+}
+ */

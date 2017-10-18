@@ -1,0 +1,104 @@
+#test-section{
+    position: relative;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    margin: .5em auto;
+    box-shadow: 2px 1px 30px 1px rgba(0,0,0,.1);
+    border-radius: 3px;
+    
+}
+
+.checkbox-title{
+    font-size: 15px;
+    text-align: left;
+    position: relative;
+    left:2em;
+    margin-top: 2em;
+    font-weight: bold;
+    color: gray;
+}
+
+.inputClass{
+    z-index: -1;
+    border: none;
+    text-align: left;
+    position: relative;
+    right:11vw;
+    padding: 1em;
+    margin: 2em;
+    cursor: pointer;
+}
+
+.test-add-new{
+    display: block;
+    text-align: left;
+    margin-left: 1.5em;
+    font-size: medium;
+    font-weight: bold;
+    color: gray;
+    padding: 5px;
+}
+
+.calendar-icon{
+    color: #f84445;
+    position: relative;
+    top: 20px;
+    transform: scale(1.4)
+}
+
+.date-section-title,
+.scheduled-title{
+    display: block;
+    font-weight: bold;
+    font-size: medium;
+    text-align: left;
+    position: relative;
+    left: 2.5em;
+    color: gray;
+    margin-bottom: 1em;
+}
+
+.priority-type-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 30%;
+    margin-left: 1em;
+    margin-bottom: 1.5em
+}
+.priority_type {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+.priority_type .label{
+    text-align: left;
+    font-size: medium;
+    width: 100px
+}
+
+.date-picker-section{
+    border: 1px solid #C6D3D1;
+    width: 90%;
+    margin-left: 1.5em;
+    height: 2.8em;
+    border-radius: 3px;
+}
+
+/*
+==============================
+File Input Section Attachment
+==============================
+*/
+
+.file-input-section{
+    display: grid;
+    grid-template-columns: 1fr 20px;
+}
+
+.att-icon{
+    display: inline-block;
+    position: relative;
+    right: 20rem;
+    top: 2.5rem;
+    transform: scale(1.4)
+}

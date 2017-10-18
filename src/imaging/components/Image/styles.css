@@ -1,0 +1,90 @@
+#image-section{
+    position: relative;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    margin: .5em auto;
+    box-shadow: 2px 1px 30px 1px rgba(0,0,0,.1);
+    border-radius: 3px;
+    
+}
+.priority-type-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 30%;
+    margin-left: 1em;
+}
+.priority_type {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+.priority_type .label{
+    text-align: left;
+    font-size: medium;
+    width: 100px
+}
+
+.checkbox-title{
+    font-size: 15px;
+    text-align: left;
+    position: relative;
+    left:2em;
+    margin-top: 2em;
+    font-weight: bold;
+    color: gray;
+}
+
+.inputClass{
+    z-index: -1;
+    border: none;
+    text-align: left;
+    position: relative;
+    right:17rem;
+    background: #C6D3D1;
+    padding: 1em;
+    margin: 2em;
+    height: 2.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 10rem;
+}
+
+.image-add-new{
+    display: block;
+    text-align: left;
+    margin-left: 1.5em;
+    font-size: medium;
+    font-weight: bold;
+    color: gray;
+    padding: 5px;
+}
+
+.scheduled-time{
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 56vw;
+    grid-column-gap: 2em;
+}
+
+.scheduled-time-section{
+    margin-bottom: 1em;
+}
+
+
+/*
+==============================
+File Input Section Attachment
+==============================
+*/
+
+.file-input-section{
+    display: grid;
+    grid-template-columns: 1fr 20px;
+}
+
+.att-icon{
+    display: inline-block;
+    position: relative;
+    right: 32em;
+}

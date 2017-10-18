@@ -7,7 +7,7 @@ import { GlobalState } from '../../../rootReducer';
 import { SingleSignOnInfo } from '../../';
 import Avatar from 'material-ui/Avatar';
 import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+// import Subheader from 'material-ui/Subheader';
 import { RouteComponentProps } from 'react-router-dom';
 import { ChatChannelInfo } from '../../../chat';
 import { ChatMessage } from '../../../chat/reducer';

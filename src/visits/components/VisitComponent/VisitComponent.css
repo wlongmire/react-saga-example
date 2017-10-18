@@ -217,7 +217,7 @@ Actual Time for the schedule section
     top: 0;
     width: 20px;
     height: 20px;
-    border: 2px solid rgba(0, 0, 0, 0.54);
+    border: 2px solid #e0e0e0;
   }
 
   .md-radio label:after {

@@ -20,7 +20,8 @@ class TestOrders extends React.Component<TestOrdersProps, {}>{
     componentDidMount(){
         this.props.loadAllTestOrders()
     }
-    render(){
+
+    render() {
         return(
             <div>
                 <TestOrdersCollection
@@ -61,4 +62,3 @@ const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
 )
 
 export const TestOrdersContainer = connect<{}, TestOrdersProps, {}>(mapStateToProps, mapDispatchToProps)(TestOrders)
-

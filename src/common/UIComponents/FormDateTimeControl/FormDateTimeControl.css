@@ -1,0 +1,42 @@
+
+.form-date-time-control {
+    display: grid;
+    grid-template-areas: 
+        "label label"
+        "date time";
+    grid-template-rows: 22px 1fr;
+    grid-template-columns: 60% 40%;
+}
+
+.form-date-time-control > .date-control-label {
+    grid-area: label;
+    color: #9b9b9b;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form-date-time-control .date-control-text-input-wrapper {
+    border: 1px solid #c6d3d1;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.form-date-time-control input.date-control-text-input,
+.form-date-time-control input.date-control-text-input:focus {
+    outline: none;
+    border-color: transparent;
+}
+
+.form-date-time-control input.date-control-text-input {
+    grid-area: date;
+    font-size: 16px;
+    line-height: 24px;
+    height: 48px;
+    padding: 16px;
+}
+
+.form-date-time-control .date-time-control-selector-wrapper {
+    grid-area: time;
+}

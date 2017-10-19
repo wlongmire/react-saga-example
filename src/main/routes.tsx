@@ -1,19 +1,29 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
 import { Route, Router, Redirect } from 'react-router-dom';
-import * as Visits from '../visits';
+// import * as Application from '../application';
+// import * as Zoo from '../zoo';
+// import * as Visits from '../visits';
+// import * as Users from '../users';
+// import * as Visits from '../visits';
 import * as Auth from '../auth';
 import * as Admin from '../admin';
 import * as Schedule from '../schedule';
-import * as AuthService from '../auth/service';
 import { Navbar } from '../navigation';
-import { PatientListContainer, PatientDetail } from '../patients';
+import { PatientList } from '../patients';
 import { DoseSpotUser } from '../dosespot';
 import { UsersContainer, UserDetail } from '../users';
+import { GlobalState } from '../rootReducer';
 import { history } from '../common';
 import { FormDateTimeControl } from '../common/UIComponents';
+import { isAuthenticated } from '../utils/auth-util';
+import { TabControl } from '../common/UIComponents/TabControl/TabControl';
+import { Tab } from '../common/UIComponents/TabControl/Tab';
+import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
+    const state = store.getState() as GlobalState;
+    console.dir('state', state);
     return (
         <Router history={history}>
             <div>
@@ -26,14 +36,41 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         </div>
                     }
                 />
+                <Route
+                    path="/tabs"
+                    exact={true}
+                    render={(props) => 
+                        <TabControl 
+                            canAdd={true}
+                            onAddTab={() => {
+                                return {
+                                    header: 'New Tab',
+                                    content: (<div>New Tab</div>)
+                                } as TabItemInfo
+                            }}
+                            onTabClosed={(tabItemInfo, index) => {
+                                console.log(`removed tab item at ${index}`);
+                            }}
+                        >
+                            <Tab header="Home">
+                                <div>Home</div>
+                            </Tab>
+                            <Tab header="Menu 1">
+                                <div>Menu 1</div>
+                            </Tab>
+                            <Tab header="Menu 2">
+                                <div>Menu 2</div>
+                            </Tab>
+                            <Tab header="Menu 3">
+                                <div>Menu 3</div>
+                            </Tab>
+                        </TabControl>}
+                />
                 <Route 
                     path="/reset-password"
                     exact={true}
                     render={(props) => <Auth.ForgotPassword {...props} />}
                 />
-               <Route
-                    path="/schedule"
-                    render={(props) => <Schedule.Components.Schedules {...props} />}                />
                 <Route 
                     path="/update-password"
                     exact={true}
@@ -47,7 +84,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 <Route
                     path="/"
                     render={(props) => (
-                        !AuthService.isAuthenticated() ? (
+                        !isAuthenticated() ? (
                             <Redirect 
                                 to={{
                                     pathname: '/login',
@@ -59,52 +96,57 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                 />
                 <div className="content-body">
                     <Route 
-                        exact={true}
                         path="/"
+                        exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect 
                                     to={{
                                         pathname: '/login',
                                         state: { referrer: '/' }
                                         }} 
                                 />
-                            ) : ( <PatientListContainer {...props} /> )
+                            ) : ( 
+                                <Redirect to={{pathname: '/patients'}} /> 
+                            )
                         )} 
                     />
-                    <Route 
+                    {/* <Route 
                         path="/patients/:patientId"
                         exact={true}
-                        render={(props) => (
-                            !AuthService.isAuthenticated() ? (
-                                <Redirect 
-                                    to={{
-                                        pathname: '/login',
-                                        state: { referrer: '/patients/:patientId' }
-                                        }} 
-                                />
-                            ) : ( <PatientDetail {...props} /> )
-                        )}
-                    />
+                        render={(props) => { 
+                            console.dir(props);
+                            return (
+                                !AuthService.isAuthenticated() ? (
+                                    <Redirect 
+                                        to={{
+                                            pathname: '/login',
+                                            state: { referrer: '/patients/:patientId' }
+                                            }} 
+                                    />
+                                ) : ( <PatientDetail {...props} /> )
+                        )}}
+                    /> */}
                     <Route 
-                        path="/patients"
-                        exact={true}
+                        path="/patients/:patientId?"
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect 
                                     to={{
                                         pathname: '/login',
                                         state: { referrer: '/patients' }
                                         }} 
                                 />
-                            ) : ( <PatientListContainer {...props} /> )
+                            ) : ( 
+                                    <PatientList {...props} /> 
+                                )
                         )}
                     />
                     <Route 
                         path="/dosespot"
                         exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect 
                                     to={{
                                         pathname: '/login',
@@ -118,7 +160,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         path="/users/:userId"
                         exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -132,7 +174,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         path="/users"
                         exact={true}
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -142,10 +184,10 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             ) : ( <UsersContainer {...props} /> )
                         )}
                     />
-                <Route
+                    <Route
                         path="/schedule"
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
@@ -153,7 +195,8 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                     }}
                                 />
                             ) : ( <Schedule.Components.Schedules {...props} /> )
-                        )} />
+                        )} 
+                    />
                     <Route
                         path="/login"
                         render={(props) => <Auth.LoginContainer {...props} />}
@@ -161,20 +204,23 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     <Route 
                         path="/visits" 
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
-                                        state:{ referrer: '/visits'}
+                                        state: { referrer: '/visits' }
                                     }}
                                 />
-                            ) : ( <Visits.Components.VisitsContainer {...props} />)
+                            ) : ( 
+                                {/* <Visits.Components.VisitsContainer {...props} /> */}
+                                
+                            )
                         )}
                     />
                     <Route  
                         path="/admin"
                         render={(props) => (
-                            !AuthService.isAuthenticated() ? (
+                            !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',

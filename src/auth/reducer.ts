@@ -1,39 +1,43 @@
 import * as Common from '../common';
 import { ActionType } from './actions';
 
-export interface AuthState {
-    isAuthenticated: boolean;
-    userIdentity?: UserIdentity;
-    authError?: string;
-    clientToken?: string;
-    clientTokenVerified?: boolean;
-    clientTokenVerificationError?: string;
-}
-
 export class AuthInfo {
     clientToken: string;
-    userIdentity: UserIdentity;
+    userId: number;
+    userChannel: number;
+    phoneHint?: string;
+    roleId?: number;
 
-    constructor(clientToken: string, userIdentity: UserIdentity) {
+    constructor(
+        clientToken: string, 
+        userId: number,
+        userChannel: number,
+        phoneHint?: string,
+        roleId?: number
+    ) {
         this.clientToken = clientToken;
-        this.userIdentity = userIdentity;
+        this.userId = userId;
+        this.userChannel = userChannel;
+        this.phoneHint = phoneHint;
+        this.roleId = roleId
     }
 }
 
-export class UserIdentity {
+export class Identity {
+    channelId: number;
     roleId?: number;
-    phoneHint?: string;
-    userId?: number;
-    userChannel?: number;
+    roleName?: string;
+    userId: number;
+    userInfo?: IdentityUserInfo;    
+}
 
-    // may need to add clinicId + clinicianId as well (if the user is a doctor)
-
-    constructor(roleId?: number, phoneHint?: string, userId?: number, userChannel?: number) {
-        this.roleId = roleId;
-        this.phoneHint = phoneHint;
-        this.userId = userId;
-        this.userChannel = userChannel;
-    }
+export interface IdentityUserInfo {
+    email: string;
+    first?: string;
+    last?: string;
+    phone?: string;
+    clinicId?: string;
+    clinicianId?: string;
 }
 
 export class AuthCredentials {
@@ -46,13 +50,37 @@ export class AuthCredentials {
     }
 }
 
+export interface AuthState {
+    isAuthenticated: boolean;
+    auth?: AuthInfo,
+    identity?: Identity;
+    authError?: string;
+    clientToken?: string;
+    clientTokenVerified?: boolean;
+    clientTokenVerificationError?: string;
+}
+
+const fetchAuthFromLocalStorage = (): AuthInfo | undefined => {
+    const authString = localStorage.getItem('auth');
+    return authString ? JSON.parse(authString) as AuthInfo : undefined;
+}
+
+const fetchIdentityFromLocalStorage = (): Identity | undefined => {
+    const identityString = localStorage.getItem('identity');
+    return identityString ? JSON.parse(identityString) as Identity : undefined;
+}
+
 function initialState(): AuthState {
+    const auth = fetchAuthFromLocalStorage();
+    const identity = fetchIdentityFromLocalStorage();
+
     return {
-        isAuthenticated: false, // check local storage + verified token
+        isAuthenticated: auth && auth.clientToken ? true : false, // check local storage + verified token
+        auth: auth,
         clientToken: undefined,
         clientTokenVerified: undefined,
         clientTokenVerificationError: undefined,
-        userIdentity: undefined,
+        identity: identity,
         authError: undefined
     }
 }
@@ -60,30 +88,37 @@ function initialState(): AuthState {
 export default function reducer(state = initialState(), action: Common.ActionResult<{}>) {
 
     switch (action.type) {
+
         case ActionType.LOGIN_SUCCESS:
-            const { clientToken, userIdentity } = <AuthInfo> action.value;
+            const authInfo = action.value as AuthInfo;
             return { 
                 ...state, 
                 isAuthenticated: false, // not until the token is also verified
-                clientToken,
-                userIdentity
+                auth: authInfo,
+                clientToken: authInfo.clientToken,
+                clientTokenVerified: undefined,
+                clientTokenVerificationError: undefined
             };
+
         case ActionType.LOGIN_FAIL:
             return {
                 ...state,
                 isAuthenticated: false,
                 authError: action.value
             };
+
         case ActionType.LOGOUT_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: false,
                 clientToken: undefined,
+                auth: undefined,
                 userIdentity: undefined,
                 authError: undefined,
                 clientTokenVerified: undefined,
                 clientTokenVerificationError: undefined
             };
+
         case ActionType.VERIFY_CODE_SUCCESS:
             return {
                 ...state,
@@ -91,6 +126,7 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 clientTokenVerificationError: undefined,
                 isAuthenticated: true
             }
+        
         case ActionType.VERIFY_CODE_FAIL:
             return {
                 ...state,
@@ -98,7 +134,13 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 clientTokenVerificationError: action.value,
                 isAuthenticated: false
             }
-        case ActionType.LOGOUT_FAIL:
+        
+        case ActionType.FETCH_IDENTITY_SUCCESS:
+            return {
+                ...state,
+                identity: action.value as Identity
+            }
+
         default:
             return state;
     }

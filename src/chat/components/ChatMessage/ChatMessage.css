@@ -19,11 +19,17 @@
     height: 30px;
 }
 
+.chat-message.my-message {
+    float: right;
+}
+
 .chat-message:not(.my-message) > .chat-message-avatar {
     text-align: left;
+    /* float: left; */
 }
 
 .chat-message.my-message > .chat-message-avatar {
+    /* float: right; */
     text-align: right;
 }
 
@@ -49,7 +55,6 @@
 .chat-message:not(.my-message) > .chat-message-time {
     text-align: left;
 }
-
 
 .chat-message.my-message > .chat-message-time {
     text-align: right;

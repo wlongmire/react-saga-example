@@ -9,7 +9,7 @@ export class LinkExpired extends React.Component<{}, {}>{
     render(){
         return(
             <div>
-                <Common.Components.HeaderLabel/>
+                <Common.HeaderLabel/>
                 <div className="link-expired-body">
                 <h2 className="bold">
                     Update password link expired

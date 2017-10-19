@@ -31,6 +31,7 @@ class LoginComponentState {
  * Display element for login.
  */
 export class Login extends React.Component<LoginComponentProps, LoginComponentState> {
+  
   constructor() {
     super();
 
@@ -74,7 +75,6 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    */
   onSubmit(event: any) {
     event.preventDefault()
-
     this.props.login(new AuthCredentials(this.state.email, this.state.password));
   }
 
@@ -91,11 +91,10 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
   render() {
     return (
       <div id="wrapper-login">
-        <Common.Components.HeaderLabel/>
+        <Common.HeaderLabel/>
         <div className="intro">Welcome to LifeCo</div>
         <div className="login-body">
-          <form onSubmit={this.onSubmit}>
-
+          <form className="login-form" onSubmit={this.onSubmit}>
             <input
               name="email"
               type='email'
@@ -130,7 +129,6 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
           <span className="slashIcon">
             <FaSlashEye />
           </span>
-
           <Link to="/reset-password" className="forgot-password">Forgot Password</Link>
         </div>
       </div>

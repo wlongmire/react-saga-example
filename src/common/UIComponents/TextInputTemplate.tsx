@@ -30,9 +30,8 @@ export class TextInputTemplate extends React.Component<P, {}>{
                 style={{
                     border:'1px solid #C6D3D1',
                     position: "relative",
-                    right: ".5em",
                     padding: "1em",
-                    width:'90%',
+                    width:'100%',
                     height:{inputHeight},
                     borderRadius: "3px",
                 }}

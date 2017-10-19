@@ -1,4 +1,4 @@
-im
+/* im
 
 .patient-view{
     display: grid;
@@ -41,12 +41,6 @@ im
     color: white;
     box-shadow: 0 0 20px #f84445;
 }
-/* 
-#main-section{
-    border-top: 1px solid #dedede;
-    display: grid;
-    grid-template-columns: 30% 1fr;
-} */
 
 .chat-title{
     text-align: center;
@@ -65,4 +59,4 @@ im
     transition: transform .3s ease;
     transform: rotate(45deg);
 }
-
+ */

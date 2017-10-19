@@ -1,7 +1,7 @@
 export * from './models';
 export * from './utils';
 export { default as history } from './history';
-
+export * from './UIComponents';
 
 /**
  * Redux ActionResult interface

@@ -28,7 +28,7 @@ export class ConfirmIdentity extends React.Component<{}, S>{
     render(){
         return(
             <div>
-                <Common.Components.HeaderLabel/>
+                <Common.HeaderLabel/>
                 <div className="confirm-id-body">
                 <h2 className="bold">
                     Confirm your identity to update password

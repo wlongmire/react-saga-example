@@ -1,1 +1,2 @@
-export {VisitsContainer} from './Visits';
+// export {VisitsContainer} from './Visits';
+// export {getSingleVisit} from './stubbedVisits';

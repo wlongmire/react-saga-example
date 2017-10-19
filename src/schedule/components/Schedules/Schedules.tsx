@@ -3,9 +3,7 @@ import {CollatedSchedules} from './CollatedSchedules';
 // import {Navigation} from '../../../navigation/components/Navigation';
 import  {ScheduleDropDown} from '../../../common/UIComponents';
 import * as FloatingBtn from '../../../common/UIComponents';
-import * as Visits from '../../../visits';
-
-
+// import * as Visits from '../../../visits';
 
 import './styles.css';
 
@@ -208,9 +206,7 @@ export class Schedules extends React.Component<{}, S>{
                             <span className="close" onClick={this._closeModal}>X</span>
                         </div>
                         <div className="visits-body">
-                        <Visits.Components.VisitDrawer
-                            enclosingIdName="schedule-drawer"
-                        />
+                        {/* <Visits.VisitComponent /> */}
                         </div>
                     </div>
                 </div>

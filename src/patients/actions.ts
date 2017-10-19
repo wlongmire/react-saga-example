@@ -17,6 +17,11 @@ export module ActionType {
     export const FETCH_SSO_INFO = 'patients/FETCH_SSO_INFO';
     export const FETCH_SSO_INFO_FAILED = 'patients/FETCH_SSO_INFO_FAILED';
     export const FETCH_SSO_INFO_SUCCESS = 'patients/FETCH_SSO_INFO_SUCCESS';
+
+    export const SELECT_PATIENT = 'patients/SELECT_PATIENT';
+    export const SELECT_PATIENT_SUCCESS = 'patients/SELECT_PATIENT_SUCCESS';
+    export const SELECT_PATIENT_FAILURE = 'patients/SELECT_PATIENT_FAILURE';
+    export const UNSELECT_PATIENT = 'patients/UNSELECT_PATIENT';
 }
 
 export const fetchAllPatients = (): ActionResult<{}> =>  {
@@ -46,7 +51,7 @@ export const fetchPatient = (patientId: number): ActionResult<{}> => {
     }
 }
 
-export const fetchPatientSuccess = (patient:Patient): ActionResult<Patient> => {
+export const fetchPatientSuccess = (patient: Patient): ActionResult<Patient> => {
     return {
         type: ActionType.FETCH_PATIENT_SUCCESS,
         value: patient
@@ -58,4 +63,32 @@ export const fetchPatientFailure = (error: Error): ActionResult<Error> => {
         type: ActionType.FETCH_PATIENT_FAILURE,
         value: error
     };
+}
+
+export const selectPatient = (patient: Patient): ActionResult<Patient> => {
+    return {
+        type: ActionType.SELECT_PATIENT,
+        value: patient
+    }
+}
+
+export const selectPatientSuccess = (patient: Patient): ActionResult<Patient> => {
+    return {
+        type: ActionType.SELECT_PATIENT_SUCCESS,
+        value: patient
+    }
+}
+
+export const selectPatientFailure = (error: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.SELECT_PATIENT_FAILURE,
+        value: error
+    }
+}
+
+export const unselectPatient = (patient: Patient): ActionResult<Patient> => {
+    return {
+        type: ActionType.UNSELECT_PATIENT,
+        value: patient
+    }
 }

@@ -11,7 +11,7 @@
 
 .admin-dosespot-dialog-wrapper {
     width: 1000px;
-    height: 584px;
+    height: calc(100vh - 200px);
 }
 
 .admin-dosespot-iframe {

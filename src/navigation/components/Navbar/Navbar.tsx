@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../../../auth';
+import { Identity, logout } from '../../../auth';
 import { Link } from 'react-router-dom';
+import { GlobalState } from '../../../rootReducer';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
@@ -9,7 +10,8 @@ import Avatar from 'material-ui/Avatar';
 import './Navbar.css';
 
 interface NavbarProps {
-    logout: () => void
+    identity: Identity;
+    logout: () => void;
 }
 
 class _Navbar extends React.Component<NavbarProps, {}> {
@@ -24,6 +26,13 @@ class _Navbar extends React.Component<NavbarProps, {}> {
     }
 
     render() {
+        const { identity } = this.props;
+        let userFirstInitial: string = '';
+
+        if (identity && identity.userInfo && identity.userInfo.first) {
+            userFirstInitial = identity.userInfo.first.substr(0, 1);
+        }
+
         return (
             <nav className="lc-nav">
                 <div className="lc-nav-wrapper">
@@ -34,7 +43,7 @@ class _Navbar extends React.Component<NavbarProps, {}> {
                             <Avatar 
                                 backgroundColor="#f84445"
                                 color="#ffffff">
-                                A
+                                { userFirstInitial }
                             </Avatar>
                         }
                         anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
@@ -56,7 +65,13 @@ class _Navbar extends React.Component<NavbarProps, {}> {
     }
 }
 
+const mapStateToProps = (state: GlobalState) => {
+    return {
+        identity: state.auth.identity
+    }
+}
+
 export const Navbar = connect(
-    null,
+    mapStateToProps,
     { logout }
 )(_Navbar);

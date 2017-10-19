@@ -1,11 +1,4 @@
-
-/* 
-================
-New Log In Component
-================
-*/
-
-#wrapper-login{
+#wrapper-login {
     display: grid;
     grid-template-rows: 80px 20px 1fr;
     height: 100vh;
@@ -13,7 +6,7 @@ New Log In Component
     overflow: hidden;
 }
 
-.login-body{
+.login-body {
     position: relative;
     top: 30%;
     margin: 0 auto;
@@ -38,18 +31,18 @@ New Log In Component
 }
 .login-email-input:focus,
 .login-password-input:focus,
-.login-submit-button:focus{
+.login-submit-button:focus {
     outline: none;
 }
 
 .login-email-input::placeholder,
 .login-password-input::placeholder,
-.login-submit-button::placeholder{
+.login-submit-button::placeholder {
     font-weight: medium;
     color: #BFBFBF;
 }
 
-.login-submit-button{
+.login-submit-button {
     background: #F42C3D;
     color: white;
     width: 60%;
@@ -63,12 +56,12 @@ New Log In Component
     transition: all.3s ease-in-out;
 }
 
-.login-submit-button:hover{
+.login-submit-button:hover {
     background: #ECEEEE;
     color: black;
 }
 
-.intro{
+.intro {
     display: block;
     color: #F42C3D;
     text-align: center;
@@ -77,7 +70,8 @@ New Log In Component
     font-weight: 500;
 }
 
-.forgot-password{
+.forgot-password {
+    text-decoration: none;
     position: relative;
     text-align: center;
     color: #BFBFBF;
@@ -85,10 +79,11 @@ New Log In Component
     transition: color .3s ease-in-out; 
 }
 
-.forgot-password:hover{
+.forgot-password:hover {
     color: #F42C3D;
 }
-.slashIcon{
+
+.slashIcon {
     position: absolute;
     display: inline-block;
     left: 85%;
@@ -97,10 +92,7 @@ New Log In Component
     transform: scale(1.2)
 }
 
-
-.error-label{
-=======
->>>>>>> f3126f7fc29bd403db90bbd5f60ba993bba3d009
+.error-label {
     color: #F42C3D;
     font-size: small;
 }

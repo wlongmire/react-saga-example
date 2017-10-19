@@ -53,7 +53,6 @@ export class TableGoalTemplate extends React.Component<TableTemplateProps, Table
         
     }
 
-    this.handleAddItem = this.handleAddItem.bind(this);
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {

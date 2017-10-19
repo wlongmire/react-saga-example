@@ -1,84 +1,63 @@
 import * as React from 'react';
 import './Common.css';
 
+// interface TabDescription {
+//     default?: boolean;
+//     type?: string;
+//     id: string;
+//     component?: JSX.Element; 
+//     props?: object; 
+// }
 
 interface P {
-    bioDriveComponent : JSX.Element
+    appComponent ?: JSX.Element;
+    tabs: Array<string>;
+    clickedTab: string;
+    handleClickTab: (t:string) => void;
+    handleAddTab: () => void;
 }
 
 interface S {
-    biodriveClicked: boolean;
-    hormoneTabClicked: boolean;
-    visitTabClicked: boolean;
-
-
+    tabState: object,
+    clickedTab: string
 }
+
 export class CustomTabComponent extends React.Component<P, S>{
     constructor(props:P){
         super(props)
         this.state = {
-            biodriveClicked: true,
-            hormoneTabClicked: false,
-            visitTabClicked: false
+            tabState : {
+                biodrive: true,
+                hormone: false,
+                },
+            clickedTab: ''
         }
     }
 
-    _handleClickBioDrive = () => {
-        this.setState({
-            biodriveClicked: true,
-            visitTabClicked: false,
-            hormoneTabClicked: false
-        })
+    capitalizeFirstLetter = (s:string) => {
+        return s.charAt(0).toUpperCase() + s.slice(1);
     }
-    _handleClickHormoneTab = () => {
-        this.setState({
-            biodriveClicked: false,
-            visitTabClicked: false,
-            hormoneTabClicked: true
-        })
-    }
-    _handleClickVisitsTab = () => {
-        this.setState({
-            biodriveClicked: false,
-            visitTabClicked: true,
-            hormoneTabClicked: false
-        })
-    }
-    _handleAddTab = () => {
-        console.log("Click Add Tab")
-    }
-    render(){
-        console.log(this.state)
-        return(
-
+    
+    render() {
+        return (
             <div id="wrapper">
                 <div className="chat-section"></div>
                 <div className="right-section">
                     <div className="tabs">
-                        <div onClick={this._handleClickBioDrive} className={this.state.biodriveClicked ? "tab-header-clicked":"tab-header"}>BioDrive</div>
-                        <div onClick={this._handleClickHormoneTab} className={this.state.hormoneTabClicked ? "tab-header-clicked":"tab-header"}>Hormone Test</div>
-                        <div onClick={this._handleClickVisitsTab} className={this.state.visitTabClicked ? "tab-header-clicked":"tab-header"}>LifeCo Visit</div>
-                    <span onClick={this._handleAddTab}className="add-icon"> + </span>
+                        {
+                            this.props.tabs.map((t: string, index: number) => {
+                                return (
+                                    <div key={index} className={t === this.props.clickedTab ? "tab-header-clicked": "tab-header"} onClick={() => this.props.handleClickTab(t)} >{this.capitalizeFirstLetter(t)}</div>
+                                )
+                            })
+                        }
+                        <span onClick={this.props.handleAddTab} className="add-icon"> + </span>
                     </div>
                     
                     <div className="tab-content">
-                        {
-                            this.state.biodriveClicked && !this.state.hormoneTabClicked && !this.state.visitTabClicked &&
-                            <div>{this.props.bioDriveComponent}</div>
+                        {this.props.appComponent &&
+                            this.props.appComponent
                         }
-
-                        {
-                            !this.state.biodriveClicked && this.state.hormoneTabClicked && !this.state.visitTabClicked &&
-                            <div>hormoneTabClicked</div>
-                        }
-
-                        {
-                            !this.state.biodriveClicked && !this.state.hormoneTabClicked && this.state.visitTabClicked &&
-                            <div>visitTabClicked</div>
-                        }
-
-
-
                     </div>
                 </div>            
             </div>

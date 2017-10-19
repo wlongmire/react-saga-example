@@ -1,4 +1,4 @@
-.visit-item{
+/* .visit-item{
     display: grid;
     grid-template-columns: 100px 1fr 1fr;
     border: 1px solid #d8e7e5;
@@ -6,6 +6,7 @@
     width: 90%;
     margin: 1em auto;
     z-index: 5;
+    cursor: pointer;
 }
 
 .visit-date{
@@ -55,11 +56,7 @@
     font-weight: bold
 }
 
-.visit-date{
-    color: gray;
-    opacity: .5;
-}
 
 .visit-description{
     font-size: medium;
-}
+} */

@@ -5,7 +5,7 @@
         "header"
         "body"
         "footer";
-    height: 100vh;
+    height: calc(100vh - 200px);
 }
 
 .chat-container-header {
@@ -27,9 +27,19 @@
     vertical-align: middle;
 }
 
+.chat-message-container {
+    display: block;
+    width: 100%;
+    clear: both;
+}
+
 .chat-attachments-button {
     grid-area: attachments;
     background-color: transparent;
+    cursor: pointer;
+    color: #979797;
+    padding: 15px 15px;
+    transform: rotate(45deg) rotate3d(1,0,0,180deg);
 }
 
 .chat-text-input {
@@ -37,8 +47,9 @@
     border: none;
     width: 100%;
     background-color: transparent;
-    padding: 0;
+    padding: 15px;
     font-size: 16px;
+    outline: none;
 }
 
 .chat-send-button {
@@ -49,4 +60,11 @@
     padding: 0;
     font-size: 16px;
     cursor: pointer;
+}
+
+.chat-message-day-title {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 26px;
 }

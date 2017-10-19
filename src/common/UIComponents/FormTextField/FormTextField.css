@@ -1,0 +1,19 @@
+.form-text-field {
+    width: 100%;
+}
+
+.form-text-field .form-control-label {
+    color: #9B9B9B;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.form-text-field .form-control-field {
+    height: 48px;
+    width: 100%;
+    border: 1px solid #c6d3d1;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}

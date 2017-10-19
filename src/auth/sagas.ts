@@ -1,36 +1,33 @@
-import * as Common from '../common';
+import { ActionResult } from '../common';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
 import * as Navigation from '../navigation';
-import { AuthCredentials } from './reducer';
+import { AuthCredentials, AuthInfo, Identity } from './reducer';
 import * as AuthService from './service';
 
-export function* login(action: Common.ActionResult<AuthCredentials>) {
+export function* login(action: ActionResult<AuthCredentials>) {
     try {
         if (!action.value) {
             throw new Error('action is missing required LoginCredentials value');
         }
-        const authInfo = yield call(AuthService.login, action.value.email, action.value.password);
-        yield(put(Actions.loginSuccess(authInfo)));
+        const auth = yield call(AuthService.login, action.value.email, action.value.password);
+        yield(put(Actions.loginSuccess(auth)));
     } catch (e) {
         yield(put(Actions.loginFail(e)));
     }
 }
 
-export function* logout(action: Common.ActionResult<{}>) {
+export function* logout(action: ActionResult<{}>) {
     try {
-        const result = yield call(AuthService.logout);
-        if (result.error) {
-            yield(put(Actions.logoutFail(result.error)));
-        } else {
-            yield(put(Actions.logoutSuccess()));
-        }
+        localStorage.removeItem('auth');
+        localStorage.removeItem('identity');
+        yield(put(Actions.logoutSuccess()));
     } catch (e) {
         yield(put(Actions.logoutFail(e)));
     }
 }
 
-export function* verifyCode(action: Common.ActionResult<string>) {
+export function* verifyCode(action: ActionResult<string>) {
     try {
         yield call(AuthService.verifyCode, action.value);
         yield(put(Actions.verifyCodeSuccess()));
@@ -39,7 +36,7 @@ export function* verifyCode(action: Common.ActionResult<string>) {
     }
 }
 
-export function* onForgotPassword(action: Common.ActionResult<string>) {
+export function* onForgotPassword(action: ActionResult<string>) {
     try {
         yield call(AuthService.forgotPassword, action.value);
         yield(put(Actions.forgotPasswordSuccess()));
@@ -48,7 +45,9 @@ export function* onForgotPassword(action: Common.ActionResult<string>) {
     }
 }
 
-function* onLoginSuccess() {
+function* onLoginSuccess(action: ActionResult<AuthInfo>) {
+    const authInfo = action.value as AuthInfo;
+    localStorage.setItem('auth', JSON.stringify(authInfo));
     yield(put(Navigation.navigate('/verify-code')));
 }
 
@@ -56,8 +55,24 @@ function* onLogoutSuccess() {
     yield(put(Navigation.navigate('/')));
 }
 
+function* onFetchIdentity() {
+    try {
+        const identity = yield call(AuthService.fetchIdentity);
+        yield(put(Actions.fetchIdentitySuccess(identity)));
+    } catch (e) {
+        yield(put(Actions.fetchIdentityFail(e)));
+    }
+}
+
+function* onFetchIdentitySuccess(action: ActionResult<Identity>) {
+    const identity = action.value as Identity;
+    localStorage.setItem('identity', JSON.stringify(identity));
+    yield(null);
+}
+
 function* onVerifyCodeSuccess() {
     yield(put(Navigation.navigate('/')));
+    yield(put(Actions.fetchIdentity()));
 }
 
 function* watchForLogin() {
@@ -88,6 +103,14 @@ function* watchForLogout() {
     yield takeEvery(Actions.ActionType.LOGOUT, logout);
 }
 
+function* watchForFetchIdentity() {
+    yield takeEvery(Actions.ActionType.FETCH_IDENTITY, onFetchIdentity);
+}
+
+function* watchForFetchIdentitySuccess() {
+    yield takeEvery(Actions.ActionType.FETCH_IDENTITY_SUCCESS, onFetchIdentitySuccess);
+}
+
 export default function* root() {
     yield all([
         fork(watchForLogin),
@@ -96,6 +119,8 @@ export default function* root() {
         fork(watchForLogoutSuccess),
         fork(watchForForgotPassword),
         fork(watchForVerifyCode),
-        fork(watchForVerifyCodeSuccess)
+        fork(watchForVerifyCodeSuccess),
+        fork(watchForFetchIdentity),
+        fork(watchForFetchIdentitySuccess)
     ]);
 }

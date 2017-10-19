@@ -45,7 +45,7 @@ export class _ForgotPassword extends React.Component<ForgotPasswordProps, Forgot
     render(){
         return(
             <div>
-                <Common.Components.HeaderLabel/>
+                <Common.HeaderLabel/>
                 { this.state.resetButtonClicked ? 
                     <div className="thank-you-section">
                         <h2 className="thank-you-message">Thanks!</h2>

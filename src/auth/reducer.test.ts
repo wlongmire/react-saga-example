@@ -1,40 +1,31 @@
-import { default as reducer, AuthInfo, UserIdentity } from './reducer';
+import { default as reducer, AuthState } from './reducer';
 import * as actions from './actions';
 
 describe('auth reducer', () => {
+    const initialState: AuthState = {
+        isAuthenticated: false
+    }
+
     it('should return the initial state', () => {
-        expect(reducer(undefined, { type: actions.ActionType.LOGIN })).toEqual({
+        expect(reducer(initialState, { type: actions.ActionType.LOGIN })).toEqual({
             isAuthenticated: false
         });
     });
 
     it('should handle LOGIN_SUCCESS', () => {
-        const userIdentity: UserIdentity = {
-            roleId: 6,
-            phoneHint: '71',
-            userId: 1,
-            userChannel: 1
-        };
-
-        const authInfo: AuthInfo = {
-            clientToken: 'abacadaba',
-            userIdentity
-        };
+        const token = 'abacadaba';
 
         expect(
-            reducer(undefined, {
+            reducer(initialState, {
                 type: actions.ActionType.LOGIN_SUCCESS,
-                value: authInfo
+                value: token
             })
         ).toEqual({
-            isAuthenticated: false,
-            clientToken: 'abacadaba',
-            userIdentity: {
-                roleId: 6,
-                phoneHint: '71',
-                userId: 1,
-                userChannel: 1
-            }
+            auth: 'abacadaba',
+            clientToken: undefined,
+            clientTokenVerificationError: undefined,
+            clientTokenVerified: undefined,
+            isAuthenticated: false
         });
     });
 

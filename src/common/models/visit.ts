@@ -1,53 +1,60 @@
-import { Address } from './address';
-import { StringEnum, Dictionary } from '../utils';
+import { InternalNote } from './internal-note';
 
-/** K:V for visit status */
-export const VisitStatus = StringEnum([
-    'New',
-    'Scheduled',
-    'Process Visit',
-    'Finalized',
-    'Cancelled'
-]);
+export enum VisitStatus {
+    New,
+    Scheduled,
+    ProcessVisit,
+    Finalized,
+    Cancelled
+}
 
-/** Create a type for the Visit Status */
-export type VisitStatus = keyof typeof VisitStatus;
+export enum VisitType {
+    LifeCo,
+    External
+}
 
-/** K:V for visit type */
-export const VisitType = StringEnum([
-    'LifeCo',
-    'Procedure',
-    'External'
-]);
+export enum DoctorType {
+    Primary,
+    Gynecologist,
+    Dermatologist
+}
 
-/** Create a type for the Visit Type */
-export type VisitType = keyof typeof VisitType;
+export enum TimeDuration {
+    QuarterHour = 15,
+    HalfHour = 30,
+    ThreeQuarterHour = 45,
+    Hour = 60
+}
 
-/** K:V for visit type */
-export const VisitProviderType = StringEnum([
-    'Primary',
-    'Gynocologist',
-    'Dermatologist'
-]);
+export enum MaintenanceFlags {
+    Physical,
+    PapSmear
+}
 
-/** Create a type for the Visit Type */
-export type VisitProviderType = keyof typeof VisitProviderType;
-
-/** Visit model */
 export class Visit {
-    referenceEvent?: string;
-    status: VisitStatus;
-    assigneeId: number;
-    visitType: VisitType;
-    maintenance: Array<string>;
-    providerName: string;
-    providerType: VisitProviderType;
-    providerLocation: Address;
-    complaints: Array<string>;
-    vitals: Dictionary<number>;
-    systemReview: Dictionary<string>;
-    subjective: string;
-    objective: string;
-    assessment: string;
-    nextSteps: string;
+    id: string;
+    status?: string;
+    assigneeId?: string;
+    cases?: Array<string>;
+    patientId?: number;
+    visitType?: string;
+    maintenance?: Array<string>;
+    doctorName?: string;
+    doctorType?: string;
+    clinic?: string;
+    scheduledFor?: Date;
+    estimatedDuration?: number;
+    complaints?: Array<string>;
+    vitals?: Array<object>;
+    systemsReview?: Array<object>;
+    diagnosis?: string;
+    subjective?: string;
+    objective?: string;
+    assessment?: string;
+    nextSteps?: string;
+    internalNotes?: Array<InternalNote>;
+
+    constructor(id: string) {
+        this.id = id;
+    }
 }

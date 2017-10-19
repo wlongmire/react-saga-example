@@ -12,6 +12,7 @@ export {CustomTextInput} from './CustomTextInput';
 export {CustomDropDown, CustomDropDownProps, DropDownItem} from './CustomDropDown';
 export {ScheduleDropDown} from './ScheduleDropDown';
 export {CustomTabComponent} from './CustomTabComponent';
+export { FormDateTimeControl } from './FormDateTimeControl';
 
 export { FormGroup } from './FormGroup';
 export { 

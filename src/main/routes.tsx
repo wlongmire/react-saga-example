@@ -11,11 +11,21 @@ import { PatientListContainer, PatientDetail } from '../patients';
 import { DoseSpotUser } from '../dosespot';
 import { UsersContainer, UserDetail } from '../users';
 import { history } from '../common';
+import { FormDateTimeControl } from '../common/UIComponents';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
+                <Route
+                    path="/form-date"
+                    exact={true}
+                    render={(props) => 
+                        <div style={{marginTop:100, width: '50%'}}> 
+                            <FormDateTimeControl date={new Date()} onChange={(value: Date) => { console.log('') }} /> 
+                        </div>
+                    }
+                />
                 <Route 
                     path="/reset-password"
                     exact={true}

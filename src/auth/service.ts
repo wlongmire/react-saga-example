@@ -9,7 +9,8 @@ export const login = (email: string, password: string) => {
         },
         body: JSON.stringify({
             email,
-            password
+            password,
+            code: '291704'
         })
     };
     const url = makeUrl('exposed', 'register_client');

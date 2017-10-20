@@ -2,7 +2,7 @@ import { ActionResult } from '../common';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
 import * as Navigation from '../navigation';
-import { AuthCredentials, AuthInfo, Identity } from './reducer';
+import { AuthCredentials, Identity } from './reducer';
 import * as AuthService from './service';
 
 export function* login(action: ActionResult<AuthCredentials>) {
@@ -20,7 +20,7 @@ export function* login(action: ActionResult<AuthCredentials>) {
 export function* logout(action: ActionResult<{}>) {
     try {
         localStorage.removeItem('auth');
-        localStorage.removeItem('identity');
+        localStorage.removeItem('identity'); 
         yield(put(Actions.logoutSuccess()));
     } catch (e) {
         yield(put(Actions.logoutFail(e)));
@@ -45,10 +45,8 @@ export function* onForgotPassword(action: ActionResult<string>) {
     }
 }
 
-function* onLoginSuccess(action: ActionResult<AuthInfo>) {
-    const authInfo = action.value as AuthInfo;
-    localStorage.setItem('auth', JSON.stringify(authInfo));
-    yield(put(Navigation.navigate('/verify-code')));
+function* onLoginSuccess() {
+    yield(put(Navigation.navigate('/')));
 }
 
 function* onLogoutSuccess() {

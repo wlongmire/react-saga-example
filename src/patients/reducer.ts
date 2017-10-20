@@ -98,7 +98,6 @@ export class Imaging {
 }
 
 export class Wellness {
-    patientId: number;
     goals: Array<Goal>;
     maintenance: Array<Maintenance>;
     immunizations: Array<Immunization>;

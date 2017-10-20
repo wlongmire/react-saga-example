@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import * as Rx from '../../../treatments';
-import * as uuidv4 from 'uuid/v4';
 import { VisitComponent } from '../../../visits';
 import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
@@ -48,6 +47,8 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.handleClickNew = this.handleClickNew.bind(this);
         this.handleSelectedTabChanged = this.handleSelectedTabChanged.bind(this);
         this.handleTabClosing = this.handleTabClosing.bind(this);
+        this.handleVisitCancel = this.handleVisitCancel.bind(this);
+        this.handleVisitSave = this.handleVisitSave.bind(this);
     }
 
     componentDidMount() {
@@ -80,7 +81,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
     }
 
     createNewVisit(): Visit {
-        return new Visit(uuidv4());
+        return new Visit();
     }
 
     findVisit(id: string): Visit {
@@ -147,7 +148,14 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'visit':
                 newItem = {
                     header,
-                    content: (<VisitComponent patientList={this.props.patientList} visit={this.createNewVisit()} />)
+                    content: (
+                        <VisitComponent 
+                            patientList={this.props.patientList} 
+                            visit={this.createNewVisit()} 
+                            onSave={this.handleVisitSave} 
+                            onCancel={this.handleVisitCancel} 
+                        />
+                    )
                 } as TabItemInfo;
                 break;
             case 'test':
@@ -198,6 +206,14 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         }
 
         this.setState({ tabItems, selectedTabIndex: currentIndex});
+    }
+
+    handleVisitCancel() {
+
+    }
+
+    handleVisitSave(visit: Visit) {
+
     }
 
     render() {

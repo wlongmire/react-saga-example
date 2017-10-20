@@ -9,6 +9,8 @@ interface FormTextFieldProps {
     floatingLabelText?: string;
     value?: any;
     onValueChanged?: (value: any) => void;
+    multiLine?: boolean;
+    rows?: number;
 }
 
 interface FormTextFieldState {
@@ -63,11 +65,13 @@ export class FormTextField extends React.Component<FormTextFieldProps, FormTextF
                     className="form-control-field"
                     name={this.props.name}
                     floatingLabelText={this.props.floatingLabelText}
-                    value={this.state.value}
+                    value={this.state.value || ''}
                     onChange={this.handleChange}
                     style={selectStyle}
                     inputStyle={inputStyle}
                     underlineShow={false}
+                    multiLine={this.props.multiLine}
+                    rows={this.props.rows}
                 />
             </div>
         );

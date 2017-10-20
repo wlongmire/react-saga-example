@@ -1,32 +1,64 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
-import { Route, Router, Redirect } from 'react-router-dom';
-// import * as Application from '../application';
-// import * as Zoo from '../zoo';
-// import * as Visits from '../visits';
-// import * as Users from '../users';
-// import * as Visits from '../visits';
-import * as Auth from '../auth';
-import * as Admin from '../admin';
-import * as Schedule from '../schedule';
-import { Navbar } from '../navigation';
-import { PatientList } from '../patients';
-import { DoseSpotUser } from '../dosespot';
-import { UsersContainer, UserDetail } from '../users';
-import { GlobalState } from '../rootReducer';
+// import { Route, Router, Redirect } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
+import { Visit } from '../common';
+import { VisitComponent } from '../visits';
+// import * as Auth from '../auth';
+// import * as Admin from '../admin';
+// import * as Schedule from '../schedule';
+// import { Navbar } from '../navigation';
+import { Patient } from '../patients';
+// import { DoseSpotUser } from '../dosespot';
+// import { UsersContainer, UserDetail } from '../users';
 import { history } from '../common';
-import { isAuthenticated } from '../utils/auth-util';
-import { TabControl } from '../common/UIComponents/TabControl/TabControl';
-import { Tab } from '../common/UIComponents/TabControl/Tab';
-import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
+// import { isAuthenticated } from '../utils/auth-util';
+// import { TabControl } from '../common/UIComponents/TabControl/TabControl';
+// import { Tab } from '../common/UIComponents/TabControl/Tab';
+// import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
+
+const patients: Array<Patient> = [
+    {
+        id: 1,
+        firstName: 'Toby',
+        lastName: 'Jackson',
+        name: 'Toby Jackson',
+        primaryChannel: 1,
+        treatments: [],
+        visits: [],
+        tests: [],
+        imaging: [],
+        wellness: {
+            goals: [],
+            maintenance: [],
+            immunizations: []
+        },
+        other: {}
+    }
+];
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
-    const state = store.getState() as GlobalState;
-    console.dir('state', state);
     return (
         <Router history={history}>
             <div>
                 <Route
+                    path="/zoo/visit"
+                    exact={true}
+                    render={(props) => 
+                        <div style={{
+                            width: '60%',
+                            margin: '10px auto',
+                            padding: 15
+                        }}>
+                            <VisitComponent 
+                                patientList={patients} 
+                                onSave={(visit: Visit) => console.log('saved visit', visit)}
+                                onCancel={() => console.log('cancelled visit')}
+                            />
+                        </div>
+                        }
+                />
+                {/* <Route
                     path="/tabs"
                     exact={true}
                     render={(props) => 
@@ -83,8 +115,8 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Navbar {...props} /> )
                     )}
-                />
-                <div className="content-body">
+                /> */}
+                {/* <div className="content-body">
                     <Route 
                         path="/"
                         exact={true}
@@ -101,22 +133,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             )
                         )} 
                     />
-                    {/* <Route 
-                        path="/patients/:patientId"
-                        exact={true}
-                        render={(props) => { 
-                            console.dir(props);
-                            return (
-                                !AuthService.isAuthenticated() ? (
-                                    <Redirect 
-                                        to={{
-                                            pathname: '/login',
-                                            state: { referrer: '/patients/:patientId' }
-                                            }} 
-                                    />
-                                ) : ( <PatientDetail {...props} /> )
-                        )}}
-                    /> */}
                     <Route 
                         path="/patients/:patientId?"
                         render={(props) => (
@@ -192,7 +208,8 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         render={(props) => <Auth.LoginContainer {...props} />}
                     />
                     <Route 
-                        path="/visits" 
+                        path="/visits"
+                        exact={true} 
                         render={(props) => (
                             !isAuthenticated() ? (
                                 <Redirect
@@ -202,8 +219,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                     }}
                                 />
                             ) : ( 
-                                {/* <Visits.Components.VisitsContainer {...props} /> */}
-                                
+                                <div></div>
                             )
                         )}
                     />
@@ -220,7 +236,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             ) : ( <Admin.AdminPage {...props} />)
                         )}
                     />
-                </div>
+                </div> */}
             </div>
         </Router>
     );

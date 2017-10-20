@@ -1,8 +1,4 @@
 import * as React from 'react';
-// import * as _ from 'lodash';
-// import Checkbox from 'material-ui/Checkbox';
-// import DatePicker from 'material-ui/DatePicker';
-// import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { FormSelectControl, FormTextField } from '../../../common';
 import { DoctorType, EnumEx, InternalNote, TimeDuration, Visit, VisitStatus, VisitType } from '../../../common';
@@ -10,37 +6,15 @@ import { Patient } from '../../../patients';
 import {
     TableInputs, 
     TableTemplate,
-    TextInputTemplate,
 } from '../../../common/UIComponents';
-
-// import {
-//     TableInputs, 
-//     TableTemplate,
-//     DropDownTemplate, 
-//     TextInputTemplate,
-//     ChipCollection
-// } from '../../../common/UIComponents';
-
-// import { Visit } from '../../';
-
 
 import './VisitComponent.css';
 
-// let FaCalendar = require('react-icons/lib/fa/calendar');
-
-// const btnStyle = {
-//     backgroundColor: '#f84445'
-// }
-
-// const underlineStyle = {
-//     display : "none"
-// }
-
 interface VisitComponentProps {
-    visit: Visit;
+    visit?: Visit;
     patientList: Array<Patient>;
     onSave?: (visit: Visit) => void;
-    onCancel?: (visit: Visit) => void;
+    onCancel?: () => void;
 }
 
 interface VisitComponentState {
@@ -71,74 +45,6 @@ interface VisitComponentState {
     isDirty: boolean;
     isValid: boolean;
 }
-
-// const stubbedData = {
-//     'patient': [
-//         {value:1, primaryText:"Pete Patient"},
-//         {value:2, primaryText:"Doctor Dre"}
-//     ],
-//     'status': [
-//         {value:1, primaryText:"New"},
-//         {value:2, primaryText:"Scheduled"},
-//         {value:3, primaryText:"Process Visit"},
-//         {value:4, primaryText:"Finalized"},
-//         {value:5, primaryText:"Cancelled"}
-//     ],
-//     'assignee':[
-//         {value:1, primaryText:"Venus"},
-//     ],
-//     'cases': [
-//         {value:1, primaryText:"Cough"},
-//         {value:2, primaryText:"Headache"},
-//     ],
-//     'complaints': [
-//         {value:1, primaryText:"Complaint A"},
-//         {value:2, primaryText:"Complaint B"},
-//         {value:3, primaryText:"Complaint C"},
-//         {value:4, primaryText:"Complaint D"},
-//     ],
-//     'diagnosis': [
-//         {value:1, primaryText:"Diagnosis A"},
-//         {value:2, primaryText:"Diagnosis  B"},
-//         {value:3, primaryText:"Diagnosis  C"},
-//         {value:4, primaryText:"Diagnosis  D"},
-//     ],
-
-//     'doctors': [
-//         {value:1, primaryText:"Dr. Venis Wilder"},
-//         {value:2, primaryText:"Dr. Jackton Omamo"},
-//     ],
-
-//     'estimatedTime': [
-//         {value:1, primaryText:"15 Minutes"},
-//         {value:2, primaryText:"30 Minutes"},
-//     ],
-//     'clinics': [
-//         {value:1, primaryText:"Nomad LifeCo, 79 Madison Ave, New York, NY10016"},
-//     ],
-//     'timeChoice': [
-//         {value:1, primaryText:"A.M"},
-//         {value:2, primaryText:"P.M"},
-//     ],
-//     'actualTime': [
-//         {value:1, primaryText:"6:30A.M"},
-//         {value:2, primaryText:"6:30P.M"},
-//     ]
-// }
-
-// const getNamedValue = (name:string, v?:number) => {
-//     let theArrays = Object.keys(stubbedData);
-//     let targetArray = theArrays.filter((s:any)=>{
-//         return s === name
-//     })
-//     let arrayVal = stubbedData[targetArray[0]];
-//     let actualValue = arrayVal.filter((a:any) =>{
-//         return a.value === v
-//     })
-
-//     return actualValue[0].primaryText;
-
-// }
  
 export class VisitComponent extends React.Component<VisitComponentProps, VisitComponentState> {
     
@@ -164,63 +70,22 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
     }
 
     handleCancelClick() {
-        console.log('cancel', this.props.visit);
+        if (!this.props.onCancel) return;
+        this.props.onCancel();
     }
 
     handleSaveClick() {
-        console.log('save', this.state);
-        // let _payload = {};
-        // let fields = ['doctor','labName', 'street-address', 'unit',
-        // 'ak', 'zip-code', 'date', 'time', 'subjective', 'objective',
-        // 'assessments', 'next-steps'];
-        // fields.forEach((field:string)=>{
-        //     _payload[field] = event.target[field].value
-        // })
+        if (!this.props.onSave) return;
+        const visit = new Visit();
+        this.props.onSave(visit);
+    }
 
-        // let currentPayload = Object.assign({}, this.state.payload);
-        // let newPayload = Object.assign({}, currentPayload, _payload)
+    onTableInputChange = (vitalsArray: object[]) => {
         
-        // if (this.state && this.props.onSave) {
-        //     this.props.onSave(this.state.visit);
-        // }
     }
 
-    // handleChange = (event: any, index: number, value: number) => this.setState({value});
-
-    // onChipDropDownChange = (name:string) => (v:number, s:string) => {
-    //     let st = Object.assign({}, this.state.payload);
-    //     if(!st[name]) st[name] = [];
-    //     st[name].push(s);
-    //     this.setState({
-    //         payload: st
-    //     })
-    // };
-
-    // onPlainTextDropDownChange = (name:string) => (v:number) =>{
-    //     this.setState(prevState => ({
-    //         payload: {
-    //             ...prevState.payload,
-    //             [name]: getNamedValue(name, v)
-    //         }
-    //     }))
-    // }
-
-    onTableInputChange = (vitalsArray:object[]) => {
-        // this.setState(prevState =>({
-        //     payload : {
-        //         ...prevState.payload,
-        //         vitals : vitalsArray
-        //     }
-        // }))
-    }
-
-    onTableTemplateChange = (templateName:string) => (items: object[]) => {
-        // this.setState(prevState => ({
-        //     payload : {
-        //         ...prevState.payload,
-        //         [templateName]: items
-        //     }
-        // }))
+    onTableTemplateChange = (templateName: string) => (items: object[]) => {
+        
     }
 
     loadFromVisit(visit: Visit) {
@@ -254,7 +119,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
         });
     }
 
-    handleValueChanged(field: string, value: any) {
+    handleValueChanged(field: string, value: {}) {
         this.setState({ ...this.state, [field]: value});
     }
 
@@ -265,11 +130,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     label="Status" 
                     options={
                         EnumEx.getNamesAndValues(VisitStatus).map((item) => { 
-                            return { value: item.value, text: item.name } 
+                            return { value: item.value, text: item.name }; 
                         })
                     }
                     value={this.state.status}
-                    onValueChanged={(value: any) => this.handleValueChanged('status', value)}
+                    onValueChanged={(value: {}) => this.handleValueChanged('status', value)}
                 />
                 {/* <FormTextField
                     name="created"
@@ -281,26 +146,26 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     label="Patient Name" 
                     options={
                         this.props.patientList.map((patient) => {
-                            return { value: patient.id, text: `${patient.firstName} ${patient.lastName}`}
+                            return { value: patient.id, text: `${patient.firstName} ${patient.lastName}`};
                         })                        
                     }
                     value={this.state.patientId}
-                    onValueChanged={(value: any) => this.handleValueChanged('patientId', value)}
+                    onValueChanged={(value: {}) => this.handleValueChanged('patientId', value)}
                 />
                 <FormSelectControl 
                     label="Visit Type" 
                     options={
                         EnumEx.getNamesAndValues(VisitType).map((item) => { 
-                            return { value: item.value, text: item.name } 
+                            return { value: item.value, text: item.name };
                         })
                     }
                     value={this.state.visitType}
-                    onValueChanged={(value: any) => this.handleValueChanged('visitType', value)}
+                    onValueChanged={(value: {}) => this.handleValueChanged('visitType', value)}
                 />
                 <div>
                     <div className="form-control-label">Maintenance</div>
                     <div className="md-radio md-radio-inline">
-                        <input id="1" type="radio" name="" />
+                        <input id="1" type="radio" name="g2" />
                         <label htmlFor="1">Physical</label>
                     </div>
                     <div className="md-radio md-radio-inline">
@@ -322,33 +187,33 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     name="doctorName"
                     label="Doctor"
                     value={this.state.doctorName}
-                    onValueChanged={(value: any) => this.handleValueChanged('doctorName', value)}
+                    onValueChanged={(value: {}) => this.handleValueChanged('doctorName', value)}
                 />
                 <FormSelectControl 
                     label="Doctor Type" 
                     options={
                         EnumEx.getNamesAndValues(DoctorType).map((item) => { 
-                            return { value: item.value, text: item.name } 
+                            return { value: item.value, text: item.name };
                         })
                     }
                     value={this.state.doctorType}
-                    onValueChanged={(value: any) => this.handleValueChanged('doctorType', value)}
+                    onValueChanged={(value: {}) => this.handleValueChanged('doctorType', value)}
                 />
                 <FormTextField
                     name="clinic"
                     label="Clinic Location"
-                    value={this.state.doctorName}
-                    onValueChanged={(value: any) => this.handleValueChanged('clinic', value)}
+                    value={this.state.clinic}
+                    onValueChanged={(value: {}) => this.handleValueChanged('clinic', value)}
                 />
                 <FormSelectControl 
                     label="Estimated Length of Visit" 
                     options={
                         EnumEx.getNamesAndValues(TimeDuration).map((item) => { 
-                            return { value: item.value, text: `${item.value} Minutes` } 
+                            return { value: item.value, text: `${item.value} Minutes` }; 
                         })
                     }
                     value={this.state.doctorType}
-                    onValueChanged={(value: any) => this.handleValueChanged('doctorType', value)}
+                    onValueChanged={(value: {}) => this.handleValueChanged('estimatedDuration', value)}
                 />
                 {/* 
                 <DropDownTemplate
@@ -511,28 +376,35 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                         onChange={(value, text) => this.onChipDropDownChange('diagnosis')(value, text) }
                     />
                 </div>*/}
-                <TextInputTemplate
+                <FormTextField
                     name="subjective"
-                    title="Subjective"
+                    label="Subjective"
+                    value={this.state.subjective}
+                    onValueChanged={(value: {}) => this.handleValueChanged('subjective', value)}
                     multiLine={true}
                     rows={2}
                 />
-                <TextInputTemplate
-                    title="Objective"
+                <FormTextField
                     name="objective"
-                    multiLine={true}
-                    rows={2}
-                
-                />
-                <TextInputTemplate
-                    name="assessments"
-                    title="Assessments"
+                    label="Objective"
+                    value={this.state.objective}
+                    onValueChanged={(value: {}) => this.handleValueChanged('objective', value)}
                     multiLine={true}
                     rows={2}
                 />
-                <TextInputTemplate
+                <FormTextField
+                    name="assessment"
+                    label="Assessment"
+                    value={this.state.assessment}
+                    onValueChanged={(value: {}) => this.handleValueChanged('assessment', value)}
+                    multiLine={true}
+                    rows={2}
+                />
+                <FormTextField
                     name="next-steps"
-                    title="Next Steps"
+                    label="Next Steps"
+                    value={this.state.nextSteps}
+                    onValueChanged={(value: {}) => this.handleValueChanged('nextSteps', value)}
                     multiLine={true}
                     rows={2}
                 />
@@ -579,9 +451,6 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     />
                 </div>
             </form>
-        )
+        );
     }
-}
-
- 
-                
+}                

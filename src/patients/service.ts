@@ -107,7 +107,10 @@ export const fetchPatient = (patient: Patient) => {
         doctorName: '',
         doctorType: '',
         clinic: 'LifeCo, 79 Madison Avenue, New Yok, NY, 10016',
-        scheduledFor: new Date('2017-09-27')
+        scheduledFor: new Date('2017-09-27'),
+        isNew: false,
+        isDirty: false,
+        isValid: true
     },
     {
         id: '2',
@@ -119,7 +122,10 @@ export const fetchPatient = (patient: Patient) => {
         doctorName: '',
         doctorType: 'chiropractor',
         clinic: 'LifeCo, 79 Madison Avenue, New Yok, NY, 10016',
-        scheduledFor: new Date('2017-09-27')
+        scheduledFor: new Date('2017-09-27'),
+        isNew: false,
+        isDirty: false,
+        isValid: true
     },
     {
         id: '3',
@@ -131,7 +137,10 @@ export const fetchPatient = (patient: Patient) => {
         doctorName: '',
         doctorType: 'chiropractor',
         clinic: 'LifeCo, 79 Madison Avenue, New Yok, NY, 10016',
-        scheduledFor: new Date('2017-09-27')
+        scheduledFor: new Date('2017-09-27'),
+        isNew: false,
+        isDirty: false,
+        isValid: true
     }];
     newPatient.imaging = [{
         id: '1',
@@ -181,7 +190,6 @@ export const fetchPatient = (patient: Patient) => {
         publicNote: 'Albumin levels were higher than expected. Updated your case to the flu and will send medication shortly.'
     }];
     newPatient.wellness = {
-        patientId: patient.id,
         goals: [{
             id: '1',
             goal: 'Run 24 miles',

@@ -54,7 +54,7 @@ export class Visit {
     nextSteps?: string;
     internalNotes?: Array<InternalNote>;
 
-    constructor(id: string) {
-        this.id = id;
-    }
+    isNew: boolean;
+    isDirty: boolean;
+    isValid: boolean;
 }

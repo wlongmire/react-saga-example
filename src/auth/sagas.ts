@@ -2,7 +2,7 @@ import { ActionResult } from '../common';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
 import * as Navigation from '../navigation';
-import { AuthCredentials, Identity } from './reducer';
+import { AuthCredentials, Identity, AuthInfo } from './reducer';
 import * as AuthService from './service';
 
 export function* login(action: ActionResult<AuthCredentials>) {
@@ -45,7 +45,9 @@ export function* onForgotPassword(action: ActionResult<string>) {
     }
 }
 
-function* onLoginSuccess() {
+function* onLoginSuccess(action: ActionResult<AuthInfo>) {
+    const info = action.value as AuthInfo
+    localStorage.setItem('auth', JSON.stringify(info));
     yield(put(Navigation.navigate('/')));
 }
 

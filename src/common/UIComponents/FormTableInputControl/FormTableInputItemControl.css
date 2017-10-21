@@ -1,0 +1,64 @@
+.form-table-input-item-control.edit-mode {
+    display: grid;
+    grid-template-columns: 1fr 1fr 42px;
+    grid-column-gap: 15px;
+    grid-template-rows: 1fr 28px;
+    grid-template-areas: 
+        "selector details delete"
+        "buttons buttons .";
+    padding-top: 16px;
+}
+
+.form-table-input-item-control.edit-mode.single-edit-value {
+    grid-template-columns: 1fr 1fr 42px;
+    grid-template-rows: 1fr 28px;
+    grid-template-areas: 
+        "selector selector delete"
+        "buttons buttons .";
+}
+
+.form-table-input-item-control.edit-mode .form-select-control {
+    grid-area: selector;
+}
+
+.form-table-input-item-control.edit-mode.form-detail-control {
+    grid-area: details;
+}
+
+.form-table-input-item-control.edit-mode .form-delete-icon {
+    grid-area: delete;
+    font-size: 14px;
+    color: #979797;
+    margin-top: 12px;
+}
+
+.form-delete-icon i.material-icons {
+    cursor: pointer;
+}
+
+.form-table-input-item-control.edit-mode .form-button-container {
+    grid-area: buttons;
+    justify-self: end;
+}
+
+.form-table-input-item-control.read-mode {
+    display: grid;
+    grid-template-columns: 1fr 50px 42px;
+    grid-template-areas: 
+        "label edit .";
+    padding-top: 16px;
+    padding-left: 15px;
+}
+
+.form-table-input-item-control.read-mode span {
+    grid-area: label;
+    font-size: 15px;
+    color: #333333;
+}
+
+.form-table-input-item-control.read-mode .material-icons.mode-add {
+    grid-area: edit;
+    font-size: 15px;
+    cursor: pointer;
+    color: #979797;
+}

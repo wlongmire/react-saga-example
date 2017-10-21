@@ -13,19 +13,60 @@ import { Navbar } from '../navigation';
 import { PatientList } from '../patients';
 import { DoseSpotUser } from '../dosespot';
 import { UsersContainer, UserDetail } from '../users';
-import { GlobalState } from '../rootReducer';
 import { history } from '../common';
 import { isAuthenticated } from '../utils/auth-util';
 import { TabControl } from '../common/UIComponents/TabControl/TabControl';
 import { Tab } from '../common/UIComponents/TabControl/Tab';
 import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
+import { FormTableInputControl, FormTableInputItem } from '../common/UIComponents/FormTableInputControl';
+
+const items = [
+    {
+        details: "Test 1",
+        isNew: false,
+        selectedOption: {
+            value: "1",
+            text: "Coughing"
+        }
+    },
+    {
+        details: "Test 2",
+        isNew: false,
+        selectedOption: {
+            value: "2",
+            text: "Runny Nost"
+        }
+    },
+    {
+        details: "Test 6",
+        isNew: false,
+        selectedOption: {
+            value: "1",
+            text: "Coughing"
+        }
+    },
+];
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
-    const state = store.getState() as GlobalState;
-    console.dir('state', state);
     return (
         <Router history={history}>
             <div>
+                <Route 
+                    path="/zoo/table"
+                    exact={true}
+                    render={(props) => 
+                        <div style={{marginTop: 100, width: '80%'}}>
+                            <FormTableInputControl 
+                                label="Complaints"
+                                options={[{value: '1', text: 'Coughing'}, {value: '2', text: 'Runny Nost'}]} 
+                                items={items}
+                                multilineDetail={false}
+                                multilineRows={4}
+                                onChange={(items: Array<FormTableInputItem>) => console.log('updated items:', items)}            
+                            />
+                        </div>
+                    }
+                />
                 <Route
                     path="/tabs"
                     exact={true}

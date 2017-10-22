@@ -1,47 +1,84 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
-// import { Route, Router, Redirect } from 'react-router-dom';
+import * as Moment from 'moment';
 import { Route, Router } from 'react-router-dom';
-import { Visit } from '../common';
-import { VisitComponent } from '../visits';
+// import * as Application from '../application';
+// import * as Zoo from '../zoo';
+// import * as Visits from '../visits';
+// import * as Users from '../users';
+// import * as Visits from '../visits';
 // import * as Auth from '../auth';
 // import * as Admin from '../admin';
 // import * as Schedule from '../schedule';
 // import { Navbar } from '../navigation';
-import { Patient } from '../patients';
+// import { PatientList } from '../patients';
 // import { DoseSpotUser } from '../dosespot';
 // import { UsersContainer, UserDetail } from '../users';
 import { history } from '../common';
+import { FormDateTimeControl } from '../common/UIComponents';
 // import { isAuthenticated } from '../utils/auth-util';
 // import { TabControl } from '../common/UIComponents/TabControl/TabControl';
 // import { Tab } from '../common/UIComponents/TabControl/Tab';
 // import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
+import { FormTableInputControl, FormTableInputItem } from '../common/UIComponents/FormTableInputControl';
 
-const patients: Array<Patient> = [
+const items = [
     {
-        id: 1,
-        firstName: 'Toby',
-        lastName: 'Jackson',
-        name: 'Toby Jackson',
-        primaryChannel: 1,
-        treatments: [],
-        visits: [],
-        tests: [],
-        imaging: [],
-        wellness: {
-            goals: [],
-            maintenance: [],
-            immunizations: []
-        },
-        other: {}
-    }
+        details: "Test 1",
+        isNew: false,
+        selectedOption: {
+            value: "1",
+            text: "Coughing"
+        }
+    },
+    {
+        details: "Test 2",
+        isNew: false,
+        selectedOption: {
+            value: "2",
+            text: "Runny Nost"
+        }
+    },
+    {
+        details: "Test 6",
+        isNew: false,
+        selectedOption: {
+            value: "1",
+            text: "Coughing"
+        }
+    },
 ];
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
+                <Route 
+                    path="/zoo/table"
+                    exact={true}
+                    render={(props) => 
+                        <div style={{marginTop: 100, width: '80%'}}>
+                            <FormTableInputControl 
+                                label="Complaints"
+                                options={[{value: '1', text: 'Coughing'}, {value: '2', text: 'Runny Nost'}]} 
+                                items={items}
+                                multilineDetail={false}
+                                multilineRows={4}
+                                onChange={(items: Array<FormTableInputItem>) => console.log('updated items:', items)}            
+                            />
+                        </div>
+                    }
+                />
                 <Route
+                    path="/form-date"
+                    exact={true}
+                    render={(props) => 
+                        <div style={{marginTop:100, width: '50%'}}> 
+                            <FormDateTimeControl date={Moment()} onChange={(value: Moment.Moment) => { console.log('new value', value.toISOString()) }} /> 
+                        </div>
+                    }
+                />
+                {/* <Route
                     path="/zoo/visit"
                     exact={true}
                     render={(props) => 
@@ -57,7 +94,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         </div>
                         }
-                />
+                /> */}
                 {/* <Route
                     path="/tabs"
                     exact={true}

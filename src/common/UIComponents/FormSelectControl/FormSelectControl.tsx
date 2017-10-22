@@ -1,11 +1,13 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 import './FormSelectControl.css';
 
 interface FormSelectControlProps {
-    label: string;
+    className?: string;
+    label?: string;
     floatingLabelText?: string;
     options: Array<FormSelectControlOption>;
     value?: any;
@@ -67,8 +69,10 @@ export class FormSelectControl extends React.Component<FormSelectControlProps, F
 
     render() {
         return (
-            <div className="form-select-control">
-                <div className="form-control-label">{this.props.label}</div>
+            <div className={classnames('form-select-control', this.props.className ? this.props.className : '')}>
+                {this.props.label &&
+                    <div className="form-control-label">{this.props.label}</div>
+                }
                 <SelectField
                     className="select-control-field"
                     floatingLabelText={this.props.floatingLabelText}

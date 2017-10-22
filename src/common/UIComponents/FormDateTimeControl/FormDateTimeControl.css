@@ -1,0 +1,81 @@
+
+.form-date-time-control {
+    display: grid;
+    grid-template-areas: 
+        "label"
+        "input";
+    grid-template-rows: 32px 1fr;
+    grid-template-columns: 100%;
+}
+
+.form-date-time-control > .date-control-label {
+    grid-area: label;
+    color: #9b9b9b;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form-date-time-control > .date-control-input-container {
+    display: grid;
+    grid-template-columns: 1fr 19px 128px;
+    grid-template-areas:
+        "date blank time";
+    grid-area: input;
+    width: 384px;
+}
+
+.form-date-time-control .date-control-text-input-wrapper {
+    grid-area: date;
+    display: grid;
+    grid-template-columns: 1fr 48px;
+    grid-template-areas:
+        "input icon";
+    border: 1px solid #c6d3d1;
+    border-radius: 3px;
+    width: 100%;
+    padding-top: 4px;
+    height: 64px;
+}
+
+.form-date-time-control input.date-control-text-input,
+.form-date-time-control input.date-control-text-input:focus {
+    outline: none;
+    border-color: transparent;
+}
+
+.form-date-time-control input.date-control-text-input {
+    grid-area: input;
+    font-size: 16px;
+    line-height: 24px;
+    height: 48px;
+    padding: 16px;
+    width: 100%;
+}
+
+.form-date-time-control .date-selector-icon {
+    grid-area: icon;
+    height: 32px;
+    width: 32px;
+    color: #F74646;
+    cursor: pointer;
+    margin-top: 8px;
+    z-index: 10;
+}
+
+.form-date-time-control .hidden-date-picker {
+    grid-area: icon;
+    position: relative;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
+
+.form-date-time-control .date-control-time-selector-wrapper {
+    grid-area: time;
+    border: 1px solid #c6d3d1;
+    border-radius: 3px;
+    padding-top: 4px;
+    height: 64px;
+}

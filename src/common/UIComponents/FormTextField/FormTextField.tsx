@@ -1,15 +1,21 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 import TextField from 'material-ui/TextField';
 
 import './FormTextField.css';
 
 interface FormTextFieldProps {
+    className?: string;
     name: string;
-    label: string;
+    label?: string;
     floatingLabelText?: string;
     value?: any;
     onValueChanged?: (value: any) => void;
+<<<<<<< HEAD
     multiLine?: boolean;
+=======
+    multiline?: boolean;
+>>>>>>> develop
     rows?: number;
 }
 
@@ -59,8 +65,10 @@ export class FormTextField extends React.Component<FormTextFieldProps, FormTextF
 
     render() {
         return (
-            <div className="form-text-field">
-                <div className="form-control-label">{this.props.label}</div>
+            <div className={classnames('form-text-field', this.props.className ? this.props.className : '')}>
+                { this.props.label &&
+                    <div className="form-control-label">{this.props.label}</div>
+                }
                 <TextField
                     className="form-control-field"
                     name={this.props.name}
@@ -70,8 +78,13 @@ export class FormTextField extends React.Component<FormTextFieldProps, FormTextF
                     style={selectStyle}
                     inputStyle={inputStyle}
                     underlineShow={false}
+<<<<<<< HEAD
                     multiLine={this.props.multiLine}
                     rows={this.props.rows}
+=======
+                    multiLine={this.props.multiline ? this.props.multiline : false}
+                    rows={this.props.multiline && this.props.rows ? this.props.rows : undefined}
+>>>>>>> develop
                 />
             </div>
         );

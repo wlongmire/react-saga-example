@@ -34,7 +34,7 @@ export * from './patients-state';
 export * from './single-sign-on-credentials';
 export * from './single-sign-on-info';
 export * from './test-panel';
-export * from './test';
+export * from './test-item';
 export * from './treatment';
 export * from './user';
 export * from './users-state';

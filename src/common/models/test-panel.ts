@@ -1,4 +1,4 @@
-import { Test } from './test';
+import { Test } from './test-item';
 
 export interface TestPanel {
     id: string;

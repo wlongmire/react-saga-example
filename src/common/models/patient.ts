@@ -1,7 +1,7 @@
 import { ChatChannelInfo } from './chat-channel-info';
 import { Imaging } from './imaging';
 import { Other } from './other';
-import { Test } from './test';
+import { Test } from './test-item';
 import { Treatment } from './treatment';
 import { Visit } from './visit';
 import { Wellness } from './wellness';

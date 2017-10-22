@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
+import * as Moment from 'moment';
 import { Route, Router, Redirect } from 'react-router-dom';
 // import * as Application from '../application';
 // import * as Zoo from '../zoo';
@@ -13,19 +14,26 @@ import { Navbar } from '../navigation';
 import { PatientList } from '../patients';
 import { DoseSpotUser } from '../dosespot';
 import { UsersContainer, UserDetail } from '../users';
-import { GlobalState } from '../rootReducer';
 import { history } from '../common';
+import { FormDateTimeControl } from '../common/UIComponents';
 import { isAuthenticated } from '../utils/auth-util';
 import { TabControl } from '../common/UIComponents/TabControl/TabControl';
 import { Tab } from '../common/UIComponents/TabControl/Tab';
 import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
-    const state = store.getState() as GlobalState;
-    console.dir('state', state);
     return (
         <Router history={history}>
             <div>
+                <Route
+                    path="/form-date"
+                    exact={true}
+                    render={(props) => 
+                        <div style={{marginTop:100, width: '50%'}}> 
+                            <FormDateTimeControl date={Moment()} onChange={(value: Moment.Moment) => { console.log('new value', value.toISOString()) }} /> 
+                        </div>
+                    }
+                />
                 <Route
                     path="/tabs"
                     exact={true}

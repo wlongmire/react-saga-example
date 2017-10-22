@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as Redux from 'redux';
+import { GlobalState } from '../../common';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
-import { makeMainRoutes } from '../routes';
+import { makeMainRoutes } from '../../routes';
 
 interface MainProps {
-    store: Redux.Store<{}>;
+    store: Redux.Store<GlobalState>;
 }
 
 interface MainState {

@@ -1,5 +1,4 @@
-import { ActionResult } from '../common';
-import { DoseSpotStatus } from './';
+import { ActionResult, DoseSpotStatus } from '../common';
 
 export module ActionType {
     export const FETCH_DOSESPOT_STATUS = 'admin/FETCH_DOSESPOT_STATUS';

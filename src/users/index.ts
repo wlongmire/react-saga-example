@@ -1,5 +1,5 @@
 export { ActionType, fetchAllUsers, createUser, updateUser } from './actions';
-export { User, PatientUser, DoctorUser, DosespotUser, OpsUser, UserState, default as userReducer } from './reducer';
+export { default as userReducer } from './reducer';
 export { default as userSaga } from './sagas';
 export { UsersContainer, UserList, UserDetail } from './components';
 

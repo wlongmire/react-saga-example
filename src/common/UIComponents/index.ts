@@ -16,6 +16,7 @@ export { FormDateTimeControl } from './FormDateTimeControl';
 export { Tab, TabControl, TabItemInfo } from './TabControl';
 export { FormSelectControl } from './FormSelectControl';
 export { FormTextField } from './FormTextField';
+export { FormTableInputControl, FormTableInputItemControl, FormTableInputItem } from './FormTableInputControl';
 
 export { FormGroup } from './FormGroup';
 export { 

@@ -58,3 +58,7 @@ export class Visit {
     isDirty: boolean;
     isValid: boolean;
 }
+
+export interface VisitsMap {
+    [id: string]: Visit;
+}

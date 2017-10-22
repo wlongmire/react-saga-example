@@ -4,7 +4,7 @@ import {
     fetchDoseSpotStatusSuccess, 
     fetchDoseSpotStatusFailure
 } from './actions';
-import { Api } from '../services/api';
+import * as api from '../common/api';
 
 function* fetchDoseSpotStatus() {
     try {
@@ -18,7 +18,7 @@ function* fetchDoseSpotStatus() {
 
         const clinicId = Number(localStorage.getItem('clinicId'));
         const clinicianId = Number(localStorage.getItem('clinicianId'));
-        const status = yield call(()=> Api.dosespot.fetchStatus(clinicId, clinicianId))
+        const status = yield call(()=> api.dosespot.fetchStatus(clinicId, clinicianId))
         yield(put(fetchDoseSpotStatusSuccess(status)));
     } catch(e) {
         yield(put(fetchDoseSpotStatusFailure(e)))

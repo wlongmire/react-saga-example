@@ -1,9 +1,7 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-
-import { User } from './reducer';
 import * as Actions from './actions';
-import { ActionResult } from '../common';
-import { Api } from '../services/api'
+import * as Api from '../common/api';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import { ActionResult, User } from '../common';
 
 function* fetchAllUsers() {
     try {

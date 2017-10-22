@@ -1,20 +1,17 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { Patient, fetchAllPatients, selectPatient, unselectPatient } from '../../';
-import { socketConnect, messageSend } from '../../../chat';
-import { fetchSingleSignOnInfo } from '../../../dosespot';
-import { GlobalState } from '../../../rootReducer';
-import { SingleSignOnInfo } from '../../';
-import Avatar from 'material-ui/Avatar';
-import { List, ListItem } from 'material-ui/List';
-// import Subheader from 'material-ui/Subheader';
-import { RouteComponentProps } from 'react-router-dom';
-import { ChatChannelInfo } from '../../../chat';
-import { ChatMessage } from '../../../chat/reducer';
-import { PatientDetail } from '../PatientDetail';
-import { Identity } from '../../../auth';
 import * as _ from 'lodash';
 import * as classnames from 'classnames';
+import * as React from 'react';
+import Avatar from 'material-ui/Avatar';
+import { connect } from 'react-redux';
+import { fetchAllPatients, selectPatient, unselectPatient } from '../../';
+import { socketConnect, messageSend } from '../../../chat';
+import { fetchSingleSignOnInfo } from '../../../dosespot';
+import { GlobalState } from '../../../common';
+import { List, ListItem } from 'material-ui/List';
+import { RouteComponentProps } from 'react-router-dom';
+import { PatientDetail } from '../PatientDetail';
+import { Identity } from '../../../common';
+import { ChatChannelInfo, ChatMessage, Patient, SingleSignOnInfo } from '../../../common';
 
 import './PatientList.css';
 

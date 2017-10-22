@@ -1,8 +1,7 @@
-import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
 import * as Actions from './actions';
-import { ActionResult } from '../common';
-import { Api } from '../services/api'
-import { SingleSignOnCredentials } from '../dosespot';
+import * as Api from '../common/api';
+import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
+import { ActionResult, SingleSignOnCredentials } from '../common';
 
 function* fetchSingleSignOnInfo(action: ActionResult<SingleSignOnCredentials>) {
     try {
@@ -21,9 +20,6 @@ function* watchFetchSingleSignOnInfo() {
     yield takeEvery(Actions.ActionType.FETCH_SSO_INFO, fetchSingleSignOnInfo)
 }
 
-/**
- * Fork allows us to be able to call the sagas concurrently
- */
 export function* root() {
     yield all([
         fork(watchFetchSingleSignOnInfo)

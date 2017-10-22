@@ -1,7 +1,4 @@
-import { ActionResult } from '../common';
-import { User } from './reducer';
-
-import * as Model from './models';
+import { ActionResult, User } from '../common';
 
 // const BASE_URL = 'https://api.life.cheap/exposed/list_my_patients'
 
@@ -84,6 +81,13 @@ export const createUserFailure = (e: Error): ActionResult<Error> => {
 export const updateUser = (user: User): ActionResult<User> => {
     return {
         type: ActionType.UPDATE_USER,
+        value: user
+    };
+}
+
+export const updateUserSuccess = (user: User): ActionResult<User> => {
+    return {
+        type: ActionType.UPDATE_USER_SUCCESS,
         value: user
     };
 }
@@ -197,22 +201,22 @@ export const updateUserFailure = (e: Error): ActionResult<Error> => {
 //     }
 // }
 
-export const loadPatients = () => {
-    return Model.patientsList;
-}
+// export const loadPatients = () => {
+//     return Model.patientsList;
+// }
 
-export const loadSinglePatient = (id:string) => {
-    let patient = Model.patientsList.filter((patient:any)=>{
-        return patient.id == id
-    })
-    return patient[0];
-}
-export const updateUserSuccess = (user: User): ActionResult<User> => {
-    return {
-        type: ActionType.UPDATE_USER_SUCCESS,
-        value: user
-    };
-}
+// export const loadSinglePatient = (id:string) => {
+//     let patient = Model.patientsList.filter((patient:any)=>{
+//         return patient.id == id
+//     })
+//     return patient[0];
+// }
+// export const updateUserSuccess = (user: User): ActionResult<User> => {
+//     return {
+//         type: ActionType.UPDATE_USER_SUCCESS,
+//         value: user
+//     };
+// }
 
 // export const updateUserFailure = (e: Error): ActionResult<Error> => {
 //     return {

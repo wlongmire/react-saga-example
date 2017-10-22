@@ -1,60 +1,6 @@
-import { ActionResult } from '../common';
-import * as Actions from './actions';
 import * as _ from 'lodash';
-
-export interface AvatarUrl {
-    url: string;
-}
-
-export interface AvatarUrls {
-    ios?: AvatarUrl;
-    android?: AvatarUrl;
-    web?: AvatarUrl
-}
-
-export interface ChatMessageSender {
-    user_id: number;
-    first_name: string;
-    last_name: string;
-    title?: string;
-    avatar_urls: AvatarUrls;
-}
-
-export interface ChatMessageContent {
-    content_text?: string;
-    content_type: string;
-    content_id?: string;
-    content_uri?: string;
-    content_preview_uri?: string;
-    content_action_uri?: string;
-    sender_meta: ChatMessageSender;
-}
-
-export interface ChatMessage {
-    channel_id: number;
-    sequence_number?: number;
-    event_id: string;
-    recorded?: Date;
-    user_id: number;
-    event_type: string;
-    version_major: number;
-    version_minor: number;
-    payload: ChatMessageContent;
-}
-
-export interface ChatChannelInfo {
-    channelId: number;
-    messages: Array<ChatMessage>;
-    unreadMessages: Array<string>;
-}
-
-export class ChatState {
-    isConnecting: boolean;
-    isConnected: boolean;
-    outboundMessages: Object;
-    channels: Object;
-    connectionError?: any;
-}
+import * as Actions from './actions';
+import { ActionResult, ChatChannelInfo, ChatMessage, ChatState } from '../common';
 
 function initialState(): ChatState {
     return {

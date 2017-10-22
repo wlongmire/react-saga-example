@@ -1,8 +1,16 @@
 import * as React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { FormSelectControl, FormTextField } from '../../../common';
-import { DoctorType, EnumEx, InternalNote, TimeDuration, Visit, VisitStatus, VisitType } from '../../../common';
-import { Patient } from '../../../patients';
+import { 
+    DoctorType, 
+    EnumEx, 
+    InternalNote, 
+    TimeDuration, 
+    Patient,
+    Visit, 
+    VisitStatus, 
+    VisitType
+} from '../../../common';
 import {
     TableInputs, 
     TableTemplate,
@@ -31,8 +39,8 @@ interface VisitComponentState {
     clinic?: string;
     scheduledFor?: Date;
     estimatedDuration?: number;
-    complaints?: Array<string>;
-    vitals?: Array<object>;
+    complaints: Array<string>;
+    vitals: Array<object>;
     systemsReview?: Array<object>;
     diagnosisId?: string;
     subjective?: string;
@@ -55,7 +63,9 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
             isNew: true,
             isDirty: false,
             isValid: true,
-            doctorName: ''
+            doctorName: '',
+            complaints: [],
+            vitals: []
         };
         
         this.handleCancelClick = this.handleCancelClick.bind(this);
@@ -107,8 +117,8 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
             clinic: visit.clinic,
             scheduledFor: visit.scheduledFor,
             estimatedDuration: visit.estimatedDuration,
-            complaints: visit.complaints,
-            vitals: visit.vitals,
+            complaints: [],
+            vitals: [],
             systemsReview: visit.systemsReview,
             diagnosisId: visit.diagnosis,
             subjective: visit.subjective,
@@ -348,6 +358,23 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     stubbedData.estimatedTime
                     }
                     onChange={(value, text) => this.onChipDropDownChange('estimated-time')(value, text) }
+                /> */}
+                {/* <FormTableInputControl 
+                    label="Complaints"
+                    options={[{value: '1', text: 'Coughing'}, {value: '2', text: 'Runny Nost'}]} 
+                    items={this.state.complaints.map((complaint) => {
+                        return {
+                            details: "Test 1",
+                            isNew: false,
+                            selectedOption: {
+                                value: "1",
+                                text: "Coughing"
+                            }
+                        }
+                    })}
+                    multilineDetail={false}
+                    multilineRows={4}
+                    onChange={(items: Array<FormTableInputItem>) => console.log('updated items:', items)}            
                 /> */}
                 <TableTemplate
                     onChange={this.onTableTemplateChange('complaints')}

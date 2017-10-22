@@ -1,23 +1,26 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as Model from '../../reducer';
-import { Patient } from '../../../patients';
+import { 
+    ChatChannelInfo,
+    ChatMessage as ChatMessageData, 
+    Identity, 
+    Patient 
+} from '../../../common';
 import { ChatMessage } from '../ChatMessage';
-import { Identity } from '../../../auth';
 import * as uuidv4 from 'uuid/v4';
 import * as Moment from 'moment';
 
 import './ChatChannel.css';
 
 interface ChatChannelProps {
-    channel?: Model.ChatChannelInfo;
+    channel?: ChatChannelInfo;
     user: Identity;
     patient: Patient;
-    onSendMessage: (message: Model.ChatMessage) => void;
+    onSendMessage: (message: ChatMessageData) => void;
 }
 
 interface ChatChannelState {
-    messages: Array<Model.ChatMessage>;
+    messages: Array<ChatMessageData>;
     messageText?: string;
     pendingSends: string[];
 }
@@ -66,7 +69,7 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         const pendingSends = this.state.pendingSends;
         
         if (this.props.channel) {
-            this.props.channel.messages.forEach((message: Model.ChatMessage) => {
+            this.props.channel.messages.forEach((message: ChatMessageData) => {
                 const itemIndex = pendingSends.indexOf(message.event_id);
                 
                 if (itemIndex != -1) {
@@ -98,7 +101,7 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
             pendingSends.push(id);
             this.setState({ pendingSends });
 
-            const message: Model.ChatMessage = {
+            const message: ChatMessageData = {
                 channel_id: this.props.channel ? this.props.channel.channelId : -1,
                 event_id: id,
                 user_id: user.userId,
@@ -139,8 +142,8 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         this.doSubmit();
     }
 
-    parseMessage(data: any): Model.ChatMessage {
-        return JSON.parse(data) as Model.ChatMessage;
+    parseMessage(data: any): ChatMessageData {
+        return JSON.parse(data) as ChatMessageData;
     }
 
     render() {
@@ -149,7 +152,7 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
                 <div className="chat-container-header"></div>
                 <div className="chat-container-body" ref={(el) => this.chatContainerBody = el}>
                     {this.props.channel &&
-                        this.props.channel.messages.map((message: Model.ChatMessage, index: number, array: Model.ChatMessage[]) => {
+                        this.props.channel.messages.map((message: ChatMessageData, index: number, array: ChatMessageData[]) => {
                             let showAvatar = true;
                             let showDayHeader = true;
 

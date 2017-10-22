@@ -11,11 +11,7 @@ interface FormTextFieldProps {
     floatingLabelText?: string;
     value?: any;
     onValueChanged?: (value: any) => void;
-<<<<<<< HEAD
     multiLine?: boolean;
-=======
-    multiline?: boolean;
->>>>>>> develop
     rows?: number;
 }
 
@@ -78,13 +74,8 @@ export class FormTextField extends React.Component<FormTextFieldProps, FormTextF
                     style={selectStyle}
                     inputStyle={inputStyle}
                     underlineShow={false}
-<<<<<<< HEAD
                     multiLine={this.props.multiLine}
                     rows={this.props.rows}
-=======
-                    multiLine={this.props.multiline ? this.props.multiline : false}
-                    rows={this.props.multiline && this.props.rows ? this.props.rows : undefined}
->>>>>>> develop
                 />
             </div>
         );

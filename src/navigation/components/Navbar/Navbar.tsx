@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Identity, logout } from '../../../auth';
+import { Identity } from '../../../common';
+import { logout } from '../../../auth';
 import { Link } from 'react-router-dom';
-import { GlobalState } from '../../../rootReducer';
+import { GlobalState } from '../../../common';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';

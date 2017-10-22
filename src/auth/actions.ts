@@ -1,5 +1,5 @@
 import { ActionResult } from '../common';
-import { AuthCredentials, AuthInfo, Identity } from './reducer';
+import { AuthCredentials, AuthInfo, Identity } from '../common';
 
 export module ActionType {
     export const LOGIN = 'auth/LOGIN';

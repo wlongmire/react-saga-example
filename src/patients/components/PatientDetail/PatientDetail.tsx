@@ -1,19 +1,21 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import * as Rx from '../../../treatments';
-import { VisitComponent } from '../../../visits';
 import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
-// import * as Wellness from '../../../wellness';
-// import * as Others from '../../../others';
 import Avatar from 'material-ui/Avatar';
-import { Patient } from '../../';
-import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
+import { 
+    ChatChannelInfo,
+    ChatMessage,
+    Identity,
+    Patient,
+    TabControl, 
+    TabItemInfo,
+    Visit
+} from '../../../common';
 import { ChatChannel } from '../../../chat';
-import { ChatChannelInfo } from '../../../chat';
-import { ChatMessage } from '../../../chat/reducer';
-import { Identity } from '../../../auth';
-import { TabControl, TabItemInfo, Visit } from '../../../common';
+import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
+import { VisitComponent } from '../../../visits';
 
 import './PatientDetail.css';
 

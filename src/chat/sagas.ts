@@ -1,9 +1,8 @@
 import { eventChannel } from 'redux-saga';
 import { all, call, put, fork, take, cancel, cancelled, takeEvery } from 'redux-saga/effects';
-import { ChatMessage } from './reducer';
 import * as Actions from './actions';
-import { ActionResult } from '../common';
-import { getAuthToken } from '../utils/auth-util';
+import { ActionResult, ChatMessage } from '../common';
+import { getAuthToken } from '../auth/util';
 
 let ws: WebSocket;
 

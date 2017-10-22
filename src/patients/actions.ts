@@ -1,5 +1,4 @@
-import { ActionResult } from '../common';
-import { Patient } from './';
+import { ActionResult, Patient } from '../common';
 
 export module ActionType {
     export const ADD_PATIENT = 'patients/ADD_PATIENT';

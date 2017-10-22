@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import { AuthCredentials } from './reducer';
+import { AuthCredentials } from '../common';
 import * as Common from '../common';
 
 describe('auth actions', () => {

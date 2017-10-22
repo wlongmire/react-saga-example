@@ -152,7 +152,7 @@ export class FormTableInputItemControl
                             className="form-detail-control"
                             value={this.state.item.details}
                             onValueChanged={this.handleDetailChange}
-                            multiline={this.props.multiline}
+                            multiLine={this.props.multiline}
                             rows={this.props.rows}
                         />
                     }

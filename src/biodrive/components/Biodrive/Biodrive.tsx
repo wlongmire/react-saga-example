@@ -8,7 +8,7 @@ import * as React from 'react';
 import { BiodriveListItemInfo } from '../../reducer';
 import { BiodriveList } from '../BiodriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { Patient } from '../../../patients';
+import { Patient } from '../../../common';
 
 import './Biodrive.css';
 

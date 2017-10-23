@@ -1,0 +1,25 @@
+.attachment-list-item {	
+    height: 100px;	
+    width: 100px;	
+    background-color: #D8D8D8;	
+    box-shadow: 0 2px 4px 0 #E9E9E9;
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.attachment-name {	
+    height: 11px;	
+    width: 74px;	
+    color: #333333;	
+    font-family: Apercu;	
+    font-size: 10px;	
+    line-height: 11px;
+}
+
+.attchment-delete-button {
+    height: 15px;	
+    width: 15px;
+    position: relative;
+    left: 87px;
+    bottom: 10px;	
+}

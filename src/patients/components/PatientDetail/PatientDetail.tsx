@@ -147,7 +147,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'visit':
                 newItem = {
                     header,
-                    content: (<VisitComponent patientList={this.props.patientList} visit={this.createNewVisit()} />)
+                    content: (<VisitComponent patient={this.state.patient} patientList={this.props.patientList} visit={this.createNewVisit()} />)
                 } as TabItemInfo;
                 break;
             case 'test':

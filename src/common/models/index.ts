@@ -4,3 +4,4 @@ export * from './visit';
 export * from './visit-state';
 export * from './diagnosis';
 export * from './internal-note';
+export * from './attachment';

@@ -7,10 +7,12 @@ import FlatButton from 'material-ui/FlatButton';
 import { FormSelectControl, FormTextField } from '../../../common';
 import { DoctorType, EnumEx, InternalNote, TimeDuration, Visit, VisitStatus, VisitType } from '../../../common';
 import { Patient } from '../../../patients';
+import { Attachment } from '../../../common'
 import {
     TableInputs, 
     TableTemplate,
     TextInputTemplate,
+    AttachmentControl,
 } from '../../../common/UIComponents';
 
 // import {
@@ -38,6 +40,7 @@ import './VisitComponent.css';
 
 interface VisitComponentProps {
     visit: Visit;
+    patient?: Patient;
     patientList: Array<Patient>;
     onSave?: (visit: Visit) => void;
     onCancel?: (visit: Visit) => void;
@@ -139,6 +142,12 @@ interface VisitComponentState {
 //     return actualValue[0].primaryText;
 
 // }
+
+const stubbedData = {
+    'attachment': [
+        {key:"sdfsdf", fileName:"file.jpg", fileType:"jpg"},
+        {key:"adsdf", fileName:"name.pdf", fileType:"pdf"}]
+}
  
 export class VisitComponent extends React.Component<VisitComponentProps, VisitComponentState> {
     
@@ -155,6 +164,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
         this.handleCancelClick = this.handleCancelClick.bind(this);
         this.handleSaveClick = this.handleSaveClick.bind(this);
         this.handleValueChanged = this.handleValueChanged.bind(this);
+        this.handleAttachmentUpdated = this.handleAttachmentUpdated.bind(this);
     }
 
     componentDidMount() {
@@ -256,6 +266,10 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
 
     handleValueChanged(field: string, value: any) {
         this.setState({ ...this.state, [field]: value});
+    }
+
+    handleAttachmentUpdated(attachments: Array<Attachment>) {
+        console.log(`Attachments Updated `, attachments)
     }
 
     render() {
@@ -540,7 +554,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     onChange={this.onTableTemplateChange('follow-ups')}
                     headerTitle="Follow Ups"
                 /> */}
-                <FlatButton 
+                {/* <FlatButton 
                     className="add-attachment-button"
                     backgroundColor="#C6D3D1"
                     hoverColor="#C6D3D1"
@@ -552,6 +566,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     labelStyle={{
                         textTransform: 'none'
                     }}
+                /> */}
+
+                <AttachmentControl 
+                    attachmentList={stubbedData.attachment}
+                    onChange={this.handleAttachmentUpdated}
                 />
                 <TableTemplate
                     onChange={this.onTableTemplateChange('internal-notes')}

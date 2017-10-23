@@ -8,7 +8,7 @@ import {
     DropDownTemplate, 
     TextInputTemplate,
     ChipCollection
-} from '../../../common/UIComponents';
+} from '../../../common/components';
 
 const style = {
   backgroundColor: '#f84445',

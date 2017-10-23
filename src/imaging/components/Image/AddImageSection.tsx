@@ -4,7 +4,7 @@ import {
     DropDownTemplate, 
     TextInputTemplate,
     TableTemplate
-} from '../../../common/UIComponents';
+} from '../../../common/components';
 import DatePicker from 'material-ui/DatePicker';
 let FileInput = require('react-file-input');
 let FaAttachment = require('react-icons/lib/md/attach-file');

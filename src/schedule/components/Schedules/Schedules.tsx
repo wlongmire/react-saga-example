@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {CollatedSchedules} from './CollatedSchedules';
 // import {Navigation} from '../../../navigation/components/Navigation';
-import  {ScheduleDropDown} from '../../../common/UIComponents';
-import * as FloatingBtn from '../../../common/UIComponents';
+import  {ScheduleDropDown} from '../../../common/components';
+import * as FloatingBtn from '../../../common/components';
 // import * as Visits from '../../../visits';
 
 import './styles.css';

@@ -1,6 +1,6 @@
-import { Test } from './test-item';
+import { TestOrder } from './test-order';
 
 export interface TestPanel {
     id: string;
-    tests: Array<Test>;
+    tests: Array<TestOrder>;
 }

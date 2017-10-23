@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { fetchAllPatients, selectPatient, unselectPatient } from '../../';
 import { socketConnect, messageSend } from '../../../chat';
 import { fetchSingleSignOnInfo } from '../../../dosespot';
-import { GlobalState } from '../../../common';
+    import { GlobalState } from '../../../common';
 import { List, ListItem } from 'material-ui/List';
 import { RouteComponentProps } from 'react-router-dom';
 import { PatientDetail } from '../PatientDetail';
@@ -96,7 +96,7 @@ class _PatientList extends React.Component<PatientListProps, {}> {
 
     renderPatientDetail(currentUser: Identity, patient: Patient, patientList: Array<Patient>, channel?: ChatChannelInfo) {
         return (
-            <PatientDetail user={currentUser} patient={patient} patientList={patientList} channel={channel} onSendMessage={this.onSendMessage} />
+            <PatientDetail channel={channel} onSendMessage={this.onSendMessage} />
         )
     }
 
@@ -130,4 +130,5 @@ export const PatientList = connect<{}, PatientListProps, {}>(
         unselectPatient,
         socketConnect,
         messageSend
-    })(_PatientList);
+    }
+)(_PatientList);

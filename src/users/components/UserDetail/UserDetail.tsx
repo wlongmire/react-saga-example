@@ -9,7 +9,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
-import { FormGroup } from '../../../common/UIComponents';
+import { FormGroup } from '../../../common/components';
 
 import './UserDetail.css';
 

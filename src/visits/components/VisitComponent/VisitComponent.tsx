@@ -2,6 +2,7 @@ import * as React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { FormSelectControl, FormTextField } from '../../../common';
 import { 
+    Address,
     DoctorType, 
     EnumEx, 
     InternalNote, 
@@ -14,7 +15,7 @@ import {
 import {
     TableInputs, 
     TableTemplate,
-} from '../../../common/UIComponents';
+} from '../../../common/components';
 
 import './VisitComponent.css';
 
@@ -36,7 +37,7 @@ interface VisitComponentState {
     doctorId?: string;
     doctorName?: string;
     doctorType?: string;
-    clinic?: string;
+    clinic?: Address;
     scheduledFor?: Date;
     estimatedDuration?: number;
     complaints: Array<string>;

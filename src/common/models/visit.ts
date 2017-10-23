@@ -1,3 +1,4 @@
+import { Address } from './address';
 import { InternalNote } from './internal-note';
 
 export enum VisitStatus {
@@ -33,27 +34,28 @@ export enum MaintenanceFlags {
 
 export class Visit {
     id: string;
-    status?: string;
+    assessment?: string;
     assigneeId?: string;
     cases?: Array<string>;
-    patientId?: number;
-    visitType?: string;
-    maintenance?: Array<string>;
+    clinic?: Address;
+    complaints?: Array<string>;
+    diagnosis?: string;
+    doctorId?: string;
     doctorName?: string;
     doctorType?: string;
-    clinic?: string;
-    scheduledFor?: Date;
     estimatedDuration?: number;
-    complaints?: Array<string>;
-    vitals?: Array<object>;
-    systemsReview?: Array<object>;
-    diagnosis?: string;
-    subjective?: string;
-    objective?: string;
-    assessment?: string;
-    nextSteps?: string;
     internalNotes?: Array<InternalNote>;
-
+    maintenance?: Array<string>;
+    nextSteps?: string;
+    objective?: string;
+    patientId?: number;
+    scheduledFor?: Date;
+    status?: string;
+    subjective?: string;
+    systemsReview?: Array<Map<string, string>>;
+    visitType?: string;
+    vitals?: Array<Map<string, number>>;
+    
     isNew: boolean;
     isDirty: boolean;
     isValid: boolean;

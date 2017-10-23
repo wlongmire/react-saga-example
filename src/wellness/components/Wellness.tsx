@@ -9,9 +9,9 @@ import {
     // ChipCollection,
     TableGoalTemplate,
     DateTimeDropDownTemplate
-} from '../../common/UIComponents';
+} from '../../common/components';
 
-import ApplicationState from '../../common';
+import { GlobalState } from '../../common';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
@@ -120,7 +120,7 @@ class WellnessContainer extends React.Component<WellnessProps, S>{
     }
 }
 
-const mapStateToProps = (state: ApplicationState.IState) => {
+const mapStateToProps = (state: GlobalState) => {
     return {
         wellness : state.wellness,
     }

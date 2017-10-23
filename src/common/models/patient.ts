@@ -1,7 +1,7 @@
 import { ChatChannelInfo } from './chat-channel-info';
 import { Imaging } from './imaging';
 import { Other } from './other';
-import { Test } from './test-item';
+import { TestOrder } from './test-order';
 import { Treatment } from './treatment';
 import { Visit } from './visit';
 import { Wellness } from './wellness';
@@ -23,7 +23,7 @@ export interface Patient {
     channel?: ChatChannelInfo;
     treatments: Array<Treatment>;
     visits: Array<Visit>;
-    tests: Array<Test>;
+    tests: Array<TestOrder>;
     imaging: Array<Imaging>;
     wellness: Wellness;
     other: Other;

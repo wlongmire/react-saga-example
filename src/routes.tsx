@@ -13,7 +13,7 @@ import { Route, Router, Redirect } from 'react-router-dom';
 import * as Auth from './auth';
 import * as Admin from './admin';
 import * as Schedule from './schedule';
-// import { Navbar } from '../navigation';
+import { Navbar } from './navigation';
 import { PatientList } from './patients';
 import { DoseSpotUser } from './dosespot';
 import { UsersContainer, UserDetail } from './users';
@@ -163,6 +163,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                     exact={true}
                     render={(props) => <Auth.MFACodeEntry {...props} />}
                 />
+                 */}
                 <Route
                     path="/"
                     render={(props) => (
@@ -175,7 +176,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                             />
                         ) : ( <Navbar {...props} /> )
                     )}
-                /> */}
+                />
                 {<div className="content-body">
                     <Route 
                         path="/"
@@ -267,7 +268,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         path="/login"
                         render={(props) => <Auth.LoginContainer {...props} />}
                     />
-                    <Route 
+                    {/* <Route 
                         path="/visits"
                         exact={true} 
                         render={(props) => (
@@ -282,7 +283,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                 <div></div>
                             )
                         )}
-                    />
+                    /> */}
                     <Route  
                         path="/admin"
                         render={(props) => (

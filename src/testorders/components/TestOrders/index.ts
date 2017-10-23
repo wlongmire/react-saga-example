@@ -1,1 +1,1 @@
-export {TestOrdersContainer} from './TestOrders';
+export { TestOrders } from './TestOrders';

@@ -4,10 +4,12 @@ import * as Rx from '../../../treatments';
 import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
 import Avatar from 'material-ui/Avatar';
+import { connect } from 'react-redux';
 import { 
     ChatChannelInfo,
     ChatMessage,
     Identity,
+    GlobalState,
     Patient,
     TabControl, 
     TabItemInfo,
@@ -35,7 +37,7 @@ interface PatientDetailState {
     selectedTabIndex: number;
 }
 
-export class PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
+class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
 
     private _addContentElement: TabItemInfo;
 
@@ -268,3 +270,23 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         )
     }
 }
+
+interface ConnectedPatientDetailProps {
+    channel?: ChatChannelInfo;
+    onSendMessage: (message: ChatMessage) => void;
+}
+
+const mapStateToProps= (state: GlobalState) => {
+    return {
+        patient: state.patients.selectedPatient,
+        patientList: state.patients.items,
+        user: state.auth.identity
+    }
+}
+
+export const PatientDetail= connect<{}, PatientDetailProps, ConnectedPatientDetailProps>(
+    mapStateToProps,
+    {
+        
+    }
+)(_PatientDetail);

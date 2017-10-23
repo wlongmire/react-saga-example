@@ -2,11 +2,10 @@ import * as React from 'react';
 import './styles.css';
 import {
     CustomDropDown,
+    CustomDropDownProps,
     CustomTextInput,
     DropDownItem
-} from '../../../common/UIComponents';
-
-import { CustomDropDownProps } from '../../../common/UIComponents';
+} from '../../../common/components';
 import DatePicker from 'material-ui/DatePicker';
 
 const userTypes = [

@@ -1,13 +1,13 @@
 import * as React from 'react';
-import * as Model from '../../reducer';
-import Avatar from 'material-ui/Avatar';
 import * as classNames from 'classnames';
 import * as Moment from 'moment';
+import Avatar from 'material-ui/Avatar';
+import { ChatMessage as ChatMessageInfo } from '../../../common';
 
 import './ChatMessage.css';
 
 interface ChatMessageProps {
-    message: Model.ChatMessage
+    message: ChatMessageInfo
     isSender: boolean;
     showAvatar: boolean;
     contentUrl?: string;
@@ -18,7 +18,7 @@ interface ChatMessageState {
 }
 
 export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageState> {
-    getWebAvatarUrl(message: Model.ChatMessage): string | undefined {
+    getWebAvatarUrl(message: ChatMessageInfo): string | undefined {
         if (message.payload.sender_meta.avatar_urls && message.payload.sender_meta.avatar_urls.web) {
             return message.payload.sender_meta.avatar_urls.web.url;
         }

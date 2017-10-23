@@ -5,8 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { GlobalState } from '../../../rootReducer';
-import { SingleSignOnInfo } from '../../';
+import { GlobalState, SingleSignOnInfo } from '../../../common';
 import { fetchSingleSignOnInfo } from '../../actions';
 import * as Moment from 'moment';
 

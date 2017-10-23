@@ -5,7 +5,4 @@ export {
     AddUserPage
 } from './components';
 export { default as adminSaga } from './sagas';
-export { default as adminReducer,
-                    DoseSpotState,
-                    DoseSpotStatus 
-                } from './reducer';
+export { default as adminReducer } from './reducer';

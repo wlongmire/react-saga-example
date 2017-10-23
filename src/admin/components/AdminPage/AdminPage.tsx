@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { DoseSpotStatus, fetchDoseSpotStatus } from '../../';
-import { GlobalState } from '../../../rootReducer';
+import { fetchDoseSpotStatus } from '../../';
+import { DoseSpotStatus, GlobalState } from '../../../common';
 import { List, ListItem } from 'material-ui/List';
 import { IconButton } from 'material-ui/IconButton';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -207,8 +207,8 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
 
 const mapStateToProps= (state: GlobalState) => {
     return {
-        statuses: state.admin.items,
-        clinicians: state.admin.clinicians
+        statuses: state.dosespot.items,
+        clinicians: state.dosespot.clinicians
     }
 }
 

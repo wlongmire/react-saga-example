@@ -8,7 +8,7 @@ import * as React from 'react';
 import { BiodriveListItemInfo } from '../../reducer';
 import { BiodriveList } from '../BiodriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { Patient } from '../../../patients';
+import { Patient } from '../../../common';
 
 import './Biodrive.css';
 
@@ -66,14 +66,13 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
     render() {
         return (
             <div id="main-section">
-                 <section className="biodrive-section">
-                     
+                 <section className="biodrive-section">       
                      <Tabs 
                         value={this.state.selectedTab} 
                         inkBarStyle={inkBarStyle} 
                         tabItemContainerStyle={labelBackground}
-                        onChange={this.handleTabChange}>
-
+                        onChange={this.handleTabChange}
+                    >
                         <Tab value={'treatments'} label="Treatments" buttonStyle={this.getTabButtonStyle('treatments')}>
                             <BiodriveList 
                                 items={this.props.patient.treatments.map((treatment) => { 
@@ -88,7 +87,6 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 onItemClick={this.handleItemClick} 
                             />
                         </Tab>
-                        
                         <Tab value={'visits'} label="Visits" buttonStyle={this.getTabButtonStyle('visits')}>
                             <BiodriveList 
                                 items={this.props.patient.visits.map((visit) => { 
@@ -104,8 +102,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 onItemClick={this.handleItemClick} 
                             />
                         </Tab>
-                        
-                        <Tab value={'tests'} label="Tests" buttonStyle={this.getTabButtonStyle('tests')}>
+                        {/* <Tab value={'tests'} label="Tests" buttonStyle={this.getTabButtonStyle('tests')}>
                             <BiodriveList 
                                 items={this.props.patient.tests.map((test) => { 
                                     return new BiodriveListItemInfo(
@@ -120,7 +117,6 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 onItemClick={this.handleItemClick} 
                             />
                         </Tab>
-                        
                         <Tab value={'imaging'} label="Imaging" buttonStyle={this.getTabButtonStyle('imaging')}>
                             <BiodriveList 
                                 items={this.props.patient.imaging.map((image) => { 
@@ -136,56 +132,12 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 onItemClick={this.handleItemClick} 
                             />
                         </Tab>
-                        
                         <Tab value={'wellness'} label="Wellness" buttonStyle={this.getTabButtonStyle('wellness')}>
                             <div>Wellness</div>
                         </Tab>
-
                         <Tab value={'other'} label="Other" buttonStyle={this.getTabButtonStyle('other')}>
                             <div>Other</div>
-                        </Tab>
-
-                         {/* <Tab value={0} label="Treatments">
-                             <BiodriveList 
-                                 onItemClick={(info) => console.log('clicked', info)} 
-                             />    
-                         </Tab> */}
-
-                         {/* <Tab value={1} label="Visits" style={this.getLabelTitleStyle(1)}>
-                             <BiodriveList 
-                                 items={this.state.visits.map((visit, index) => {
-                                     return visit as BiodriveListItemInfo;
-                                 })}
-                                 onItemClick={() => console.log('clicked')} 
-                             />
-                         </Tab>
-
-                         <Tab value={2} label="Tests" style={this.getLabelTitleStyle(2)}>
-                             <BiodriveList 
-                                 items={this.state.tests.map((test, index) => {
-                                     return test as BiodriveListItemInfo;
-                                 })}
-                                 onItemClick={() => console.log('clicked')} 
-                             />
-                         </Tab>
-
-                         <Tab value={3} label="Imaging" style={this.getLabelTitleStyle(3)}>
-                             <BiodriveList 
-                                 items={this.state.tests.map((test, index) => {
-                                     return test as BiodriveListItemInfo;
-                                 })}
-                                 onItemClick={() => console.log('clicked')} 
-                             />
-                         </Tab> */}
-
-                         {/* <Tab value={4} label="Wellness">
-                             <Wellness.Components.WellnessComponent/>
-                         </Tab>
-
-                         <Tab value={5} label="Other">
-                             <Others.Components.OthersContainer/>
-                         </Tab> */}
-
+                        </Tab> */}
                      </Tabs>
                  </section>
             </div>

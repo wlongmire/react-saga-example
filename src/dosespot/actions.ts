@@ -1,5 +1,4 @@
-import { ActionResult } from '../common';
-import { SingleSignOnInfo } from './';
+import { ActionResult, SingleSignOnInfo } from '../common';
 
 export module ActionType {
     export const FETCH_SSO_INFO = 'patients/FETCH_SSO_INFO';

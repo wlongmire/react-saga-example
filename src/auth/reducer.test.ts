@@ -1,5 +1,6 @@
-import { default as reducer, AuthState } from './reducer';
 import * as actions from './actions';
+import { AuthState } from '../common';
+import { default as reducer } from './reducer';
 
 describe('auth reducer', () => {
     const initialState: AuthState = {

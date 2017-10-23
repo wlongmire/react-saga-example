@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ApplicationState from '../../../common';
+import { GlobalState } from '../../../common';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
@@ -43,7 +43,7 @@ export class Treatments extends React.Component<RxProps, {}>{
     }
 }
 
-const mapStateToProps = (state: ApplicationState.IState) => {
+const mapStateToProps = (state: GlobalState) => {
     return {
         treatments : state.treatments
     }

@@ -1,64 +1,6 @@
 import * as Common from '../common';
 import { ActionType } from './actions';
-
-export class AuthInfo {
-    clientToken: string;
-    userId: number;
-    userChannel: number;
-    phoneHint?: string;
-    roleId?: number;
-
-    constructor(
-        clientToken: string, 
-        userId: number,
-        userChannel: number,
-        phoneHint?: string,
-        roleId?: number
-    ) {
-        this.clientToken = clientToken;
-        this.userId = userId;
-        this.userChannel = userChannel;
-        this.phoneHint = phoneHint;
-        this.roleId = roleId
-    }
-}
-
-export class Identity {
-    channelId: number;
-    roleId?: number;
-    roleName?: string;
-    userId: number;
-    userInfo?: IdentityUserInfo;    
-}
-
-export interface IdentityUserInfo {
-    email: string;
-    first?: string;
-    last?: string;
-    phone?: string;
-    clinicId?: string;
-    clinicianId?: string;
-}
-
-export class AuthCredentials {
-    email: string;
-    password: string;
-
-    constructor(email: string, password: string) {
-        this.email = email;
-        this.password = password;
-    }
-}
-
-export interface AuthState {
-    isAuthenticated: boolean;
-    auth?: AuthInfo,
-    identity?: Identity;
-    authError?: string;
-    clientToken?: string;
-    clientTokenVerified?: boolean;
-    clientTokenVerificationError?: string;
-}
+import { AuthInfo, Identity, AuthState } from '../common';
 
 const fetchAuthFromLocalStorage = (): AuthInfo | undefined => {
     const authString = localStorage.getItem('auth');

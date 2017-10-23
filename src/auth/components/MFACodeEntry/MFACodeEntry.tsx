@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as Common from '../common';
 import { connect } from 'react-redux';
 import { verifyCode, resendCode } from '../../actions';
-import { AuthInfo } from '../../reducer';
-import { GlobalState } from '../../../rootReducer';
+import { AuthInfo } from '../../../common';
+import { GlobalState } from '../../../common';
 
 import './MFACodeEntry.css';
 

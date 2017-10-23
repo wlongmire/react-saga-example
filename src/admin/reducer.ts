@@ -1,25 +1,26 @@
-import { ActionResult } from '../common';
+import { ActionResult, DoseSpotState } from '../common';
 import { ActionType } from './actions';
 
-export interface DoseSpotStatus {
-    clinicianId: number;
-    refillRequestsCount: number;
-    transactionErrorsCount: number;
-    pendingPrescriptionsCount: number;
-    url: string;
-}
+// export interface DoseSpotStatus {
+//     clinicianId: number;
+//     refillRequestsCount: number;
+//     transactionErrorsCount: number;
+//     pendingPrescriptionsCount: number;
+//     url: string;
+// }
 
-export interface DoseSpotState {
-    items: DoseSpotStatus[];
-    isFetching: boolean;
-    clinicians: number[]
-}
+// export interface DoseSpotState {
+//     items: DoseSpotStatus[];
+//     isFetching: boolean;
+//     clinicians: number[]
+// }
 
 function initialState(): DoseSpotState {
     return {
         items: [],
         isFetching: false,
-        clinicians: []
+        clinicians: [],
+        sso: undefined
     }
 }
 

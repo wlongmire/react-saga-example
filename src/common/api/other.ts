@@ -1,0 +1,22 @@
+import { getRequestInit, BASE_URL } from './util';
+// import { Visit } from '../models/visit';
+
+export const getForChannel = (channelId: number) => {
+    const requestInit = getRequestInit('GET');
+    return fetch(`${BASE_URL}/other/${channelId}`, requestInit)
+        .then((response: any) => {
+            if (!response.ok) {
+                throw new Error(`Error fetching visits for channel ${channelId}`);
+            }
+            return response.json();
+        }).then((result: Map<string, any>) => {
+            
+            console.log('other', result);
+
+            return Promise.resolve({
+                social: 'Anemia biopsy blood pressure bronchoconstriction...',
+                family: 'Anemia biopsy blood pressure bronchoconstriction...',
+                allergies: 'Anemia biopsy blood pressure bronchoconstriction...'
+            });
+        });
+}

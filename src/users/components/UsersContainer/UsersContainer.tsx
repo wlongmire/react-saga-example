@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { GlobalState } from '../../../rootReducer';
+import { GlobalState } from '../../../common';
 import { fetchAllUsers } from '../../actions';
-import { User } from '../../reducer';
+import { User } from '../../../common';
 import { UserList } from '../UserList';
 import { Link } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router-dom';

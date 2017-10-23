@@ -1,4 +1,4 @@
-import { AddTestSection, TestOrdersContainer } from './components'
+import { AddTestSection, TestOrders } from './components'
 import { reducer } from './reducer';
 
 export const Reducers = {
@@ -7,5 +7,5 @@ export const Reducers = {
 
 export const Components = {
     AddTestSection,
-    TestOrdersContainer
+    TestOrders
 };

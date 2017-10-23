@@ -2,15 +2,15 @@ import { ActionResult } from '../common';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
 import * as Navigation from '../navigation';
-import { AuthCredentials, Identity, AuthInfo } from './reducer';
-import * as AuthService from './service';
+import { AuthCredentials, Identity, AuthInfo } from '../common';
+import * as api from '../common/api'
 
 export function* login(action: ActionResult<AuthCredentials>) {
     try {
         if (!action.value) {
             throw new Error('action is missing required LoginCredentials value');
         }
-        const auth = yield call(AuthService.login, action.value.email, action.value.password);
+        const auth = yield call(api.auth.login, action.value.email, action.value.password);
         yield(put(Actions.loginSuccess(auth)));
     } catch (e) {
         yield(put(Actions.loginFail(e)));
@@ -29,7 +29,7 @@ export function* logout(action: ActionResult<{}>) {
 
 export function* verifyCode(action: ActionResult<string>) {
     try {
-        yield call(AuthService.verifyCode, action.value);
+        yield call(api.auth.verifyCode, action.value);
         yield(put(Actions.verifyCodeSuccess()));
     } catch (e) {
         yield(put(Actions.verifyCodeFail(e)));
@@ -38,7 +38,7 @@ export function* verifyCode(action: ActionResult<string>) {
 
 export function* onForgotPassword(action: ActionResult<string>) {
     try {
-        yield call(AuthService.forgotPassword, action.value);
+        yield call(api.auth.forgotPassword, action.value);
         yield(put(Actions.forgotPasswordSuccess()));
     } catch (e) {
         yield(put(Actions.forgotPasswordFail(e)));
@@ -48,7 +48,7 @@ export function* onForgotPassword(action: ActionResult<string>) {
 function* onLoginSuccess(action: ActionResult<AuthInfo>) {
     const info = action.value as AuthInfo
     localStorage.setItem('auth', JSON.stringify(info));
-    yield(put(Navigation.navigate('/')));
+    yield(put(Actions.fetchIdentity()));
 }
 
 function* onLogoutSuccess() {
@@ -57,7 +57,7 @@ function* onLogoutSuccess() {
 
 function* onFetchIdentity() {
     try {
-        const identity = yield call(AuthService.fetchIdentity);
+        const identity = yield call(api.auth.fetchIdentity);
         yield(put(Actions.fetchIdentitySuccess(identity)));
     } catch (e) {
         yield(put(Actions.fetchIdentityFail(e)));
@@ -67,7 +67,7 @@ function* onFetchIdentity() {
 function* onFetchIdentitySuccess(action: ActionResult<Identity>) {
     const identity = action.value as Identity;
     localStorage.setItem('identity', JSON.stringify(identity));
-    yield(null);
+    yield(put(Navigation.navigate('/')));
 }
 
 function* onVerifyCodeSuccess() {

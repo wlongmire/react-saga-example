@@ -5,7 +5,7 @@ import {
     DropDownTemplate, 
     TextInputTemplate,
     PanelTemplate
-} from '../../../common/UIComponents';
+} from '../../../common/components';
 import DatePicker from 'material-ui/DatePicker';
 let FileInput = require('react-file-input');
 let FaCalendar = require('react-icons/lib/fa/calendar');

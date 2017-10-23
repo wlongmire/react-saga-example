@@ -1,20 +1,22 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import * as Rx from '../../../treatments';
 import * as uuidv4 from 'uuid/v4';
-import { VisitComponent } from '../../../visits';
+import * as Rx from '../../../treatments';
 import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
-// import * as Wellness from '../../../wellness';
-// import * as Others from '../../../others';
 import Avatar from 'material-ui/Avatar';
-import { Patient } from '../../';
-import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
+import { 
+    ChatChannelInfo,
+    ChatMessage,
+    Identity,
+    Patient,
+    TabControl, 
+    TabItemInfo,
+    Visit
+} from '../../../common';
 import { ChatChannel } from '../../../chat';
-import { ChatChannelInfo } from '../../../chat';
-import { ChatMessage } from '../../../chat/reducer';
-import { Identity } from '../../../auth';
-import { TabControl, TabItemInfo, Visit } from '../../../common';
+import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
+import { VisitComponent } from '../../../visits';
 
 import './PatientDetail.css';
 
@@ -24,12 +26,13 @@ interface PatientDetailProps {
     patientList: Array<Patient>;
     channel?: ChatChannelInfo;
     onSendMessage: (message: ChatMessage) => void;
+    onSaveVisit: (visit: Visit, channelId: number) => void;
 }
 
 interface PatientDetailState {
     open : boolean;
     anchorEl?: any;
-    patient?: Patient;
+    // patient?: Patient;
     tabItems?: Array<TabItemInfo>;
     selectedTabIndex: number;
 }
@@ -48,6 +51,8 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.handleClickNew = this.handleClickNew.bind(this);
         this.handleSelectedTabChanged = this.handleSelectedTabChanged.bind(this);
         this.handleTabClosing = this.handleTabClosing.bind(this);
+        this.handleVisitCancel = this.handleVisitCancel.bind(this);
+        this.handleVisitSave = this.handleVisitSave.bind(this);
     }
 
     componentDidMount() {
@@ -57,8 +62,8 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                 <div className="new-container">
                     <input type="button" className="new-container-button" value="Treatment" onClick={() => this.handleClickNew('treatment')} />
                     <input type="button" className="new-container-button" value="Visit" onClick={() => this.handleClickNew('visit')} />
-                    <input type="button" className="new-container-button" value="Test" onClick={() => this.handleClickNew('test')} />
-                    <input type="button" className="new-container-button" value="Imaging" onClick={() => this.handleClickNew('imaging')} />
+                    {/* <input type="button" className="new-container-button" value="Test" onClick={() => this.handleClickNew('test')} />
+                    <input type="button" className="new-container-button" value="Imaging" onClick={() => this.handleClickNew('imaging')} /> */}
                 </div>
             )
         } as TabItemInfo;
@@ -80,12 +85,20 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
     }
 
     createNewVisit(): Visit {
-        return new Visit(uuidv4());
+        let visit = new Visit();
+        visit.id = uuidv4();
+        return visit;
     }
 
     findVisit(id: string): Visit {
-        if (!this.state.patient) return { } as Visit;
-        return this.state.patient.visits.find((visit) => visit.id === id) || {} as Visit;
+        console.log('finding...');
+        if (!this.props.patient) return { } as Visit;
+        let visit = this.props.patient.visits.find((visit) => {
+            console.log(`comparing ${visit.id} to ${id}`);
+            return visit.id === id;
+        }) || {} as Visit;
+        console.log('visit', visit);
+        return visit;
     }
 
     handleBiodriveItemSelected(info: BiodriveListItemInfo) {
@@ -102,7 +115,12 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'visit':
                 newItem = {
                     header: info.header,
-                    content: (<VisitComponent patientList={this.props.patientList} visit={this.findVisit(info.id)} />)
+                    content: (<VisitComponent 
+                        patientList={this.props.patientList} 
+                        visit={this.findVisit(info.id)} 
+                        onCancel={this.handleVisitCancel}
+                        onSave={this.handleVisitSave}
+                    />)
                 } as TabItemInfo;
                 break;
             case 'test':
@@ -147,7 +165,14 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'visit':
                 newItem = {
                     header,
-                    content: (<VisitComponent patient={this.state.patient} patientList={this.props.patientList} visit={this.createNewVisit()} />)
+                    content: (
+                        <VisitComponent 
+                            patientList={this.props.patientList} 
+                            visit={this.createNewVisit()} 
+                            onSave={this.handleVisitSave} 
+                            onCancel={this.handleVisitCancel} 
+                        />
+                    )
                 } as TabItemInfo;
                 break;
             case 'test':
@@ -198,6 +223,16 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         }
 
         this.setState({ tabItems, selectedTabIndex: currentIndex});
+    }
+
+    handleVisitCancel(visit: Visit) {
+        
+    }
+
+    handleVisitSave(visit: Visit) {
+        if (this.props.onSaveVisit) {
+            this.props.onSaveVisit(visit, this.props.patient.primaryChannel);
+        }
     }
 
     render() {

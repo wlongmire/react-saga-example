@@ -1,9 +1,9 @@
-import * as AuthService from './service';
+import * as api from '../common/api';
 import * as Common from '../common';
 import * as actions from './actions';
 import { call, put } from 'redux-saga/effects';
 import { login } from './sagas';
-import { AuthCredentials, AuthInfo } from './reducer';
+import { AuthCredentials, AuthInfo } from '../common';
 
 describe('auth sagas', () => {
     it('should generate a loginSuccess action', () => {
@@ -22,7 +22,7 @@ describe('auth sagas', () => {
         const generator = login(action);
     
         let next = generator.next(credentials);
-        expect(next.value).toEqual(call(AuthService.login, credentials.email, credentials.password));
+        expect(next.value).toEqual(call(api.auth.login, credentials.email, credentials.password));
     
         next = generator.next(response);
         expect(next.value).toEqual(put(actions.loginSuccess(response)));

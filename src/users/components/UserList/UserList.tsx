@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { User } from '../../reducer';
-import Avatar from 'material-ui/Avatar';
 import * as classNames from 'classnames';
+import * as React from 'react';
+import { User } from '../../../common';
+import Avatar from 'material-ui/Avatar';
 
 import './UserList.css';
 

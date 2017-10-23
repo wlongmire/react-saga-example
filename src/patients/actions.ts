@@ -1,5 +1,4 @@
-import { ActionResult } from '../common';
-import { Patient } from './';
+import { ActionResult, ChannelVisit, Patient, Visit } from '../common';
 
 export module ActionType {
     export const ADD_PATIENT = 'patients/ADD_PATIENT';
@@ -22,6 +21,13 @@ export module ActionType {
     export const SELECT_PATIENT_SUCCESS = 'patients/SELECT_PATIENT_SUCCESS';
     export const SELECT_PATIENT_FAILURE = 'patients/SELECT_PATIENT_FAILURE';
     export const UNSELECT_PATIENT = 'patients/UNSELECT_PATIENT';
+
+    export const ADD_VISIT = 'patients/ADD_VISIT';
+    export const ADD_VISIT_SUCCESS = 'patients/ADD_VISIT_SUCCESS';
+    export const ADD_VISIT_FAIL = 'patients/ADD_VISIT_FAIL';
+    export const UPDATE_VISIT = 'patients/UPDATE_VISIT';
+    export const UPDATE_VISIT_SUCCESS = 'patients/UPDATE_VISIT_SUCCESS';
+    export const UPDATE_VISIT_FAIL = 'patients/UPDATE_VISIT_FAIL';
 }
 
 export const fetchAllPatients = (): ActionResult<{}> =>  {
@@ -92,3 +98,57 @@ export const unselectPatient = (patient: Patient): ActionResult<Patient> => {
         value: patient
     }
 }
+
+export const addVisit = (visit: Visit, channelId: number): ActionResult<ChannelVisit> => {
+    return {
+        type: ActionType.ADD_VISIT,
+        value: {
+            channelId: channelId,
+            visit
+        }
+    };
+};
+
+export const addVisitSuccess = (visit: Visit, channelId: number): ActionResult<ChannelVisit> => {
+    return {
+        type: ActionType.ADD_VISIT_SUCCESS,
+        value: {
+            channelId: channelId,
+            visit
+        }
+    };
+};
+
+export const addVisitFail = (e: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.ADD_VISIT_FAIL,
+        value: e
+    };
+};
+
+export const updateVisit = (visit: Visit, channelId: number): ActionResult<ChannelVisit> => {
+    return {
+        type: ActionType.UPDATE_VISIT,
+        value: {
+            channelId: channelId,
+            visit
+        }
+    };
+};
+
+export const updateVisitSuccess = (visit: Visit, channelId: number): ActionResult<ChannelVisit> => {
+    return {
+        type: ActionType.UPDATE_VISIT_SUCCESS,
+        value: {
+            channelId: channelId,
+            visit
+        }
+    };
+};
+
+export const updateVisitFail = (e: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.UPDATE_VISIT_FAIL,
+        value: e
+    };
+};

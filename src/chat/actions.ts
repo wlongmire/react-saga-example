@@ -1,5 +1,4 @@
-import { ActionResult } from '../common';
-import { ChatMessage } from './reducer';
+import { ActionResult, ChatMessage } from '../common';
 
 export module ActionType {
     export const MESSAGE_RECEIVED = 'chat/MESSAGE_RECEIVED';

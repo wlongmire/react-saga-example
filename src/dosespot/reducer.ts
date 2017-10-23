@@ -1,28 +1,11 @@
-import { ActionResult } from '../common';
 import * as Actions from './actions';
-
-export interface SingleSignOnInfo {
-    clinicId: number,
-    userId: number,
-    ssoPhraseLength: number,
-    singleSignOnCode: string,
-    singleSignOnUserIdVerify: string,
-    singleSignOnUrl: string
-}
-
-export interface SingleSignOnCredentials {
-    clinicId: number,
-    clinicianId: number
-}
-
-export class DoseSpotState {
-    isFetching: boolean;
-    sso: SingleSignOnInfo | null | undefined;
-}
+import { ActionResult, DoseSpotState } from '../common';
 
 function initialState(): DoseSpotState {
     return {
         isFetching: false,
+        items: [],
+        clinicians: [],
         sso: null
     }
 }

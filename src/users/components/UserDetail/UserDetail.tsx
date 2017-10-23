@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createUser, updateUser } from '../../actions';
-import { User, PatientUser, DoctorUser, OpsUser } from '../../reducer';
+import { User, PatientUser, DoctorUser, OpsUser } from '../../../common';
 import { RouteComponentProps } from 'react-router-dom';
 import * as _ from 'lodash';
 import Avatar from 'material-ui/Avatar';
@@ -9,7 +9,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
-import { FormGroup } from '../../../common/UIComponents';
+import { FormGroup } from '../../../common/components';
 
 import './UserDetail.css';
 

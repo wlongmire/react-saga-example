@@ -1,20 +1,17 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { Patient, fetchAllPatients, selectPatient, unselectPatient } from '../../';
-import { socketConnect, messageSend } from '../../../chat';
-import { fetchSingleSignOnInfo } from '../../../dosespot';
-import { GlobalState } from '../../../rootReducer';
-import { SingleSignOnInfo } from '../../';
-import Avatar from 'material-ui/Avatar';
-import { List, ListItem } from 'material-ui/List';
-// import Subheader from 'material-ui/Subheader';
-import { RouteComponentProps } from 'react-router-dom';
-import { ChatChannelInfo } from '../../../chat';
-import { ChatMessage } from '../../../chat/reducer';
-import { PatientDetail } from '../PatientDetail';
-import { Identity } from '../../../auth';
 import * as _ from 'lodash';
 import * as classnames from 'classnames';
+import * as React from 'react';
+import Avatar from 'material-ui/Avatar';
+import { connect } from 'react-redux';
+import { fetchAllPatients, selectPatient, unselectPatient, addVisit, updateVisit } from '../../';
+import { socketConnect, messageSend } from '../../../chat';
+import { fetchSingleSignOnInfo } from '../../../dosespot';
+import { GlobalState } from '../../../common';
+import { List, ListItem } from 'material-ui/List';
+import { RouteComponentProps } from 'react-router-dom';
+import { PatientDetail } from '../PatientDetail';
+import { Identity } from '../../../common';
+import { ChatChannelInfo, ChatMessage, Patient, SingleSignOnInfo, Visit } from '../../../common';
 
 import './PatientList.css';
 
@@ -30,6 +27,8 @@ interface PatientListProps extends RouteComponentProps<{}> {
     selectPatient: (patient: Patient) => void;
     socketConnect: () => void;
     unselectPatient: (patient: Patient) => void;
+    addVisit: (visit: Visit, channelId: number) => void;
+    updateVisit: (visit: Visit, channelId: number) => void;
 }
 
 class _PatientList extends React.Component<PatientListProps, {}> {
@@ -38,6 +37,7 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         super();
         this.handlePatientClick = this.handlePatientClick.bind(this);
         this.onSendMessage = this.onSendMessage.bind(this);
+        this.handleSaveVisit = this.handleSaveVisit.bind(this);
     }
 
     componentDidMount() {
@@ -58,6 +58,18 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         return this.props.channels[patient.primaryChannel] as ChatChannelInfo;
     }
 
+    handleSaveVisit(visit: Visit, channelId: number) {
+        if (visit.isNew) {
+            if (this.props.addVisit) {
+                this.props.addVisit(visit, channelId);
+            }
+        } else {
+            if (this.props.updateVisit) {
+                this.props.updateVisit(visit, channelId);
+            }
+        }
+    }
+
     onSendMessage(message: ChatMessage) {
         if (this.props.messageSend) {
             this.props.messageSend(message);
@@ -68,8 +80,8 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         return (
             <div className="patient-list">
                 <div className="subheader">
-                    <h4>Hi Dr.Lee</h4>
-                    <p>You have <span>2 New Messages</span></p>
+                    {/* <h4>Hi Dr.Lee</h4>
+                    <p>You have <span>2 New Messages</span></p> */}
                     <span className="list-title">Patients</span>
                 </div>
                 <List>
@@ -99,7 +111,14 @@ class _PatientList extends React.Component<PatientListProps, {}> {
 
     renderPatientDetail(currentUser: Identity, patient: Patient, patientList: Array<Patient>, channel?: ChatChannelInfo) {
         return (
-            <PatientDetail user={currentUser} patient={patient} patientList={patientList} channel={channel} onSendMessage={this.onSendMessage} />
+            <PatientDetail 
+                user={currentUser} 
+                patient={patient} 
+                patientList={patientList} 
+                channel={channel} 
+                onSendMessage={this.onSendMessage} 
+                onSaveVisit={this.handleSaveVisit}
+            />
         )
     }
 
@@ -132,5 +151,7 @@ export const PatientList = connect<{}, PatientListProps, {}>(
         selectPatient, 
         unselectPatient,
         socketConnect,
-        messageSend
+        messageSend,
+        addVisit,
+        updateVisit
     })(_PatientList);

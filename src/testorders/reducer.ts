@@ -1,16 +1,6 @@
 import * as Common from '../common';
 import * as Actions from './actions';
 
-/**
- * Initial Reducer state
- */
-
- /**
-  * Redux reducer
-  * @param state
-  * @param action
-  */
-
   export function reducer(state = [], action: Common.ActionResult<{}>){
       switch(action.type){
         case Actions.ActionType.LOAD_ALL:

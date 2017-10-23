@@ -1,3 +1,4 @@
+import * as attachments from './attachments';
 import * as auth from './auth';
 import * as dosespot from './dosespot';
 import * as imagingOrders from './imaging-orders';
@@ -10,6 +11,7 @@ import * as visits from './visits';
 import * as wellness from './wellness';
 
 export {
+    attachments,
     auth,
     dosespot,
     imagingOrders,

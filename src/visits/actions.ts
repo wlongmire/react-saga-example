@@ -1,69 +1,52 @@
-// import * as Common from '../common';
-// import * as Model from './model';
-// import ApplicationState from '../common';
-// /**
-//  * Action Types for Visits
-//  */
+import { ActionResult, Visit } from '../common';
 
-// const BASE_URL_VISITS = 'https://api.life.cheap/exposed/visits/5961834829465699'
+export module ActionType {
+    export const ADD_VISIT = 'visits/ADD_VISIT';
+    export const ADD_VISIT_SUCCESS = 'visits/ADD_VISIT_SUCCESS';
+    export const ADD_VISIT_FAIL = 'visits/ADD_VISIT_FAIL';
+    export const UPDATE_VISIT = 'visits/UPDATE_VISIT';
+    export const UPDATE_VISIT_SUCCESS = 'visits/UPDATE_VISIT_SUCCESS';
+    export const UPDATE_VISIT_FAIL = 'visits/UPDATE_VISIT_FAIL';
+}
 
-// export module ActionType {
-//     export const ADD = 'visits/ADD';
-//     export const LOAD_ALL = 'visits/LOAD_ALL';
-//     export const LOAD_ALL_COMPLETED = 'visits/LOAD_ALL_COMPLETED';
-//     export const LOAD_ALL_FAILED = 'visits/LOAD_ALL_FAILED'
-// }
+export const addVisit = (visit: Visit): ActionResult<Visit> => {
+    return {
+        type: ActionType.ADD_VISIT,
+        value: visit
+    };
+};
 
-// export const loadAllVisitsCompleted = (visits: Array<Model.VisitItem>): Common.ActionResult<Array<Model.VisitItem>> => {
-//     return {
-//         type: ActionType.LOAD_ALL_COMPLETED,
-//         value: visits
-//     };
-// }
+export const addVisitSuccess = (visit: Visit): ActionResult<Visit> => {
+    return {
+        type: ActionType.ADD_VISIT_SUCCESS,
+        value: visit
+    };
+};
 
-// export const loadAllVisits = (): Common.ActionResult<{}> => {
-//     return {
-//         type: ActionType.LOAD_ALL
-//     };
-// }
+export const addVisitFail = (e: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.ADD_VISIT_FAIL,
+        value: e
+    };
+};
 
-// export const loadAllFailed = (error: Error): Common.ActionResult<Error> => {
-//     return {
-//         type: ActionType.LOAD_ALL_FAILED,
-//         value: error
-//     };
-// }
+export const updateVisit = (visit: Visit): ActionResult<Visit> => {
+    return {
+        type: ActionType.UPDATE_VISIT,
+        value: visit
+    };
+};
 
-// export const add = (visit: ApplicationState.IVisit): Common.ActionResult<Model.VisitItem> => {
-//     return {
-//         type: ActionType.ADD,
-//         value: visit
-//     };
-// }
+export const updateVisitSuccess = (visit: Visit): ActionResult<Visit> => {
+    return {
+        type: ActionType.UPDATE_VISIT_SUCCESS,
+        value: visit
+    };
+};
 
-// export const getAllVisits = () => {
-//     return(dispatch:any) => {
-//         dispatch(loadAllVisits)
-//         return fetch(BASE_URL_VISITS, {
-//             method : 'GET',
-//             headers:{
-//                 "Authorization": "Token 6ecc5c6a-3e3f-4aaf-bfd3-ba095aa2e62b'",
-//                 'Content-Type': 'application/json'
-//             },
-//             mode: 'cors',
-//             cache: 'default'
-//         }).then((response:any)=>{
-//             if (response.ok){
-//                 return response.json()
-//             }
-
-//             return response.json().then((err:Error)=>{
-//                 throw err;
-//             })
-//         }).then((visits:any)=>{
-//             dispatch(loadAllVisitsCompleted(visits))
-//         }).catch(err =>{
-//             dispatch(loadAllFailed(err))
-//         })    
-//     }
-// }
+export const updateVisitFail = (e: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.UPDATE_VISIT_FAIL,
+        value: e
+    };
+};

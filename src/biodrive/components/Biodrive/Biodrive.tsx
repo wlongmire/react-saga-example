@@ -102,7 +102,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 onItemClick={this.handleItemClick} 
                             />
                         </Tab>
-                        <Tab value={'tests'} label="Tests" buttonStyle={this.getTabButtonStyle('tests')}>
+                        {/* <Tab value={'tests'} label="Tests" buttonStyle={this.getTabButtonStyle('tests')}>
                             <BiodriveList 
                                 items={this.props.patient.tests.map((test) => { 
                                     return new BiodriveListItemInfo(
@@ -137,7 +137,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                         </Tab>
                         <Tab value={'other'} label="Other" buttonStyle={this.getTabButtonStyle('other')}>
                             <div>Other</div>
-                        </Tab>
+                        </Tab> */}
                      </Tabs>
                  </section>
             </div>

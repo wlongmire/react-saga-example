@@ -5,9 +5,13 @@ import {
     fetchAllPatientsSuccess, 
     fetchAllPatientsFailure, 
     selectPatientSuccess, 
-    selectPatientFailure 
+    selectPatientFailure,
+    addVisitSuccess,
+    addVisitFail,
+    updateVisitSuccess,
+    updateVisitFail
 } from './actions';
-import { ActionResult, Patient } from '../common';
+import { ActionResult, ChannelVisit, Patient } from '../common';
 
 function* fetchPatients() {
     try {
@@ -28,6 +32,28 @@ function* selectPatient(action: ActionResult<Patient>) {
     }
 }
 
+function* addVisit(action: ActionResult<ChannelVisit>) {
+    try {
+        if (!action.value) return;
+        const {visit, channelId } = action.value;
+        yield call(() => api.visits.createVisit(visit, channelId));
+        yield(put(addVisitSuccess(visit, channelId)));
+    } catch (e) {
+        yield(put(addVisitFail(e)));
+    }
+}
+
+function* updateVisit(action: ActionResult<ChannelVisit>) {
+    try {
+        if (!action.value) return;
+        const { visit, channelId } = action.value;
+        yield call(() => api.visits.saveVisit(visit, channelId));
+        yield(put(updateVisitSuccess(visit, channelId)));
+    } catch (e) {
+        yield(put(updateVisitFail(e)));
+    }
+}
+
 function* watchFetchAllPatients() {
     yield takeEvery(ActionType.FETCH_ALL_PATIENTS, fetchPatients);
 }
@@ -36,9 +62,19 @@ function* watchSelectPatient() {
     yield takeEvery(ActionType.SELECT_PATIENT, selectPatient);
 }
 
+function* watchAddVisit() {
+    yield takeEvery(ActionType.ADD_VISIT, addVisit);
+}
+
+function* watchUpdateVisit() {
+    yield takeEvery(ActionType.UPDATE_VISIT, updateVisit);
+}
+
 export default function* root() {
     yield all([
         fork(watchFetchAllPatients),
-        fork(watchSelectPatient)
+        fork(watchSelectPatient),
+        fork(watchAddVisit),
+        fork(watchUpdateVisit)
     ]);
 }

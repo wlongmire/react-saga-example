@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as _ from 'lodash';
+import * as uuidv4 from 'uuid/v4';
 import * as Rx from '../../../treatments';
 import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
 import Avatar from 'material-ui/Avatar';
-import { connect } from 'react-redux';
 import { 
     ChatChannelInfo,
     ChatMessage,
     Identity,
-    GlobalState,
     Patient,
     TabControl, 
     TabItemInfo,
@@ -27,17 +26,18 @@ interface PatientDetailProps {
     patientList: Array<Patient>;
     channel?: ChatChannelInfo;
     onSendMessage: (message: ChatMessage) => void;
+    onSaveVisit: (visit: Visit, channelId: number) => void;
 }
 
 interface PatientDetailState {
     open : boolean;
     anchorEl?: any;
-    patient?: Patient;
+    // patient?: Patient;
     tabItems?: Array<TabItemInfo>;
     selectedTabIndex: number;
 }
 
-class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
+export class PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
 
     private _addContentElement: TabItemInfo;
 
@@ -62,8 +62,8 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
                 <div className="new-container">
                     <input type="button" className="new-container-button" value="Treatment" onClick={() => this.handleClickNew('treatment')} />
                     <input type="button" className="new-container-button" value="Visit" onClick={() => this.handleClickNew('visit')} />
-                    <input type="button" className="new-container-button" value="Test" onClick={() => this.handleClickNew('test')} />
-                    <input type="button" className="new-container-button" value="Imaging" onClick={() => this.handleClickNew('imaging')} />
+                    {/* <input type="button" className="new-container-button" value="Test" onClick={() => this.handleClickNew('test')} />
+                    <input type="button" className="new-container-button" value="Imaging" onClick={() => this.handleClickNew('imaging')} /> */}
                 </div>
             )
         } as TabItemInfo;
@@ -85,12 +85,20 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
     }
 
     createNewVisit(): Visit {
-        return new Visit();
+        let visit = new Visit();
+        visit.id = uuidv4();
+        return visit;
     }
 
     findVisit(id: string): Visit {
-        if (!this.state.patient) return { } as Visit;
-        return this.state.patient.visits.find((visit) => visit.id === id) || {} as Visit;
+        console.log('finding...');
+        if (!this.props.patient) return { } as Visit;
+        let visit = this.props.patient.visits.find((visit) => {
+            console.log(`comparing ${visit.id} to ${id}`);
+            return visit.id === id;
+        }) || {} as Visit;
+        console.log('visit', visit);
+        return visit;
     }
 
     handleBiodriveItemSelected(info: BiodriveListItemInfo) {
@@ -107,7 +115,12 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
             case 'visit':
                 newItem = {
                     header: info.header,
-                    content: (<VisitComponent patientList={this.props.patientList} visit={this.findVisit(info.id)} />)
+                    content: (<VisitComponent 
+                        patientList={this.props.patientList} 
+                        visit={this.findVisit(info.id)} 
+                        onCancel={this.handleVisitCancel}
+                        onSave={this.handleVisitSave}
+                    />)
                 } as TabItemInfo;
                 break;
             case 'test':
@@ -152,7 +165,6 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
             case 'visit':
                 newItem = {
                     header,
-<<<<<<< HEAD
                     content: (
                         <VisitComponent 
                             patientList={this.props.patientList} 
@@ -161,9 +173,6 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
                             onCancel={this.handleVisitCancel} 
                         />
                     )
-=======
-                    content: (<VisitComponent patient={this.state.patient} patientList={this.props.patientList} visit={this.createNewVisit()} />)
->>>>>>> origin/develop
                 } as TabItemInfo;
                 break;
             case 'test':
@@ -216,12 +225,14 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
         this.setState({ tabItems, selectedTabIndex: currentIndex});
     }
 
-    handleVisitCancel() {
-
+    handleVisitCancel(visit: Visit) {
+        
     }
 
     handleVisitSave(visit: Visit) {
-
+        if (this.props.onSaveVisit) {
+            this.props.onSaveVisit(visit, this.props.patient.primaryChannel);
+        }
     }
 
     render() {
@@ -274,23 +285,3 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
         )
     }
 }
-
-interface ConnectedPatientDetailProps {
-    channel?: ChatChannelInfo;
-    onSendMessage: (message: ChatMessage) => void;
-}
-
-const mapStateToProps= (state: GlobalState) => {
-    return {
-        patient: state.patients.selectedPatient,
-        patientList: state.patients.items,
-        user: state.auth.identity
-    }
-}
-
-export const PatientDetail= connect<{}, PatientDetailProps, ConnectedPatientDetailProps>(
-    mapStateToProps,
-    {
-        
-    }
-)(_PatientDetail);

@@ -9,13 +9,13 @@ export * from './avatar-urls';
 export * from './channel-event-message-request';
 export * from './channel-event-message-response';
 export * from './channel-event-message';
+export * from './channel-visit';
 export * from './chat-channel-info';
 export * from './chat-message-content';
 export * from './chat-message-sender';
 export * from './chat-message';
 export * from './chat-state';
 export * from './diagnosis';
-<<<<<<< HEAD
 export * from './doctor-user';
 export * from './dosespot-state';
 export * from './dosespot-status';
@@ -46,7 +46,3 @@ export * from './visit';
 export * from './visits-state';
 export * from './wellness'; 
 export * from './wellness-state';
-=======
-export * from './internal-note';
-export * from './attachment';
->>>>>>> origin/develop

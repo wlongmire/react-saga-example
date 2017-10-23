@@ -54,9 +54,9 @@ class _Navbar extends React.Component<NavbarProps, {}> {
                     </IconMenu>
                     <ul className="lc-nav-top right">
                         <li><Link to="/">Home</Link></li>
-                        <li><Link to="/">Monitor</Link></li>
+                        {/* <li><Link to="/">Monitor</Link></li> */}
                         <li><Link to="/schedule">Schedule</Link></li>
-                        <li><Link to="/">Profile</Link></li>
+                        {/* <li><Link to="/">Profile</Link></li> */}
                         <li><Link to="/admin">Admin</Link></li>
                     </ul>
                 </div>

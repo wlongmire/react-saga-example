@@ -15,14 +15,7 @@ export const getForChannel = (channelId: number): Promise<Array<Visit>> => {
                 return {
                     assessment: value.assessment,
                     assigneeId: value.assignee_id,
-                    clinic: {
-                        name: value.clinic.name,
-                        streetAddress1: value.clinic.address_line_1,
-                        streetAddress2: value.clinic.address_line_2,
-                        city: value.clinic.city,
-                        state: value.clinic.state,
-                        postalCode: value.clinic.postal_code
-                    }, 
+                    clinic: value.clinic,
                     doctorId: value.doctor_id,
                     doctorType: value.doctor_type,
                     estimatedDuration: value.estimated_duration,
@@ -41,4 +34,68 @@ export const getForChannel = (channelId: number): Promise<Array<Visit>> => {
                 } as Visit
             });
         });
+}
+
+export const createVisit = (visit: Visit, channelId: number) => {
+    console.log('channelId', channelId);
+    const body = {
+        assessment: visit.assessment,
+        assignee_id: visit.assigneeId,
+        clinic: visit.clinic,
+        doctor_id: visit.doctorId,
+        doctor_name: visit.doctorName,
+        doctorType: visit.doctorType,
+        estimatedDuration: visit.estimatedDuration,
+        maintenance: visit.maintenance,
+        next_steps: visit.nextSteps,
+        objective: visit.objective,
+        patient_id: visit.patientId,
+        scheduledFor: visit.scheduledFor,
+        status: visit.status,
+        subjective: visit.subjective,
+        systems_review: visit.systemsReview,
+        visit_type: visit.visitType,
+        vitals: visit.vitals,
+        internal_notes: visit.internalNotes
+    };
+
+    const requestInit = getRequestInit('PUT', JSON.stringify(body));
+    return fetch(`${BASE_URL}/visits/${channelId}/${visit.id}`, requestInit)
+        .then((response: any) => {
+            console.log('create response', response);
+            return Promise.resolve(visit);
+        }
+    );
+}
+
+export const saveVisit = (visit: Visit, channelId: number) => {
+    console.log('channelId', channelId);
+    const body = {
+        assessment: visit.assessment,
+        assignee_id: visit.assigneeId,
+        clinic: visit.clinic,
+        doctor_id: visit.doctorId,
+        doctor_name: visit.doctorName,
+        doctorType: visit.doctorType,
+        estimatedDuration: visit.estimatedDuration,
+        maintenance: visit.maintenance,
+        next_steps: visit.nextSteps,
+        objective: visit.objective,
+        patient_id: visit.patientId,
+        scheduledFor: visit.scheduledFor,
+        status: visit.status,
+        subjective: visit.subjective,
+        systems_review: visit.systemsReview,
+        visit_type: visit.visitType,
+        vitals: visit.vitals,
+        internal_notes: visit.internalNotes
+    };
+
+    const requestInit = getRequestInit('PUT', JSON.stringify(body));
+    return fetch(`${BASE_URL}/visits/${channelId}/${visit.id}`, requestInit)
+        .then((response: any) => {
+            console.log('update response', response);
+            return Promise.resolve(visit);
+        }
+    );
 }

@@ -152,6 +152,7 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
             case 'visit':
                 newItem = {
                     header,
+<<<<<<< HEAD
                     content: (
                         <VisitComponent 
                             patientList={this.props.patientList} 
@@ -160,6 +161,9 @@ class _PatientDetail extends React.Component<PatientDetailProps, PatientDetailSt
                             onCancel={this.handleVisitCancel} 
                         />
                     )
+=======
+                    content: (<VisitComponent patient={this.state.patient} patientList={this.props.patientList} visit={this.createNewVisit()} />)
+>>>>>>> origin/develop
                 } as TabItemInfo;
                 break;
             case 'test':

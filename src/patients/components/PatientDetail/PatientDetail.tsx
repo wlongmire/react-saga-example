@@ -146,7 +146,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header: info.header,
                     content: (
                         <Tests.Components.AddTestSection
-                            closeTestsCard={() => { console.log('closed tests') }}
+                            closeTestsCard={() => {  }}
                         />
                     )
                 } as TabItemInfo;
@@ -156,7 +156,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header: info.header,
                     content: (
                         <Imaging.Components.AddImageSection
-                            closeImagingCard={() => { console.log('closed imaging') }}
+                            closeImagingCard={() => {  }}
                         />
                     )
                 } as TabItemInfo;
@@ -200,7 +200,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header,
                     content: (
                         <Tests.Components.AddTestSection
-                            closeTestsCard={() => { console.log('closed tests') }}
+                            closeTestsCard={() => {  }}
                         />
                     )
                 } as TabItemInfo;
@@ -254,7 +254,6 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             }
             return false;
         });
-        console.log('index', index);
         this.handleTabClosing(index);
     }
 

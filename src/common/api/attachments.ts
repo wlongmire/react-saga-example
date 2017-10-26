@@ -18,7 +18,6 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
                 return response.json()
             } else {
                 return response.json().then((err: Error) => {
-                    console.log(err);
                     throw err
                 })
             }
@@ -26,7 +25,6 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
         .then(result => {
             switch (result.status) {
                 case 200:
-                    console.log("");
                     let attachment: Attachment = {
                         key: objectKey,
                         fileType: filetype,
@@ -34,7 +32,6 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
                     }
                     return Promise.resolve(attachment);
                 default:
-                console.log(`Error result ${result.error}`)
                     return Promise.reject(result.error);
             }
         })
@@ -66,7 +63,6 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
                 return response.json();
             } else {
                 return response.json().then((err: Error) => {
-                    console.log(err);
                     throw err;
                 })
             }
@@ -76,15 +72,12 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
                 case 200:
                     const url = result.url;
                     const objectKey = result.object_key;
-                    console.log(`success ${objectKey} `, url);
                     return Promise.resolve({'objectKey': objectKey, 'url': url})
                 default:
-                    console.log(`Error result ${result.error}`);
                     return Promise.reject(result.error);
             }
         })
         .catch((error) => {
-            // const errorMessage = `Something bad happened.`;
             return Promise.reject(error);
         })
 }

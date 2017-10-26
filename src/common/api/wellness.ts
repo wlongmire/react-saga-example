@@ -1,5 +1,4 @@
 import { getRequestInit, BASE_URL } from './util';
-// import { Visit } from '../models/visit';
 
 export const getWellnessForChannel = (channelId: number) => {
     const requestInit = getRequestInit('GET');
@@ -10,9 +9,8 @@ export const getWellnessForChannel = (channelId: number) => {
             }
             return response.json();
         }).then((result: Map<string, any>) => {
-            
-            console.log('wellness', result);
 
+            // temporary - will be removed soon
             return Promise.resolve({
                 goals: [{
                     id: '1',

@@ -50,15 +50,6 @@ function* onLoginSuccess(action: ActionResult<AuthInfo>) {
     const authInfo = action.value as AuthInfo
     localStorage.setItem('auth', JSON.stringify(authInfo));
     yield(put(Navigation.navigate('/verify-code')));
-
-    // if this is a trusted device, skip 2FA
-    // const deviceId = api.auth.fetchDeviceId();
-    // if (deviceId) {
-    //     yield(put(Actions.fetchIdentity()));
-    //     yield(put(Navigation.navigate('/')));
-    // } else {
-    //     yield(put(Navigation.navigate('/verify-code')));
-    // }
 }
 
 function* onLogoutSuccess() {

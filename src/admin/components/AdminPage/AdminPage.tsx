@@ -2,10 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { fetchDoseSpotStatus } from '../../';
 import { DoseSpotStatus, GlobalState } from '../../../common';
-// import { List, ListItem } from 'material-ui/List';
 import { IconButton } from 'material-ui/IconButton';
-// import SocialPerson from 'material-ui/svg-icons/social/person';
-// import MapsLocalPharmacy from 'material-ui/svg-icons/maps/local-pharmacy';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Route, RouteComponentProps } from 'react-router-dom';
@@ -111,28 +108,6 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
     render() {
         return(
             <div className="admin-page-wrapper">
-                <aside className="admin-sidebar">
-                    {/* <List>
-                        <ListItem 
-                            primaryText="Users" 
-                            leftIcon={<SocialPerson />} 
-                            onClick={ () => this.handleNavigate('users') } 
-                            style={{ 
-                                backgroundColor: this.state.selectedTab == 'users' ? '#f3f3f3' : 'unset'
-                            }} 
-                        />
-                        <ListItem 
-                            primaryText="DoseSpot" 
-                            className="dosespot-list-item" 
-                            data-count={this.getStatusErrorsCount()} 
-                            leftIcon={<MapsLocalPharmacy data-count={this.getStatusErrorsCount()} className="item-icon-alert" />} 
-                            onClick={ () => this.handleNavigate('dosespot')} 
-                            style={{
-                                backgroundColor: this.state.selectedTab == 'dosespot' ? '#f3f3f3' : 'unset'
-                            }}
-                        />
-                    </List> */}
-                </aside>
                 <section className="admin-content">
                     <Route path={`${this.props.match.url}/`} exact={true} component={UsersContainer} />
                     <Route path={`${this.props.match.url}/users`} exact={true} component={UsersContainer} />
@@ -171,39 +146,6 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
         )
     }
 }
-
-{/* <div>                           
-    <table>
-        <thead>
-            <tr>
-                <td>Clincian ID</td>
-                <td>Refill Requests</td>
-                <td>Transmission Errors</td>
-                <td>Pending Prescriptions</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            {
-                this.props.statuses.map((status: DoseSpotStatus, index: number) => {
-                    return (
-                        <tr key={index}>
-                            <td>{status.clinicianId}</td>
-                            <td>{status.refillRequestsCount}</td>
-                            <td>{status.transactionErrorsCount}</td>
-                            <td>{status.pendingPrescriptionsCount}</td>
-                            <td>
-                            <IconButton tooltip="View Details" onClick={this.handleOpenDialog}>
-                                <i className="material-icons red">error</i>
-                            </IconButton>
-                            </td>
-                        </tr>
-                    )
-                })
-            }
-        </tbody>
-    </table>
-</div> */}
 
 const mapStateToProps= (state: GlobalState) => {
     return {

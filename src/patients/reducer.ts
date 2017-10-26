@@ -51,7 +51,6 @@ export default function reducer(state: PatientsState = initialState(), action: A
             return { ...state, isFetching: false, selectedPatient: null };
 
         case Actions.ActionType.SELECT_PATIENT_SUCCESS:
-            console.log('updated patient', action.value);
             return { ...state, isFetching: false, selectedPatient: action.value as Patient };
 
         case Actions.ActionType.SELECT_PATIENT_FAILURE:

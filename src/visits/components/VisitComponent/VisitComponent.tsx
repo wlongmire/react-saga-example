@@ -179,7 +179,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
     }
 
     handleAttachmentUpdated(attachments: Array<Attachment>) {
-        console.log(`Attachments Updated `, attachments)
+        console.log(`Attachments Updated `, attachments); // tslint:disable-line
     }
 
     render() {

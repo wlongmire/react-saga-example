@@ -1,5 +1,4 @@
 import { getRequestInit, BASE_URL } from './util';
-// import { Visit } from '../models/visit';
 
 export const getTestOrdersForChannel = (channelId: number) => {
     const requestInit = getRequestInit('GET');
@@ -10,9 +9,8 @@ export const getTestOrdersForChannel = (channelId: number) => {
             }
             return response.json();
         }).then((result: Map<string, any>) => {
-            
-            console.log('test-orders', result);
 
+            // temporary - will be removed shortly
             return Promise.resolve([{
                 id: '1',
                 status: 'Collected',

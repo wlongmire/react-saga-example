@@ -56,7 +56,6 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
             return;
         }
 
-        console.log("here")
         const filetype = e.target.files[0].type;
         const file = e.target.files[0];
 
@@ -81,16 +80,14 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
     }
 
     handleItemDelete(item: Attachment) {
-        console.log(`Delete was pressed `, item.fileName);
-
         const index = this.state.attachmentList.indexOf(item);
         if (index > -1) {
             this.state.attachmentList.splice(index, 1);
         }
+
         this.setState({
             attachmentList: this.state.attachmentList
         }),() => {
-            console.log("attachement control on changed called")
             this.props.onChange(this.state.attachmentList);
         }
     }

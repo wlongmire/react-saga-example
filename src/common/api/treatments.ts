@@ -50,7 +50,6 @@ export const createTreatment = (treatment: Treatment, channelId: number) => {
     const requestInit = getRequestInit('PUT', JSON.stringify(body));
     return fetch(`${BASE_URL}/treatments/${channelId}/${treatment.id}`, requestInit)
         .then((response: any) => {
-            console.log('create response', response);
             return Promise.resolve(treatment);
         }
     );
@@ -75,7 +74,6 @@ export const updateTreatment = (treatment: Treatment, channelId: number) => {
     const requestInit = getRequestInit('PUT', JSON.stringify(body));
     return fetch(`${BASE_URL}/treatments/${channelId}/${treatment.id}`, requestInit)
         .then((response: any) => {
-            console.log('create response', response);
             return Promise.resolve(treatment);
         }
     );

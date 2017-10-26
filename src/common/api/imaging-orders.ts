@@ -9,9 +9,8 @@ export const getImagingForChannel = (channelId: number) => {
             }
             return response.json();
         }).then((result: Map<string, any>) => {
-            
-            console.log('imaging-orders', result);
 
+            // temporary - will be removed shortly
             return Promise.resolve([{
                 id: '1',
                 status: 'Scheduled',

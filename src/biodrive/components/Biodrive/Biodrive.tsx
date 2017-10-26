@@ -1,11 +1,5 @@
 import * as React from 'react';
 import * as Moment from 'moment';
-// import * as Rx from '../../../treatments';
-// import * as Visits from '../../../visits';
-// import * as Tests from '../../../testorders';
-// import * as Imaging from '../../../imaging';
-// import * as Wellness from '../../../wellness';
-// import * as Others from '../../../others';
 import { BiodriveListItemInfo } from '../../reducer';
 import { BiodriveList } from '../BiodriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -42,10 +36,6 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
 
         this.handleItemClick = this.handleItemClick.bind(this);
         this.handleTabChange = this.handleTabChange.bind(this);
-    }
-
-    componentDidMount() {
-        console.log('patient', this.props.patient);
     }
 
     getTabButtonStyle(tabName: string) {
@@ -103,42 +93,6 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 onItemClick={this.handleItemClick} 
                             />
                         </Tab>
-                        {/* <Tab value={'tests'} label="Tests" buttonStyle={this.getTabButtonStyle('tests')}>
-                            <BiodriveList 
-                                items={this.props.patient.tests.map((test) => { 
-                                    return new BiodriveListItemInfo(
-                                        'test',
-                                        test.id, 
-                                        test.scheduledFor || Date.now(), 
-                                        test.name,
-                                        test.status,
-                                        test.publicNote
-                                    );
-                                })} 
-                                onItemClick={this.handleItemClick} 
-                            />
-                        </Tab>
-                        <Tab value={'imaging'} label="Imaging" buttonStyle={this.getTabButtonStyle('imaging')}>
-                            <BiodriveList 
-                                items={this.props.patient.imaging.map((image) => { 
-                                    return new BiodriveListItemInfo(
-                                        'imaging',
-                                        image.id, 
-                                        image.scheduledFor || Date.now(), 
-                                        image.imagingTypeDescription,
-                                        image.status,
-                                        image.publicNote
-                                    );
-                                })} 
-                                onItemClick={this.handleItemClick} 
-                            />
-                        </Tab>
-                        <Tab value={'wellness'} label="Wellness" buttonStyle={this.getTabButtonStyle('wellness')}>
-                            <div>Wellness</div>
-                        </Tab>
-                        <Tab value={'other'} label="Other" buttonStyle={this.getTabButtonStyle('other')}>
-                            <div>Other</div>
-                        </Tab> */}
                      </Tabs>
                  </section>
             </div>

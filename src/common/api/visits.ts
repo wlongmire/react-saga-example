@@ -40,7 +40,6 @@ export const getVisitsForChannel = (channelId: number): Promise<Array<Visit>> =>
 }
 
 export const saveVisit = (visit: Visit, channelId: number) => {
-    console.log('scheduledFor', visit.scheduledFor);
     const body = {
         assessment: visit.assessment,
         assignee_id: visit.assigneeId,

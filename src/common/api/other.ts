@@ -9,9 +9,8 @@ export const getOtherForChannel = (channelId: number) => {
             }
             return response.json();
         }).then((result: Map<string, any>) => {
-            
-            console.log('other', result);
 
+            // temporary - will be removed soon
             return Promise.resolve({
                 social: 'Anemia biopsy blood pressure bronchoconstriction...',
                 family: 'Anemia biopsy blood pressure bronchoconstriction...',

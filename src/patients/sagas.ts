@@ -36,7 +36,7 @@ function* addVisit(action: ActionResult<ChannelVisit>) {
     try {
         if (!action.value) return;
         const {visit, channelId } = action.value;
-        yield call(() => api.visits.createVisit(visit, channelId));
+        yield call(() => api.visits.saveVisit(visit, channelId));
         yield(put(addVisitSuccess(visit, channelId)));
     } catch (e) {
         yield(put(addVisitFail(e)));

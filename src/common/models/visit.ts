@@ -1,13 +1,15 @@
+import { Attachment } from './attachment';
 import { Address } from './address';
 import { InternalNote } from './internal-note';
 
 export class Visit {
     id: string;
     assessment?: string;
-    assigneeId?: string;
+    assigneeId?: number;
+    attachments?: Array<Attachment>;
     cases?: Array<string>;
     clinic?: Address;
-    complaints?: Array<string>;
+    complaints?: Array<Map<string, string>>;
     diagnosis?: string;
     doctorId?: string;
     doctorName?: string;
@@ -18,7 +20,7 @@ export class Visit {
     nextSteps?: string;
     objective?: string;
     patientId?: number;
-    scheduledFor?: Date;
+    scheduledFor?: number;
     status?: string;
     subjective?: string;
     systemsReview?: Array<Map<string, string>>;
@@ -116,7 +118,6 @@ export const LifeCoLocations = [
 ]
 
 export const VisitStatus = [
-    'New',
     'Ordered',
     'Scheduled',
     'Process Visit',

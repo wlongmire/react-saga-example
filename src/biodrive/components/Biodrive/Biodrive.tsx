@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Moment from 'moment';
 // import * as Rx from '../../../treatments';
 // import * as Visits from '../../../visits';
 // import * as Tests from '../../../testorders';
@@ -93,7 +94,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                     return new BiodriveListItemInfo(
                                         'visit',
                                         visit.id, 
-                                        visit.scheduledFor || new Date(),
+                                        visit.scheduledFor ? Moment.unix(visit.scheduledFor).toDate() : new Date(),
                                         visit.visitType || '',
                                         visit.status || '',
                                         'Need to build'

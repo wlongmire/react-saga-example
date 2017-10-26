@@ -1,9 +1,11 @@
 import { User } from './user';
 
 export interface UsersState {
-    isFetching: boolean;
     items: Array<User>;
+    isFetching: boolean;
+    isCreating?: boolean;
+    isUpdating?: boolean;
     createError?: Error;
-    saveError?: Error;
     fetchError?: Error;
+    saveError?: Error;
 }

@@ -15,6 +15,7 @@ export * from './chat-message-content';
 export * from './chat-message-sender';
 export * from './chat-message';
 export * from './chat-state';
+export * from './device-info';
 export * from './diagnosis';
 export * from './doctor-user';
 export * from './dosespot-state';

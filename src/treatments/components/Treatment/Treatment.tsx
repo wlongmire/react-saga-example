@@ -1,153 +1,243 @@
 import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
+import * as Moment from 'moment';
+// import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import { 
+    FormSelectControl, 
+    FormSelectControlOption, 
+    FormDateTimeControl,
+    FormTextField
+} from '../../../common';
 import { connect } from 'react-redux';
 import { fetchSingleSignOnInfo } from '../../actions';
-import { SingleSignOnInfo } from '../../model';
+import { Patient, SingleSignOnInfo, Treatment, TreatmentStatus } from '../../../common';
 
-const SafeUrlAssembler = require('safe-url-assembler');
+import './Treatment.css';
 
-import './styles.css';
-
-interface TreatmentsComponentState {
-    patientId?: number,
-    prefix?: string,
-    firstName: string,
-    middleName?: string,
-    lastName: string,
-    suffix?: string,
-    dateOfBirth: string,
-    gender: string,
-    medicalRecordNumber?: string,
-    address1: string,
-    address2?: string,
-    city: string,
-    state: string,
-    zip: string,
-    primaryPhone: string,
-    primaryPhoneType: string,
-    phoneAdditional1?: string,
-    phoneAdditionaType1?: string,
-    phoneAdditional2?: string,
-    phoneAdditionalType2?: string,
-    height?: number,
-    weight?: number,
-    heightMetric?: number,
-    weightMetric?: number,
-    open: boolean
-}
-
-interface TreatmentsComponentProps {
-    singleSignOnInfo: SingleSignOnInfo,
+interface TreatmentComponentProps {
+    singleSignOnInfo: SingleSignOnInfo;
+    treatment: Treatment;
+    patients: Array<Patient>;
+    onSave?: (treatment: Treatment) => void,
+    onCancel?: (treatment: Treatment) => void;
     fetchSingleSignOnInfo: () => void
 }
 
-class TreatmentsComponent extends React.Component<TreatmentsComponentProps, TreatmentsComponentState> {
-    constructor() {
-        super();
+interface TreatmentComponentState {
+    id: string;
+    status?: string;
+    dateWritten?: Moment.Moment;
+    medicationName?: string;
+    refills?: number;
+    sig?: string;
+    form?: string;
+    dosage?: string;
+    quantity?: string;
+    pharmacyName?: string;
+    daysSupply?: number;
+    endOn?: Moment.Moment;
+    patientId?: number;
+    isNew: boolean;
+}
+
+class _TreatmentComponent extends React.Component<TreatmentComponentProps, TreatmentComponentState> {
+    
+    constructor(props: TreatmentComponentProps) {
+        super(props);
         this.state = {
-            prefix: undefined,
-            firstName: '',
-            middleName: undefined,
-            lastName: '',
-            suffix: undefined,
-            dateOfBirth: '',
-            gender: '',
-            medicalRecordNumber: undefined,
-            address1: '',
-            address2: undefined,
-            city: '',
-            state: '',
-            zip: '',
-            primaryPhone: '',
-            primaryPhoneType: '',
-            phoneAdditional1: undefined,
-            phoneAdditionaType1: undefined,
-            phoneAdditional2: undefined,
-            phoneAdditionalType2: undefined,
-            height: undefined,
-            weight: undefined,
-            heightMetric: undefined,
-            weightMetric: undefined,
-            open: false
+            id: this.props.treatment.id,
+            isNew: true
         };
 
-        this.onClick = this.onClick.bind(this);
+        this.handleCancelClick = this.handleCancelClick.bind(this);
+        this.handleEditDetailsButtonClick = this.handleEditDetailsButtonClick.bind(this);
+        this.handleSaveClick = this.handleSaveClick.bind(this);
+        this.handleValueChanged = this.handleValueChanged.bind(this);
     }
 
     componentDidMount() {
-        this.props.fetchSingleSignOnInfo();
-    }
-
-    buildUrl() {
-        //http://my.staging.dosespot.com/LoginSingleSignOn.aspx?SingleSignOnClinicId=1141&SingleSignOnUserId=28486&SingleSignOnPhraseLength=32&SingleSignOnCode=HCNhBCIV0aErjCQvLmD0mSZgZTgvhvw0QMTxKhC6%2BEDuRDsKplVS4vl9thnV%2B8FlkjBCUA1%2FK2iAXM5Nf%2FykyPDJFl0ZISToUHq9%2B%2Bs4HuvmS%2BdQK%2FAJJg&SingleSignOnUserIdVerify=10LlyTQo4bZnuNeFfJ5AkbTpaAA6QIMMgg766Zrqa8%2FsjjLYpUIqN8MXGH52SsLEEEvQK9SYmgmT%2BNSk%2FC%2FNVg
-        const { clinicId, userId, ssoPhraseLength, singleSignOnCode, singleSignOnUserIdVerify } = this.props.singleSignOnInfo;
-        return SafeUrlAssembler('http://my.staging.dosespot.com')
-            .segment('LoginSingleSignOn.aspx')
-            .query({
-                SingleSignOnClinicId: clinicId,
-                SingleSignOnUserId: userId,
-                SingleSignOnPhraseLength: ssoPhraseLength,
-                SingleSignOnCode: singleSignOnCode,
-                SingleSignOnUserIdVerify: singleSignOnUserIdVerify,
-                FirstName: 'Rick',
-                LastName: 'Johnson',
-                DateOfBirth: '1/24/2001',
-                Gender: 'Male',
-                Address1: '716 Main Street',
-                Address2: '2nd Floor',
-                City: 'Waltham',
-                State: 'Massachusetts',
-                ZipCode: '02451',
-                PrimaryPhone: '781 777-7777',
-                PrimaryPhoneType: 'Home',
-                PhoneAdditional1: '781 444-4444',
-                PhoneAdditionaType1: 'Cell',
-            })
-            .toString();
-    }
-
-    createUserRecord() {
-        const url = this.buildUrl();
-        fetch(url, {
-            method: 'POST',
-            cache: 'no-cache',
-            mode: 'no-cors'
-        }).then((response) => {
-
-        })
-        .catch((err: Error) => {
-            
+        const { treatment } = this.props;
+        this.setState({
+            status: treatment.status,
+            dateWritten: Moment(treatment.dateWritten),
+            medicationName: treatment.medicationName,
+            refills: treatment.refills,
+            sig: treatment.sig,
+            form: treatment.form,
+            dosage: treatment.dosage,
+            quantity: treatment.quantity,
+            pharmacyName: treatment.pharmacyName,
+            daysSupply: treatment.daysSupply,
+            endOn: Moment(treatment.endOn),
+            patientId: treatment.patientId,
+            isNew: treatment.isNew
         });
     }
 
-    onClick() {
-        this.createUserRecord();
+    componentWillReceiveProps(props: TreatmentComponentProps) {
+        const { treatment } = this.props;
+        this.setState({
+            status: treatment.status,
+            dateWritten: Moment(treatment.dateWritten),
+            medicationName: treatment.medicationName,
+            refills: treatment.refills,
+            sig: treatment.sig,
+            form: treatment.form,
+            dosage: treatment.dosage,
+            quantity: treatment.quantity,
+            pharmacyName: treatment.pharmacyName,
+            daysSupply: treatment.daysSupply,
+            endOn: Moment(treatment.endOn),
+            patientId: treatment.patientId,
+            isNew: treatment.isNew
+        });
     }
 
-    handleOpen() {
-        this.setState({ open: true });
+    getPatientName(patientId: number): string {
+        if (!this.props.patients) return '';
+        let patient = this.props.patients.find((patient) => {
+            return patient.id === patientId
+        });
+        if (!patient) return '';
+        return `${patient.firstName} ${patient.lastName}`;
+    }
+
+    handleCancelClick() {
+        if (!this.props.onCancel) return;
+        let treatment = {
+            ...this.state, 
+            dateWritten: this.state.dateWritten ? this.state.dateWritten.toDate() : undefined, 
+            endOn: this.state.endOn ? this.state.endOn.toDate() : undefined
+        } as Treatment;
+        this.props.onCancel(treatment);
     }
 
     handleClose() {
-        this.setState({ open: false });
+        
+    }
+
+    handleEditDetailsButtonClick() {
+        
+    }
+
+    handleEndOnDateChange(value: Moment.Moment) {
+        
+    }
+
+    handleOpen() {
+        
+    }
+
+    handleSaveClick() {
+        if (!this.props.onSave) return;
+        let treatment = {
+            ...this.state, 
+            dateWritten: this.state.dateWritten ? this.state.dateWritten.toDate() : undefined, 
+            endOn: this.state.endOn ? this.state.endOn.toDate() : undefined
+        } as Treatment;
+        this.props.onSave(treatment);
+    }
+
+    handleValueChanged(field: string, value: {}) {
+        this.setState({ ...this.state, [field]: value});
     }
 
     render() {
         // todo 1: fix 401 unauthorized on server (cors?)
         // todo 2: don't load this until after we have sso info
-        if (!this.props.singleSignOnInfo) return(<div></div>);
-        const url = this.buildUrl();
+        // if (!this.props.singleSignOnInfo) return(<div></div>);
+        // const url = this.buildUrl();
 
-        return(
-            <div>
-                <Dialog
+        return (
+            <div className="treatment-component">
+                <input className="edit-in-dosespot-button" type="button" value="Edit Details in Dosespot" onClick={this.handleEditDetailsButtonClick} />
+                <FormSelectControl 
+                    label="Status" 
+                    options={
+                        TreatmentStatus.map((status) => {
+                            return { value: status, text: status } as FormSelectControlOption
+                        })
+                    }
+                    value={this.state.status}
+                    onValueChanged={(value: {}) => this.handleValueChanged('status', value)}
+                />
+                <div className="form-group">
+                    <label>Date Prescribed</label>
+                    <span>{this.state.dateWritten ? this.state.dateWritten.toString() : 'h:mm A, M/DD/YYYY'}</span>
+                </div>
+                <FormDateTimeControl
+                    floatingLabelText="End Date"
+                    date={this.state.endOn || Moment()}
+                    onChange={this.handleEndOnDateChange}
+                />
+                <div className="form-group">
+                    <label>Patient Name</label>
+                    <span>{this.getPatientName(this.state.patientId || -1)}</span>
+                </div>
+                <div className="form-group">
+                    <label>Prescription Name</label>
+                    <span>{this.state.medicationName}</span>
+                </div>
+                <div className="form-group">
+                    <label>Directions</label>
+                    <span>{this.state.sig}</span>
+                </div>
+                <div className="form-group">
+                    <label>Refills</label>
+                    <span>{this.state.refills}</span>
+                </div>
+                <div className="form-group">
+                    <label>Form</label>
+                    <span>{this.state.form}</span>
+                </div>
+                <div className="form-group">
+                    <label>Strength</label>
+                    <span>{this.state.dosage}</span>
+                </div>
+                <div className="form-group">
+                    <label>Pharmacy Location</label>
+                    <span>{this.state.pharmacyName}</span>
+                </div>
+                <div className="form-group">
+                    <label>Pharmacy Notes</label>
+                </div>
+                <div className="form-group">
+                    <label>Schedule</label>
+                </div>
+                <FormTextField
+                    name="patientDirections"
+                    label="Patient Directions"
+                    onValueChanged={(value: string) => this.handleValueChanged('patientDirections', value)}
+                />
+                <br/>
+                <div className="form-button-container">
+                    <FlatButton  
+                        className="form-cancel-button"
+                        label="CANCEL"
+                        style={{
+                            color: '#979797',
+                            textTransform: 'uppercase'
+                        }}
+                        onClick={this.handleCancelClick}
+                    />
+                    <FlatButton 
+                        className="form-save-button"
+                        label="SAVE CHANGES"
+                        style={{
+                            color: '#67b2a6',
+                            textTransform: 'uppercase'
+                        }}
+                        onClick={this.handleSaveClick}
+                    />
+                </div>
+                {/* <Dialog
                     title="DoseSpot"
                     modal={true}
                     open={this.state.open}
                     onRequestClose={this.handleClose}
                     autoScrollBodyContent={true}>
                     <iframe className="dosespot-base" width="80%" height="750px" src={ url }></iframe>
-                </Dialog>
+                </Dialog> */}
                 
             </div>
         )
@@ -156,10 +246,11 @@ class TreatmentsComponent extends React.Component<TreatmentsComponentProps, Trea
 
 function mapStateToProps(state: any) {
     return {
+        patients: state.patients.items,
         singleSignOnInfo: state.treatments.singleSignOnInfo
     };
 }
 
-export const Treatment = connect(mapStateToProps, {
+export const TreatmentComponent = connect<{}, TreatmentComponentProps, { treatment: Treatment }>(mapStateToProps, {
     fetchSingleSignOnInfo
-}) (TreatmentsComponent);
+}) (_TreatmentComponent);

@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { getRequestInit, BASE_URL } from './util';
 import { Visit } from '../models/visit';
 
-export const getForChannel = (channelId: number): Promise<Array<Visit>> => {
+export const getVisitsForChannel = (channelId: number): Promise<Array<Visit>> => {
     const requestInit = getRequestInit('GET');
     return fetch(`${BASE_URL}/visits/${channelId}`, requestInit)
         .then((response: any) => {
@@ -14,9 +14,12 @@ export const getForChannel = (channelId: number): Promise<Array<Visit>> => {
             return _.map<any, Visit>(result, (value: any, key: string) => {
                 return {
                     assessment: value.assessment,
-                    assigneeId: value.assignee_id,
+                    assigneeId: value.assignee_id ? Number(value.assignee_id) : null,
                     clinic: value.clinic,
+                    complaints: value.complaints,
+                    diagnosis: value.diagnosis,
                     doctorId: value.doctor_id,
+                    doctorName: value.doctor_name,
                     doctorType: value.doctor_type,
                     estimatedDuration: value.estimated_duration,
                     id: key,
@@ -36,48 +39,18 @@ export const getForChannel = (channelId: number): Promise<Array<Visit>> => {
         });
 }
 
-export const createVisit = (visit: Visit, channelId: number) => {
-    console.log('channelId', channelId);
-    const body = {
-        assessment: visit.assessment,
-        assignee_id: visit.assigneeId,
-        clinic: visit.clinic,
-        doctor_id: visit.doctorId,
-        doctor_name: visit.doctorName,
-        doctorType: visit.doctorType,
-        estimatedDuration: visit.estimatedDuration,
-        maintenance: visit.maintenance,
-        next_steps: visit.nextSteps,
-        objective: visit.objective,
-        patient_id: visit.patientId,
-        scheduledFor: visit.scheduledFor,
-        status: visit.status,
-        subjective: visit.subjective,
-        systems_review: visit.systemsReview,
-        visit_type: visit.visitType,
-        vitals: visit.vitals,
-        internal_notes: visit.internalNotes
-    };
-
-    const requestInit = getRequestInit('PUT', JSON.stringify(body));
-    return fetch(`${BASE_URL}/visits/${channelId}/${visit.id}`, requestInit)
-        .then((response: any) => {
-            console.log('create response', response);
-            return Promise.resolve(visit);
-        }
-    );
-}
-
 export const saveVisit = (visit: Visit, channelId: number) => {
-    console.log('channelId', channelId);
+    console.log('scheduledFor', visit.scheduledFor);
     const body = {
         assessment: visit.assessment,
         assignee_id: visit.assigneeId,
         clinic: visit.clinic,
+        complaints: visit.complaints,
+        diagnosis: visit.diagnosis,
         doctor_id: visit.doctorId,
         doctor_name: visit.doctorName,
-        doctorType: visit.doctorType,
-        estimatedDuration: visit.estimatedDuration,
+        doctor_type: visit.doctorType,
+        estimated_duration: visit.estimatedDuration,
         maintenance: visit.maintenance,
         next_steps: visit.nextSteps,
         objective: visit.objective,
@@ -94,7 +67,6 @@ export const saveVisit = (visit: Visit, channelId: number) => {
     const requestInit = getRequestInit('PUT', JSON.stringify(body));
     return fetch(`${BASE_URL}/visits/${channelId}/${visit.id}`, requestInit)
         .then((response: any) => {
-            console.log('update response', response);
             return Promise.resolve(visit);
         }
     );

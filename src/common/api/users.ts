@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
 import { User, DoctorUser, OpsUser, PatientUser } from '../models';
-
-const BASE_URL = `https://${process.env.REACT_APP_API_HOST}/exposed`
+import { getRequestInit, BASE_URL } from './util';
 
 export const fetchAllUsers = () => {
     const requestInit = getRequestInit('GET');
@@ -81,31 +80,33 @@ export const updateUser = (user: User) => {
         });
 }
 
+/**
+ * Maps raw data to the correct user type instance.
+ * User mapping:
+ * 
+ * 1: doctor
+ * 2: nurse
+ * 3: assistant
+ * 4: cx
+ * 5: admin
+ * 6: patient
+ * 7: external
+ * @param data - the raw json data
+ * 
+ */
 const mapToUser = (data: any): User => {
     switch (data.role_id) {
-        case 1:
+        case 1: 
             return DoctorUser.fromPayload(data);
-        case 4:
+        case 2: 
+        case 3: 
+        case 4: 
+        case 5: 
+        case 7: 
             return OpsUser.fromPayload(data);
-        case 6:
+        case 6: 
             return PatientUser.fromPayload(data);
         default:
             throw new Error('unsupported entity type');
     }
-}
-
-const getRequestInit = (method: string, body: any = null, useAppToken: boolean = false, contentType?: string): RequestInit => {
-    const accessToken = useAppToken ? process.env.REACT_APP_API_TOKEN : localStorage.getItem('access_token');
-    const headers = new Headers({Authorization: `Token ${accessToken}`});
-
-    if (contentType) {
-        headers.append('Content-Type', contentType);
-    }
-
-    return {
-        method,
-        headers,
-        body,
-        mode: 'cors'
-    };
 }

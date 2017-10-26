@@ -41,8 +41,6 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
         .catch((error) => {
             return Promise.reject(error);
         })
-
-
 }
 
  export const getS3UploadURL = (uploadContentType: string, channelId: string): Promise<any> => {

@@ -1,8 +1,5 @@
 import * as Common from '../common';
 
-
-const BASE_URL_WELLNESS = 'https://api.life.cheap/exposed/wellness/5961834829465699';
-
 export module ActionType {
     export const ADD = 'wellness/ADD';
     export const LOAD_ALL = 'wellness/LOAD_ALL_WELLNESS';
@@ -30,29 +27,29 @@ export const loadAllWellnessFailed = (error: Error): Common.ActionResult<Error> 
     }
 }
 
-export const getAllWellness = () => {
-    return(dispatch:any) => {
-        dispatch(loadAllWellness)
-        return fetch(BASE_URL_WELLNESS, {
-            method : 'GET',
-            headers:{
-                "Authorization": "Token 6ecc5c6a-3e3f-4aaf-bfd3-ba095aa2e62b'",
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            cache: 'default'
-        }).then((response:any)=>{
-            if (response.ok){
-                return response.json()
-            }
+// export const getAllWellness = () => {
+//     return(dispatch:any) => {
+//         dispatch(loadAllWellness)
+//         return fetch(BASE_URL_WELLNESS, {
+//             method : 'GET',
+//             headers:{
+//                 "Authorization": "Token 6ecc5c6a-3e3f-4aaf-bfd3-ba095aa2e62b'",
+//                 'Content-Type': 'application/json'
+//             },
+//             mode: 'cors',
+//             cache: 'default'
+//         }).then((response:any)=>{
+//             if (response.ok){
+//                 return response.json()
+//             }
 
-            return response.json().then((err:Error)=>{
-                throw err;
-            })
-        }).then((wellness:any)=>{
-            dispatch(loadAllWellnessCompleted(wellness))
-        }).catch(err =>{
-            dispatch(loadAllWellnessFailed(err))
-        })    
-    }
-}
+//             return response.json().then((err:Error)=>{
+//                 throw err;
+//             })
+//         }).then((wellness:any)=>{
+//             dispatch(loadAllWellnessCompleted(wellness))
+//         }).catch(err =>{
+//             dispatch(loadAllWellnessFailed(err))
+//         })    
+//     }
+// }

@@ -1,7 +1,5 @@
 import { ActionResult, User } from '../common';
 
-// const BASE_URL = 'https://api.life.cheap/exposed/list_my_patients'
-
 /**
  * Action types for Patients.
  */

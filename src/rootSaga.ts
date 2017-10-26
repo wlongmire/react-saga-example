@@ -21,9 +21,6 @@ export default function* root() {
         fork(patientsSaga),
         fork(doseSpotSaga),
         fork(adminSaga),
-        fork(chatSaga),
-        // fork(visitSaga),
-        // fork(treatments.Sagas.root)
-        // fork(users.Sagas.root),
+        fork(chatSaga)
     ]);
 }

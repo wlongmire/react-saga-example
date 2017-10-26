@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { fetchDoseSpotStatus } from '../../';
 import { DoseSpotStatus, GlobalState } from '../../../common';
-import { List, ListItem } from 'material-ui/List';
+// import { List, ListItem } from 'material-ui/List';
 import { IconButton } from 'material-ui/IconButton';
-import SocialPerson from 'material-ui/svg-icons/social/person';
-import MapsLocalPharmacy from 'material-ui/svg-icons/maps/local-pharmacy';
+// import SocialPerson from 'material-ui/svg-icons/social/person';
+// import MapsLocalPharmacy from 'material-ui/svg-icons/maps/local-pharmacy';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Route, RouteComponentProps } from 'react-router-dom';
@@ -112,7 +112,7 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
         return(
             <div className="admin-page-wrapper">
                 <aside className="admin-sidebar">
-                    <List>
+                    {/* <List>
                         <ListItem 
                             primaryText="Users" 
                             leftIcon={<SocialPerson />} 
@@ -131,7 +131,7 @@ export class _AdminPage extends React.Component<AdminPageProps, AdminPageState> 
                                 backgroundColor: this.state.selectedTab == 'dosespot' ? '#f3f3f3' : 'unset'
                             }}
                         />
-                    </List>
+                    </List> */}
                 </aside>
                 <section className="admin-content">
                     <Route path={`${this.props.match.url}/`} exact={true} component={UsersContainer} />

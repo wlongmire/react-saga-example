@@ -161,9 +161,9 @@ export class FormTableInputItemControl
                             <i className="material-icons" onClick={this.handleDeleteClick}>delete</i>
                         </div>
                     }
-                    <div className="form-button-container">
+                    <div className="control-button-container">
                         <FlatButton  
-                            className="form-cancel-button"
+                            className="control-cancel-button"
                             label="cancel"
                             style={{
                                 color: '#979797',
@@ -173,7 +173,7 @@ export class FormTableInputItemControl
                             onClick={this.handleCancelClick}
                         />
                         <FlatButton 
-                            className="form-save-button"
+                            className="control-save-button"
                             label="save changes"
                             style={{
                                 color: '#67b2a6',

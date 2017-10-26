@@ -1,7 +1,7 @@
 import { makeUrl, getRequestInit, BASE_URL } from './util';
 import { AuthInfo, Identity, IdentityUserInfo } from '../models';
 
-export const login = (email: string, password: string) => {
+export const login = (email: string, password: string, deviceId: string) => {
     const requestInit: RequestInit = {
         method: 'POST',
         headers: {
@@ -10,7 +10,7 @@ export const login = (email: string, password: string) => {
         body: JSON.stringify({
             email,
             password,
-            code: '291704'
+            device_id: deviceId
         })
     };
     const url = makeUrl('exposed', 'register_client');
@@ -121,8 +121,6 @@ export const fetchIdentity = () => {
                             first: result.user_info.first,
                             last: result.user_info.last,
                             phone: result.user_info.phone,
-                            // clinicId: 0,
-                            // clinicianId: 0
                         } as IdentityUserInfo;
                     }
 
@@ -139,4 +137,12 @@ export const fetchIdentity = () => {
                     return Promise.reject(result.error);
             }
         })
+}
+
+export const fetchDeviceId = (): string | null => {
+    return localStorage.getItem('device_id');
+}
+
+export const saveDeviceId = (deviceId: string) => {
+    localStorage.setItem('device_id', deviceId);
 }

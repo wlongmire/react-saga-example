@@ -42,7 +42,7 @@ class _Navbar extends React.Component<NavbarProps, {}> {
                         className="lc-nav-action-menu right" 
                         iconButtonElement={
                             <Avatar 
-                                backgroundColor="#f84445"
+                                backgroundColor="#67B2A6"
                                 color="#ffffff">
                                 { userFirstInitial }
                             </Avatar>

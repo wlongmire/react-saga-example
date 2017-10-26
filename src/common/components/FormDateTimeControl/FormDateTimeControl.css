@@ -6,6 +6,7 @@
         "input";
     grid-template-rows: 32px 1fr;
     grid-template-columns: 100%;
+    margin-bottom: 20px;
 }
 
 .form-date-time-control > .date-control-label {
@@ -35,8 +36,7 @@
     border: 1px solid #c6d3d1;
     border-radius: 3px;
     width: 100%;
-    padding-top: 4px;
-    height: 64px;
+    height: 48px;
 }
 
 .form-date-time-control input.date-control-text-input,
@@ -49,8 +49,8 @@
     grid-area: input;
     font-size: 16px;
     line-height: 24px;
-    height: 48px;
-    padding: 16px;
+    height: 44px;
+    padding: 0px 16px;
     width: 100%;
 }
 
@@ -76,6 +76,5 @@
     grid-area: time;
     border: 1px solid #c6d3d1;
     border-radius: 3px;
-    padding-top: 4px;
-    height: 64px;
+    height: 48px;
 }

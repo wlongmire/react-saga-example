@@ -1,3 +1,7 @@
+.form-table-input-control {
+    margin-bottom: 20px;
+}
+
 .form-table-input-control .form-table-input-control-header {
     display: grid;
     grid-template-columns: 1fr 30px 30px;

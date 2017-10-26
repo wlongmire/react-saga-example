@@ -1,7 +1,7 @@
 import { getRequestInit, BASE_URL } from './util';
 // import { Visit } from '../models/visit';
 
-export const getForChannel = (channelId: number) => {
+export const getTestOrdersForChannel = (channelId: number) => {
     const requestInit = getRequestInit('GET');
     return fetch(`${BASE_URL}/testorders/${channelId}`, requestInit)
         .then((response: any) => {

@@ -23,7 +23,6 @@ export class UserList extends React.Component<UserListProps, UserListState> {
     }
 
     getUserAvatar(user: User): JSX.Element {
-        // todo: handle avatar 
         return (
             <Avatar 
                 backgroundColor="#f84445"

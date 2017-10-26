@@ -36,7 +36,7 @@
     cursor: pointer;
 }
 
-.form-table-input-item-control.edit-mode .form-button-container {
+.form-table-input-item-control.edit-mode .control-button-container {
     grid-area: buttons;
     justify-self: end;
 }

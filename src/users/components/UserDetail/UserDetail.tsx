@@ -1111,11 +1111,8 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     render() {
         return (
             <div className="content-container">
-                <div className="alert alert-danger">
-                    There was a problem {this.state.isNew ? "creating" : "saving"} the user.
-                </div>
                 <div className="content-container-title-bar">
-                    <span className="inline-title">{ this.state.id ? 'Edit User' : 'Create User'}</span>
+                    <span className="inline-title">{ this.state.id ? 'Edit User' : 'Create User' }</span>
                 </div>
                 <div className="user-detail-body">
                     <div className="user-avatar-editor">

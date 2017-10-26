@@ -8,16 +8,8 @@ import * as api from '../common/api';
 
 function* fetchDoseSpotStatus() {
     try {
-        if (localStorage.getItem('clinicId') === null) {
-            localStorage.setItem('clinicId', '1141');
-        }
-
-        if (localStorage.getItem('clinicianId') === null) {
-            localStorage.setItem('clinicianId', '44747');
-        }
-
-        const clinicId = Number(localStorage.getItem('clinicId'));
-        const clinicianId = Number(localStorage.getItem('clinicianId'));
+        const clinicId = 1141;
+        const clinicianId = 44747;
         const status = yield call(()=> api.dosespot.fetchStatus(clinicId, clinicianId))
         yield(put(fetchDoseSpotStatusSuccess(status)));
     } catch(e) {

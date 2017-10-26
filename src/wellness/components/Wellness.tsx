@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {  Dispatch } from "redux";
 
-import * as wellnessActions from '../actions';
+// import * as wellnessActions from '../actions';
 
 interface S {
     payload: object
@@ -128,7 +128,7 @@ const mapStateToProps = (state: GlobalState) => {
 
 const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
     {
-        loadAllWellness : wellnessActions.getAllWellness 
+        // loadAllWellness : wellnessActions.getAllWellness 
     },
     dispatch
 )

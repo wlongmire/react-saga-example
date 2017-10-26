@@ -1,2 +1,2 @@
-export {RXContainer} from './Treatments';
-export {Treatment} from './Treatment';
+export { RXContainer } from './Treatments';
+export { TreatmentComponent } from './Treatment';

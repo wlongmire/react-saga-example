@@ -30,7 +30,7 @@ export class _UsersContainer extends React.Component<UsersContainerProps, UsersC
 
     handleUserItemClick(user: User) {
         const location: History.LocationDescriptor = {
-            pathname: `/users/${user.id}`,
+            pathname: `/user-detail/${user.id}`,
             state: { user }
         };
         this.props.history.push(location);
@@ -49,7 +49,7 @@ export class _UsersContainer extends React.Component<UsersContainerProps, UsersC
                     <div className="content-container-action-bar">
                         <div className="action-left"></div>
                         <div className="action-right">
-                            <Link to="/users/add" className="right action-button">+ Create New</Link>
+                            <Link to="/user-add" className="right action-button">+ Create New</Link>
                         </div>
                     </div>
                     <UserList 

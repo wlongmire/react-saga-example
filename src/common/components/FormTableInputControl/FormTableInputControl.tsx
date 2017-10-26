@@ -7,6 +7,7 @@ import { FormSelectControlOption } from '../FormSelectControl';
 import './FormTableInputControl.css';
 
 interface FormTableInputControlProps {
+    className?: string;
     label: string;
     items?: Array<FormTableInputItem>;
     options: Array<FormSelectControlOption>;
@@ -41,7 +42,8 @@ export class FormTableInputControl extends React.Component<FormTableInputControl
     componentDidMount() {
         if (this.props.items) {
             this.setState({
-                items: this.props.items
+                items: this.props.items,
+                expanded: this.props.items && this.props.items.length > 0
             });
         }
     }
@@ -49,7 +51,8 @@ export class FormTableInputControl extends React.Component<FormTableInputControl
     componentWillReceiveProps(props: FormTableInputControlProps) {
         if (props.items) {
             this.setState({
-                items: props.items
+                items: props.items,
+                expanded: props.items && props.items.length > 0
             });
         }
     }
@@ -109,7 +112,7 @@ export class FormTableInputControl extends React.Component<FormTableInputControl
     
     render() {
         return (
-            <div className="form-table-input-control">
+            <div className={classnames('form-table-input-control', this.props.className ? this.props.className : '')}>
                 <div className={classnames('form-table-input-control-header', {'expanded': this.state.expanded})}>
                     <span onClick={this.handleToggleExpanded}>{this.props.label}</span>
                     <i 

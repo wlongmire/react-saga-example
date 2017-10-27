@@ -11,7 +11,7 @@ import { List, ListItem } from 'material-ui/List';
 import { RouteComponentProps } from 'react-router-dom';
 import { PatientDetail } from '../PatientDetail';
 import { Identity } from '../../../common';
-import { ChatChannelInfo, ChatMessage, Patient, SingleSignOnInfo, Visit } from '../../../common';
+import { ChatChannelInfo, ChatMessage, IdentityUserInfo, Patient, SingleSignOnInfo, Visit } from '../../../common';
 
 import './PatientList.css';
 
@@ -43,7 +43,7 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     componentDidMount() {
         this.props.fetchAllPatients();
         this.props.socketConnect();
-        this.props.fetchSingleSignOnInfo();
+        // this.props.fetchSingleSignOnInfo();
     }
 
     handlePatientClick(patient: Patient, channel?: ChatChannelInfo) {
@@ -77,34 +77,45 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     }
 
     renderPatientList() {
+        let userInfo: IdentityUserInfo | undefined;
+
+        if (this.props.identity) {
+            userInfo = this.props.identity.userInfo;
+        }
+
         return (
             <div className="patient-list">
-                <div className="subheader">
-                    {/* <h4>Hi Dr.Lee</h4>
-                    <p>You have <span>2 New Messages</span></p> */}
-                    <span className="list-title">Patients</span>
-                </div>
-                <List>
-                    { this.props.patients &&
-                        this.props.patients.map((patient: Patient, index: number) => {
-                            let channel = this.getChannel(patient);
-                            let unreadCount = channel ? channel.unreadMessages.length : 0;
-                            return (
-                                <ListItem
-                                    key={index}
-                                    primaryText={patient.name}
-                                    leftAvatar={<Avatar src={patient.avatar} />}
-                                    rightIcon={
-                                        <div className={classnames('patient-message-count-wrapper', {'hidden': unreadCount == 0})}>
-                                            <div className="patient-message-count">{unreadCount}</div> 
-                                        </div>
-                                    }
-                                    onClick={() => this.handlePatientClick(patient, channel)}
-                                />
-                            );
-                        })
+                <div className="header">
+                    {userInfo &&
+                        <span>Hi {this.props.identity.roleId === 1 ? 'Dr.' : ''} {userInfo.last}</span>
                     }
-                </List>
+                </div>
+                <div className="subheader">
+                    
+                </div>
+                <div className="list">
+                    <List>
+                        { this.props.patients &&
+                            this.props.patients.map((patient: Patient, index: number) => {
+                                let channel = this.getChannel(patient);
+                                let unreadCount = channel ? channel.unreadMessages.length : 0;
+                                return (
+                                    <ListItem
+                                        key={index}
+                                        primaryText={patient.name}
+                                        leftAvatar={<Avatar src={patient.avatar} />}
+                                        rightIcon={
+                                            <div className={classnames('patient-message-count-wrapper', {'hidden': unreadCount == 0})}>
+                                                <div className="patient-message-count">{unreadCount}</div> 
+                                            </div>
+                                        }
+                                        onClick={() => this.handlePatientClick(patient, channel)}
+                                    />
+                                );
+                            })
+                        }
+                    </List>
+                </div>
             </div>
         );
     }

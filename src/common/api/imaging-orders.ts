@@ -1,7 +1,6 @@
 import { getRequestInit, BASE_URL } from './util';
-// import { Visit } from '../models/visit';
 
-export const getForChannel = (channelId: number) => {
+export const getImagingForChannel = (channelId: number) => {
     const requestInit = getRequestInit('GET');
     return fetch(`${BASE_URL}/imagingorder/${channelId}`, requestInit)
         .then((response: any) => {
@@ -10,9 +9,8 @@ export const getForChannel = (channelId: number) => {
             }
             return response.json();
         }).then((result: Map<string, any>) => {
-            
-            console.log('imaging-orders', result);
 
+            // temporary - will be removed shortly
             return Promise.resolve([{
                 id: '1',
                 status: 'Scheduled',

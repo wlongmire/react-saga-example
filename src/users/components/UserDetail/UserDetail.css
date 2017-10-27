@@ -1,3 +1,19 @@
+.content-container {
+    padding-top: 54px;
+    padding-left: 239px;
+}
+
+.content-container-title-bar .inline-title {
+    font-size: 32px;
+    color: #333333;
+    font-weight: bold;
+    margin: 0;
+}
+
+.content-container .user-detail-body {
+    margin-top: 66px;
+}
+
 .user-detail-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -12,10 +28,11 @@
 }
 
 .user-avatar-replace-button {
+    margin: 11px 0px;
     display: block;
     border: none;
     padding: 1px;
-    font-size: small;
+    font-size: 14px;
     width: 140px;
     height: 31px;
     background: #f84445;
@@ -24,6 +41,8 @@
 }
 
 .user-avatar-delete-link {
+    font-size: 12px;
+    color: #333333;
     font-size: medium;
     text-decoration: underline;
     text-transform: uppercase;
@@ -42,7 +61,7 @@
 }
 
 .user-avatar-title {
-    font-size: small;
+    font-size: 13px;
     color: #000000;
     opacity: 0.6;
     margin-bottom: 1em;
@@ -58,4 +77,6 @@
     color: #FFFFFF;
     text-align: center;
     font-size: 14px;
+    margin-top: 43px;
+    cursor: pointer;
 }

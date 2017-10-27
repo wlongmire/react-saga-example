@@ -1,7 +1,4 @@
-import * as Common from '../common';
-import * as Model from './model';
-
-// const BASE_URL_RX = 'https://api.life.cheap/exposed/treatments/5961834829465699';
+import { ActionResult, SingleSignOnInfo } from '../common';
 
 export module ActionType {
     export const ADD = 'rx/ADD';
@@ -13,40 +10,40 @@ export module ActionType {
     export const FETCH_SSO_INFO_SUCCESS = 'rx/FETCH_SSO_INFO_SUCCESS';
 }
 
-export const loadAllRxCompleted = (treatments: Array<any>):Common.ActionResult<Array<any>> => {
+export const loadAllRxCompleted = (treatments: Array<any>):ActionResult<Array<any>> => {
     return{
         type: ActionType.LOAD_ALL_DONE,
         value: treatments
     }
 }
 
-export const loadAllRx = () : Common.ActionResult<{}> =>{
+export const loadAllRx = () : ActionResult<{}> =>{
     return {
         type: ActionType.LOAD_ALL
     }
 }
 
-export const loadAllRxFailed = (error: Error): Common.ActionResult<Error> => {
+export const loadAllRxFailed = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.LOAD_ALL_FAILED,
         value: error
     }
 }
 
-export const fetchSingleSignOnInfo = (): Common.ActionResult<{}> => {
+export const fetchSingleSignOnInfo = (): ActionResult<{}> => {
     return {
         type: ActionType.FETCH_SSO_INFO
     }
 }
 
-export const fetchSingleSignOnInfoFailed = (error: Error): Common.ActionResult<Error> => {
+export const fetchSingleSignOnInfoFailed = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_SSO_INFO_FAILED,
         value: error
     }
 }
 
-export const fetchSingleSignOnInfoSuccess = (ssoInfo: Model.SingleSignOnInfo): Common.ActionResult<Model.SingleSignOnInfo> => {
+export const fetchSingleSignOnInfoSuccess = (ssoInfo: SingleSignOnInfo): ActionResult<SingleSignOnInfo> => {
     return {
         type: ActionType.FETCH_SSO_INFO_SUCCESS,
         value: ssoInfo

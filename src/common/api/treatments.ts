@@ -1,7 +1,8 @@
 import { getRequestInit, BASE_URL } from './util';
-// import { Visit } from '../models/visit';
+import { Treatment } from '../models/treatment';
+import * as _ from 'lodash';
 
-export const getForChannel = (channelId: number) => {
+export const getTreatmentsForChannel = (channelId: number) => {
     const requestInit = getRequestInit('GET');
     return fetch(`${BASE_URL}/treatments/${channelId}`, requestInit)
         .then((response: any) => {
@@ -10,38 +11,70 @@ export const getForChannel = (channelId: number) => {
             }
             return response.json();
         }).then((result: Map<string, any>) => {
-            
-            console.log('treatments', result);
-            
-            Promise.resolve([
-                {
-                    id: '1',
-                    dateWritten: new Date('2017-09-16'),
-                    medicationName: 'Rimabotulinumtoxin',
-                    status: 'Pharmacy Received',
-                    sig: 'Take once everyday.',
-                    refills: 0,
-                    pharmacyName: ''
-                },
-                {
-                    id: '2',
-                    dateWritten: new Date('2017-08-16'),
-                    medicationName: 'Rituxan',
-                    status: 'Pharmacy Received',
-                    sig: 'Do this all the time.',
-                    refills: 0,
-                    pharmacyName: ''
-                    
-                },
-                {
-                    id: '3',
-                    dateWritten: new Date('2016-12-16'),
-                    medicationName: 'Super Advil',
-                    status: 'Pharmacy Received',
-                    sig: 'If you notice anything cray call me.',
-                    refills: 0,
-                    pharmacyName: ''
-                }
-            ]);
+            return _.map<any, Treatment>(result, (value: any, key: string) => {
+                return {
+                    patientId: value.patient_id,
+                    pharmacyName: value.pharmacy_name,
+                    quantity: value.quantity,
+                    dosage: value.dosage,
+                    dateWritten: value.date_written,
+                    refills: value.refills,
+                    daysSupply: value.days_supply,
+                    sig: value.sig,
+                    status: value.status,
+                    form: value.form,
+                    endOn: value.end_on,
+                    medicationName: value.medication_name,
+                    id: key
+                } as Treatment
+            });
         });
+}
+
+export const createTreatment = (treatment: Treatment, channelId: number) => {
+    const body = {
+        patient_id: treatment.patientId,
+        pharmacy_name: treatment.pharmacyName,
+        quantity: treatment.quantity,
+        dosage: treatment.dosage,
+        date_written: treatment.dateWritten,
+        refills: treatment.refills,
+        days_supply: treatment.daysSupply,
+        sig: treatment.sig,
+        status: treatment.status,
+        form: treatment.form,
+        end_on: treatment.endOn,
+        medication_name: treatment.medicationName
+    };
+
+    const requestInit = getRequestInit('PUT', JSON.stringify(body));
+    return fetch(`${BASE_URL}/treatments/${channelId}/${treatment.id}`, requestInit)
+        .then((response: any) => {
+            return Promise.resolve(treatment);
+        }
+    );
+}
+
+export const updateTreatment = (treatment: Treatment, channelId: number) => {
+    const body = {
+        patient_id: treatment.patientId,
+        pharmacy_name: treatment.pharmacyName,
+        quantity: treatment.quantity,
+        dosage: treatment.dosage,
+        date_written: treatment.dateWritten,
+        refills: treatment.refills,
+        days_supply: treatment.daysSupply,
+        sig: treatment.sig,
+        status: treatment.status,
+        form: treatment.form,
+        end_on: treatment.endOn,
+        medication_name: treatment.medicationName
+    };
+
+    const requestInit = getRequestInit('PUT', JSON.stringify(body));
+    return fetch(`${BASE_URL}/treatments/${channelId}/${treatment.id}`, requestInit)
+        .then((response: any) => {
+            return Promise.resolve(treatment);
+        }
+    );
 }

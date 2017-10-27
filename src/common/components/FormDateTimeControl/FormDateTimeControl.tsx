@@ -6,7 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import './FormDateTimeControl.css';
 
 interface FormDateTimeControlProps {
-    date: Moment.Moment
+    label?: string;
+    date?: Moment.Moment
     floatingLabelText?: string;
     onChange: (value: Moment.Moment) => void;
 }
@@ -16,8 +17,6 @@ interface FormDateTimeControlState {
     timeStops: Array<Moment.Moment>;
     selectedTimeStop?: Moment.Moment;
 }
-
-let FaCalendar = require('react-icons/lib/fa/calendar');
 
 const selectStyle = {
     width: '100%'
@@ -62,21 +61,42 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
     }
 
     componentDidMount() {
-        let moment = Moment(this.props.date);
+        if (!this.props.date) return;
         if (this.props.date) {
-            let v = moment.add(15 - moment.minute() % 15, 'm');
-            this.setState({
-                value: v,
-                selectedTimeStop: this.findNearest(moment)
-            }, () => {
-                if (!this.dateInput) return;
-                this.dateInput.value = this.state.value.format('M/D/YYYY');
-            });
+            let moment = this.props.date;
+            this.setDate(moment);
         }
     }
 
+    componentWillReceiveProps(props: FormDateTimeControlProps) {
+        if (!props.date) return;
+        if (props.date) {
+            let moment = props.date;
+            this.setDate(moment);
+        }
+    }
+
+    setDate(moment: Moment.Moment) {
+        this.setState({
+            value: moment,
+            selectedTimeStop: this.findMatchingStop(moment)
+        }, () => {
+            if (!this.dateInput) return;
+            this.dateInput.value = this.state.value.format('M/D/YYYY');
+        });
+    }
+
+    findMatchingStop(m: Moment.Moment): Moment.Moment {
+        let baseDate = Moment({ hour: m.hour(), minute: m.minute(), seconds: m.seconds() });
+        const found = this.state.timeStops.find((timeStop) => {
+            return timeStop.isSame(baseDate, 'minute');
+        });
+        return found || m;
+    }
+
     findNearest(m: Moment.Moment): Moment.Moment {
-        const computedNearest = m.add(15 - m.minute() % 15, 'm');
+        let baseDate = Moment({ hour: m.hour(), minute: m.minute(), seconds: m.seconds() });
+        const computedNearest = baseDate.add(15 - baseDate.minute() % 15, 'm');
         const found = this.state.timeStops.find((timeStop) => {
             return timeStop.isSame(computedNearest, 'minute');
         });
@@ -84,32 +104,32 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
     }
 
     handleDateChange(e: any) {
-        let m = Moment(e.target.value);
-        if (!m.isValid()) return;
+        let next = Moment(e.target.value);
+        if (!next.isValid()) return;
 
         if (this.state.selectedTimeStop) {
-            let next = Moment(m.set({
+            next = Moment(next.set({
                 'hour': this.state.selectedTimeStop.hour(), 
                 'minute': this.state.selectedTimeStop.minute()
-            }));
-            this.setState({
-                value: next
-            }, () => {
-                if (this.props.onChange) {
-                    this.props.onChange(this.state.value);
-                }
-            });
-        }
+            }));  
+        } 
+        this.setState({
+            value: next
+        }, () => {
+            if (this.props.onChange) {
+                this.props.onChange(this.state.value);
+            }
+        });
     }
 
     handleOpenDatePicker() {
-        console.log('here');
-
+        
     }
 
     handleTimeChange(event: object, index: number, value: any) {
         let val = value as Moment.Moment;
-        let next = Moment(this.state.value.set({'hour': val.hour(), 'minute': val.minute()}));
+        let current = this.state.value;
+        let next = Moment(current.set({'hour': val.hour(), 'minute': val.minute()}));
         this.setState({
             selectedTimeStop: val,
             value: next
@@ -123,7 +143,7 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
     render() {
         return (
         <div className="form-date-time-control">
-            <div className="date-control-label">Created</div>
+            <div className="date-control-label">{this.props.label ? this.props.label : ''}</div>
             <div className="date-control-input-container">
                 <div className="date-control-text-input-wrapper">
                     <input 
@@ -132,12 +152,6 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
                         onChange={this.handleDateChange}
                         ref={(el) => this.dateInput = el }
                     />
-
-                    <i>
-                        <FaCalendar 
-                            className="date-selector-icon"
-                        />
-                    </i>
                 </div>
                 <div className="date-control-time-selector-wrapper">
                 <SelectField

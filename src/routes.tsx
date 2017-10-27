@@ -1,15 +1,6 @@
 import * as React from 'react';
 import * as Redux from 'react-redux';
-// import * as Moment from 'moment';
 import { Route, Router, Redirect } from 'react-router-dom';
-// import { Visit } from '../common';
-// import { VisitComponent } from '../visits';
-// import { Patient } from '../patients';
-// import * as Application from '../application';
-// import * as Zoo from '../zoo';
-// import * as Visits from '../visits';
-// import * as Users from '../users';
-// import * as Visits from '../visits';
 import * as Auth from './auth';
 import * as Admin from './admin';
 import * as Schedule from './schedule';
@@ -18,152 +9,12 @@ import { PatientList } from './patients';
 import { DoseSpotUser } from './dosespot';
 import { UsersContainer, UserDetail } from './users';
 import { history } from './common';
-// import { FormDateTimeControl } from '../common/UIComponents';
 import { isAuthenticated } from './auth/util';
-// import { TabControl } from '../common/UIComponents/TabControl/TabControl';
-// import { Tab } from '../common/UIComponents/TabControl/Tab';
-// import { TabItemInfo } from '../common/UIComponents/TabControl/TabItemInfo';
-// import { FormTableInputControl, FormTableInputItem } from '../common/UIComponents/FormTableInputControl';
-
-// const items = [
-//     {
-//         details: "Test 1",
-//         isNew: false,
-//         selectedOption: {
-//             value: "1",
-//             text: "Coughing"
-//         }
-//     },
-//     {
-//         details: "Test 2",
-//         isNew: false,
-//         selectedOption: {
-//             value: "2",
-//             text: "Runny Nost"
-//         }
-//     },
-//     {
-//         details: "Test 6",
-//         isNew: false,
-//         selectedOption: {
-//             value: "1",
-//             text: "Coughing"
-//         }
-//     },
-// ];
-
-// const patients: Array<Patient> = [
-//     {
-//         id: 1,
-//         firstName: 'Toby',
-//         lastName: 'Jackson',
-//         name: 'Toby Jackson',
-//         primaryChannel: 1,
-//         treatments: [],
-//         visits: [],
-//         tests: [],
-//         imaging: [],
-//         wellness: {
-//             goals: [],
-//             maintenance: [],
-//             immunizations: []
-//         },
-//         other: {}
-//     }
-// ];
 
 export const makeMainRoutes = (store: Redux.Store<{}>) => {
     return (
         <Router history={history}>
             <div>
-                {/* <Route 
-                    path="/zoo/table"
-                    exact={true}
-                    render={(props) => 
-                        <div style={{marginTop: 100, width: '80%'}}>
-                            <FormTableInputControl 
-                                label="Complaints"
-                                options={[{value: '1', text: 'Coughing'}, {value: '2', text: 'Runny Nost'}]} 
-                                items={items}
-                                multilineDetail={false}
-                                multilineRows={4}
-                                onChange={(items: Array<FormTableInputItem>) => console.log('updated items:', items)}            
-                            />
-                        </div>
-                    }
-                />
-                <Route
-                    path="/form-date"
-                    exact={true}
-                    render={(props) => 
-                        <div style={{marginTop:100, width: '50%'}}> 
-                            <FormDateTimeControl date={Moment()} onChange={(value: Moment.Moment) => { console.log('new value', value.toISOString()) }} /> 
-                        </div>
-                    }
-                />
-                <Route
-                    path="/zoo/visit"
-                    exact={true}
-                    render={(props) => 
-                        <div style={{
-                            width: '60%',
-                            margin: '10px auto',
-                            padding: 15
-                        }}>
-                            <VisitComponent 
-                                patientList={patients} 
-                                onSave={(visit: Visit) => console.log('saved visit', visit)}
-                                onCancel={() => console.log('cancelled visit')}
-                            />
-                        </div>
-                        }
-                /> */}
-                {/* <Route
-                    path="/tabs"
-                    exact={true}
-                    render={(props) => 
-                        <TabControl 
-                            canAdd={true}
-                            onAddTab={() => {
-                                return {
-                                    header: 'New Tab',
-                                    content: (<div>New Tab</div>)
-                                } as TabItemInfo
-                            }}
-                            onTabClosed={(tabItemInfo, index) => {
-                                console.log(`removed tab item at ${index}`);
-                            }}
-                        >
-                            <Tab header="Home">
-                                <div>Home</div>
-                            </Tab>
-                            <Tab header="Menu 1">
-                                <div>Menu 1</div>
-                            </Tab>
-                            <Tab header="Menu 2">
-                                <div>Menu 2</div>
-                            </Tab>
-                            <Tab header="Menu 3">
-                                <div>Menu 3</div>
-                            </Tab>
-                        </TabControl>}
-                />
-                <Route 
-                    path="/reset-password"
-                    exact={true}
-                    render={(props) => <Auth.ForgotPassword {...props} />}
-                />
-                <Route 
-                    path="/update-password"
-                    exact={true}
-                    render={(props) => <Auth.UpdatePassword {...props} />}
-                />
-                <Route
-                    path="/verify-code"
-                    exact={true}
-                    render={(props) => <Auth.MFACodeEntry {...props} />}
-                />
-                 */}
                 <Route
                     path="/"
                     render={(props) => (
@@ -195,7 +46,7 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         )} 
                     />
                     <Route 
-                        path="/patients/:patientId?"
+                        path="/patients"
                         render={(props) => (
                             !isAuthenticated() ? (
                                 <Redirect 
@@ -224,14 +75,28 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         )}
                     />
                     <Route 
-                        path="/users/:userId"
+                        path="/user-add"
                         exact={true}
                         render={(props) => (
                             !isAuthenticated() ? (
                                 <Redirect
                                     to={{
                                         pathname: '/login',
-                                        state: { referrer: '/users'}
+                                        state: { referrer: '/user-detail'}
+                                    }}
+                                />
+                            ) : ( <UserDetail {...props} /> )
+                        )}
+                    />
+                    <Route 
+                        path="/user-detail/:userId"
+                        exact={true}
+                        render={(props) => (
+                            !isAuthenticated() ? (
+                                <Redirect
+                                    to={{
+                                        pathname: '/login',
+                                        state: { referrer: '/user-detail'}
                                     }}
                                 />
                             ) : ( <UserDetail {...props} /> )
@@ -268,22 +133,6 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                         path="/login"
                         render={(props) => <Auth.LoginContainer {...props} />}
                     />
-                    {/* <Route 
-                        path="/visits"
-                        exact={true} 
-                        render={(props) => (
-                            !isAuthenticated() ? (
-                                <Redirect
-                                    to={{
-                                        pathname: '/login',
-                                        state: { referrer: '/visits' }
-                                    }}
-                                />
-                            ) : ( 
-                                <div></div>
-                            )
-                        )}
-                    /> */}
                     <Route  
                         path="/admin"
                         render={(props) => (
@@ -296,6 +145,11 @@ export const makeMainRoutes = (store: Redux.Store<{}>) => {
                                 />
                             ) : ( <Admin.AdminPage {...props} />)
                         )}
+                    />
+                    <Route
+                        path="/verify-code"
+                        exact={true}
+                        render={(props) => <Auth.MFACodeEntry {...props} />}
                     />
                 </div>}
             </div>

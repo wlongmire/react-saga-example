@@ -1,34 +1,5 @@
 import { DoseSpotStatus, SingleSignOnInfo } from '../../common';
 
-export const fetchClinicians = () => {
-    let clinicians;
-    const cliniciansString = localStorage.getItem('clinicians')
-
-    if (cliniciansString === null) {
-        clinicians = [];
-    } else {
-        clinicians = JSON.parse(cliniciansString);
-    }
-
-    return Promise.resolve(clinicians);
-}
-
-export const addClinician = (clinicianId: number) => {
-    let clinicians;
-    const cliniciansString = localStorage.getItem('clinicians');
-
-    if (cliniciansString === null) {
-        clinicians = [];
-    } else {
-        clinicians = JSON.parse(cliniciansString);
-    }
-
-    (<Array<number>>clinicians).push(clinicianId);
-    localStorage.setItem('clinicians', JSON.stringify(clinicians));
-
-    return Promise.resolve(clinicianId);
-}
-
 export const fetchSingleSignOnInfo = (clinicId: number, clinicianId: number) => {
     return fetch(`http://${process.env.REACT_APP_DOSESPOT_API_HOST}/clinics/${clinicId}/clinicians/${clinicianId}/sso`, {
         method: 'GET',

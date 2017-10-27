@@ -1,9 +1,10 @@
 import { User } from './user';
+import { SnackbarMessage } from './snackbar-message';
 
 export interface UsersState {
-    isFetching: boolean;
     items: Array<User>;
-    createError?: Error;
-    saveError?: Error;
-    fetchError?: Error;
+    isFetching: boolean;
+    isCreating?: boolean;
+    isUpdating?: boolean;
+    snackbarMessage?: SnackbarMessage;
 }

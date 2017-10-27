@@ -1,5 +1,5 @@
 import { ActionType } from './actions';
-import { User, UsersState, ActionResult } from '../common';
+import { User, UsersState, ActionResult, SnackbarMessageType } from '../common';
 
 function initialState(): UsersState {
     return {
@@ -12,34 +12,95 @@ export default function reducer(state = initialState(), action: ActionResult<any
 
     switch(action.type){
         case ActionType.CREATE_USER:
-            return { ...state, isFetching: true, createError: null};
+            return { 
+                ...state, 
+                isFetching: true, 
+                snackbarMessage: undefined 
+            };
 
         case ActionType.CREATE_USER_SUCCESS:
-            return { ...state, isFetching: false, createError: null, items: state.items.concat(action.value)};
+            const user = action.value as User;
+            return { 
+                ...state, 
+                isFetching: false, 
+                items: state.items.concat(user),
+                snackbarMessage: {
+                    type: SnackbarMessageType.Success,
+                    message: `User ${user.firstName} ${user.lastName} successfully created!`
+                }
+            };
 
         case ActionType.CREATE_USER_FAILURE:
-            return { ...state, isFetching: false, createError: action.value };
+            return { 
+                ...state, 
+                isFetching: false, 
+                snackbarMessage: {
+                    type: SnackbarMessageType.Success,
+                    message: (action.value as Error).message
+                }
+            };
 
         case ActionType.FETCH_ALL_USERS:
-            return { ...state, isFetching: true, fetchError: null};
+            return { 
+                ...state, 
+                isFetching: true, 
+                snackbarMessage: null
+            };
 
         case ActionType.FETCH_ALL_USERS_SUCCESS:
-            return { ...state, isFetching: false, fetchError: null, items: action.value};
+            return { 
+                ...state, 
+                isFetching: false, 
+                items: action.value,
+                snackbarMessage: null
+            };
 
         case ActionType.FETCH_ALL_USERS_FAILURE:
-            return { ...state, isFetching: false, fetchError: action.value};
+            return { 
+                ...state, 
+                isFetching: false, 
+                snackbarMessage: {
+                    type: SnackbarMessageType.Success,
+                    message: (action.value as Error).message
+                }
+            };
 
         case ActionType.UPDATE_USER:
-            return { ...state, isFetching: true, fetchError: false};
+            return { 
+                ...state, 
+                isFetching: true, 
+                errorMessage: null,
+                successMessage: null
+            };
 
         case ActionType.UPDATE_USER_SUCCESS:
-            const updated = <User>action.value;
+            const updated = action.value as User;
             const idx = state.items.findIndex((user: User) => user.id === updated.id );
             state.items.splice(idx, 1, updated);
-            return { ...state, isFetching: false, fetchError: null};
+            return { 
+                ...state, 
+                isFetching: false, 
+                snackbarMessage: {
+                    type: SnackbarMessageType.Success,
+                    message: `User ${updated.firstName} ${updated.lastName} updated created!`
+                }
+            };
 
         case ActionType.UPDATE_USER_FAILURE:
-            return { ...state, isFetching: false, fetchError: action.value};
+            return { 
+                ...state, 
+                isFetching: false, 
+                snackbarMessage: {
+                    type: SnackbarMessageType.Success,
+                    message: (action.value as Error).message
+                }
+            };
+
+        case ActionType.CLEAR_SNACKBAR_MESSAGE:
+            return {
+                ...state,
+                snackbarMessage: null
+            };
 
         default:
             return state;

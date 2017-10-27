@@ -22,7 +22,7 @@
 }
 
 .admin-sidebar {
-    width: 268px;
+    width: 0px;
     overflow: visible;
     position: fixed;
     background: #fff;
@@ -52,7 +52,7 @@
 .admin-content {
     background-color: #ffffff;
     min-height: 100vh;
-    padding-left: 283px;
+    padding-left: 0px;
     padding-right: 15px;
 }
 

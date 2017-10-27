@@ -10,7 +10,8 @@ export function* login(action: ActionResult<AuthCredentials>) {
         if (!action.value) {
             throw new Error('action is missing required LoginCredentials value');
         }
-        const auth = yield call(api.auth.login, action.value.email, action.value.password);
+        const auth = yield call(api.auth.login, action.value.email, action.value.password, action.value.deviceId);
+        api.auth.saveDeviceId(action.value.deviceId || '');    
         yield(put(Actions.loginSuccess(auth)));
     } catch (e) {
         yield(put(Actions.loginFail(e)));
@@ -46,9 +47,9 @@ export function* onForgotPassword(action: ActionResult<string>) {
 }
 
 function* onLoginSuccess(action: ActionResult<AuthInfo>) {
-    const info = action.value as AuthInfo
-    localStorage.setItem('auth', JSON.stringify(info));
-    yield(put(Actions.fetchIdentity()));
+    const authInfo = action.value as AuthInfo
+    localStorage.setItem('auth', JSON.stringify(authInfo));
+    yield(put(Navigation.navigate('/verify-code')));
 }
 
 function* onLogoutSuccess() {
@@ -71,7 +72,6 @@ function* onFetchIdentitySuccess(action: ActionResult<Identity>) {
 }
 
 function* onVerifyCodeSuccess() {
-    yield(put(Navigation.navigate('/')));
     yield(put(Actions.fetchIdentity()));
 }
 

@@ -12,6 +12,7 @@ import {
     Patient,
     TabControl, 
     TabItemInfo,
+    Treatment,
     Visit
 } from '../../../common';
 import { ChatChannel } from '../../../chat';
@@ -32,7 +33,6 @@ interface PatientDetailProps {
 interface PatientDetailState {
     open : boolean;
     anchorEl?: any;
-    // patient?: Patient;
     tabItems?: Array<TabItemInfo>;
     selectedTabIndex: number;
 }
@@ -84,20 +84,31 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.setState({tabItems: initialTabs, selectedTabIndex: 0});
     }
 
+    createNewTreatment(): Treatment {
+        let treatment = new Treatment();
+        treatment.id = uuidv4();
+        return treatment;
+    }
+
     createNewVisit(): Visit {
         let visit = new Visit();
         visit.id = uuidv4();
         return visit;
     }
 
+    findTreatment(id: string): Treatment {
+        if (!this.props.patient) return { } as Treatment;
+        let treatment = this.props.patient.treatments.find((treatment) => {
+            return treatment.id === id;
+        }) || {} as Treatment;
+        return treatment;
+    }
+
     findVisit(id: string): Visit {
-        console.log('finding...');
         if (!this.props.patient) return { } as Visit;
         let visit = this.props.patient.visits.find((visit) => {
-            console.log(`comparing ${visit.id} to ${id}`);
             return visit.id === id;
         }) || {} as Visit;
-        console.log('visit', visit);
         return visit;
     }
 
@@ -109,18 +120,25 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'treatment':
                 newItem = {
                     header: info.header,
-                    content: (<Rx.Components.Treatment />)
+                    content: (
+                        <Rx.TreatmentComponent 
+                           treatment={this.findTreatment(info.id)} 
+                        />
+                    )
                 } as TabItemInfo;
                 break;
             case 'visit':
                 newItem = {
                     header: info.header,
-                    content: (<VisitComponent 
-                        patientList={this.props.patientList} 
-                        visit={this.findVisit(info.id)} 
-                        onCancel={this.handleVisitCancel}
-                        onSave={this.handleVisitSave}
-                    />)
+                    content: (
+                        <VisitComponent 
+                            patientList={this.props.patientList} 
+                            user={this.props.user}
+                            visit={this.findVisit(info.id)} 
+                            onCancel={this.handleVisitCancel}
+                            onSave={this.handleVisitSave}
+                        />
+                    )
                 } as TabItemInfo;
                 break;
             case 'test':
@@ -128,7 +146,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header: info.header,
                     content: (
                         <Tests.Components.AddTestSection
-                            closeTestsCard={() => { console.log('closed tests') }}
+                            closeTestsCard={() => {  }}
                         />
                     )
                 } as TabItemInfo;
@@ -138,7 +156,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header: info.header,
                     content: (
                         <Imaging.Components.AddImageSection
-                            closeImagingCard={() => { console.log('closed imaging') }}
+                            closeImagingCard={() => {  }}
                         />
                     )
                 } as TabItemInfo;
@@ -159,7 +177,8 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             case 'treatment':
                 newItem = {
                     header,
-                    content: (<Rx.Components.Treatment />)
+                    content: (
+                    <Rx.TreatmentComponent treatment={this.createNewTreatment()} />)
                 } as TabItemInfo;
                 break;
             case 'visit':
@@ -168,6 +187,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     content: (
                         <VisitComponent 
                             patientList={this.props.patientList} 
+                            user={this.props.user}
                             visit={this.createNewVisit()} 
                             onSave={this.handleVisitSave} 
                             onCancel={this.handleVisitCancel} 
@@ -180,7 +200,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header,
                     content: (
                         <Tests.Components.AddTestSection
-                            closeTestsCard={() => { console.log('closed tests') }}
+                            closeTestsCard={() => {  }}
                         />
                     )
                 } as TabItemInfo;
@@ -226,7 +246,15 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
     }
 
     handleVisitCancel(visit: Visit) {
-        
+        if (!this.state.tabItems) return;
+        let index = this.state.tabItems.findIndex((tabItem) => {
+            let component = tabItem.content as VisitComponent;
+            if (component.props.visit) {
+                return component.props.visit.id === visit.id;
+            }
+            return false;
+        });
+        this.handleTabClosing(index);
     }
 
     handleVisitSave(visit: Visit) {
@@ -244,7 +272,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                 <div className="patient-detail-header">
                     <Avatar 
                         size={70}
-                        backgroundColor="#f84445"
+                        backgroundColor="#67B2A6"
                         color="#ffffff">
                         {patient &&
                             patient.name ? patient.name.substr(0,1) : ''
@@ -257,7 +285,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                             }
                         </div>
                         <div className="patient-detail-header-subtitle">
-                            Gender, Age 
+                            {/* Gender, Age  */}
                         </div>
                     </div>
                 </div>

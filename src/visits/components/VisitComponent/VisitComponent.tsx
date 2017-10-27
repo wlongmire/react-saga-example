@@ -1,15 +1,22 @@
 import * as React from 'react';
 import * as _ from 'lodash';
+import * as Moment from 'moment';
 import FlatButton from 'material-ui/FlatButton';
-import { FormSelectControl, FormSelectControlOption, FormTextField } from '../../../common';
 import { 
+    FormDateTimeControl,
+    FormSelectControl, 
+    FormSelectControlOption, 
+    FormTextField } from '../../../common';
+import { 
+    Attachment,
+    AttachmentControl,
     Address,
     Complaints,
     DoctorTypes, 
     EnumEx, 
     FormTableInputControl,
     FormTableInputItem,
-    LifeCoLocations,
+    Identity,
     InternalNote, 
     Patient,
     SystemsReview,
@@ -24,6 +31,7 @@ import {
 import './VisitComponent.css';
 
 interface VisitComponentProps {
+    user: Identity;
     visit?: Visit;
     patientList: Array<Patient>;
     onSave?: (visit: Visit) => void;
@@ -33,7 +41,7 @@ interface VisitComponentProps {
 interface VisitComponentState {
     id?: string;
     status?: string;
-    assigneeId?: string;
+    assigneeId?: number;
     cases?: Array<string>;
     patientId?: number;
     visitType?: string;
@@ -42,9 +50,9 @@ interface VisitComponentState {
     doctorName?: string;
     doctorType?: string;
     clinic?: Address;
-    scheduledFor?: Date;
+    scheduledFor?: Moment.Moment;
     estimatedDuration?: number;
-    complaints: Array<string>;
+    complaints: Array<object>;
     vitals: Array<object>;
     systemsReview: Array<object>;
     diagnosis?: string;
@@ -53,6 +61,7 @@ interface VisitComponentState {
     assessment?: string;
     nextSteps?: string;
     internalNotes?: Array<InternalNote>;
+    attachments?: Array<Attachment>;
 
     isNew: boolean;
     isDirty: boolean;
@@ -75,9 +84,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
         };
         
         this.handleCancelClick = this.handleCancelClick.bind(this);
+        this.handleDateChanged = this.handleDateChanged.bind(this);
+        this.handleMaintenanceClick = this.handleMaintenanceClick.bind(this);
         this.handleSaveClick = this.handleSaveClick.bind(this);
         this.handleValueChanged = this.handleValueChanged.bind(this);
-        // this.handleAttachmentUpdated = this.handleAttachmentUpdated.bind(this);
+        this.handleAttachmentUpdated = this.handleAttachmentUpdated.bind(this);
         this.handleTableInputChange = this.handleTableInputChange.bind(this);
     }
 
@@ -93,9 +104,26 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
         this.props.onCancel(visit);
     }
 
+    handleDateChanged(field: string, val: Moment.Moment) {
+        this.setState({
+            ...this.state,
+            [field]: val,
+            assigneeId: this.props.user.userId
+        });
+    }
+
+    handleMaintenanceClick(val: string) {
+        this.setState({
+            maintenance: [val]
+        });
+    }
+
     handleSaveClick() {
         if (!this.props.onSave) return;
-        let visit = _.cloneDeep(this.state) as Visit;
+        let visit = {
+            ...this.state, 
+            scheduledFor: this.state.scheduledFor ? this.state.scheduledFor.utc().unix() : undefined
+        } as Visit;
         this.props.onSave(visit);
     }
 
@@ -117,7 +145,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
             doctorName: visit.doctorName,
             doctorType: visit.doctorType,
             clinic: visit.clinic,
-            scheduledFor: visit.scheduledFor,
+            scheduledFor: visit.scheduledFor ? Moment.unix(visit.scheduledFor) : undefined,
             estimatedDuration: visit.estimatedDuration,
             complaints: visit.complaints ? visit.complaints : [],
             vitals: visit.vitals ? visit.vitals : [],
@@ -127,7 +155,8 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
             objective: visit.objective,
             assessment: visit.assessment,
             nextSteps: visit.nextSteps,
-            internalNotes: visit.internalNotes
+            internalNotes: visit.internalNotes,
+            attachments: visit.attachments
         });
     }
 
@@ -139,7 +168,9 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
         });
 
         this.setState({
-            ...this.state, [field]: val
+            ...this.state, 
+            [field]: val,
+            assigneeId: this.props.user.userId
         });
     }
 
@@ -147,9 +178,9 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
         this.setState({ ...this.state, [field]: value});
     }
 
-    // handleAttachmentUpdated(attachments: Array<Attachment>) {
-    //     console.log(`Attachments Updated `, attachments)
-    // }
+    handleAttachmentUpdated(attachments: Array<Attachment>) {
+        console.log(`Attachments Updated `, attachments); // tslint:disable-line
+    }
 
     render() {
         return (
@@ -197,7 +228,8 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             id="1" 
                             type="radio" 
                             name="maintenance" 
-                            checked={this.state.maintenance ? this.state.maintenance.indexOf('Physical') > -1 : false} 
+                            checked={this.state.maintenance ? this.state.maintenance.indexOf('Physical') > -1 : false}
+                            onClick={() => this.handleMaintenanceClick('Physical')}
                         />
                         <label htmlFor="1">Physical</label>
                     </div>
@@ -207,6 +239,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             type="radio" 
                             name="maintenance"
                             checked={this.state.maintenance ? this.state.maintenance.indexOf('Pap Smear') > -1 : false}
+                            onClick={() => this.handleMaintenanceClick('Pap Smear')}
                         />
                         <label htmlFor="2">Pap Smear</label>
                     </div>
@@ -230,16 +263,9 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     value={this.state.doctorType}
                     onValueChanged={(value: {}) => this.handleValueChanged('doctorType', value)}
                 />
-                <FormSelectControl 
-                    label="Clinic Location" 
-                    options={
-                        LifeCoLocations.map((location) => {
-                            return { 
-                                value: location, 
-                                text: location
-                            } as FormSelectControlOption
-                        })
-                    }
+                <FormTextField
+                    name="clinic"
+                    label="Clinic Location"
                     value={this.state.clinic}
                     onValueChanged={(value: {}) => this.handleValueChanged('clinic', value)}
                 />
@@ -255,6 +281,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     }
                     value={this.state.estimatedDuration}
                     onValueChanged={(value: {}) => this.handleValueChanged('estimatedDuration', value)}
+                />
+                <FormDateTimeControl
+                    label="Scheduled Date and Time"
+                    date={this.state.scheduledFor}
+                    onChange={(value: Moment.Moment) => this.handleDateChanged('scheduledFor', value)}
                 />
                 <FormTableInputControl 
                     label="Complaints"
@@ -340,23 +371,6 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     value={this.state.diagnosis}
                     onValueChanged={(value: string) => this.handleValueChanged('diagnosis', value)}
                 />
-                {/* <FormTableInputControl 
-                    label="Diagnosis"
-                    options={[{value: '1', text: 'Coughing'}, {value: '2', text: 'Runny Nost'}]} 
-                    items={this.state.complaints.map((complaint) => {
-                        return {
-                            details: "Test 1",
-                            isNew: false,
-                            selectedOption: {
-                                value: "1",
-                                text: "Coughing"
-                            }
-                        }
-                    })}
-                    multilineDetail={false}
-                    singleValue={true}
-                    onChange={(items: Array<FormTableInputItem>) => console.log('updated items:', items)}            
-                /> */}
                 <FormTextField
                     name="subjective"
                     label="Subjective"
@@ -389,10 +403,10 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     multiLine={true}
                     rows={2}
                 />
-                {/* <AttachmentControl 
-                    attachmentList={stubbedData.attachment}
+                <AttachmentControl 
+                    attachmentList={this.state.attachments}
                     onChange={this.handleAttachmentUpdated}
-                /> */}
+                />
                 <br/>
                 <div className="form-button-container">
                     <FlatButton  

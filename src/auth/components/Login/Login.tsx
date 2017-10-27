@@ -1,10 +1,12 @@
 import * as React from 'react';
+import * as Common from '../common';
+import * as authApi from '../../../common/api/auth';
+import * as uuidv4 from 'uuid/v4';
 import { ActionResult } from '../../../common'
 import { AuthState, AuthCredentials } from '../../../common';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
 import { Link } from 'react-router-dom';
-import * as Common from '../common';
 
 import './Login.css';
 
@@ -74,8 +76,9 @@ export class Login extends React.Component<LoginComponentProps, LoginComponentSt
    * Handler for submit button.
    */
   onSubmit(event: any) {
-    event.preventDefault()
-    this.props.login(new AuthCredentials(this.state.email, this.state.password));
+    event.preventDefault();
+    let deviceId = authApi.fetchDeviceId() || uuidv4();
+    this.props.login(new AuthCredentials(this.state.email, this.state.password, deviceId));
   }
 
   /**

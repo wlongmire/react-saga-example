@@ -15,4 +15,17 @@ export class Treatment {
     endOn?: Date;
     patientId?: number;
     internalNotes?: Array<InternalNote>;
+
+    isNew: boolean;
 }
+
+export const TreatmentStatus = [
+    'New',
+    'Ordered',
+    'Pharmacy Received',
+    'Pharmacy Error',
+    'Patient Received',
+    'Refill',
+    'Inactive',
+    'Cancelled'
+]

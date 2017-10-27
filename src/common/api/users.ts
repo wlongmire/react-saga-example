@@ -36,11 +36,18 @@ export const createUser = (user: User) => {
     return fetch(`${BASE_URL}/create_user`, requestInit)
         .then((response: any) => {
             if (!response.ok) {
-                throw new Error('Unable to create user');
+                return response.text().then((text: string) => {
+                    return text;
+                });
+            } else {
+                return response.json();
             }
-            return response.json();
         }).then((data: any) => {
-            return data.map(mapToUser);
+            if (data.constructor.name === 'String') {
+                throw new Error(data as string);
+            } else {
+                return data.map(mapToUser);
+            }
         });
 }
 
@@ -65,18 +72,25 @@ export const updateUser = (user: User) => {
     return fetch(`${BASE_URL}/update_user`, requestInit)
         .then((response: any) => {
             if (!response.ok) {
-                throw new Error('Unable to update user');
+                return response.text().then((text: string) => {
+                    return text;
+                });
+            } else {
+                return response.json();
             }
-            return response.json()
         }).then((data: any) => {
-            let updated = _.zipObject(data.map((pair: any) => pair.key), data.map((pair:any) => pair.value));
-            updated['user_id'] = user.id;
+            if (data.constructor.name === 'String') {
+                throw new Error(data as string);
+            } else {
+                let updated = _.zipObject(data.map((pair: any) => pair.key), data.map((pair:any) => pair.value));
+                updated['user_id'] = user.id;
 
-            if (payload) {
-                updated['role_id'] = payload['role_id'];
+                if (payload) {
+                    updated['role_id'] = payload['role_id'];
+                }
+                
+                return mapToUser(updated);
             }
-
-            return mapToUser(updated);
         });
 }
 

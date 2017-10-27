@@ -1,21 +1,22 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { createUser, updateUser } from '../../actions';
-import { User, PatientUser, DoctorUser, OpsUser } from '../../../common';
-import { RouteComponentProps } from 'react-router-dom';
 import * as _ from 'lodash';
+import Snackbar from 'material-ui/Snackbar';
 import Avatar from 'material-ui/Avatar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-
-import { FormGroup } from '../../../common/components';
+import { connect } from 'react-redux';
+import { createUser, updateUser, clearSnackbarMessage } from '../../actions';
+import { FormGroup, User, PatientUser, DoctorUser, OpsUser, GlobalState, SnackbarMessage } from '../../../common';
+import { RouteComponentProps } from 'react-router-dom';
 
 import './UserDetail.css';
 
 export interface UserDetailProps extends RouteComponentProps<{}> {
+    snackbarMessage: SnackbarMessage;
     createUser: (user: User) => void;
     updateUser: (user: User) => void;
+    clearSnackbarMessage: () => void;
 }
 
 export interface UserDetailState {
@@ -64,7 +65,16 @@ export interface UserDetailState {
 
     isNew: boolean;
     isDirty: boolean;
+    
+    snackbarOpen: boolean;
+    snackbarMessage?: SnackbarMessage;
 }
+
+const snackbarContentStyle = {
+    height: 100,
+    fontSize: 14,
+    textTransform: 'capitalize'
+};
 
 export class _UserDetail extends React.Component<UserDetailProps, UserDetailState> {
 
@@ -72,9 +82,12 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         super();
         this.state = {
             isNew: true,
-            isDirty: false
+            isDirty: false,
+            snackbarMessage: undefined,
+            snackbarOpen: false
         };
 
+        this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleDobChange = this.handleDobChange.bind(this);
@@ -110,6 +123,15 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         }
         
         this.setState({ isNew: true, type: 'patient' });
+    }
+
+    componentWillReceiveProps(props: UserDetailProps) {
+        if (props.snackbarMessage) {
+            this.setState({
+                snackbarMessage: props.snackbarMessage,
+                snackbarOpen: true
+            });
+        }
     }
 
     createDoctorUserFromState(): DoctorUser {
@@ -245,6 +267,15 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         this.setState({primaryPhoneType: value});
     }
 
+    handleSnackbarClose(reason: string) {
+        this.setState({
+            snackbarMessage: undefined,
+            snackbarOpen: false
+        }, () => {
+            this.props.clearSnackbarMessage();
+        });
+    }
+
     handleSpecialtyChange(e: any, index: number, value: any) {
         this.setState({specialty: value});
     }
@@ -281,7 +312,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     handlePatientSave(e: any) {
         e.preventDefault();
-        const ops = this.createOpsUserFromState();
+        const ops = this.createPatientUserFromState();
         
         if (!ops.isValid()) return;
             
@@ -1142,9 +1173,25 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                         }
                     </div>
                 </div>
+                <Snackbar
+                    open={this.state.snackbarOpen}
+                    message={this.state.snackbarMessage}
+                    onRequestClose={this.handleSnackbarClose}
+                    contentStyle={snackbarContentStyle}
+                />
             </div>
         )
     }
 }
 
-export const UserDetail =  connect<{}, UserDetailProps, {}>(null, { createUser, updateUser })(_UserDetail);
+const mapStateToProps = (state: GlobalState) => {
+    return {
+        snackbarMessage: state.users.snackbarMessage ? state.users.snackbarMessage.message : ''
+    };
+};
+
+export const UserDetail =  connect<{}, UserDetailProps, {}>(mapStateToProps, { 
+    clearSnackbarMessage,
+    createUser, 
+    updateUser 
+})(_UserDetail);

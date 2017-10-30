@@ -27,7 +27,7 @@ export const createUser = (user: User) => {
     }
 
     if (user instanceof OpsUser) {
-        payload = OpsUser.toPayload(user);User
+        payload = OpsUser.toPayload(user);
     }
 
     let json = _.omitBy(payload, _.isNil);

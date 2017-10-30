@@ -10,7 +10,8 @@ describe('auth reducer', () => {
 
     it('should return the initial state', () => {
         expect(reducer(initialState, { type: actions.ActionType.LOGIN })).toEqual({
-            isAuthenticated: false
+            isAuthenticated: false,
+            pending: false
         });
     });
 
@@ -28,7 +29,7 @@ describe('auth reducer', () => {
             clientTokenVerificationError: undefined,
             clientTokenVerified: undefined,
             isAuthenticated: false,
-            pending: false
+            pending: true
         });
     });
 

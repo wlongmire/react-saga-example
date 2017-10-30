@@ -43,7 +43,6 @@ export const createUser = (user: User) => {
                 return response.json();
             }
         }).then((data: any) => {
-            console.log('data', data);
             if (data.constructor.name === 'String') {
                 throw new Error(data as string);
             } else {

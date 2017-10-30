@@ -11,7 +11,6 @@ import { UsersContainer, UserDetail } from './users';
 import { history } from './common';
 
 const UnauthorizedLayout = (props: RouteComponentProps<any>) => {
-    console.log('unauthorized props', props);
     return (
         <div>
             <Switch>
@@ -30,7 +29,6 @@ const UnauthorizedLayout = (props: RouteComponentProps<any>) => {
 };
 
 const PrimaryLayout = (props: RouteProps) => {
-    console.log('props', props);
     return (
         <div>
             <Navbar />

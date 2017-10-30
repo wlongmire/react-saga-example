@@ -15,7 +15,6 @@ class AuthorizedRoute extends React.Component<AuthorizedRouteProps> {
     render() {
         const { component, pending, logged, ...rest } = this.props;
         const Component = component;
-        console.log('auth props', this.props);
         return (
             <Route {...rest} render={props => {
                 if (pending) return <Redirect to="/auth/verify-code" />

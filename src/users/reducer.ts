@@ -26,7 +26,7 @@ export default function reducer(state = initialState(), action: ActionResult<any
                 items: state.items.concat(user),
                 snackbarMessage: {
                     type: SnackbarMessageType.Success,
-                    message: `User ${user.firstName} ${user.lastName} successfully created!`
+                    message: `User ${user.firstName} ${user.lastName} added`
                 }
             };
 
@@ -82,7 +82,7 @@ export default function reducer(state = initialState(), action: ActionResult<any
                 isFetching: false, 
                 snackbarMessage: {
                     type: SnackbarMessageType.Success,
-                    message: `User ${updated.firstName} ${updated.lastName} updated created!`
+                    message: `User ${updated.firstName} ${updated.lastName} updated`
                 }
             };
 

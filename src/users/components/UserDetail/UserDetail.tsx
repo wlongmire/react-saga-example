@@ -47,6 +47,7 @@ export interface UserDetailState {
     insuranceGroup?: string;
     rxBin?: string;
     rxPcn?: string;
+    rxGroup?: string;
     ssn?: string;
     driversLicense?: string;
     pharmacyId?: string;
@@ -209,6 +210,9 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
         user.insuranceId = this.state.insuranceId ? this.state.insuranceId : undefined;
         user.insuranceGroup = this.state.insuranceGroup ? this.state.insuranceGroup : undefined;
+        user.rxBin = this.state.rxBin ? this.state.rxBin : undefined;
+        user.rxPcn = this.state.rxPcn ? this.state.rxPcn : undefined;
+        user.rxGroup = this.state.rxGroup ? this.state.rxGroup : undefined;
         user.ssn = this.state.ssn ? this.state.ssn : undefined;
         user.driversLicense = this.state.driversLicense ? this.state.driversLicense : undefined;
         user.pharmacyId = this.state.pharmacyId ? this.state.pharmacyId : undefined;
@@ -312,14 +316,14 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     handlePatientSave(e: any) {
         e.preventDefault();
-        const ops = this.createPatientUserFromState();
+        const patient = this.createPatientUserFromState();
         
-        if (!ops.isValid()) return;
+        if (!patient.isValid()) return;
             
-        if (ops.isNew()) {
-            this.props.createUser(ops);
+        if (patient.isNew()) {
+            this.props.createUser(patient);
         } else {
-            this.props.updateUser(ops);
+            this.props.updateUser(patient);
         }
     }
 
@@ -350,6 +354,8 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         user.insuranceGroup = this.state.insuranceGroup ? this.state.insuranceGroup : undefined;
         user.rxBin = this.state.rxBin ? this.state.rxBin : undefined;
         user.rxPcn = this.state.rxPcn ? this.state.rxPcn : undefined;
+        user.rxGroup = this.state.rxGroup ? this.state.rxGroup : undefined;
+        
         user.ssn = this.state.ssn ? this.state.ssn : undefined;
         user.driversLicense = this.state.driversLicense ? this.state.driversLicense : undefined;
         user.pharmacyId = this.state.pharmacyId ? this.state.pharmacyId : undefined;
@@ -807,6 +813,22 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         )
     }
 
+    renderRxGroupField(required?: boolean) {
+        return (
+            <FormGroup>
+                <TextField
+                    floatingLabelText="Rx Group"
+                    name="rxGroup"
+                    value={this.state.rxGroup}
+                    onChange={this.handleTextChange}
+                />
+                {required &&
+                    this.renderRequiredLabel()
+                }
+            </FormGroup>
+        )
+    }
+
     renderSSNField(required?: boolean) {
         return (
             <FormGroup>
@@ -1116,6 +1138,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                 { this.renderInsuranceGroupField() }
                 { this.renderRxBinField() }
                 { this.renderRxPcnField() }
+                { this.renderRxGroupField() }
                 { this.renderLifecoStartDateField() }
                 { this.renderDriverLicenseField() }
                 { this.renderSSNField() }
@@ -1173,12 +1196,15 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                         }
                     </div>
                 </div>
-                <Snackbar
-                    open={this.state.snackbarOpen}
-                    message={this.state.snackbarMessage}
-                    onRequestClose={this.handleSnackbarClose}
-                    contentStyle={snackbarContentStyle}
-                />
+                {this.state.snackbarMessage &&
+                    <Snackbar
+                        open={this.state.snackbarOpen}
+                        message={this.state.snackbarMessage}
+                        onRequestClose={this.handleSnackbarClose}
+                        contentStyle={snackbarContentStyle}
+                        autoHideDuration={5000}
+                    />
+                }
             </div>
         )
     }

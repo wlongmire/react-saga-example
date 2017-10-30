@@ -3,6 +3,7 @@ import { Identity } from './identity';
 
 export interface AuthState {
     isAuthenticated: boolean;
+    pending: boolean;
     auth?: AuthInfo,
     identity?: Identity;
     authError?: string;

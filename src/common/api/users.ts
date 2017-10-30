@@ -27,7 +27,7 @@ export const createUser = (user: User) => {
     }
 
     if (user instanceof OpsUser) {
-        payload = OpsUser.toPayload(user);
+        payload = OpsUser.toPayload(user);User
     }
 
     let json = _.omitBy(payload, _.isNil);
@@ -43,10 +43,15 @@ export const createUser = (user: User) => {
                 return response.json();
             }
         }).then((data: any) => {
+            console.log('data', data);
             if (data.constructor.name === 'String') {
                 throw new Error(data as string);
             } else {
-                return data.map(mapToUser);
+                return {
+                    ...user, 
+                    id: data.new_user_id, 
+                    primaryChannel: data.new_channel_id
+                } as User;
             }
         });
 }

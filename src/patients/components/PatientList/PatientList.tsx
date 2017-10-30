@@ -134,7 +134,7 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     }
 
     render() {
-        if (this.props.selectedPatient) {
+        if (this.props.match.path === "/app/patients/biodrive") {
             const { identity, selectedPatient, patients } = this.props;
             const channel = this.getChannel(selectedPatient);
             return this.renderPatientDetail(identity, selectedPatient, patients, channel);

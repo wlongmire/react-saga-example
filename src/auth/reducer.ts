@@ -23,7 +23,8 @@ function initialState(): AuthState {
         clientTokenVerified: undefined,
         clientTokenVerificationError: undefined,
         identity: identity,
-        authError: undefined
+        authError: undefined,
+        pending: false
     }
 }
 
@@ -39,14 +40,16 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 auth: authInfo,
                 clientToken: authInfo.clientToken,
                 clientTokenVerified: undefined,
-                clientTokenVerificationError: undefined
+                clientTokenVerificationError: undefined,
+                pending: true
             };
 
         case ActionType.LOGIN_FAIL:
             return {
                 ...state,
                 isAuthenticated: false,
-                authError: action.value
+                authError: action.value,
+                pending: false
             };
 
         case ActionType.LOGOUT_SUCCESS:
@@ -58,7 +61,8 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 userIdentity: undefined,
                 authError: undefined,
                 clientTokenVerified: undefined,
-                clientTokenVerificationError: undefined
+                clientTokenVerificationError: undefined,
+                pending: false
             };
 
         case ActionType.VERIFY_CODE_SUCCESS:
@@ -66,7 +70,8 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 ...state,
                 clientTokenVerified: true,
                 clientTokenVerificationError: undefined,
-                isAuthenticated: true
+                isAuthenticated: true,
+                pending: false
             }
         
         case ActionType.VERIFY_CODE_FAIL:
@@ -74,7 +79,8 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 ...state,
                 clientTokenVerified: false,
                 clientTokenVerificationError: action.value,
-                isAuthenticated: false
+                isAuthenticated: false,
+                pending: false
             }
         
         case ActionType.FETCH_IDENTITY_SUCCESS:
@@ -86,5 +92,4 @@ export default function reducer(state = initialState(), action: Common.ActionRes
         default:
             return state;
     }
-
 }

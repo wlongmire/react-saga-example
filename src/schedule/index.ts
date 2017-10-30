@@ -1,6 +1,1 @@
-import {Schedules} from './components';
-
-
-export const Components = {
-    Schedules
-}
+export { Schedules } from './components';

@@ -5,8 +5,9 @@ export class PatientUser extends User {
     lifecoStartDate: Date;
     insuranceId?: string;
     insuranceGroup?: string;
-    rxBin: string;
-    rxPcn: string;
+    rxBin?: string;
+    rxPcn?: string;
+    rxGroup?: string;
     ssn?: string;
     driversLicense?: string;
     pharmacyId?: string;
@@ -42,6 +43,7 @@ export class PatientUser extends User {
         if (_.has(data, 'insurance_group')) user.insuranceGroup = data['insurance_group'];
         if (_.has(data, 'rx_bin')) user.rxBin = data['rx_bin'];
         if (_.has(data, 'rx_pcn')) user.rxPcn = data['rx_pcn'];
+        if (_.has(data, 'rx_group')) user.rxGroup = data['rx_group'];
         if (_.has(data, 'lifeco_start_date')) user.lifecoStartDate = data['lifeco_start_date'];
         if (_.has(data, 'drivers_license')) user.driversLicense = data['drivers_license'];
         if (_.has(data, 'ssn')) user.ssn = data['ssn'];
@@ -81,6 +83,7 @@ export class PatientUser extends User {
             insurance_group: user.insuranceGroup,
             rx_bin: user.rxBin,
             rx_pcn: user.rxPcn,
+            rx_group: user.rxGroup,
             lifeco_start_date: user.lifecoStartDate,
             drivers_license: user.driversLicense,
             ssn: user.ssn,

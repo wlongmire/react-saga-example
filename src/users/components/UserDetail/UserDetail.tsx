@@ -294,7 +294,6 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     handlePasswordChange = (e: any) => {
-        console.log('password change handler');
         this._checkPasswordHasMinimumLength(e.target.value);
         this._checkPasswordHasLowerCaseCharacter(e.target.value);
         this._checkPasswordHasSpecialCharacters(e.target.value);
@@ -1112,7 +1111,6 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     renderDoctorForm() {
         let passwordError = !this.state.pwdHasLowerCaseCharacter || !this.state.pwdHasMinimumLength || !this.state.pwdHasUpperCaseCharacter || !this.state.pwdHasSpecialCharacter;
-        console.log('passwordError', passwordError);
 
         return (
             <form>
@@ -1146,8 +1144,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     renderOpsForm() {
         let passwordError = !this.state.pwdHasLowerCaseCharacter || !this.state.pwdHasMinimumLength || !this.state.pwdHasUpperCaseCharacter || !this.state.pwdHasSpecialCharacter;
-        console.log('passwordError', passwordError);
-        
+
         return (
             <form>
                 { this.renderTypeField(true) }
@@ -1175,7 +1172,6 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     renderPatientForm() {
         let passwordError = !this.state.pwdHasLowerCaseCharacter || !this.state.pwdHasMinimumLength || !this.state.pwdHasUpperCaseCharacter || !this.state.pwdHasSpecialCharacter;
-        console.log('passwordError', passwordError);
         
         return (
             <form>

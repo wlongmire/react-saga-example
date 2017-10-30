@@ -68,6 +68,12 @@ export interface UserDetailState {
     
     snackbarOpen: boolean;
     snackbarMessage?: SnackbarMessage;
+
+    passwordErrorText?: string;
+    pwdHasMinimumLength?:boolean;
+    pwdHasLowerCaseCharacter?:boolean;
+    pwdHasUpperCaseCharacter?:boolean;
+    pwdHasSpecialCharacter?:boolean;
 }
 
 const snackbarContentStyle = {
@@ -84,7 +90,12 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
             isNew: true,
             isDirty: false,
             snackbarMessage: undefined,
-            snackbarOpen: false
+            snackbarOpen: false,
+            pwdHasMinimumLength: false,
+            pwdHasLowerCaseCharacter: false,
+            pwdHasUpperCaseCharacter: false,
+            pwdHasSpecialCharacter: false,
+            passwordErrorText:'Password must be 8 characters long, have at least 1 capital letter and at least 1 number.'
         };
 
         this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
@@ -249,6 +260,81 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         if (e.target) {
             this.setState({ [e.target.name] : e.target.value });
         }
+    }
+
+    _checkPasswordHasMinimumLength = (value:string) => {
+        this.setState({
+            pwdHasMinimumLength: false
+        })
+
+        if(value.length >= 8){
+            return this.setState({
+                pwdHasMinimumLength: true
+            })
+        }
+
+        return;
+
+    }
+
+    _checkPasswordHasUpperCaseCharacter = (value:string) => {
+
+        let upperCaseRegex =  /^(?=.*[A-Z]).+$/;
+
+        this.setState({
+            pwdHasUpperCaseCharacter: false
+        })
+
+        if (upperCaseRegex.test(value)){
+            return this.setState({
+                pwdHasUpperCaseCharacter: true
+            })
+        }
+
+        return;
+    }
+
+    _checkPasswordHasLowerCaseCharacter = (value:string) => {
+        let lowerCaseRegex = /^(?=.*[a-z]).+$/;
+
+
+        this.setState({
+            pwdHasLowerCaseCharacter: false
+        })
+
+        if (lowerCaseRegex.test(value)){
+            return this.setState({
+                pwdHasLowerCaseCharacter: true
+            })
+        }
+
+        return;
+
+    }
+
+    _checkPasswordHasSpecialCharacters = (value:string) =>{
+        let specialCharacterRegex = /^(?=.*[0-9_\W]).+$/;
+
+        this.setState({
+            pwdHasSpecialCharacter: false
+        })
+
+        if (specialCharacterRegex.test(value)){
+            return this.setState({
+                pwdHasSpecialCharacter: true
+            })
+        }
+
+        return;
+
+    }
+
+    handlePasswordChange = (e: any) =>{
+        this._checkPasswordHasMinimumLength(e.target.value);
+        this._checkPasswordHasLowerCaseCharacter(e.target.value);
+        this._checkPasswordHasSpecialCharacters(e.target.value);
+        this._checkPasswordHasUpperCaseCharacter(e.target.value);
+        
     }
 
     handleTypeChange(e: any, index: number, value: any) {
@@ -1023,7 +1109,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                     type="password"
                     name="password"
                     value={this.state.password}
-                    onChange={this.handleTextChange}
+                    onChange={this.handlePasswordChange}
                 />
                 {required &&
                     this.renderRequiredLabel()
@@ -1041,12 +1127,20 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     renderDoctorForm() {
+        let passwordError = this.state.pwdHasLowerCaseCharacter && this.state.pwdHasMinimumLength && this.state.pwdHasUpperCaseCharacter && this.state.pwdHasSpecialCharacter
+        
         return (
             <form>
                 { this.renderTypeField(true) }
                 { this.renderEmailField(true) }
                 { this.state.isNew &&
                     this.renderPasswordField(true)
+                }
+                {
+                    !passwordError && 
+                    <p className="password-alert">
+                        {this.state.passwordErrorText}
+                    </p>
                 }
                 { this.renderFirstNameField(true) }
                 { this.renderMiddleNameField() }
@@ -1072,12 +1166,20 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     renderOpsForm() {
+        let passwordError = this.state.pwdHasLowerCaseCharacter && this.state.pwdHasMinimumLength && this.state.pwdHasUpperCaseCharacter && this.state.pwdHasSpecialCharacter
+        
         return (
             <form>
                 { this.renderTypeField(true) }
                 { this.renderEmailField(true) }
                 { this.state.isNew &&
                     this.renderPasswordField(true)
+                }
+                {
+                    !passwordError && 
+                    <p className="password-alert">
+                     {this.state.passwordErrorText}                    
+                     </p>
                 }
                 { this.renderFirstNameField(true) }
                 { this.renderMiddleNameField() }
@@ -1098,12 +1200,20 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     renderPatientForm() {
+        let passwordError = this.state.pwdHasLowerCaseCharacter && this.state.pwdHasMinimumLength && this.state.pwdHasUpperCaseCharacter && this.state.pwdHasSpecialCharacter
+        
         return (
             <form>
                 { this.renderTypeField(true) }
                 { this.renderEmailField(true) }
                 { this.state.isNew &&
                     this.renderPasswordField(true)
+                }
+                {
+                    !passwordError && 
+                    <p className="password-alert">
+                     {this.state.passwordErrorText}                    
+                     </p>
                 }
                 { this.renderFirstNameField(true) }
                 { this.renderPreferredNameField() }
@@ -1139,7 +1249,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         )
     }
 
-    render() {
+    render() {       
         return (
             <div className="content-container">
                 <div className="content-container-title-bar">

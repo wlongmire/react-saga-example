@@ -26,6 +26,7 @@ export abstract class User {
     insuranceGroup?: string;
     rxBin?: string;
     rxPcn?: string;
+    rxGroup?: string;
     ssn?: string;
     driversLicense?: string;
     pharmacyId?: string;

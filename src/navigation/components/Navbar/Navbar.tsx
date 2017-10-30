@@ -53,11 +53,11 @@ class _Navbar extends React.Component<NavbarProps, {}> {
                         <MenuItem value="1" primaryText="Sign out" onClick={this.handleLogoutClick} />
                     </IconMenu>
                     <ul className="lc-nav-top right">
-                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/app/">Home</Link></li>
                         {/* <li><Link to="/">Monitor</Link></li> */}
-                        <li><Link to="/schedule">Schedule</Link></li>
+                        <li><Link to="/app/schedule">Schedule</Link></li>
                         {/* <li><Link to="/">Profile</Link></li> */}
-                        <li><Link to="/admin">Admin</Link></li>
+                        <li><Link to="/app/admin">Admin</Link></li>
                     </ul>
                 </div>
                 <hr/>

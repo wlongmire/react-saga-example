@@ -46,7 +46,11 @@ export const createUser = (user: User) => {
             if (data.constructor.name === 'String') {
                 throw new Error(data as string);
             } else {
-                return data.map(mapToUser);
+                return {
+                    ...user, 
+                    id: data.new_user_id, 
+                    primaryChannel: data.new_channel_id
+                } as User;
             }
         });
 }

@@ -49,11 +49,11 @@ export function* onForgotPassword(action: ActionResult<string>) {
 function* onLoginSuccess(action: ActionResult<AuthInfo>) {
     const authInfo = action.value as AuthInfo
     localStorage.setItem('auth', JSON.stringify(authInfo));
-    yield(put(Navigation.navigate('/verify-code')));
+    yield(put(Navigation.navigate('/auth/verify-code')));
 }
 
 function* onLogoutSuccess() {
-    yield(put(Navigation.navigate('/')));
+    yield(put(Navigation.navigate('/auth/login')));
 }
 
 function* onFetchIdentity() {
@@ -68,7 +68,7 @@ function* onFetchIdentity() {
 function* onFetchIdentitySuccess(action: ActionResult<Identity>) {
     const identity = action.value as Identity;
     localStorage.setItem('identity', JSON.stringify(identity));
-    yield(put(Navigation.navigate('/')));
+    yield(put(Navigation.navigate('/app/')));
 }
 
 function* onVerifyCodeSuccess() {

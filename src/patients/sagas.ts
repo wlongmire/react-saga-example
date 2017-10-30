@@ -1,4 +1,5 @@
 import * as api from '../common/api';
+import * as Navigation from '../navigation';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { 
     ActionType, 
@@ -13,7 +14,7 @@ import {
 } from './actions';
 import { ActionResult, ChannelVisit, Patient } from '../common';
 
-function* fetchPatients() {
+function* onFetchPatients() {
     try {
         const patients = yield call(() => api.patients.fetchAll());
         yield(put(fetchAllPatientsSuccess(patients)));
@@ -22,7 +23,7 @@ function* fetchPatients() {
     }
 }
 
-function* selectPatient(action: ActionResult<Patient>) {
+function* onSelectPatient(action: ActionResult<Patient>) {
     try {
         const patientArg = action.value as Patient;
         const patient = yield call(() => api.patients.fetchPatient(patientArg));
@@ -32,7 +33,7 @@ function* selectPatient(action: ActionResult<Patient>) {
     }
 }
 
-function* addVisit(action: ActionResult<ChannelVisit>) {
+function* onAddVisit(action: ActionResult<ChannelVisit>) {
     try {
         if (!action.value) return;
         const {visit, channelId } = action.value;
@@ -43,7 +44,11 @@ function* addVisit(action: ActionResult<ChannelVisit>) {
     }
 }
 
-function* updateVisit(action: ActionResult<ChannelVisit>) {
+function* onSelectPatientSuccess(action: ActionResult<Patient>) {
+    yield(put(Navigation.navigate('/app/patients/biodrive')));
+}
+
+function* onUpdateVisit(action: ActionResult<ChannelVisit>) {
     try {
         if (!action.value) return;
         const { visit, channelId } = action.value;
@@ -55,19 +60,23 @@ function* updateVisit(action: ActionResult<ChannelVisit>) {
 }
 
 function* watchFetchAllPatients() {
-    yield takeEvery(ActionType.FETCH_ALL_PATIENTS, fetchPatients);
+    yield takeEvery(ActionType.FETCH_ALL_PATIENTS, onFetchPatients);
 }
 
 function* watchSelectPatient() {
-    yield takeEvery(ActionType.SELECT_PATIENT, selectPatient);
+    yield takeEvery(ActionType.SELECT_PATIENT, onSelectPatient);
+}
+
+function* watchSelectPatientSuccess() {
+    yield takeEvery(ActionType.SELECT_PATIENT_SUCCESS, onSelectPatientSuccess);
 }
 
 function* watchAddVisit() {
-    yield takeEvery(ActionType.ADD_VISIT, addVisit);
+    yield takeEvery(ActionType.ADD_VISIT, onAddVisit);
 }
 
 function* watchUpdateVisit() {
-    yield takeEvery(ActionType.UPDATE_VISIT, updateVisit);
+    yield takeEvery(ActionType.UPDATE_VISIT, onUpdateVisit);
 }
 
 export default function* root() {
@@ -75,6 +84,7 @@ export default function* root() {
         fork(watchFetchAllPatients),
         fork(watchSelectPatient),
         fork(watchAddVisit),
-        fork(watchUpdateVisit)
+        fork(watchUpdateVisit),
+        fork(watchSelectPatientSuccess)
     ]);
 }

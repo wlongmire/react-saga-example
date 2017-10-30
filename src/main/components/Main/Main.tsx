@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as Redux from 'redux';
-import { GlobalState } from '../../common';
+import { GlobalState } from '../../../common';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from 'material-ui/styles';
-import { makeMainRoutes } from '../../routes';
+import { makeMainRoutes } from '../../../routes';
 
 interface MainProps {
     store: Redux.Store<GlobalState>;
@@ -18,7 +18,7 @@ export class Main extends React.Component<MainProps, MainState> {
         super(props);
 
         this.state = {
-            routes: makeMainRoutes(this.props.store)
+            routes: makeMainRoutes()
         };
     }
 

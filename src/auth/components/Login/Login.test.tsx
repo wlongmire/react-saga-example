@@ -14,7 +14,8 @@ const setup = () => {
             clientToken: undefined,
             userRole: undefined,
             userChannel: undefined,
-            authError: undefined
+            authError: undefined,
+            pending: false
         }
     }
 

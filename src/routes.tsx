@@ -30,19 +30,23 @@ const UnauthorizedLayout = (props: RouteComponentProps<any>) => {
 
 const PrimaryLayout = (props: RouteProps) => {
     return (
-        <div>
-            <Navbar />
-            <Switch>
-                <Route path={`${props.path}/patients`} exact component={PatientList} />
-                <Route path={`${props.path}/patients/biodrive`} exact component={PatientList} />
-                <Route path={`${props.path}/dosespot`} component={DoseSpotUser} />
-                <Route path={`${props.path}/user-add`} component={UserDetail} />
-                <Route path={`${props.path}/user-detail`} component={UserDetail} />
-                <Route path={`${props.path}/users`} component={UsersContainer} />
-                <Route path={`${props.path}/admin`} component={AdminPage} />
-                <Route path={`${props.path}/schedule`} component={Schedules} />
-                <Redirect to={`${props.path}/patients`} />
-            </Switch>
+        <div className="app">
+            <header>
+                <Navbar />
+            </header>
+            <main>
+                <Switch>
+                    <Route path={`${props.path}/patients`} exact component={PatientList} />
+                    <Route path={`${props.path}/patients/biodrive`} exact component={PatientList} />
+                    <Route path={`${props.path}/dosespot`} component={DoseSpotUser} />
+                    <Route path={`${props.path}/user-add`} component={UserDetail} />
+                    <Route path={`${props.path}/user-detail`} component={UserDetail} />
+                    <Route path={`${props.path}/users`} component={UsersContainer} />
+                    <Route path={`${props.path}/admin`} component={AdminPage} />
+                    <Route path={`${props.path}/schedule`} component={Schedules} />
+                    <Redirect to={`${props.path}/patients`} />
+                </Switch>
+            </main>
         </div>
     );
 };

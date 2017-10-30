@@ -298,7 +298,9 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         this._checkPasswordHasLowerCaseCharacter(e.target.value);
         this._checkPasswordHasSpecialCharacters(e.target.value);
         this._checkPasswordHasUpperCaseCharacter(e.target.value);
-        
+        this.setState({
+            password: e.target.value
+        });
     }
 
     handleTypeChange(e: any, index: number, value: any) {

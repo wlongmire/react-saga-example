@@ -52,9 +52,15 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         this.props.selectPatient(patient);
     }
 
-    getChannel(patient: Patient): ChatChannelInfo | undefined {
-        if (!this.props.channels || !_.hasIn(this.props.channels, patient.primaryChannel)) 
-            return undefined;
+    getChannel(patient: Patient): ChatChannelInfo {
+        if (!this.props.channels || !_.hasIn(this.props.channels, patient.primaryChannel)) {
+            let newChannel = {
+                channelId: patient.primaryChannel,
+                messages: [],
+                unreadMessages: []
+            } as ChatChannelInfo;
+            this.props.channels[patient.primaryChannel] = newChannel;
+        }
         return this.props.channels[patient.primaryChannel] as ChatChannelInfo;
     }
 

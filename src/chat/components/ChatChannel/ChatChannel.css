@@ -62,6 +62,10 @@
     cursor: pointer;
 }
 
+.chat-send-button.active {
+    color: #67b2a6;
+}
+
 .chat-message-day-title {
     width: 100%;
     text-align: center;

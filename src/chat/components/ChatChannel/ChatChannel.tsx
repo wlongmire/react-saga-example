@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as classnames from 'classnames';
 import { connect } from 'react-redux';
 import { 
     ChatChannelInfo,
@@ -192,7 +193,7 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
                         value={this.state.messageText} 
                         onChange={this.handleTextChange} 
                         onKeyDown={this.handleKeyDown} />
-                    <input type="button" className="chat-send-button" onClick={this.handleSubmit} value="Send" />
+                    <input type="button" className={classnames('chat-send-button', {'active': this.state.messageText ? this.state.messageText.length > 0 : false})} onClick={this.handleSubmit} value="Send" />
                 </div>
             </div>
         )

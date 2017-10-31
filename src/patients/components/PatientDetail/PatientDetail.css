@@ -25,6 +25,7 @@
 .patient-detail-header-title {
     font-size: 32px;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 .patient-detail-header-subtitle {

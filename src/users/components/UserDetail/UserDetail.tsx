@@ -268,77 +268,39 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     _checkPasswordHasMinimumLength = (value:string) => {
         this.setState({
-            pwdHasMinimumLength: false
-        })
-
-        if(value.length >= 8){
-            return this.setState({
-                pwdHasMinimumLength: true
-            })
-        }
-
-        return;
-
+            pwdHasMinimumLength: (value.length >= 8)
+        });
     }
 
     _checkPasswordHasUpperCaseCharacter = (value:string) => {
-
         let upperCaseRegex =  /^(?=.*[A-Z]).+$/;
-
         this.setState({
-            pwdHasUpperCaseCharacter: false
-        })
-
-        if (upperCaseRegex.test(value)){
-            return this.setState({
-                pwdHasUpperCaseCharacter: true
-            })
-        }
-
-        return;
+            pwdHasUpperCaseCharacter: upperCaseRegex.test(value)
+        });
     }
 
     _checkPasswordHasLowerCaseCharacter = (value:string) => {
         let lowerCaseRegex = /^(?=.*[a-z]).+$/;
-
-
         this.setState({
-            pwdHasLowerCaseCharacter: false
-        })
-
-        if (lowerCaseRegex.test(value)){
-            return this.setState({
-                pwdHasLowerCaseCharacter: true
-            })
-        }
-
-        return;
-
+            pwdHasLowerCaseCharacter: lowerCaseRegex.test(value)
+        });
     }
 
     _checkPasswordHasSpecialCharacters = (value:string) =>{
         let specialCharacterRegex = /^(?=.*[0-9_\W]).+$/;
-
         this.setState({
-            pwdHasSpecialCharacter: false
-        })
-
-        if (specialCharacterRegex.test(value)){
-            return this.setState({
-                pwdHasSpecialCharacter: true
-            })
-        }
-
-        return;
-
+            pwdHasSpecialCharacter: specialCharacterRegex.test(value)
+        });
     }
 
-    handlePasswordChange = (e: any) =>{
+    handlePasswordChange = (e: any) => {
         this._checkPasswordHasMinimumLength(e.target.value);
         this._checkPasswordHasLowerCaseCharacter(e.target.value);
         this._checkPasswordHasSpecialCharacters(e.target.value);
         this._checkPasswordHasUpperCaseCharacter(e.target.value);
-        
+        this.setState({
+            password: e.target.value
+        });
     }
 
     handleTypeChange(e: any, index: number, value: any) {
@@ -1123,7 +1085,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         )
     }
 
-    renderPasswordField(required?: boolean) {
+    renderPasswordField(required?: boolean, errorText?: string) {
         return (
             <FormGroup>
                 <TextField
@@ -1132,6 +1094,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
                     name="password"
                     value={this.state.password}
                     onChange={this.handlePasswordChange}
+                    errorText={errorText}
                 />
                 {required &&
                     this.renderRequiredLabel()
@@ -1149,20 +1112,14 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     renderDoctorForm() {
-        let passwordError = this.state.pwdHasLowerCaseCharacter && this.state.pwdHasMinimumLength && this.state.pwdHasUpperCaseCharacter && this.state.pwdHasSpecialCharacter
-        
+        let passwordError = !this.state.pwdHasLowerCaseCharacter || !this.state.pwdHasMinimumLength || !this.state.pwdHasUpperCaseCharacter || !this.state.pwdHasSpecialCharacter;
+
         return (
             <form>
                 { this.renderTypeField(true) }
                 { this.renderEmailField(true) }
                 { this.state.isNew &&
-                    this.renderPasswordField(true)
-                }
-                {
-                    !passwordError && 
-                    <p className="password-alert">
-                        {this.state.passwordErrorText}
-                    </p>
+                    this.renderPasswordField(true, passwordError ? this.state.passwordErrorText : undefined)
                 }
                 { this.renderFirstNameField(true) }
                 { this.renderMiddleNameField() }
@@ -1188,20 +1145,14 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     renderOpsForm() {
-        let passwordError = this.state.pwdHasLowerCaseCharacter && this.state.pwdHasMinimumLength && this.state.pwdHasUpperCaseCharacter && this.state.pwdHasSpecialCharacter
-        
+        let passwordError = !this.state.pwdHasLowerCaseCharacter || !this.state.pwdHasMinimumLength || !this.state.pwdHasUpperCaseCharacter || !this.state.pwdHasSpecialCharacter;
+
         return (
             <form>
                 { this.renderTypeField(true) }
                 { this.renderEmailField(true) }
                 { this.state.isNew &&
-                    this.renderPasswordField(true)
-                }
-                {
-                    !passwordError && 
-                    <p className="password-alert">
-                     {this.state.passwordErrorText}                    
-                     </p>
+                    this.renderPasswordField(true, passwordError ? this.state.passwordErrorText : undefined)
                 }
                 { this.renderFirstNameField(true) }
                 { this.renderMiddleNameField() }
@@ -1222,20 +1173,14 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
     }
 
     renderPatientForm() {
-        let passwordError = this.state.pwdHasLowerCaseCharacter && this.state.pwdHasMinimumLength && this.state.pwdHasUpperCaseCharacter && this.state.pwdHasSpecialCharacter
+        let passwordError = !this.state.pwdHasLowerCaseCharacter || !this.state.pwdHasMinimumLength || !this.state.pwdHasUpperCaseCharacter || !this.state.pwdHasSpecialCharacter;
         
         return (
             <form>
                 { this.renderTypeField(true) }
                 { this.renderEmailField(true) }
                 { this.state.isNew &&
-                    this.renderPasswordField(true)
-                }
-                {
-                    !passwordError && 
-                    <p className="password-alert">
-                     {this.state.passwordErrorText}                    
-                     </p>
+                    this.renderPasswordField(true, passwordError ? this.state.passwordErrorText : undefined)
                 }
                 { this.renderFirstNameField(true) }
                 { this.renderPreferredNameField() }

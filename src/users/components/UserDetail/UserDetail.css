@@ -80,14 +80,3 @@
     margin-top: 43px;
     cursor: pointer;
 }
-/* 
-===================
-Password Alert. Also serves as a notice
-======================
-*/
-.password-alert {
-    font-size: medium;
-    color: #f84445;
-    font-weight: bold;
-    line-height: 1em
-}

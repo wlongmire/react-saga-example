@@ -16,6 +16,10 @@ a {
   text-decoration: none;
 }
 
+.app main {
+  margin-top: 67px;
+}
+
 .content-body {
   margin-top: 67px;
 }

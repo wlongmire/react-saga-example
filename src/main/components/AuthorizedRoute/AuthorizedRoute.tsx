@@ -17,10 +17,10 @@ class AuthorizedRoute extends React.Component<AuthorizedRouteProps> {
         const Component = component;
         return (
             <Route {...rest} render={props => {
-                if (pending) return <Redirect to="/auth/verify-code" />
-                return logged
-                    ? <div><Navbar /><Component {...rest} /></div>
-                    : <Redirect to="/auth/login" />
+                if (!logged) return <Redirect to="/auth/login" />
+                return pending
+                    ? <Redirect to="/auth/verify-code" />
+                    : <div><Navbar /><Component {...rest} /></div>
                 }}
             />
         );

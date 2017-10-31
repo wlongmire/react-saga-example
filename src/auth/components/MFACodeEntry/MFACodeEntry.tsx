@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as Common from '../common';
 import { connect } from 'react-redux';
 import { verifyCode, resendCode } from '../../actions';
-import { AuthInfo } from '../../../common';
 import { GlobalState } from '../../../common';
 
 import './MFACodeEntry.css';
 
 interface MFACodeEntryProps {
-    auth: AuthInfo;
+    phoneHint: string;
     verifyCode: (code: string) => void;
     resendCode: () => void;
     codeVerificationError: string;
@@ -52,7 +51,7 @@ class _MFACodeEntry extends React.Component<MFACodeEntryProps, MFACodeEntryState
                 <form className="mfa-enter-code-body">
                     <h2 className="text">
                         We sent an SMS with a code to your phone <br />
-                        number ***-***-**{this.props.auth ? this.props.auth.phoneHint : ''}. 
+                        number ***-***-**{this.props.phoneHint ? this.props.phoneHint.substr(this.props.phoneHint.length - 2) : ''}. 
                         Please enter it below.
                     </h2>
                     <input
@@ -81,7 +80,7 @@ class _MFACodeEntry extends React.Component<MFACodeEntryProps, MFACodeEntryState
 
 const mapStateToProps = (state: GlobalState) => {
     return {
-        auth: state.auth,
+        phoneHint: state.auth.auth ? state.auth.auth.phoneHint : '',
         codeVerificationError: state.auth.clientTokenVerificationError
     };
 };

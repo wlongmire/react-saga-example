@@ -24,7 +24,7 @@ function initialState(): AuthState {
         clientTokenVerificationError: undefined,
         identity: identity,
         authError: undefined,
-        pending: false
+        pending: identity && identity.userInfo ? false : true
     }
 }
 
@@ -48,8 +48,7 @@ export default function reducer(state = initialState(), action: Common.ActionRes
             return {
                 ...state,
                 isAuthenticated: false,
-                authError: action.value,
-                pending: false
+                authError: action.value
             };
 
         case ActionType.LOGOUT_SUCCESS:
@@ -79,14 +78,14 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 ...state,
                 clientTokenVerified: false,
                 clientTokenVerificationError: action.value,
-                isAuthenticated: false,
-                pending: false
+                isAuthenticated: false
             }
         
         case ActionType.FETCH_IDENTITY_SUCCESS:
             return {
                 ...state,
-                identity: action.value as Identity
+                identity: action.value as Identity,
+                pending: false
             }
 
         default:

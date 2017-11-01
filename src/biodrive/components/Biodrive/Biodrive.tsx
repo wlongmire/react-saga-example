@@ -3,6 +3,7 @@ import * as Moment from 'moment';
 import { BiodriveListItemInfo } from '../../reducer';
 import { BiodriveList } from '../BiodriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { OthersComponent } from '../../../other';
 import { Patient } from '../../../common';
 
 import './Biodrive.css';
@@ -92,6 +93,12 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 })} 
                                 onItemClick={this.handleItemClick} 
                             />
+                        </Tab>
+                        <Tab value={'other'} label="Other" buttonStyle={this.getTabButtonStyle('other')}>
+                                <OthersComponent
+                                    other={this.props.patient.other}
+                                    channelId={this.props.patient.primaryChannel}
+                                 />
                         </Tab>
                      </Tabs>
                  </section>

@@ -406,6 +406,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                 <AttachmentControl 
                     attachmentList={this.state.attachments}
                     onChange={this.handleAttachmentUpdated}
+                    channelId={this.props.user.channelId} 
                 />
                 <br/>
                 <div className="form-button-container">

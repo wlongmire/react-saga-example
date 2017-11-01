@@ -1,7 +1,8 @@
-import { makeUrl } from './util';
+import { BASE_URL, makeUrl, getRequestInit } from './util';
 import { Attachment } from '../models';
+import { getAuthToken } from '../../auth/util';
 
-export const uploadFile = (filetype: string, objectKey: string, file: any, url: string): any => {
+export const uploadFile = (filetype: string, objectKey: string, file: any, url: string): Promise<any> => {
 
     const requestInit: RequestInit = {
         method: 'PUT',
@@ -14,37 +15,25 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
     const request = new Request(url, requestInit);
     return fetch(request)
         .then((response: any) => {
-            if (response.ok) {
-                return response.json()
+            if (!response.ok) {
+                throw new Error('Upload was unsuccessful')
             } else {
-                return response.json().then((err: Error) => {
-                    throw err
-                })
+                let attachment: Attachment ={
+                    key: objectKey,
+                    fileType: filetype,
+                    fileName: ""
+                }
+                return attachment;
             }
-        })
-        .then(result => {
-            switch (result.status) {
-                case 200:
-                    let attachment: Attachment = {
-                        key: objectKey,
-                        fileType: filetype,
-                        fileName: ""
-                    }
-                    return Promise.resolve(attachment);
-                default:
-                    return Promise.reject(result.error);
-            }
-        })
-        .catch((error) => {
-            return Promise.reject(error);
         })
 }
 
  export const getS3UploadURL = (uploadContentType: string, channelId: string): Promise<any> => {
+    const token = getAuthToken();
     const requestInit: RequestInit = {
         method: 'POST',
         headers: {
-            'Authorization': `Token ${localStorage.getItem('access_token')}`,
+            'Authorization': `Token ${token}`,
             'Content-Type': 'application/json'
         },
         mode: 'cors',
@@ -58,26 +47,40 @@ export const uploadFile = (filetype: string, objectKey: string, file: any, url: 
     const url = makeUrl(basePath);
     const request = new Request(url, requestInit);
     return fetch(request)
-        .then((response: any) =>{
+        .then((response: any) => {
             if (response.ok) {
                 return response.json();
             } else {
-                return response.json().then((err: Error) => {
-                    throw err;
-                })
+                throw new Error('Error requesting s3 attachment object');
             }
         })
-        .then(result => {
-            switch (result.status) {
-                case 200:
-                    const url = result.url;
-                    const objectKey = result.object_key;
-                    return Promise.resolve({'objectKey': objectKey, 'url': url})
-                default:
-                    return Promise.reject(result.error);
+        .then((result: any) => {
+            if (result.object_key) {
+                const url = result.url;
+                const objectKey = result.object_key;
+                let attachment = { url, objectKey };
+                return attachment;
+            } else {
+                throw new Error('Error requesting s3 attachment object'); 
             }
         })
-        .catch((error) => {
-            return Promise.reject(error);
+}
+
+export const fetchDownloadUrl = (channelId: number, objectKey: string): Promise<string> => {
+    const requestInit = getRequestInit('GET');
+    const url = `${BASE_URL}/attachments/v1/urls?channel_id=${channelId}&object_key=${objectKey}`;
+    return fetch(url, requestInit)
+        .then((response: any) => {
+            if(!response.ok) {
+                throw new Error('Error retrieving download URL');
+            }
+            return response.json();
+        }).then((result: any) => {
+            if (result.url) {
+                const urlString = result.url;
+                return urlString;
+            } else {
+                throw new Error('Error retrieving download URL');
+            }
         })
 }

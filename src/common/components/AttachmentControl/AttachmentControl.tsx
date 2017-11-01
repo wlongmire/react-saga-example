@@ -9,13 +9,12 @@ import './AttachmentControl.css';
 
 interface AttachmentControlProps {
     attachmentList?: Array<Attachment>;
-    channelId?: number;
+    channelId: number;
     onChange: (value: Array<Attachment>) => void; 
 }
 
 interface AttachmentControlState {
     attachmentList: Array<Attachment>;
-    channelId?: number;
 }
 
 export class AttachmentControl extends React.Component< AttachmentControlProps, AttachmentControlState> {
@@ -25,7 +24,6 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
 
         this.state = {
             attachmentList: [],
-            channelId: undefined
         };
 
         this.handleItemDelete = this.handleItemDelete.bind(this);
@@ -35,19 +33,16 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
     componentDidMount() {
         if (this.props.attachmentList) {
             this.setState({
-                attachmentList: this.props.attachmentList,
-                channelId: this.props.channelId
-            })
+                attachmentList: this.props.attachmentList
+            });
         }
     }
 
     componentWillReceiveProps(props: AttachmentControlProps) {
         if (props.attachmentList) {
             this.setState({
-                attachmentList: props.attachmentList,
-                channelId: props.channelId
-            })
-
+                attachmentList: props.attachmentList
+            });
         }
     }
 
@@ -58,12 +53,14 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
 
         const filetype = e.target.files[0].type;
         const file = e.target.files[0];
+        const fileName = e.target.files[0].name;
 
-        api.attachments.getS3UploadURL(filetype, `${this.state.channelId}`)
+        api.attachments.getS3UploadURL(filetype, `${this.props.channelId}`)
             .then(({objectKey, url}) => {
                 api.attachments.uploadFile(filetype, objectKey, file, url)
                     .then((result: Attachment) => {
-                        let newAttachment = result as Attachment
+                        let newAttachment = result as Attachment;
+                        newAttachment.fileName = fileName;
                         if (!newAttachment) {
                             return;
                         }

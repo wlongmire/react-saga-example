@@ -27,7 +27,7 @@ export class AttachmentListItem extends React.Component<AttachmentListItemProps,
                         <TiDelete className="attachment-delete-icon"/> 
                     </span>
                     <div className="attachment-name">
-                        <p>{this.props.attachment.fileName}</p>
+                        <p className ="attachment-fileName">{this.props.attachment.fileName}</p>
                     </div>
                 </li>
                 

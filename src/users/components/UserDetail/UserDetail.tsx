@@ -621,7 +621,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         return (
             <FormGroup>
                 <TextField
-                    floatingLabelText="Address Line 1"
+                    floatingLabelText="Home Address"
                     name="streetAddress1"
                     value={this.state.streetAddress1}
                     onChange={this.handleTextChange}
@@ -637,7 +637,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         return (
             <FormGroup>
                 <TextField
-                    floatingLabelText="Address Line 2"
+                    floatingLabelText="Apartment Number"
                     name="streetAddress2"
                     value={this.state.streetAddress2}
                     onChange={this.handleTextChange}
@@ -735,7 +735,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         return (
             <FormGroup>
                 <TextField
-                    floatingLabelText="Postal Code"
+                    floatingLabelText="Zip Code"
                     name="postalCode"
                     value={this.state.postalCode}
                     onChange={this.handleTextChange}
@@ -961,7 +961,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
         return (
             <FormGroup>
                 <TextField
-                    floatingLabelText="Contact Relationship"
+                    floatingLabelText="Contact Relation"
                     name="contactRelationship"
                     value={this.state.contactRelationship}
                     onChange={this.handleTextChange}

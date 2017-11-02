@@ -41,7 +41,7 @@ export abstract class User {
     credential?: string;
     clinicianId?: number;
 
-    dosespotPatientId?: number
+    dosespotPatientId?: number;
 
     isNew() {
         return this.id === undefined;

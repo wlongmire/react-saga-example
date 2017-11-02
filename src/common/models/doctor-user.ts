@@ -8,7 +8,9 @@ export class DoctorUser extends User {
     clinicianId?: number;
 
     static fromPayload(data: any): DoctorUser { // tslint:disable-line
+        let doctorUser = new DoctorUser();
         return {
+            ...doctorUser,
             id: data.user_id,
             avatarId: data.avatar_id,
             email: data.email,

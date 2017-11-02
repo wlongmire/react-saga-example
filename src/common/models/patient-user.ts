@@ -17,7 +17,9 @@ export class PatientUser extends User {
     contactEmail?: string;
 
     static fromPayload(data: any): PatientUser { // tslint:disable-line
+        let patientUser = new PatientUser();
         return {
+            ...patientUser,
             id: data.user_id,
             avatarId: data.avatar_id,
             email: data.email,

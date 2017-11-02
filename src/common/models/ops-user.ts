@@ -4,7 +4,9 @@ export class OpsUser extends User {
     credential?: string;
 
     static fromPayload(data: any): OpsUser { // tslint:disable-line
+        let opsUser = new OpsUser();
         return {
+            ...opsUser,
             id: data.user_id,
             avatarId: data.avatar_id,
             email: data.email,

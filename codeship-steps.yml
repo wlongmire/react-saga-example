@@ -1,33 +1,25 @@
-- name: Build EHR Web
+- name: Build and Test EHR Web
   type: serial
   steps:
     - name: Install dependencies
-      service: patient_web_test
-      command: yarn install
+      service: ehr_web
+      command: npm install
 
-    - name: Build test app
-      service: patient_web_test
-      command: yarn build
+    - name: Execute unit tests
+      service: ehr_web
+      command: ash -c "export CI= && npm run build"
 
     - name: Build app
-      service: patient_web
-      command: echo "Patient Web image built"
+      service: ehr_web
+      command: ash -c "export CI= && npm run build"
 
-    - name: Tests
-      type: parallel
-      steps:
-        - name: Run tests (without e2e)
-          service: patient_web_test
-          command: yarn test
-
-        - name: Run e2e tests
-          service: patient_web_e2e_test
-          command: scripts/run_tests_ci.sh
-
+- name: Deploy EHR Web
+  type: serial
+  steps:
     - name: Push image to Quay.io with `latest` tag
       service: patient_web
       type: push
-      image_name: quay.io/lifeco/patient_web
+      image_name: quay.io/lifeco/ehr_web
       image_tag: latest
       registry: quay.io
       tag: ^(master|develop|dev)
@@ -36,19 +28,15 @@
     - name: Push image to Quay.io with Git hash tag
       service: patient_web
       type: push
-      image_name: quay.io/lifeco/patient_web
+      image_name: quay.io/lifeco/ehr_web
       image_tag: "{{.Branch}}_{{.CommitID}}"
       registry: quay.io
       encrypted_dockercfg_path: dockercfg.encrypted
-
-
-- name: Deploy EHR Web
-  type: serial
-  steps:
+    
     - name: Copy to Cheap S3 bucket
       # tag: cheap
-      service: awsdeployment
-      command: aws s3 cp /usr/src/app/build/* s3://patient.life.cheap
+      service: ecs_cheap
+      command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
     # - name: Invalidate CloudFront Distribution
     #   # tag: cheap
     #   service: awsdeployment

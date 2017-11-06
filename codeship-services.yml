@@ -1,35 +1,9 @@
-patient_web:
+ehr_web:
   build:
     context: .
     dockerfile: Dockerfile
-    args:
-      - CI_BRANCH=${CI_BRANCH}
   volumes:
     - .:/usr/src/app
-  environment:
-    - REACT_APP_ENV_NAME=${CI_BRANCH}
-    - CI_BRANCH
-  cached: false
-
-patient_web_test:
-  build: .
-  dockerfile: Dockerfile.development
-  volumes:
-    - .:/usr/src/app
-patient_web_e2e_test:
-  build:
-    dockerfile: Dockerfile.test
-  volumes_from:
-    - patient_web
-  links:
-    - patient_web_test
-  cached: true
-
-task_definition:
-  build:
-    dockerfile: Dockerfile.build
-  volumes:
-    - ./tmp:/data
 
 ecs_cheap:
   image: codeship/aws-deployment
@@ -37,7 +11,7 @@ ecs_cheap:
   environment:
     - AWS_DEFAULT_REGION=us-east-1
   volumes_from:
-    - task_definition
+    - ehr_web
 
 ecs_guitars:
   image: codeship/aws-deployment
@@ -45,7 +19,7 @@ ecs_guitars:
   environment:
     - AWS_DEFAULT_REGION=us-east-2
   volumes_from:
-    - task_definition
+    - ehr_web
 
 ecs_co:
   image: codeship/aws-deployment
@@ -53,4 +27,4 @@ ecs_co:
   environment:
     - AWS_DEFAULT_REGION=us-east-1
   volumes_from:
-    - task_definition
+    - ehr_web

@@ -14,30 +14,37 @@
       command: ash -c "export CI= && npm run build"
 
 - name: Deploy EHR Web
-  type: serial
+  type: parallel
   steps:
-    - name: Push image to Quay.io with `latest` tag
-      service: patient_web
-      type: push
-      image_name: quay.io/lifeco/ehr_web
-      image_tag: latest
-      registry: quay.io
-      tag: ^(master|develop|dev)
-      encrypted_dockercfg_path: dockercfg.encrypted
+    - name: Push EHR Image to Quay.io
+      type: serial
+      steps:
+        - name: Push image to Quay.io with `latest` tag
+          service: patient_web
+          type: push
+          image_name: quay.io/lifeco/ehr_web
+          image_tag: latest
+          registry: quay.io
+          tag: ^(master|develop|dev)
+          encrypted_dockercfg_path: dockercfg.encrypted
 
-    - name: Push image to Quay.io with Git hash tag
-      service: patient_web
-      type: push
-      image_name: quay.io/lifeco/ehr_web
-      image_tag: "{{.Branch}}_{{.CommitID}}"
-      registry: quay.io
-      encrypted_dockercfg_path: dockercfg.encrypted
-    
-    - name: Copy to Cheap S3 bucket
-      # tag: cheap
-      service: ecs_cheap
-      command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
-    # - name: Invalidate CloudFront Distribution
-    #   # tag: cheap
-    #   service: awsdeployment
-    #   command: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+        - name: Push image to Quay.io with Git hash tag
+          service: patient_web
+          type: push
+          image_name: quay.io/lifeco/ehr_web
+          image_tag: "{{.Branch}}_{{.CommitID}}"
+          registry: quay.io
+          encrypted_dockercfg_path: dockercfg.encrypted
+
+    - name: Deploy to S3
+      type: serial
+      steps:
+        - name: Copy to Cheap S3 bucket
+          # tag: cheap
+          service: ecs_cheap
+          command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
+
+        - name: Invalidate CloudFront Distribution
+          # tag: cheap
+          service: awsdeployment
+          command: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"

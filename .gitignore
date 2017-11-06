@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 env
+env.cheap
+env.guitars
+env.co
 codeship.aes
 aws-deployment.env
 aws-deployment.env.prod

@@ -1,0 +1,18 @@
+FROM node:8.7.0
+
+WORKDIR /usr/src/app
+
+# We need wget to set up the PPA, Xvfb to have a virtual screen and unzip to extract ChromeDriver
+RUN apt-get update
+RUN apt-get install -y wget xvfb unzip
+
+# Set up the Chrome PPA
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+
+# Update the package list and install Chrome
+RUN apt-get update
+RUN apt-get install -y google-chrome-stable
+RUN wget -O ./chrome64_61.0.3163.79.deb https://www.slimjet.com/chrome/download-chrome.php?file=lnx%2Fchrome64_61.0.3163.79.deb
+RUN dpkg -r --force-depends google-chrome-stable
+RUN dpkg -i ./chrome64_61.0.3163.79.deb

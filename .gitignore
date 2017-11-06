@@ -1,4 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
+codeship.aes
+aws-deployment.env
+aws-deployment.env.prod
+dockercfg
 
 # dependencies
 /node_modules

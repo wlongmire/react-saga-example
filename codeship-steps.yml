@@ -44,7 +44,7 @@
           service: ecs_cheap
           command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
 
-        - name: Invalidate CloudFront Distribution
+        - name: Invalidate Cheap CloudFront Distribution
           tag: cheap
           service: ecs_cheap
           command: aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
@@ -54,7 +54,7 @@
           service: ecs_guitars
           command: aws s3 cp /usr/src/app/build s3://ehr.life.guitars --recursive
 
-        - name: Invalidate CloudFront Distribution
+        - name: Invalidate Guitars CloudFront Distribution
           tag: guitars
           service: ecs_guitars
           command: aws cloudfront create-invalidation --distribution-id $GUITARS_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
@@ -64,7 +64,7 @@
           service: ecs_co
           command: aws s3 cp /usr/src/app/build s3://ehr.life.co --recursive
 
-        - name: Invalidate CloudFront Distribution
+        - name: Invalidate Co CloudFront Distribution
           tag: master
           service: ecs_co
           command: aws cloudfront create-invalidation --distribution-id $CO_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"

@@ -7,7 +7,7 @@
 
     - name: Execute unit tests
       service: ehr_web
-      command: ash -c "export CI= && npm run build"
+      command: ash -c "export CI=true && npm test"
 
     - name: Build app
       service: ehr_web

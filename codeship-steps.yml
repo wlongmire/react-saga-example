@@ -20,7 +20,7 @@
       type: serial
       steps:
         - name: Push image to Quay.io with `latest` tag
-          service: patient_web
+          service: ehr_web
           type: push
           image_name: quay.io/lifeco/ehr_web
           image_tag: latest
@@ -29,7 +29,7 @@
           encrypted_dockercfg_path: dockercfg.encrypted
 
         - name: Push image to Quay.io with Git hash tag
-          service: patient_web
+          service: ehr_web
           type: push
           image_name: quay.io/lifeco/ehr_web
           image_tag: "{{.Branch}}_{{.CommitID}}"

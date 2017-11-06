@@ -40,11 +40,11 @@
       type: serial
       steps:
         - name: Copy to Cheap S3 bucket
-          # tag: cheap
+          tag: cheap
           service: ecs_cheap
           command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
 
         - name: Invalidate CloudFront Distribution
-          # tag: cheap
+          tag: cheap
           service: awsdeployment
-          command: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+          command: aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"

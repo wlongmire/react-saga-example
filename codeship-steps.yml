@@ -46,5 +46,5 @@
 
         - name: Invalidate CloudFront Distribution
           tag: cheap
-          service: awsdeployment
+          service: ecs_cheap
           command: aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"

@@ -3,7 +3,7 @@ ehr_web:
     context: .
     dockerfile: Dockerfile
     args:
-      - CI_BRANCH=${CI_BRANCH}
+      - CI_BRANCH=$CI_BRANCH
   volumes:
     - .:/usr/src/app
   environment:

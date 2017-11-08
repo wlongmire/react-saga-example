@@ -17,7 +17,7 @@ deploy:
   access_key_id: $DEV_ACCESS_KEY_ID
   secret_access_key:
     secure: $DEV_SECRET_ACCESS_KEY
-  bucket: dev-ehr.life.co
+  bucket: ehr.life.cheap
   skip_cleanup: true
   acl: public_read
   on:

@@ -1,0 +1,30 @@
+ehr_web:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  volumes:
+    - .:/usr/src/app
+
+ecs_cheap:
+  image: codeship/aws-deployment
+  encrypted_env_file: aws-deployment.env.encrypted
+  environment:
+    - AWS_DEFAULT_REGION=us-east-1
+  volumes_from:
+    - ehr_web
+
+ecs_guitars:
+  image: codeship/aws-deployment
+  encrypted_env_file: aws-deployment.env.encrypted
+  environment:
+    - AWS_DEFAULT_REGION=us-east-2
+  volumes_from:
+    - ehr_web
+
+ecs_co:
+  image: codeship/aws-deployment
+  encrypted_env_file: aws-deployment.env.prod.encrypted
+  environment:
+    - AWS_DEFAULT_REGION=us-east-1
+  volumes_from:
+    - ehr_web

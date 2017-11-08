@@ -21,7 +21,7 @@ deploy:
   skip_cleanup: true
   acl: public_read
   on:
-    repo: LifeCo/lifeco-emr-web
+    repo: LifeCo/ehr-web
     branch: develop
   local_dir: build
 after_deploy:

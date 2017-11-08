@@ -47,7 +47,7 @@
         - name: Invalidate Cheap CloudFront Distribution
           tag: cheap
           service: ecs_cheap
-          command: aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+          command: ash -c "aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
 
         - name: Copy to Guitars S3 bucket
           tag: guitars
@@ -57,7 +57,7 @@
         - name: Invalidate Guitars CloudFront Distribution
           tag: guitars
           service: ecs_guitars
-          command: aws cloudfront create-invalidation --distribution-id $GUITARS_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+          command: ash -c "aws cloudfront create-invalidation --distribution-id $GUITARS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
 
         - name: Copy to Co S3 bucket
           tag: master
@@ -67,4 +67,5 @@
         - name: Invalidate Co CloudFront Distribution
           tag: master
           service: ecs_co
-          command: aws cloudfront create-invalidation --distribution-id $CO_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+          command: ash -c "aws cloudfront create-invalidation --distributin-id $CO_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
+

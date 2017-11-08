@@ -1,40 +1,48 @@
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 import * as classnames from 'classnames';
 import * as React from 'react';
 import Avatar from 'material-ui/Avatar';
 import { connect } from 'react-redux';
-import { fetchAllPatients, selectPatient, unselectPatient, addVisit, updateVisit } from '../../';
+import { fetchAllPatients, selectPatient } from '../../';
 import { socketConnect, messageSend } from '../../../chat';
-import { fetchSingleSignOnInfo } from '../../../dosespot';
 import { GlobalState } from '../../../common';
 import { List, ListItem } from 'material-ui/List';
 import { RouteComponentProps } from 'react-router-dom';
-import { PatientDetail } from '../PatientDetail';
 import { Identity } from '../../../common';
-import { ChatChannelInfo, ChatMessage, IdentityUserInfo, Patient, SingleSignOnInfo, Visit } from '../../../common';
+import { ChannelEventMessage, ChatMessage, IdentityUserInfo, Patient, Visit } from '../../../common';
 
 import './PatientList.css';
 
 interface PatientListProps extends RouteComponentProps<{}> {
-    channels: Object;
-    identity: Identity;
-    patients : Array<Patient>;
-    selectedPatient: Patient;
-    singleSignOn: SingleSignOnInfo;
+    messages: Array<ChannelEventMessage<{}>>;
+    user: Identity;
+    patients: Array<Patient>;
+    selectedPatientId: number;
     fetchAllPatients: () => void;
-    fetchSingleSignOnInfo: () => void;
     messageSend: (message: ChatMessage) => void;
-    selectPatient: (patient: Patient) => void;
+    selectPatient: (patientId: number) => void;
     socketConnect: () => void;
-    unselectPatient: (patient: Patient) => void;
     addVisit: (visit: Visit, channelId: number) => void;
     updateVisit: (visit: Visit, channelId: number) => void;
 }
 
-class _PatientList extends React.Component<PatientListProps, {}> {
+interface PatientListState {
+    patientItems: PatientItem[];
+}
+
+interface PatientItem {
+    patient: Patient;
+    messages: Array<ChannelEventMessage<ChatMessage>>;
+    unreadMessageCount: number;
+}
+
+class PatientList extends React.Component<PatientListProps, PatientListState> {
 
     constructor() {
         super();
+        this.state = {
+            patientItems: []
+        };
         this.handlePatientClick = this.handlePatientClick.bind(this);
         this.onSendMessage = this.onSendMessage.bind(this);
         this.handleSaveVisit = this.handleSaveVisit.bind(this);
@@ -43,25 +51,13 @@ class _PatientList extends React.Component<PatientListProps, {}> {
     componentDidMount() {
         this.props.fetchAllPatients();
         this.props.socketConnect();
-        // this.props.fetchSingleSignOnInfo();
+        this.setState({
+            patientItems: this.createPatientItems()
+        });
     }
 
-    handlePatientClick(patient: Patient, channel?: ChatChannelInfo) {
-        patient.sso = this.props.singleSignOn;
-        patient.channel = channel;
-        this.props.selectPatient(patient);
-    }
-
-    getChannel(patient: Patient): ChatChannelInfo {
-        if (!this.props.channels || !_.hasIn(this.props.channels, patient.primaryChannel)) {
-            let newChannel = {
-                channelId: patient.primaryChannel,
-                messages: [],
-                unreadMessages: []
-            } as ChatChannelInfo;
-            this.props.channels[patient.primaryChannel] = newChannel;
-        }
-        return this.props.channels[patient.primaryChannel] as ChatChannelInfo;
+    handlePatientClick(patient: Patient) {
+        this.props.selectPatient(patient.id);
     }
 
     handleSaveVisit(visit: Visit, channelId: number) {
@@ -82,93 +78,191 @@ class _PatientList extends React.Component<PatientListProps, {}> {
         }
     }
 
-    renderPatientList() {
-        let userInfo: IdentityUserInfo | undefined;
+    createPatientItem(patient: Patient, messages: Array<ChannelEventMessage<{}>>): PatientItem {
+        let channelMessages = messages
+            .filter((item) => item.channel_id === patient.primaryChannel)
+            .sort((a, b) => {
+                if (a.sequence_no < b.sequence_no) {
+                    return -1;
+                }
+                if (a.sequence_no > b.sequence_no) {
+                    return 1;
+                }
+                return 0;
+            });
+            
+        let unreadMessageCount = channelMessages.reduceRight(
+            (previous: any, current) => {
+                if (previous.continue) {
+                    if (
+                        current.event_type !== 'chat_message' || 
+                        current.user_id !== patient.id
+                    ) {
+                        return {
+                            continue: false,
+                            count: previous.count
+                        };
+                    }
+                    return {
+                        continue: true,
+                        count: previous.count + 1
+                    };
+                }
+                return previous;
+            },
+            {
+                continue: true,
+                count: 0
+            }
+        ).count;
+        
+        return {
+            patient,
+            messages: channelMessages,
+            unreadMessageCount
+        } as PatientItem;
+    }
 
-        if (this.props.identity) {
-            userInfo = this.props.identity.userInfo;
+    createPatientItems(): Array<PatientItem> {
+        if (!this.props.patients) {
+            return [];
         }
+        const { messages } = this.props;
+        return this.props.patients.map((patient) => {
+            return this.createPatientItem(patient, messages);
+        });
+    }
+
+    render() {
+        let userInfo: IdentityUserInfo | undefined;
+        
+        if (this.props.user) {
+            userInfo = this.props.user.userInfo;
+        }
+
+        let patientItems = this.createPatientItems();
+        let unreads = patientItems.filter((item) => item.unreadMessageCount > 0);
+        let reads = patientItems.filter((item) => item.unreadMessageCount === 0);
 
         return (
             <div className="patient-list">
                 <div className="header">
                     {userInfo &&
-                        <span>Hi {this.props.identity.roleId === 1 ? 'Dr.' : ''} {userInfo.last}</span>
+                        <span>Hi {this.props.user.roleId === 1 ? 'Dr.' : ''} {userInfo.last}</span>
                     }
                 </div>
-                <div className="subheader">
-                    
-                </div>
+                <div className="subheader" />
                 <div className="list">
                     <List>
-                        { this.props.patients &&
-                            this.props.patients.map((patient: Patient, index: number) => {
-                                let channel = this.getChannel(patient);
-                                let unreadCount = channel ? channel.unreadMessages.length : 0;
-                                return (
-                                    <ListItem
-                                        key={index}
-                                        primaryText={patient.name}
-                                        leftAvatar={<Avatar src={patient.avatar} />}
-                                        rightIcon={
-                                            <div className={classnames('patient-message-count-wrapper', {'hidden': unreadCount == 0})}>
-                                                <div className="patient-message-count">{unreadCount}</div> 
-                                            </div>
+                        {
+                            unreads
+                                .sort((a: PatientItem, b: PatientItem) => {
+                                    let aSeqNo = a.messages[a.messages.length - 1].sequence_no;
+                                    let bSeqNo = b.messages[b.messages.length - 1].sequence_no;
+                                    if (aSeqNo < bSeqNo) {
+                                        return -1;
+                                    }
+                                    if (aSeqNo > bSeqNo) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                })
+                                .reverse()
+                                .map((item, index) => {
+                                    return (
+                                        <ListItem
+                                            key={index}
+                                            primaryText={item.patient.name}
+                                            leftAvatar={<Avatar src={item.patient.avatar} />}
+                                            rightIcon={
+                                                <div 
+                                                    className={
+                                                        classnames(
+                                                            'patient-message-count-wrapper', 
+                                                            {'hidden': item.unreadMessageCount === 0}
+                                                        )
+                                                    }
+                                                >
+                                                    <div className="patient-message-count">
+                                                        {item.unreadMessageCount}
+                                                    </div> 
+                                                </div>}
+                                            onClick={() => this.handlePatientClick(item.patient)}
+                                        />
+                                    );
+                                })
+                        }
+                        {
+                            reads
+                                .sort((a: PatientItem, b: PatientItem) => {
+                                    let aMessageCount = a.messages.length;
+                                    let bMessageCount = b.messages.length;
+                                    if (aMessageCount) {
+                                        if (bMessageCount) {
+                                            let aSeqNo = a.messages[a.messages.length - 1].sequence_no;
+                                            let bSeqNo = b.messages[b.messages.length - 1].sequence_no;
+                                            if (aSeqNo < bSeqNo) {
+                                                return -1;
+                                            }
+                                            if (aSeqNo > bSeqNo) {
+                                                return 1;
+                                            }
+                                            return 0;
                                         }
-                                        onClick={() => this.handlePatientClick(patient, channel)}
-                                    />
-                                );
-                            })
+                                        return 1;
+                                    }
+                                    if (bMessageCount) {
+                                        return -1;
+                                    }
+                                    return 0;
+                                })
+                                .reverse()
+                                .map((item, index) => {
+                                    return (
+                                        <ListItem
+                                            key={index}
+                                            primaryText={item.patient.name}
+                                            leftAvatar={<Avatar src={item.patient.avatar} />}
+                                            rightIcon={
+                                                <div 
+                                                    className={
+                                                        classnames(
+                                                            'patient-message-count-wrapper', 
+                                                            {'hidden': item.unreadMessageCount === 0}
+                                                        )
+                                                    }
+                                                >
+                                                    <div className="patient-message-count">
+                                                        {item.unreadMessageCount}
+                                                    </div> 
+                                                </div>}
+                                            onClick={() => this.handlePatientClick(item.patient)}
+                                        />
+                                    );
+                                })
                         }
                     </List>
                 </div>
             </div>
         );
     }
-
-    renderPatientDetail(currentUser: Identity, patient: Patient, patientList: Array<Patient>, channel?: ChatChannelInfo) {
-        return (
-            <PatientDetail 
-                user={currentUser} 
-                patient={patient} 
-                patientList={patientList} 
-                channel={channel} 
-                onSendMessage={this.onSendMessage} 
-                onSaveVisit={this.handleSaveVisit}
-            />
-        )
-    }
-
-    render() {
-        if (this.props.match.path === "/app/patients/biodrive") {
-            const { identity, selectedPatient, patients } = this.props;
-            const channel = this.getChannel(selectedPatient);
-            return this.renderPatientDetail(identity, selectedPatient, patients, channel);
-        } else {
-            return this.renderPatientList();
-        }
-    }
 }
 
 const mapStateToProps = (state: GlobalState) => {
     return {
-        selectedPatient: state.patients.selectedPatient,
         patients: state.patients.items,
         singleSignOn: state.dosespot.sso,
-        channels: state.chat.channels,
-        identity: state.auth.identity
-    }
-}
+        messages: state.chat.messages,
+        user: state.auth.identity
+    };
+};
 
-export const PatientList = connect<{}, PatientListProps, {}>(
+export default connect<{}, PatientListProps, {}>(
     mapStateToProps, 
     { 
         fetchAllPatients, 
-        fetchSingleSignOnInfo, 
         selectPatient, 
-        unselectPatient,
         socketConnect,
         messageSend,
-        addVisit,
-        updateVisit
-    })(_PatientList);
+    }
+)(PatientList);

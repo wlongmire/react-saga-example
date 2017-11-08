@@ -245,8 +245,7 @@ export class _UserDetail extends React.Component<UserDetailProps, UserDetailStat
 
     loadFromUser(user: User) {
         const zippedUser = _.zipObject(_.keysIn(user), _.valuesIn(user));
-        this.setState(zippedUser);
-        this.setState({ isNew: false });
+        this.setState({ ...zippedUser, isNew: false });
     }
 
     loadFromServer(id: number) {

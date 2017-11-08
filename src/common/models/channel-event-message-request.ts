@@ -1,10 +1,8 @@
-import { ChannelEventMessage } from './channel-event-message';
-
-export class ChannelEventMessageRequest<T> implements ChannelEventMessage<T> {
-    eventId: string;
-    eventType: string;
-    channelId: number;
-    versionMajor: number;
-    versionMinor: number;
+export class ChannelEventMessageRequest<T> {
+    event_id: string;
+    event_type: string;
+    channel_id: number;
+    major: number;
+    minor: number;
     payload: T;
 }

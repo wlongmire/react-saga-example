@@ -1,5 +1,7 @@
 import { Treatment } from './treatment';
 
 export interface TreatmentsState {
-    treatments: Array<Treatment>;
+    isFetching: boolean;
+    items: Array<Treatment>;
+    error: Error | null;
 }

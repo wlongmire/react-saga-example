@@ -1,1 +1,1 @@
-export { PatientDetail } from './PatientDetail';
+export { default as PatientDetail } from './PatientDetail';

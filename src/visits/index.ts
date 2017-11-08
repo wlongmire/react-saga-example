@@ -1,4 +1,7 @@
 export { VisitComponent } from './components';
+export { default as visitsReducer } from './reducer';
+export { default as visitsSaga } from './sagas';
+export * from './actions';
 
 // import {ActionType} from './actions';
 // import {getAllVisits} from './selectors';

@@ -5,51 +5,71 @@ import * as Rx from '../../../treatments';
 import * as Tests from '../../../testorders';
 import * as Imaging from '../../../imaging';
 import Avatar from 'material-ui/Avatar';
+import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { GlobalState } from '../../../common';
+import { messageSend } from '../../../chat';
 import { 
-    ChatChannelInfo,
+    ChannelEventMessage,
+    ChannelEventMessageRequest,
     ChatMessage,
     Identity,
+    Other,
     Patient,
     TabControl, 
     TabItemInfo,
     Treatment,
     Visit
 } from '../../../common';
+import { fetchSingleSignOnInfo } from '../../../dosespot';
 import { ChatChannel } from '../../../chat';
 import { Biodrive, BiodriveListItemInfo } from '../../../biodrive';
-import { VisitComponent } from '../../../visits';
+import { fetchTreatments } from '../../../treatments';
+import { loadOther } from '../../../other';
+import { VisitComponent, fetchVisits } from '../../../visits';
 
 import './PatientDetail.css';
 
-interface PatientDetailProps {
+interface PatientDetailProps extends RouteComponentProps<{}> {
     user: Identity;
-    patient: Patient;
-    patientList: Array<Patient>;
-    channel?: ChatChannelInfo;
-    onSendMessage: (message: ChatMessage) => void;
+    messages: Array<ChannelEventMessage<ChatMessage>>;
+    patients: Array<Patient>;
+    treatments: Array<Treatment>;
+    visits: Array<Visit>;
+    other: Other;
+    fetchVisits: (channelId: number) => void;
+    fetchTreatments: (channelId: number) => void;
+    loadOther: (channelId: number) => void;
+    sendMessage: (message: ChannelEventMessageRequest<ChatMessage>) => void;
     onSaveVisit: (visit: Visit, channelId: number) => void;
 }
 
 interface PatientDetailState {
     open : boolean;
-    anchorEl?: any;
+    // anchorEl?: any;
     tabItems?: Array<TabItemInfo>;
     selectedTabIndex: number;
+    selectedPatient?: Patient;
+    messages: Array<ChannelEventMessage<ChatMessage>>;
 }
 
-export class PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
+class PatientDetail extends React.Component<PatientDetailProps, PatientDetailState> {
 
     private _addContentElement: TabItemInfo;
 
     constructor() {
         super();
+
         this.state = {
             open: false,
-            selectedTabIndex: -1
+            selectedTabIndex: -1,
+            messages: []
         };
+
         this.handleBiodriveItemSelected = this.handleBiodriveItemSelected.bind(this);
         this.handleClickNew = this.handleClickNew.bind(this);
         this.handleSelectedTabChanged = this.handleSelectedTabChanged.bind(this);
+        this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleTabClosing = this.handleTabClosing.bind(this);
         this.handleVisitCancel = this.handleVisitCancel.bind(this);
         this.handleVisitSave = this.handleVisitSave.bind(this);
@@ -68,20 +88,49 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
             )
         } as TabItemInfo;
 
-        const initialTabs: Array<TabItemInfo> = [
-            {
-                header: 'Biodrive',
-                disableRemove: true,
-                content: (
-                    <Biodrive 
-                        patient={this.props.patient} 
-                        onDetailItemSelected={this.handleBiodriveItemSelected} 
-                    />
-                )
-            }
-        ];
+        let selectedPatient = this.props.patients.find((patient) => patient.id === Number(this.props.match.params['patientId']));
 
-        this.setState({tabItems: initialTabs, selectedTabIndex: 0});
+        if (selectedPatient !== undefined) {
+            let channelId = selectedPatient.primaryChannel;
+            let chatMessages = this.props.messages.filter((message) => message.channel_id === channelId);
+
+            this.props.fetchVisits(channelId);
+            this.props.fetchTreatments(channelId);
+            this.props.loadOther(channelId);
+
+            const initialTabs: Array<TabItemInfo> = [
+                {
+                    header: 'Biodrive',
+                    disableRemove: true,
+                    content: (
+                        <Biodrive 
+                            patient={selectedPatient} 
+                            treatments={this.props.treatments}
+                            visits={this.props.visits}
+                            other={this.props.other}
+                            onDetailItemSelected={this.handleBiodriveItemSelected} 
+                        />
+                    )
+                }
+            ];
+
+            this.setState({
+                tabItems: initialTabs, 
+                selectedTabIndex: 0,
+                selectedPatient,
+                messages: chatMessages
+            });
+        }       
+    }
+
+    componentWillReceiveProps(props: PatientDetailProps) {
+        const { selectedPatient } = this.state;
+
+        if (selectedPatient) {
+            this.setState({
+                messages: props.messages.filter((message) => message.channel_id === selectedPatient.primaryChannel)
+            });
+        }
     }
 
     createNewTreatment(): Treatment {
@@ -96,76 +145,76 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         return visit;
     }
 
-    findTreatment(id: string): Treatment {
-        if (!this.props.patient) return { } as Treatment;
-        let treatment = this.props.patient.treatments.find((treatment) => {
-            return treatment.id === id;
-        }) || {} as Treatment;
-        return treatment;
-    }
+    // findTreatment(id: string): Treatment {
+    //     if (!this.state..patient) return { } as Treatment;
+    //     let treatment = this.props.patient.treatments.find((treatment) => {
+    //         return treatment.id === id;
+    //     }) || {} as Treatment;
+    //     return treatment;
+    // }
 
-    findVisit(id: string): Visit {
-        if (!this.props.patient) return { } as Visit;
-        let visit = this.props.patient.visits.find((visit) => {
-            return visit.id === id;
-        }) || {} as Visit;
-        return visit;
-    }
+    // findVisit(id: string): Visit {
+    //     if (!this.props.patient) return { } as Visit;
+    //     let visit = this.props.patient.visits.find((visit) => {
+    //         return visit.id === id;
+    //     }) || {} as Visit;
+    //     return visit;
+    // }
 
     handleBiodriveItemSelected(info: BiodriveListItemInfo) {
-        let newItem: TabItemInfo | undefined = undefined;
-        let entityType: string = info.entityType;
+        // let newItem: TabItemInfo | undefined = undefined;
+        // let entityType: string = info.entityType;
 
-        switch (entityType) {
-            case 'treatment':
-                newItem = {
-                    header: info.header,
-                    content: (
-                        <Rx.TreatmentComponent 
-                           treatment={this.findTreatment(info.id)} 
-                        />
-                    )
-                } as TabItemInfo;
-                break;
-            case 'visit':
-                newItem = {
-                    header: info.header,
-                    content: (
-                        <VisitComponent 
-                            patientList={this.props.patientList} 
-                            user={this.props.user}
-                            visit={this.findVisit(info.id)} 
-                            onCancel={this.handleVisitCancel}
-                            onSave={this.handleVisitSave}
-                        />
-                    )
-                } as TabItemInfo;
-                break;
-            case 'test':
-                newItem = {
-                    header: info.header,
-                    content: (
-                        <Tests.Components.AddTestSection
-                            closeTestsCard={() => {  }}
-                        />
-                    )
-                } as TabItemInfo;
-                break;
-            case 'imaging':
-                newItem = {
-                    header: info.header,
-                    content: (
-                        <Imaging.Components.AddImageSection
-                            closeImagingCard={() => {  }}
-                        />
-                    )
-                } as TabItemInfo;
-                break;                
-        }
+        // switch (entityType) {
+        //     case 'treatment':
+        //         newItem = {
+        //             header: info.header,
+        //             content: (
+        //                 <Rx.TreatmentComponent 
+        //                    treatment={this.findTreatment(info.id)} 
+        //                 />
+        //             )
+        //         } as TabItemInfo;
+        //         break;
+        //     case 'visit':
+        //         newItem = {
+        //             header: info.header,
+        //             content: (
+        //                 <VisitComponent 
+        //                     patientList={this.props.patientList} 
+        //                     user={this.props.user}
+        //                     visit={this.findVisit(info.id)} 
+        //                     onCancel={this.handleVisitCancel}
+        //                     onSave={this.handleVisitSave}
+        //                 />
+        //             )
+        //         } as TabItemInfo;
+        //         break;
+        //     case 'test':
+        //         newItem = {
+        //             header: info.header,
+        //             content: (
+        //                 <Tests.Components.AddTestSection
+        //                     closeTestsCard={() => {  }}
+        //                 />
+        //             )
+        //         } as TabItemInfo;
+        //         break;
+        //     case 'imaging':
+        //         newItem = {
+        //             header: info.header,
+        //             content: (
+        //                 <Imaging.Components.AddImageSection
+        //                     closeImagingCard={() => {  }}
+        //                 />
+        //             )
+        //         } as TabItemInfo;
+        //         break;                
+        // }
 
-        if (newItem === undefined) return;
-        let tabItems: TabItemInfo[] = (this.state.tabItems || []).concat([newItem]);
-        this.setState({ tabItems, selectedTabIndex: tabItems.indexOf(newItem) });
+        // if (newItem === undefined) return;
+        // let tabItems: TabItemInfo[] = (this.state.tabItems || []).concat([newItem]);
+        // this.setState({ tabItems, selectedTabIndex: tabItems.indexOf(newItem) });
     }
 
     handleClickNew(entityType: string) {
@@ -186,7 +235,7 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                     header,
                     content: (
                         <VisitComponent 
-                            patientList={this.props.patientList} 
+                            patientList={this.props.patients} 
                             user={this.props.user}
                             visit={this.createNewVisit()} 
                             onSave={this.handleVisitSave} 
@@ -227,6 +276,12 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         this.setState({selectedTabIndex: index});
     }
 
+    handleSendMessage(message: ChannelEventMessageRequest<ChatMessage>) {
+        if (this.props.sendMessage) {
+            this.props.sendMessage(message);
+        }
+    }
+
     handleTabClosing(index: number) {
         if (!this.state.tabItems) return;
         const tabItems = _.cloneDeep(this.state.tabItems);
@@ -258,15 +313,17 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
     }
 
     handleVisitSave(visit: Visit) {
-        if (this.props.onSaveVisit) {
-            this.props.onSaveVisit(visit, this.props.patient.primaryChannel);
-        }
+        // if (this.props.onSaveVisit) {
+        //     this.props.onSaveVisit(visit, this.props.patient.primaryChannel);
+        // }
     }
 
     render() {
-        const { patient } = this.props;
-        const { channel } = this.props;
+        // const { patient } = this.props;
+        // const { channel } = this.props;
 
+        const { selectedPatient } = this.state;
+            
         return (
             <div className="patient-detail">
                 <div className="patient-detail-header">
@@ -274,24 +331,32 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
                         size={70}
                         backgroundColor="#67B2A6"
                         color="#ffffff">
-                        {patient &&
-                            patient.name ? patient.name.substr(0,1) : ''
+                        {selectedPatient &&
+                            selectedPatient.name ? selectedPatient.name.substr(0,1) : ''
                         }
                     </Avatar>
                     <div className="patient-detail-header-wrapper">
                         <div className="patient-detail-header-title">
-                            {patient &&
-                                patient.name 
+                            {selectedPatient &&
+                                selectedPatient.name 
                             }
                         </div>
                         <div className="patient-detail-header-subtitle">
+                            {selectedPatient &&
+                                selectedPatient.gender
+                            }
                             {/* Gender, Age  */}
                         </div>
                     </div>
                 </div>
                 <div className="patient-detail-chat">
-                    {patient &&
-                        <ChatChannel user={this.props.user} channel={channel} patient={patient} onSendMessage={this.props.onSendMessage} />
+                    {selectedPatient &&
+                        <ChatChannel 
+                            user={this.props.user} 
+                            messages={this.state.messages} 
+                            patient={selectedPatient} 
+                            onSendMessage={this.handleSendMessage} 
+                        />
                     }
                 </div>
                 <div className="patient-detail-body">
@@ -313,3 +378,26 @@ export class PatientDetail extends React.Component<PatientDetailProps, PatientDe
         )
     }
 }
+
+const mapStateToProps = (state: GlobalState) => {
+    return {
+        patients: state.patients.items,
+        visits: state.visits.items,
+        treatments: state.treatments.items,
+        user: state.auth.identity,
+        singleSignOn: state.dosespot.sso,
+        messages: state.chat.messages,
+        other: state.other.item
+    }
+}
+
+export default connect<{}, PatientDetailProps, {}>(
+    mapStateToProps, 
+    { 
+        fetchSingleSignOnInfo, 
+        sendMessage: messageSend,
+        fetchVisits,
+        fetchTreatments,
+        loadOther
+    }
+)(PatientDetail);

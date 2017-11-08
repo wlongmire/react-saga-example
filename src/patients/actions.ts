@@ -20,7 +20,10 @@ export module ActionType {
     export const SELECT_PATIENT = 'patients/SELECT_PATIENT';
     export const SELECT_PATIENT_SUCCESS = 'patients/SELECT_PATIENT_SUCCESS';
     export const SELECT_PATIENT_FAILURE = 'patients/SELECT_PATIENT_FAILURE';
+
     export const UNSELECT_PATIENT = 'patients/UNSELECT_PATIENT';
+    export const UNSELECT_PATIENT_SUCCESS = 'patients/UNSELECT_PATIENT_SUCCESS';
+    export const UNSELECT_PATIENT_FAILURE = 'patients/UNSELECT_PATIENT_FAILURE';
 
     export const ADD_VISIT = 'patients/ADD_VISIT';
     export const ADD_VISIT_SUCCESS = 'patients/ADD_VISIT_SUCCESS';
@@ -71,17 +74,17 @@ export const fetchPatientFailure = (error: Error): ActionResult<Error> => {
     };
 }
 
-export const selectPatient = (patient: Patient): ActionResult<Patient> => {
+export const selectPatient = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.SELECT_PATIENT,
-        value: patient
+        value: patientId
     }
 }
 
-export const selectPatientSuccess = (patient: Patient): ActionResult<Patient> => {
+export const selectPatientSuccess = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.SELECT_PATIENT_SUCCESS,
-        value: patient
+        value: patientId
     }
 }
 
@@ -92,10 +95,24 @@ export const selectPatientFailure = (error: Error): ActionResult<Error> => {
     }
 }
 
-export const unselectPatient = (patient: Patient): ActionResult<Patient> => {
+export const unselectPatient = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.UNSELECT_PATIENT,
-        value: patient
+        value: patientId
+    }
+}
+
+export const unselectPatientSuccess = (patientId: number): ActionResult<number> => {
+    return {
+        type: ActionType.UNSELECT_PATIENT_SUCCESS,
+        value: patientId
+    };
+}
+
+export const unselectPatientFailure = (error: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.UNSELECT_PATIENT_FAILURE,
+        value: error
     }
 }
 

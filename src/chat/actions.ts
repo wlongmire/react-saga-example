@@ -1,7 +1,8 @@
-import { ActionResult, ChatMessage } from '../common';
+import { ActionResult } from '../common';
+import { ChannelEventMessage } from '../common';
 
 export module ActionType {
-    export const MESSAGE_RECEIVED = 'chat/MESSAGE_RECEIVED';
+    export const MESSAGES_RECEIVED = 'chat/MESSAGES_RECEIVED';
     export const SOCKET_CONNECT = 'chat/SOCKET_CONNECT';
     export const SOCKET_OPENED = 'chat/SOCKET_CONNECTED';
     export const SOCKET_CLOSED = 'chat/SOCKET_CLOSED';
@@ -50,21 +51,21 @@ export const socketClosed = (): ActionResult<{}> => {
     }
 }
 
-export const messageReceived = (message: ChatMessage): ActionResult<ChatMessage> => {
+export const messagesReceived = (messages: Array<ChannelEventMessage<any>>): ActionResult<Array<ChannelEventMessage<any>>> => {
     return {
-        type: ActionType.MESSAGE_RECEIVED,
-        value: message
+        type: ActionType.MESSAGES_RECEIVED,
+        value: messages
     }
 }
 
-export const messageSend = (message: ChatMessage): ActionResult<ChatMessage> => {
+export const messageSend = (message: ChannelEventMessage<any>): ActionResult<ChannelEventMessage<any>> => {
     return {
         type: ActionType.MESSAGE_SEND,
         value: message
     }
 }
 
-export const messageSendSuccess = (message: ChatMessage): ActionResult<ChatMessage> => {
+export const messageSendSuccess = (message: ChannelEventMessage<any>): ActionResult<ChannelEventMessage<any>> => {
     return {
         type: ActionType.MESSAGE_SEND_SUCCESS,
         value: message

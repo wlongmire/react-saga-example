@@ -6,5 +6,5 @@ export class PatientsState {
     items: Array<Patient>;
     lastFetchError?: Error;
     ssoInfo?: SingleSignOnInfo;
-    selectedPatient?: Patient;
+    selectedPatientId?: number;
 }

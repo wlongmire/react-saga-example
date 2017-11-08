@@ -5466,7 +5466,7 @@ typeface-roboto@^0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.31.tgz#6bb65f4cf68c6bf68a6739417d98b2dfecb7b263"
 
-typescript@~2.3.3:
+typescript@~2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 

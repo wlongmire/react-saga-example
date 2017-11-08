@@ -1,50 +1,27 @@
-// import { ActionResult } from '../common';
-// import { ActionType } from './actions';
-// import { Diagnosis, InternalNote } from '../common/models';
 
-// export class Visit {
-//     id: string;
-//     status: string;
-//     assigneeId: string;
-//     cases?: Array<string>;
-//     patientId: number;
-//     visitType: string;
-//     maintenance: Array<string>;
-//     doctorId: string;
-//     doctorType: string;
-//     clinic?: string;
-//     scheduledFor: Date;
-//     estimatedDuration?: number;
-//     complaints?: Array<string>;
-//     vitals?: Array<object>;
-//     systemsReview?: Array<object>;
-//     diagnosis?: Array<Diagnosis>;
-//     subjective?: string;
-//     objective?: string;
-//     assessment?: string;
-//     nextSteps?: string;
-//     internalNotes?: Array<InternalNote>;
-// }
+import { VisitsState } from '../common/models';
+import { ActionResult } from '../common';
+import { ActionType } from './actions';
 
-// export interface VisitState {
-//     items: Array<Visit>;
-// }
+const initialState = (): VisitsState => {
+    return {
+        isFetching: false,
+        items: [],
+        error: null
+    };
+};
 
-// const initialState = () => {
-//     return {
-//         items: []
-//     };
-// }
-
-// export default function reducer(state: VisitState = initialState(), action: ActionResult<{}>) {
-//     switch (action.type) {
-//         case ActionType.ADD:
-//             return { ...state, visit: action.value }
-//         case ActionType.LOAD_ALL_COMPLETED:
-//             return { ...state, visits: action.value }
-//         case ActionType.LOAD_ALL_FAILED:
-//             return { ...state, error: action.value }
-//         default:
-//             return state;
-//     }
-// }
+export default function reducer(state: VisitsState = initialState(), action: ActionResult<{}>) {
+    switch (action.type) {
+        case ActionType.ADD_VISIT:
+            return state;
+        case ActionType.FETCH_VISITS:
+            return { ...state, isFetching: true, error: null };
+        case ActionType.FETCH_VISITS_SUCCESS:
+            return { ...state, items: action.value, isFetching: false, error: null };
+        case ActionType.FETCH_VISITS_FAIL:
+            return { ...state, isFetching: false, error: action.value };
+        default:
+            return state;
+    }
+}

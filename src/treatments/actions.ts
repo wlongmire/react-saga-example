@@ -1,4 +1,4 @@
-import { ActionResult, SingleSignOnInfo } from '../common';
+import { ActionResult, SingleSignOnInfo, Treatment } from '../common';
 
 export module ActionType {
     export const ADD = 'rx/ADD';
@@ -8,6 +8,9 @@ export module ActionType {
     export const FETCH_SSO_INFO = 'rx/FETCH_SSO_INFO';
     export const FETCH_SSO_INFO_FAILED = 'rx/FETCH_SSO_INFO_FAILED';
     export const FETCH_SSO_INFO_SUCCESS = 'rx/FETCH_SSO_INFO_SUCCESS';
+    export const FETCH_TREATMENTS = 'visits/FETCH_TREATMENTS';
+    export const FETCH_TREATMENTS_SUCCESS = 'visits/FETCH_TREATMENTS_SUCCESS';
+    export const FETCH_TREATMENTS_FAIL = 'visits/FETCH_TREATMENTS_FAIL';
 }
 
 export const loadAllRxCompleted = (treatments: Array<any>):ActionResult<Array<any>> => {
@@ -49,6 +52,27 @@ export const fetchSingleSignOnInfoSuccess = (ssoInfo: SingleSignOnInfo): ActionR
         value: ssoInfo
     }
 } 
+
+export const fetchTreatments = (channelId: number): ActionResult<number> => {
+    return {
+        type: ActionType.FETCH_TREATMENTS,
+        value: channelId
+    };
+};
+
+export const fetchTreatmentsSuccess = (visits: Array<Treatment>): ActionResult<Array<Treatment>> => {
+    return {
+        type: ActionType.FETCH_TREATMENTS_SUCCESS,
+        value: visits
+    };
+};
+
+export const fetchTreatmentsFail = (e: Error): ActionResult<Error> => {
+    return {
+        type: ActionType.FETCH_TREATMENTS_FAIL,
+        value: e
+    };
+};
 
 // export const getAllTreatments = () => {
 //     return(dispatch:any) => {

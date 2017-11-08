@@ -10,9 +10,9 @@ import {
 import './Other.css';
 
 interface OtherProps {
-    other: Other
+    other: Other;
     attachments?: Array<Attachment>;
-    channelId: number
+    channelId: number;
 }
 
 interface OtherState {
@@ -27,7 +27,7 @@ export class OthersComponent extends React.Component<OtherProps, OtherState> {
 
         this.state = {
             attachmentList: [],
-            otherInfo: {}
+            otherInfo: new Other()
         };
 
         this.handleValueChanged = this.handleValueChanged.bind(this);
@@ -150,6 +150,6 @@ export class OthersComponent extends React.Component<OtherProps, OtherState> {
                     attachmentList={this.state.attachmentList}
                 />
             </div>
-        )
+        );
     }
 }

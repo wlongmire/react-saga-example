@@ -99,7 +99,10 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
     }
 
     handleCancelClick() {
-        if (!this.props.onCancel) return;
+        if (!this.props.onCancel) {
+            return;
+        }
+
         let visit = _.cloneDeep(this.state) as Visit;
         this.props.onCancel(visit);
     }
@@ -119,7 +122,10 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
     }
 
     handleSaveClick() {
-        if (!this.props.onSave) return;
+        if (!this.props.onSave) {
+            return;
+        }
+
         let visit = {
             ...this.state, 
             scheduledFor: this.state.scheduledFor ? this.state.scheduledFor.utc().unix() : undefined
@@ -189,7 +195,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                     label="Status" 
                     options={
                         VisitStatus.map((status) => {
-                            return { value: status, text: status } as FormSelectControlOption
+                            return { value: status, text: status } as FormSelectControlOption;
                         })
                     }
                     value={this.state.status}
@@ -202,7 +208,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: patient.id, 
                                 text: `${patient.firstName} ${patient.lastName}`
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })                        
                     }
                     value={this.state.patientId ? Number(this.state.patientId) : -1}
@@ -215,7 +221,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: item.name, 
                                 text: item.name 
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })
                     }
                     value={this.state.visitType}
@@ -257,7 +263,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: doctorType, 
                                 text: doctorType 
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })
                     }
                     value={this.state.doctorType}
@@ -276,7 +282,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: item.value, 
                                 text: `${item.value} Minutes` 
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })
                     }
                     value={this.state.estimatedDuration}
@@ -294,7 +300,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: complaint, 
                                 text: complaint 
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })
                     } 
                     items={this.state.complaints.map((complaint) => {
@@ -307,11 +313,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                                 value: key,
                                 text: key       
                             } as FormSelectControlOption
-                        } as FormTableInputItem
+                        } as FormTableInputItem;
                     })}
                     multilineDetail={true}
                     multilineRows={4}
-                    onChange={(items: Array<FormTableInputItem>) => this.handleTableInputChange('complaints', items) }
+                    onChange={(items: Array<FormTableInputItem>) => this.handleTableInputChange('complaints', items)}
                 />
                 <FormTableInputControl 
                     label="Vitals"
@@ -320,7 +326,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: vital, 
                                 text: vital 
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })
                     } 
                     items={this.state.vitals.map((vital) => {
@@ -333,11 +339,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                                 value: key,
                                 text: key       
                             } as FormSelectControlOption
-                        } as FormTableInputItem
+                        } as FormTableInputItem;
                     })}
                     multilineDetail={false}
                     multilineRows={1}
-                    onChange={(items: Array<FormTableInputItem>) => this.handleTableInputChange('vitals', items) }
+                    onChange={(items: Array<FormTableInputItem>) => this.handleTableInputChange('vitals', items)}
                 />
                 <FormTableInputControl 
                     label="Systems Review"
@@ -346,7 +352,7 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                             return { 
                                 value: item, 
                                 text: item
-                            } as FormSelectControlOption
+                            } as FormSelectControlOption;
                         })
                     } 
                     items={this.state.systemsReview.map((item) => {
@@ -359,11 +365,11 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
                                 value: key,
                                 text: key       
                             } as FormSelectControlOption
-                        } as FormTableInputItem
+                        } as FormTableInputItem;
                     })}
                     multilineDetail={true}
                     multilineRows={4}
-                    onChange={(items: Array<FormTableInputItem>) => this.handleTableInputChange('systemsReview', items) }
+                    onChange={(items: Array<FormTableInputItem>) => this.handleTableInputChange('systemsReview', items)}
                 />
                 <FormTextField
                     name="diagnosis"

@@ -9,7 +9,7 @@ function initialState(): PatientsState {
         items: [],
         lastFetchError: undefined,
         ssoInfo: undefined,
-        selectedPatient: undefined
+        selectedPatientId: undefined
     };
 }
 
@@ -51,13 +51,13 @@ export default function reducer(state: PatientsState = initialState(), action: A
             return { ...state, isFetching: false, selectedPatient: null };
 
         case Actions.ActionType.SELECT_PATIENT_SUCCESS:
-            return { ...state, isFetching: false, selectedPatient: action.value as Patient };
+            return { ...state, isFetching: false, selectedPatientId: action.value };
 
         case Actions.ActionType.SELECT_PATIENT_FAILURE:
             return { ...state, isFetching: false, lastFetchError: action.value as Error };
 
         case Actions.ActionType.UNSELECT_PATIENT:
-            return { ...state, selectedPatient: undefined };
+            return { ...state, selectedPatientId: undefined };
 
         default: 
             return state;

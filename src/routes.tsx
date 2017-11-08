@@ -6,6 +6,7 @@ import { Schedules } from './schedule';
 import { AuthorizedRoute } from './main';
 import { Navbar } from './navigation';
 import { PatientList } from './patients';
+import { PatientDetail } from './patients';
 import { DoseSpotUser } from './dosespot';
 import { UsersContainer, UserDetail } from './users';
 import { history } from './common';
@@ -37,6 +38,11 @@ const PrimaryLayout = (props: RouteProps) => {
             <main>
                 <Switch>
                     <Route path={`${props.path}/patients`} exact component={PatientList} />
+                    <Route 
+                        exact
+                        path={`${props.path}/patient-detail/:patientId`} 
+                        render={(props) => <PatientDetail {...props} />}
+                    />
                     <Route path={`${props.path}/patients/biodrive`} exact component={PatientList} />
                     <Route path={`${props.path}/dosespot`} component={DoseSpotUser} />
                     <Route path={`${props.path}/user-add`} component={UserDetail} />

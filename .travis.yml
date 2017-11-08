@@ -1,17 +1,17 @@
 sudo: true
 language: node_js
 node_js:
-- 7.10.0
+- 8.1.3
 cache:
   yarn: true
   directories:
   - node_modules
 install:
-- npm install
+- yarn install
 script:
-- npm test
+- yarn test
 - unset CI
-- npm run build
+- yarn build
 deploy:
   provider: s3
   access_key_id: $DEV_ACCESS_KEY_ID
@@ -29,4 +29,3 @@ after_deploy:
   - aws configure set preview.cloudfront true
   # Invalidate every object in the targeted distribution.
   - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
-

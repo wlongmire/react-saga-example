@@ -11,6 +11,9 @@ import { doseSpotSaga } from './dosespot';
 import { adminSaga } from './admin';
 import { userSaga } from './users';
 import { chatSaga } from './chat';
+import { visitsSaga } from './visits';
+import { treatmentsSaga } from './treatments';
+import { otherSaga } from './other';
 // import { visitSaga } from './visits';
 
 export default function* root() {
@@ -21,6 +24,9 @@ export default function* root() {
         fork(patientsSaga),
         fork(doseSpotSaga),
         fork(adminSaga),
-        fork(chatSaga)
+        fork(chatSaga),
+        fork(visitsSaga),
+        fork(treatmentsSaga),
+        fork(otherSaga)
     ]);
 }

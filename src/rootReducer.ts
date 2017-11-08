@@ -6,6 +6,8 @@ import { doseSpotReducer } from './dosespot';
 import { patientsReducer } from './patients';
 import { userReducer } from './users';
 import { treatmentsReducer } from './treatments';
+import { visitsReducer } from './visits';
+import { otherReducer } from './other';
 
 export default combineReducers({
     admin: adminReducer,
@@ -14,5 +16,7 @@ export default combineReducers({
     dosespot: doseSpotReducer,
     patients: patientsReducer,
     treatments: treatmentsReducer,
-    users: userReducer
+    users: userReducer,
+    visits: visitsReducer,
+    other: otherReducer
 });

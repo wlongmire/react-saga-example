@@ -4,12 +4,15 @@ import { BiodriveListItemInfo } from '../../reducer';
 import { BiodriveList } from '../BiodriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { OthersComponent } from '../../../other';
-import { Patient } from '../../../common';
+import { Other, Patient, Treatment, Visit } from '../../../common';
 
 import './Biodrive.css';
 
 interface BiodriveProps {
     patient: Patient;
+    treatments: Array<Treatment>;
+    visits: Array<Visit>;
+    other: Other;
     onDetailItemSelected?: (info: BiodriveListItemInfo) => void;
 }
 
@@ -67,7 +70,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                     >
                         <Tab value={'treatments'} label="Treatments" buttonStyle={this.getTabButtonStyle('treatments')}>
                             <BiodriveList 
-                                items={this.props.patient.treatments.map((treatment) => { 
+                                items={this.props.treatments.map((treatment) => { 
                                     return new BiodriveListItemInfo(
                                         'treatment',
                                         treatment.id, 
@@ -81,7 +84,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                         </Tab>
                         <Tab value={'visits'} label="Visits" buttonStyle={this.getTabButtonStyle('visits')}>
                             <BiodriveList 
-                                items={this.props.patient.visits.map((visit) => { 
+                                items={this.props.visits.map((visit) => { 
                                     return new BiodriveListItemInfo(
                                         'visit',
                                         visit.id, 
@@ -95,10 +98,10 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                             />
                         </Tab>
                         <Tab value={'other'} label="Other" buttonStyle={this.getTabButtonStyle('other')}>
-                                <OthersComponent
-                                    other={this.props.patient.other}
-                                    channelId={this.props.patient.primaryChannel}
-                                 />
+                            <OthersComponent
+                                other={this.props.other}
+                                channelId={this.props.patient.primaryChannel}
+                            />
                         </Tab>
                      </Tabs>
                  </section>

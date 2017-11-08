@@ -70,8 +70,13 @@ export const updateUser = (user: User) => {
         payload = OpsUser.toPayload(user);
     }
 
+    if (!user.id) {
+        throw new Error('Cannot update user with missing id');
+    }
+
     let json = _.omitBy(payload, _.isNil);
-    const requestInit = getRequestInit('POST', JSON.stringify(json), false, 'application/json');
+    let jsonPayload = _.omit(json, 'password');
+    const requestInit = getRequestInit('POST', JSON.stringify(jsonPayload), false, 'application/json');
 
     return fetch(`${BASE_URL}/update_user`, requestInit)
         .then((response: any) => {

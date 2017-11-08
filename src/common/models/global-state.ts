@@ -5,7 +5,7 @@ import { OtherState } from './other-state';
 import { PatientsState } from './patients-state';
 import { TreatmentsState } from './treatments-state';
 import { UsersState } from './users-state';
-import { VisitState } from './visits-state';
+import { VisitsState } from './visits-state';
 import { WellnessState } from './wellness-state';
 
 export interface GlobalState {
@@ -16,6 +16,6 @@ export interface GlobalState {
     patients: PatientsState;
     treatments: TreatmentsState;
     users: UsersState;
-    visits: VisitState;
+    visits: VisitsState;
     wellness: WellnessState;
 }

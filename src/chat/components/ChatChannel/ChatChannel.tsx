@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
-import { connect } from 'react-redux';
+import { KeyboardEvent } from 'react';
 import { 
-    ChatChannelInfo,
-    ChatMessage as ChatMessageData, 
+    ChannelEventMessage,
+    ChannelEventMessageRequest,
+    ChatMessage as ChatMessageInfo, 
     Identity, 
     Patient 
 } from '../../../common';
@@ -14,19 +15,19 @@ import * as Moment from 'moment';
 import './ChatChannel.css';
 
 interface ChatChannelProps {
-    channel?: ChatChannelInfo;
+    messages: Array<ChannelEventMessage<ChatMessageInfo>>;
     user: Identity;
     patient: Patient;
-    onSendMessage: (message: ChatMessageData) => void;
+    onSendMessage: (message: ChannelEventMessageRequest<ChatMessageInfo>) => void;
 }
 
 interface ChatChannelState {
-    messages: Array<ChatMessageData>;
+    messages: Array<ChannelEventMessage<ChatMessageInfo>>;
     messageText?: string;
     pendingSends: string[];
 }
 
-class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
+export class ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
     private chatContainerBody: HTMLDivElement | null;
     private chatTextInput: HTMLInputElement | null;
 
@@ -69,11 +70,11 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         // clear pending sends
         const pendingSends = this.state.pendingSends;
         
-        if (this.props.channel) {
-            this.props.channel.messages.forEach((message: ChatMessageData) => {
+        if (this.props.messages) {
+            this.props.messages.forEach((message: ChannelEventMessage<ChatMessageInfo>) => {
                 const itemIndex = pendingSends.indexOf(message.event_id);
                 
-                if (itemIndex != -1) {
+                if (itemIndex !== -1) {
                     pendingSends.splice(itemIndex, 1);
                     this.setState({pendingSends});
                     this.setState({messageText: ''});
@@ -82,8 +83,8 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         }
     }
 
-    handleKeyDown(e: any) {
-        if (e.keyCode == 13) {
+    handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+        if (e.keyCode === 13) {
             this.doSubmit();
         }
     }
@@ -93,47 +94,52 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
     }
 
     doSubmit() {
-        if (!this.props.onSendMessage || !this.state.messageText) return;
-        
-            const { user } = this.props;
-            if (!user.userInfo) return;
-            const id = uuidv4();
-            const pendingSends = this.state.pendingSends;
-            pendingSends.push(id);
-            this.setState({ pendingSends });
+        if (!this.props.onSendMessage || !this.state.messageText) {
+            return;
+        }
 
-            const message: ChatMessageData = {
-                channel_id: this.props.channel ? this.props.channel.channelId : -1,
-                event_id: id,
-                user_id: user.userId,
-                event_type: "chat_message",
-                version_major: 1,
-                version_minor: 1,
-                payload: {
-                    content_text: this.state.messageText,
-                    sender_meta: {
-                            user_id: user.userId,
-                            first_name: user.userInfo.first || '',
-                            last_name: user.userInfo.last || '',
-                            title: user.roleName ? user.roleName.toLowerCase() : '',
-                            avatar_urls: {
-                                ios: {
-                                    url: ''
-                                },
-                                android: {
-                                    url: ''
-                                },
-                                web: {
-                                    url: ''
-                                }
-                            }
+        const { user } = this.props;
+
+        if (!user.userInfo) {
+            return;
+        }
+
+        const id = uuidv4();
+        const pendingSends = this.state.pendingSends;
+        pendingSends.push(id);
+        this.setState({ pendingSends });
+
+        const message = {
+            event_id: id,
+            event_type: 'chat_message',
+            channel_id: this.props.patient.primaryChannel,
+            major: 1,
+            minor: 1,
+            payload: {
+                content_text: this.state.messageText,
+                sender_meta: {
+                    user_id: user.userId,
+                    first_name: user.userInfo.first || '',
+                    last_name: user.userInfo.last || '',
+                    title: user.roleName ? user.roleName.toLowerCase() : '',
+                    avatar_urls: {
+                        ios: {
+                            url: ''
                         },
-                    content_type: 'text/plain',
-                    content_uri: undefined,
-                    content_preview_uri: undefined,
-                    content_action_uri: undefined
+                        android: {
+                            url: ''
+                        },
+                        web: {
+                            url: ''
+                        }
                     }
-                };
+                },
+            content_type: 'text/plain',
+            content_uri: undefined,
+            content_preview_uri: undefined,
+            content_action_uri: undefined
+            }
+        } as ChannelEventMessageRequest<ChatMessageInfo>;
 
         this.props.onSendMessage(message);
     }
@@ -143,44 +149,49 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
         this.doSubmit();
     }
 
-    parseMessage(data: any): ChatMessageData {
-        return JSON.parse(data) as ChatMessageData;
-    }
-
     render() {
         return (
             <div className="chat-container">
-                <div className="chat-container-header"></div>
+                <div className="chat-container-header" />
                 <div className="chat-container-body" ref={(el) => this.chatContainerBody = el}>
-                    {this.props.channel &&
-                        this.props.channel.messages.map((message: ChatMessageData, index: number, array: ChatMessageData[]) => {
-                            let showAvatar = true;
-                            let showDayHeader = true;
+                    {this.props.messages &&
+                        this.props.messages.map(
+                            (
+                                message: ChannelEventMessage<ChatMessageInfo>, 
+                                index: number, array: ChannelEventMessage<ChatMessageInfo>[]
+                            ) => {
+                                let showAvatar = true;
+                                let showDayHeader = true;
 
-                            if (index > 0) {
-                                const prev = array[index - 1];
-                                showAvatar = prev.user_id != message.user_id;
+                                if (index > 0) {
+                                    const prev = array[index - 1];
+                                    showAvatar = prev.user_id !== message.user_id;
+                                    
+                                    const prevDate = Moment(prev.recorded, 'X');
+                                    const currentDate = Moment(message.recorded, 'X');
+
+                                    showDayHeader = !prevDate.isSame(currentDate, 'day');
+                                }
                                 
-                                const prevDate = Moment(prev.recorded, 'X');
-                                const currentDate = Moment(message.recorded, 'X');
-
-                                showDayHeader = !prevDate.isSame(currentDate, 'day');
+                                return (
+                                    <div key={index} className="chat-message-container">
+                                        {showDayHeader &&
+                                            <div 
+                                                className="chat-message-day-title"
+                                            >
+                                                {Moment(message.recorded, 'X').format('MMMM Do')}
+                                            </div>
+                                        }
+                                        <ChatMessage 
+                                            key={index} 
+                                            message={message} 
+                                            isSender={this.props.user.userId === message.user_id} 
+                                            showAvatar={showAvatar}
+                                        />
+                                    </div>
+                                );
                             }
-                            
-                            return (
-                                <div key={index} className="chat-message-container">
-                                    {showDayHeader &&
-                                        <div className="chat-message-day-title">{Moment(message.recorded, 'X').format('MMMM Do')}</div>
-                                    }
-                                    <ChatMessage 
-                                        key={index} 
-                                        message={message} 
-                                        isSender={this.props.user.userId == message.user_id} 
-                                        showAvatar={showAvatar}
-                                    />
-                                </div>
-                            )
-                        })
+                        )
                     }
                 </div>
                 <div className="chat-container-footer">
@@ -189,15 +200,28 @@ class _ChatChannel extends React.Component<ChatChannelProps, ChatChannelState> {
                     </a>
                     <input 
                         className="chat-text-input" 
-                        ref={(el) => this.chatTextInput = el }
+                        ref={(el) => this.chatTextInput = el}
                         value={this.state.messageText} 
                         onChange={this.handleTextChange} 
-                        onKeyDown={this.handleKeyDown} />
-                    <input type="button" className={classnames('chat-send-button', {'active': this.state.messageText ? this.state.messageText.length > 0 : false})} onClick={this.handleSubmit} value="Send" />
+                        onKeyDown={this.handleKeyDown} 
+                    />
+                    <input 
+                        type="button" 
+                        className={
+                            classnames(
+                                'chat-send-button', 
+                                {
+                                    'active': this.state.messageText 
+                                    ? this.state.messageText.length > 0 
+                                    : false
+                                }
+                            )
+                        } 
+                        onClick={this.handleSubmit} 
+                        value="Send" 
+                    />
                 </div>
             </div>
-        )
+        );
     }
 }
-
-export const ChatChannel = connect<{}, ChatChannelProps, ChatChannelProps>(null, {  })(_ChatChannel);

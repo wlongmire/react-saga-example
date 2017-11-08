@@ -4,6 +4,7 @@ ehr_web:
     dockerfile: Dockerfile
     args:
       - CI_BRANCH=${CI_BRANCH}
+      - REACT_APP_API_HOST=api.life.${CI_BRANCH}
   volumes:
     - .:/usr/src/app
   environment:

@@ -1,6 +1,6 @@
 import { getAuthToken } from '../../auth/util';
 
-export const BASE_URL = `https://${process.env.REACT_APP_API_HOST}/exposed`
+export const BASE_URL = `https://api.life.${process.env.CI_BRANCH}/exposed`
 
 export const makeUrl = (basePath: string, extendedPath?: string) => {
     const host = process.env.REACT_APP_API_HOST;

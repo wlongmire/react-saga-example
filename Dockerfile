@@ -6,3 +6,4 @@ ADD ./yarn.lock /usr/src/app
 RUN yarn install
 ADD . /usr/src/app
 CMD ['yarn', 'build']
+EXPOSE 80

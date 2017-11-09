@@ -36,36 +36,36 @@
           registry: quay.io
           encrypted_dockercfg_path: dockercfg.encrypted
 
-    # - name: Deploy to S3
-    #   type: serial
-    #   steps:
-    #     - name: Copy to Cheap S3 bucket
-    #       tag: cheap
-    #       service: ecs_cheap
-    #       command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
+    - name: Deploy to S3
+      type: serial
+      steps:
+        - name: Copy to Cheap S3 bucket
+          tag: cheap
+          service: ecs_cheap
+          command: aws s3 cp /usr/src/app/build s3://ehr.life.cheap --recursive
 
-    #     - name: Invalidate Cheap CloudFront Distribution
-    #       tag: cheap
-    #       service: ecs_cheap
-    #       command: ash -c "aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
+        - name: Invalidate Cheap CloudFront Distribution
+          tag: cheap
+          service: ecs_cheap
+          command: ash -c "aws cloudfront create-invalidation --distribution-id $CHEAP_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
 
-    #     - name: Copy to Guitars S3 bucket
-    #       tag: guitars
-    #       service: ecs_guitars
-    #       command: aws s3 cp /usr/src/app/build s3://ehr.life.guitars --recursive
+        - name: Copy to Guitars S3 bucket
+          tag: guitars
+          service: ecs_guitars
+          command: aws s3 cp /usr/src/app/build s3://ehr.life.guitars --recursive
 
-    #     - name: Invalidate Guitars CloudFront Distribution
-    #       tag: guitars
-    #       service: ecs_guitars
-    #       command: ash -c "aws cloudfront create-invalidation --distribution-id $GUITARS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
+        - name: Invalidate Guitars CloudFront Distribution
+          tag: guitars
+          service: ecs_guitars
+          command: ash -c "aws cloudfront create-invalidation --distribution-id $GUITARS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
 
-    #     - name: Copy to Co S3 bucket
-    #       tag: master
-    #       service: ecs_co
-    #       command: aws s3 cp /usr/src/app/build s3://ehr.life.co --recursive
+        - name: Copy to Co S3 bucket
+          tag: master
+          service: ecs_co
+          command: aws s3 cp /usr/src/app/build s3://ehr.life.co --recursive
 
-    #     - name: Invalidate Co CloudFront Distribution
-    #       tag: master
-    #       service: ecs_co
-    #       command: ash -c "aws cloudfront create-invalidation --distributin-id $CO_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
+        - name: Invalidate Co CloudFront Distribution
+          tag: master
+          service: ecs_co
+          command: ash -c "aws cloudfront create-invalidation --distributin-id $CO_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'"
 

@@ -8,6 +8,7 @@ ehr_web:
     - .:/usr/src/app
   environment:
     - REACT_APP_API_HOST=api.life.${CI_BRANCH}
+    - REACT_APP_API_PORT=443
     - REACT_APP_API_TOKEN=d99e7ff5-d9f2-48ba-83de-ba4bd8a4ab5a
     - REACT_APP_ENV_NAME=${CI_BRANCH}
     - CI_BRANCH

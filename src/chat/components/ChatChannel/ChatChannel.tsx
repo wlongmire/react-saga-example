@@ -99,10 +99,10 @@ export class ChatChannel extends React.Component<ChatChannelProps, ChatChannelSt
         this.setState({ pendingSends: [...pendingSends, id] });
 
         const message = {
-            eventId: id,
+            event_id: id,
 
-            eventType: 'chat_message',
-            channelId: this.props.patient.primaryChannel,
+            event_type: 'chat_message',
+            channel_id: this.props.patient.primaryChannel,
             major: 1,
             minor: 1,
             payload: {

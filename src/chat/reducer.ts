@@ -58,13 +58,13 @@ export default function reducer(state: ChatState = initialState(), action: Actio
         case Actions.ActionType.MESSAGE_SEND:
             const msg = action.value as ChannelEventMessageRequest<any>;
             
-            if (_.hasIn(state.outboundMessages, msg.eventId)) {
+            if (_.hasIn(state.outboundMessages, msg.event_id)) {
                 return state;
             }
             
             return { ...state, outboundMessages: {
                 ...state.outboundMessages,
-                [msg.eventId]: msg
+                [msg.event_id]: msg
             } };
 
         default:

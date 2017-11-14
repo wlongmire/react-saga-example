@@ -1,6 +1,6 @@
 import { getAuthToken } from '../../auth/util';
 
-export const BASE_URL = `https://${process.env.REACT_APP_API_HOST}/exposed`
+export const BASE_URL = `https://${process.env.REACT_APP_API_HOST}/exposed`;
 
 export const makeUrl = (basePath: string, extendedPath?: string) => {
     const host = process.env.REACT_APP_API_HOST;
@@ -21,7 +21,12 @@ export const makeUrl = (basePath: string, extendedPath?: string) => {
     return url;
 };
 
-export const getRequestInit = (method: string, body: any = null, useAppToken: boolean = false, contentType: string = 'application/json'): RequestInit => {
+export const getRequestInit = (
+    method: string,
+    body: any = null,
+    useAppToken: boolean = false,
+    contentType: string = 'application/json'
+): RequestInit => {
     const token = useAppToken ? process.env.REACT_APP_API_TOKEN : getAuthToken();
     const headers = new Headers({Authorization: `Token ${token}`});
 
@@ -35,4 +40,4 @@ export const getRequestInit = (method: string, body: any = null, useAppToken: bo
         body,
         mode: 'cors'
     };
-}
+};

@@ -7,7 +7,7 @@ import { getAuthToken } from '../auth/util';
 
 let ws: WebSocket;
 
-function parseMessage(data:any ): ChannelEventMessage<any> {
+function parseMessage(data: any): ChannelEventMessage<any> {
     return JSON.parse(data) as ChannelEventMessage<any>;
 }
 
@@ -29,32 +29,34 @@ function initWebsocket() {
 
         ws.onopen = () => {
             return emitter(Actions.socketOpened());
-        }
+        };
 
         ws.onerror = (error) => {
             console.dir(error);
-            return emitter(Actions.socketError(error))
-        }
+            return emitter(Actions.socketError(error));
+        };
 
         ws.onmessage = (e) => {
-            let msg = null;
+            let msg: any = null;
 
             try {
                 msg = parseMessage(e.data);
             } catch (e) {
-                console.error(`Error parsing : ${e.data}`)
+                console.error(`Error parsing : ${e.data}`);
             }
 
             if (msg) {
                 messageQueue.push(msg);
                 return debounced();
             }
-        }
+
+            return null;
+        };
 
         return () => {
             return emitter(Actions.socketClosed());
-        }
-    })
+        };
+    });
 }
 
 function* connect() {
@@ -75,7 +77,7 @@ function* subscribe(action: ActionResult<{}>) {
     while (true) {
         const connectTask = yield fork(connect);
         yield take(Actions.ActionType.SOCKET_DISCONNECT);
-        yield cancel(connectTask)
+        yield cancel(connectTask);
     }
 }
 
@@ -108,5 +110,5 @@ export default function* root() {
     yield all([
         fork(watchForSubscribe),
         fork(watchForMessageSend)
-    ])
+    ]);
 }

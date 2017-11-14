@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import FlatButton from 'material-ui/FlatButton';
-import { Attachment } from '../../../common'
-import { AttachmentListItem } from '../../'
+import { Attachment } from '../../../common';
+import { AttachmentListItem } from '../../';
 import * as api from '../../api';
 
 import './AttachmentControl.css';
@@ -47,7 +47,7 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
     }
 
     handleFileSelected = (e: any) => {
-        if (e.target.files.length == 0) {
+        if (e.target.files.length === 0) {
             return;
         }
 
@@ -66,11 +66,11 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
                         }
                         let items = _.cloneDeep(this.state.attachmentList);
                         items.push(newAttachment);
-                        this.setState({
-                            attachmentList: items
-                        }),() => {
-                            this.props.onChange(this.state.attachmentList);
-                        }
+                        this.setState(
+                            { attachmentList: items},
+                            () => {
+                                this.props.onChange(this.state.attachmentList);
+                        });
                     });
             });
 
@@ -82,11 +82,11 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
             this.state.attachmentList.splice(index, 1);
         }
 
-        this.setState({
-            attachmentList: this.state.attachmentList
-        }),() => {
-            this.props.onChange(this.state.attachmentList);
-        }
+        this.setState(
+            { attachmentList: this.state.attachmentList },
+            () => {
+                this.props.onChange(this.state.attachmentList);
+        });
     }
 
     render() {
@@ -109,7 +109,7 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
                                     attachment={value}
                                     onDelete={this.handleItemDelete}
                                 />
-                            )
+                            );
                         })
                     }
                 </div>
@@ -123,13 +123,14 @@ export class AttachmentControl extends React.Component< AttachmentControlProps, 
                         style={buttonStyle}
                         labelStyle={labelStyle}
                     >
-                    <input type="file" 
-                        onChange={(e) => this.handleFileSelected(e)} 
+                    <input
+                        type="file"
+                        onChange={this.handleFileSelected}
                         style={{ display: 'none' }} 
                     />
                     </FlatButton>
                 </div>
             </div>
-        )
+        );
     }
 }

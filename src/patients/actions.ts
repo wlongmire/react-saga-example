@@ -37,84 +37,84 @@ export const fetchAllPatients = (): ActionResult<{}> =>  {
     return {
         type: ActionType.FETCH_ALL_PATIENTS
     };
-}
+};
 
 export const fetchAllPatientsSuccess = (patients: Array<Patient>): ActionResult<Array<Patient>> =>  {
     return   {
         type: ActionType.FETCH_ALL_PATIENTS_SUCCESS,
         value: patients
     };
-}
+};
 
 export const fetchAllPatientsFailure = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_ALL_PATIENTS_FAILURE,
         value: error
     };
-}
+};
 
 export const fetchPatient = (patientId: number): ActionResult<{}> => {
     return {
         type: ActionType.FETCH_PATIENT,
         value: patientId
-    }
-}
+    };
+};
 
 export const fetchPatientSuccess = (patient: Patient): ActionResult<Patient> => {
     return {
         type: ActionType.FETCH_PATIENT_SUCCESS,
         value: patient
-    }
-}
+    };
+};
 
 export const fetchPatientFailure = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_PATIENT_FAILURE,
         value: error
     };
-}
+};
 
 export const selectPatient = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.SELECT_PATIENT,
         value: patientId
-    }
-}
+    };
+};
 
 export const selectPatientSuccess = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.SELECT_PATIENT_SUCCESS,
         value: patientId
-    }
-}
+    };
+};
 
 export const selectPatientFailure = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.SELECT_PATIENT_FAILURE,
         value: error
-    }
-}
+    };
+};
 
 export const unselectPatient = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.UNSELECT_PATIENT,
         value: patientId
-    }
-}
+    };
+};
 
 export const unselectPatientSuccess = (patientId: number): ActionResult<number> => {
     return {
         type: ActionType.UNSELECT_PATIENT_SUCCESS,
         value: patientId
     };
-}
+};
 
 export const unselectPatientFailure = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.UNSELECT_PATIENT_FAILURE,
         value: error
-    }
-}
+    };
+};
 
 export const addVisit = (visit: Visit, channelId: number): ActionResult<ChannelVisit> => {
     return {

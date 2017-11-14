@@ -37,17 +37,10 @@ const labelStyle = {
 };
 
 export class FormDateField extends React.Component<FormDateFieldProps, FormDateFieldState> {
-    
-    constructor() {
-        super();
-
-        this.state = {
-            dateValue: null,
-            timeValue: null
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-    }
+    state: FormDateFieldState = {
+        dateValue: null,
+        timeValue: null
+    };
 
     componentDidMount() {
         if (this.props.value) {
@@ -67,7 +60,7 @@ export class FormDateField extends React.Component<FormDateFieldProps, FormDateF
         });
     }
 
-    handleChange(event: object, value: any) {
+    handleChange = (event: object, value: any) => {
         // this.setState({value}, () => {
         //     if (this.props.onValueChanged)
         //         this.props.onValueChanged(value);
@@ -99,9 +92,9 @@ export class FormDateField extends React.Component<FormDateFieldProps, FormDateF
                     underlineStyle={underlineStyle}
                 >
                     {
-                        {/* this.props.options.map((option) => {
-                            return (<MenuItem key={option.value} className="select-control-option" value={option.value} primaryText={option.text} />)
-                        }) */}
+                    /* this.props.options.map((option) => {
+                        return (<MenuItem key={option.value} className="select-control-option" value={option.value} primaryText={option.text} />)
+                    }) */
                     }
                 </SelectField>
             </div>

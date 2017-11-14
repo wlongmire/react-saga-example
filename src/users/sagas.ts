@@ -7,7 +7,7 @@ function* fetchAllUsers() {
     try {
         const users = yield call(() => Api.users.fetchAllUsers());
         yield(put(Actions.fetAllUsersSuccess(users)));
-    } catch(e) {
+    } catch (e) {
         yield(put(Actions.fetchAllUsersFailure(e)));
     }
 }
@@ -19,7 +19,7 @@ function* createUser(action: ActionResult<User>) {
         }
         const updatedUser = yield call(Api.users.createUser, action.value);
         yield(put(Actions.createUserSuccess(updatedUser)));
-    } catch(e) {
+    } catch (e) {
         yield(put(Actions.createUserFailure(e)));
     }
 }
@@ -31,7 +31,7 @@ function* updateUser(action: ActionResult<User>) {
         }
         const updatedUser = yield call(Api.users.updateUser, action.value);
         yield(put(Actions.updateUserSuccess(updatedUser)));
-    } catch(e) {
+    } catch (e) {
         yield(put(Actions.updateUserFailure(e)));
     }
 }
@@ -48,11 +48,10 @@ function* watchUpdateUser() {
     yield takeEvery(Actions.ActionType.UPDATE_USER, updateUser);
 }
 
-export default function* root(){
+export default function* root() {
     yield all([
         fork(watchFetchAllUsers),
         fork(watchCreateUser),
         fork(watchUpdateUser),
-    ])
+    ]);
 }
-

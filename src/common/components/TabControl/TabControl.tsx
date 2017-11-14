@@ -127,7 +127,9 @@ export class TabControl extends React.Component<TabControlProps, TabControlState
     }
 
     handleTabAddClick() {
-        if (!this.props.onAddTab) return;
+        if (!this.props.onAddTab) {
+            return;
+        }
         
         const newItemInfo = this.props.onAddTab();
         const newTabItem = {
@@ -153,46 +155,53 @@ export class TabControl extends React.Component<TabControlProps, TabControlState
         let selectedItem = this.state.selectedItem;
 
         if (this.props.onTabClosing) {
-            const cancel = this.props.onTabClosing({
-                header: tab.header,
-                content: tab.contentElement
-            } as TabItemInfo, index);
+            const cancel = this.props.onTabClosing(
+                {
+                    header: tab.header,
+                    content: tab.contentElement
+                } as TabItemInfo,
+                index
+            );
 
-            if (cancel) return;
+            if (cancel) {
+                return;
+            }
         }
         
         if (index < currentIndex) {
             currentIndex -= 1;
         } 
 
-        if (currentIndex == tabs.length) {
+        if (currentIndex === tabs.length) {
             currentIndex -= 1;
         }
 
         selectedItem = this.state.items[currentIndex];
 
-        this.setState({
-            selectedIndex: currentIndex,
-            selectedItem: selectedItem,
-            items: tabs
-        }, () => {
-            let info = {
-                header: tab.header,
-                content: tab.contentElement
-            } as TabItemInfo;
+        this.setState(
+            {
+                selectedIndex: currentIndex,
+                selectedItem: selectedItem,
+                items: tabs
+            },
+            () => {
+                let info = {
+                    header: tab.header,
+                    content: tab.contentElement
+                } as TabItemInfo;
 
-            if (this.props.onTabClosed) {
-                this.props.onTabClosed(info, index);
-            }
+                if (this.props.onTabClosed) {
+                    this.props.onTabClosed(info, index);
+                }
 
-            if (this.props.onSelectedChanged) {
-                this.props.onSelectedChanged(info, index);
-            }
+                if (this.props.onSelectedChanged) {
+                    this.props.onSelectedChanged(info, index);
+                }
         });
     }
 
     handleTabSelection(index: number) {
-        if (index == -1) {
+        if (index === -1) {
             this.setState({
                 selectedIndex: index,
                 selectedItem: null
@@ -202,16 +211,21 @@ export class TabControl extends React.Component<TabControlProps, TabControlState
 
         const tabItem = this.state.items[index];
 
-        this.setState({
-            selectedIndex: index,
-            selectedItem: tabItem
-        }, () => {
-            if (this.props.onSelectedChanged) {
-                this.props.onSelectedChanged({
-                    header: tabItem.header,
-                    content: tabItem.contentElement
-                } as TabItemInfo, index);
-            }
+        this.setState(
+            {
+                selectedIndex: index,
+                selectedItem: tabItem
+            },
+            () => {
+                if (this.props.onSelectedChanged) {
+                    this.props.onSelectedChanged(
+                        {
+                            header: tabItem.header,
+                            content: tabItem.contentElement
+                        } as TabItemInfo,
+                        index
+                    );
+                }
         });
     }
 
@@ -232,7 +246,7 @@ export class TabControl extends React.Component<TabControlProps, TabControlState
                         this.state.items.map((item, index) => {
                             return (
                                 <li
-                                    className={classnames({'active': this.state.selectedIndex == index})} 
+                                    className={classnames({'active': this.state.selectedIndex === index})}
                                     key={index}
                                     onClick={() => this.handleTabSelection(index)}
                                 >
@@ -253,7 +267,7 @@ export class TabControl extends React.Component<TabControlProps, TabControlState
                                         }
                                     </a>
                                 </li>
-                            )
+                            );
                         })
                     }
                     {this.state.canAdd &&
@@ -268,13 +282,11 @@ export class TabControl extends React.Component<TabControlProps, TabControlState
                     }
                 </ul>
                 <div className="tab-content">
-                    {
-                        this.state.selectedIndex == -1 
-                        ? <div></div>
-                        : this.getContentElement(this.state.items[this.state.selectedIndex])
+                    {this.state.selectedIndex !== -1 &&
+                        this.getContentElement(this.state.items[this.state.selectedIndex])
                     }
                 </div>
             </div>
-        )
+        );
     }
 }

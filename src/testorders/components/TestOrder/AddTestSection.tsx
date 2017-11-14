@@ -9,98 +9,94 @@ import {
 import DatePicker from 'material-ui/DatePicker';
 let FileInput = require('react-file-input');
 let FaCalendar = require('react-icons/lib/fa/calendar');
-let FaAttachment = require('react-icons/lib/md/attach-file')
-
+let FaAttachment = require('react-icons/lib/md/attach-file');
 
 import './AddTestSection.css';
 
 const btnStyle = {
     backgroundColor: '#f84445'
-}
+};
 
 const underlineStyle = {
-    display : "none"
-}
+    display : 'none'
+};
 const style = {
     backgroundColor: '#f84445',
     marginBottom: '1em',
-}
+};
 
 const stubbedData = {
     'patient': [
-        {value:1, primaryText:"Pete Patient"},
-        {value:2, primaryText:"Doctor Dre"}
+        {value: 1, primaryText: 'Pete Patient'},
+        {value: 2, primaryText: 'Doctor Dre'}
     ],
     'status': [
-        {value:1, primaryText:"New"},
-        {value:2, primaryText:"Scheduled"},
-        {value:3, primaryText:"Process Visit"},
-        {value:4, primaryText:"Finalized"},
-        {value:5, primaryText:"Cancelled"}
+        {value: 1, primaryText: 'New'},
+        {value: 2, primaryText: 'Scheduled'},
+        {value: 3, primaryText: 'Process Visit'},
+        {value: 4, primaryText: 'Finalized'},
+        {value: 5, primaryText: 'Cancelled'}
     ],
     'clinics': [
-        {value:1, primaryText:"Nomad LifeCo, 79 Madison Ave, New York, NY10016"},
+        {value: 1, primaryText: 'Nomad LifeCo, 79 Madison Ave, New York, NY10016'},
     ],
 
-}
+};
 
 interface S {
-    payload : object;
+    payload: object;
 }
 interface P {
     closeTestsCard: () => void;
 }
-const getNamedValue = (name:string, v?:number) => {
+const getNamedValue = (name: string, v?: number) => {
     let theArrays = Object.keys(stubbedData);
-    let targetArray = theArrays.filter((s:any)=>{
-        return s === name
-    })
+    let targetArray = theArrays.filter((s: any) => {
+        return s === name;
+    });
     let arrayVal = stubbedData[targetArray[0]];
-    let actualValue = arrayVal.filter((a:any) =>{
-        return a.value === v
-    })
+    let actualValue = arrayVal.filter((a: any) => {
+        return a.value === v;
+    });
 
     return actualValue[0].primaryText;
 
-}
+};
 
-export class AddTestSection extends React.Component<P, S>{
-    constructor(){
-        super()
-        this.state = {
-            payload : {}
-        }
-    }
+export class AddTestSection extends React.Component<P, S> {
+    state = {
+        payload : {}
+    };
 
     _handleSubmit = () => {
-
+        // TODO implement
     }
 
-    onPlainTextDropDownChange = (name:string) => (v:number) =>{
+    onPlainTextDropDownChange = (name: string) => (v: number) => {
         this.setState(prevState => ({
             payload: {
                 ...prevState.payload,
                 [name]: getNamedValue(name, v)
             }
-        }))
+        }));
     }
 
-    onTableTemplateChange = (templateName:string) => (items: object[]) => {
+    onTableTemplateChange = (templateName: string) => (items: object[]) => {
         this.setState(prevState => ({
             payload : {
                 ...prevState.payload,
                 [templateName]: items
             }
-        }))
+        }));
     }
 
-    handleChange = (event:any) => {
-        
+    handleChange = (event: any) => {
+        // TODO implement
     }
 
-    render(){
+    render() {
         return(
-            <form id='test-section' onSubmit={this._handleSubmit}>
+            <form id="test-section" onSubmit={this._handleSubmit}>
             <span className="test-add-new"> Add New Test</span>
             <DropDownTemplate
                 title="Status"
@@ -116,22 +112,22 @@ export class AddTestSection extends React.Component<P, S>{
                     hintText="Date Created"
                     underlineStyle={underlineStyle}
                     style={{
-                        textAlign:"left",
-                        position:"relative",
-                        left:'2em',
-                        marginBottom:'.5em'
+                        textAlign: 'left',
+                        position: 'relative',
+                        left: '2em',
+                        marginBottom: '.5em'
                         }}
-                    />
-                    <div className="calendar-icon">
-                        <FaCalendar/>
-                    </div>
+                />
+                <div className="calendar-icon">
+                    <FaCalendar/>
+                </div>
             </div>
             <TextInputTemplate
                 name="order-name"
                 title="Order Name"
                 multiLine={false}
                 rows={1}
-                defaultValue={"Sinus Infection Check"}
+                defaultValue={'Sinus Infection Check'}
             />
             
             <TextInputTemplate
@@ -139,12 +135,12 @@ export class AddTestSection extends React.Component<P, S>{
                 title="Patient Name"
                 multiLine={false}
                 rows={1}
-                defaultValue={"Pete Patient"}
+                defaultValue={'Pete Patient'}
             />
        
-             <PanelTemplate
+            <PanelTemplate
                 onChange={this.onTableTemplateChange('panels')}
-                headerTitle="Panels"     
+                headerTitle="Panels"
             />
 
             <TextInputTemplate
@@ -152,7 +148,7 @@ export class AddTestSection extends React.Component<P, S>{
                 title="Order Number"
                 multiLine={false}
                 rows={1}
-                defaultValue={"#120-12"}
+                defaultValue={'#120-12'}
             />
             <p className="checkbox-title">Priority</p>
             <div className="priority-type-section">
@@ -173,15 +169,15 @@ export class AddTestSection extends React.Component<P, S>{
                     hintText="Collection Date"
                     underlineStyle={underlineStyle}
                     style={{
-                        textAlign:"left",
-                        position:"relative",
-                        left:'2em',
-                        marginBottom:'.5em'
+                        textAlign: 'left',
+                        position: 'relative',
+                        left: '2em',
+                        marginBottom: '.5em'
                         }}
-                    />
-                    <div className="calendar-icon">
-                        <FaCalendar/>
-                    </div>
+                />
+                <div className="calendar-icon">
+                    <FaCalendar/>
+                </div>
             </div>
  
             <TextInputTemplate
@@ -189,7 +185,7 @@ export class AddTestSection extends React.Component<P, S>{
                 title="Collection Location"
                 multiLine={false}
                 rows={1}
-                hintText={"Type Something ..."}
+                hintText={'Type Something ...'}
             />
 
             <DropDownTemplate
@@ -197,7 +193,7 @@ export class AddTestSection extends React.Component<P, S>{
                 dataArray={
                    stubbedData.clinics
                 }
-                onChange={this.onPlainTextDropDownChange("location")}
+                onChange={this.onPlainTextDropDownChange('location')}
             />
 
             <TextInputTemplate
@@ -205,14 +201,16 @@ export class AddTestSection extends React.Component<P, S>{
                 title="Testing Supervisor"
                 multiLine={false}
                 rows={1}
-                defaultValue={"Shirley Swirl"}
+                defaultValue={'Shirley Swirl'}
             />
             <div className="file-input-section">
-            <FileInput name="Add attachment"
-                   accept=".png,.gif"
-                   placeholder="Add attachment"
-                   className="inputClass"
-                   onChange={this.handleChange} />
+            <FileInput
+                name="Add attachment"
+                accept=".png,.gif"
+                placeholder="Add attachment"
+                className="inputClass"
+                onChange={this.handleChange}
+            />
             <div className="att-icon">
             <FaAttachment/>
             </div>
@@ -223,7 +221,7 @@ export class AddTestSection extends React.Component<P, S>{
                 title="Diagnosis"
                 multiLine={false}
                 rows={1}
-                defaultValue={"ICD_10"}
+                defaultValue={'ICD_10'}
             />
 
             <TextInputTemplate
@@ -231,7 +229,7 @@ export class AddTestSection extends React.Component<P, S>{
                 title="Public Note"
                 multiLine={true}
                 rows={2}
-                hintText={"Type Something ..."}
+                hintText={'Type Something ...'}
             />
             <br/>
             <RaisedButton 
@@ -246,9 +244,7 @@ export class AddTestSection extends React.Component<P, S>{
                 label="save"
             />
 
-           
             </form>
-        )
+        );
     }
 }
-

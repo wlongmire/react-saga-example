@@ -5,12 +5,12 @@ import { AuthInfo, Identity, AuthState } from '../common';
 const fetchAuthFromLocalStorage = (): AuthInfo | undefined => {
     const authString = localStorage.getItem('auth');
     return authString ? JSON.parse(authString) as AuthInfo : undefined;
-}
+};
 
 const fetchIdentityFromLocalStorage = (): Identity | undefined => {
     const identityString = localStorage.getItem('identity');
     return identityString ? JSON.parse(identityString) as Identity : undefined;
-}
+};
 
 function initialState(): AuthState {
     const auth = fetchAuthFromLocalStorage();
@@ -25,13 +25,11 @@ function initialState(): AuthState {
         identity: identity,
         authError: undefined,
         pending: identity && identity.userInfo ? false : true
-    }
+    };
 }
 
-export default function reducer(state = initialState(), action: Common.ActionResult<{}>) {
-
+export default function reducer(state: AuthState = initialState(), action: Common.ActionResult<{}>) {
     switch (action.type) {
-
         case ActionType.LOGIN_SUCCESS:
             const authInfo = action.value as AuthInfo;
             return { 
@@ -43,14 +41,12 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 clientTokenVerificationError: undefined,
                 pending: true
             };
-
         case ActionType.LOGIN_FAIL:
             return {
                 ...state,
                 isAuthenticated: false,
                 authError: action.value
             };
-
         case ActionType.LOGOUT_SUCCESS:
             return {
                 ...state,
@@ -63,7 +59,6 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 clientTokenVerificationError: undefined,
                 pending: false
             };
-
         case ActionType.VERIFY_CODE_SUCCESS:
             return {
                 ...state,
@@ -71,23 +66,20 @@ export default function reducer(state = initialState(), action: Common.ActionRes
                 clientTokenVerificationError: undefined,
                 isAuthenticated: true,
                 pending: false
-            }
-        
+            };
         case ActionType.VERIFY_CODE_FAIL:
             return {
                 ...state,
                 clientTokenVerified: false,
                 clientTokenVerificationError: action.value,
                 isAuthenticated: false
-            }
-        
+            };
         case ActionType.FETCH_IDENTITY_SUCCESS:
             return {
                 ...state,
                 identity: action.value as Identity,
                 pending: false
-            }
-
+            };
         default:
             return state;
     }

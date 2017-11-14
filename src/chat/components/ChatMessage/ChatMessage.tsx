@@ -17,12 +17,17 @@ interface ChatMessageState {
     contentType?: string;
 }
 
-export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageState> {
+class ChatMessage extends React.Component<ChatMessageProps, ChatMessageState> {
     getWebAvatarUrl(message: ChannelEventMessage<ChatMessageInfo>): string | undefined {
-        if (message.payload.sender_meta.avatar_urls && message.payload.sender_meta.avatar_urls.web) {
+        if (
+            message.payload.sender_meta
+            && message.payload.sender_meta.avatar_urls
+            && message.payload.sender_meta.avatar_urls.web
+        ) {
             return message.payload.sender_meta.avatar_urls.web.url;
         }
-        return undefined;
+
+        return;
     }
 
     render() {
@@ -46,3 +51,5 @@ export class ChatMessage extends React.Component<ChatMessageProps, ChatMessageSt
         );
     }
 }
+
+export default ChatMessage;

@@ -1,2 +1,4 @@
-export * from './components';
-export * from './reducer';
+import reducer from './reducer';
+import * as components from './components';
+
+export default { reducer, components };

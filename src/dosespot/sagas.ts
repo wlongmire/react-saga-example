@@ -4,6 +4,7 @@ import * as Api from '../common/api';
 
 function* fetchSingleSignOnInfo() {
     try {
+        // TODO remove hardcode values
         if (localStorage.getItem('clinicId') === null) {
             localStorage.setItem('clinicId', '1141');
         }
@@ -23,11 +24,11 @@ function* fetchSingleSignOnInfo() {
 }
 
 function* watchFetchSingleSignOnInfo() {
-    yield takeEvery(Actions.ActionType.FETCH_SSO_INFO, fetchSingleSignOnInfo)
+    yield takeEvery(Actions.ActionType.FETCH_SSO_INFO, fetchSingleSignOnInfo);
 }
 
 export default function* root() {
     yield all([
         fork(watchFetchSingleSignOnInfo)
-    ])
+    ]);
 }

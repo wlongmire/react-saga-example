@@ -54,8 +54,9 @@ export class FormTextField extends React.Component<FormTextFieldProps, FormTextF
 
     handleChange(event: object, value: any) {
         this.setState({value}, () => {
-            if (this.props.onValueChanged)
+            if (this.props.onValueChanged) {
                 this.props.onValueChanged(value);
+            }
         });
     }
 

@@ -1,4 +1,4 @@
-import { AddTestSection, TestOrders } from './components'
+import { AddTestSection, TestOrders } from './components';
 import { reducer } from './reducer';
 
 export const Reducers = {

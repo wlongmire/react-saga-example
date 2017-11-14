@@ -1,6 +1,6 @@
 import * as Actions from './actions';
 import * as Api from '../common/api';
-import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { ActionResult, SingleSignOnCredentials } from '../common';
 
 function* fetchSingleSignOnInfo(action: ActionResult<SingleSignOnCredentials>) {
@@ -30,7 +30,7 @@ function* fetchTreatments(action: ActionResult<number>) {
 }
 
 function* watchFetchSingleSignOnInfo() {
-    yield takeEvery(Actions.ActionType.FETCH_SSO_INFO, fetchSingleSignOnInfo)
+    yield takeEvery(Actions.ActionType.FETCH_SSO_INFO, fetchSingleSignOnInfo);
 }
 
 function* watchFetchTreatments() {
@@ -41,5 +41,5 @@ export default function* root() {
     yield all([
         fork(watchFetchSingleSignOnInfo),
         fork(watchFetchTreatments)
-    ])
+    ]);
 }

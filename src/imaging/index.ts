@@ -1,6 +1,6 @@
-import {ImagingComponent, AddImageSection} from './components';
+import { ImagingComponent, AddImageSection } from './components';
 
 export const Components = {
     ImagingComponent,
     AddImageSection
-}
+};

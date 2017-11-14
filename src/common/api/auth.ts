@@ -18,12 +18,11 @@ export const login = (email: string, password: string, deviceId: string) => {
     return fetch(request)
         .then((response: any) => {
             if (response.ok) {
-                return response.json()
-            }
-            else {
+                return response.json();
+            } else {
                 return response.json().then((err: Error) => {
                     throw err;
-                })
+                });
             }
         })
         .then(result => {
@@ -36,9 +35,9 @@ export const login = (email: string, password: string, deviceId: string) => {
                     const roleId = Number(result.role_id);
                     const authInfo = new AuthInfo(clientToken, userId, userChannel, phoneHint, roleId);
                     return Promise.resolve(authInfo);
-
                 case 403:
-                    const errorMessage = `We don't recognize this e-mail or password. Double-check your information and try again.`;
+                    const errorMessage = `We don't recognize this e-mail or password. 
+                                            Double-check your information and try again.`;
                     return Promise.reject(errorMessage);
 
                 default:
@@ -46,10 +45,11 @@ export const login = (email: string, password: string, deviceId: string) => {
             }
         })
         .catch(() => {
-            const errorMessage = `We don't recognize this e-mail or password. Double-check your information and try again.`;
+            const errorMessage = `We don't recognize this e-mail or password. 
+                                    Double-check your information and try again.`;
             return Promise.reject(errorMessage);
-        })
-}
+        });
+};
 
 export const forgotPassword = (email: string) => {
     const requestInit: RequestInit = {
@@ -64,7 +64,7 @@ export const forgotPassword = (email: string) => {
     const url = makeUrl('exposed', 'request_token');
     const request = new Request(url, requestInit);
     return fetch(request)
-        .then((response:any) => {
+        .then((response: any) => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -81,8 +81,8 @@ export const forgotPassword = (email: string) => {
         })
         .catch(() => {
             return Promise.reject('Error requested a password reset');
-        })
-}
+        });
+};
 
 export const verifyCode = (code: string) => {
     const requestInit = getRequestInit('POST', JSON.stringify({code}), false, 'application/json');
@@ -100,7 +100,7 @@ export const verifyCode = (code: string) => {
                     return Promise.reject('Error verifying token');
             }
         });
-}
+};
 
 export const fetchIdentity = () => {
     const requestInit = getRequestInit('GET');
@@ -109,7 +109,7 @@ export const fetchIdentity = () => {
             if (!response.ok) {
                 throw new Error('Error fetching identity');
             }
-            return response.json()
+            return response.json();
         }).then((result: any) => {
             switch (result.status) {
                 case 200:
@@ -136,13 +136,13 @@ export const fetchIdentity = () => {
                 default:
                     return Promise.reject(result.error);
             }
-        })
-}
+        });
+};
 
 export const fetchDeviceId = (): string | null => {
     return localStorage.getItem('device_id');
-}
+};
 
 export const saveDeviceId = (deviceId: string) => {
     localStorage.setItem('device_id', deviceId);
-}
+};

@@ -4,27 +4,27 @@ export module ActionType {
     export const ADD = 'wellness/ADD';
     export const LOAD_ALL = 'wellness/LOAD_ALL_WELLNESS';
     export const LOAD_ALL_DONE = 'wellness/LOAD_ALL_WELLNESS_COMPLETED';
-    export const LOAD_ALL_FAILED = 'wellness/LOAD_ALL_FAILED'
+    export const LOAD_ALL_FAILED = 'wellness/LOAD_ALL_FAILED';
 }
 
-export const loadAllWellnessCompleted = (wellness: Array<any>):Common.ActionResult<Array<any>> => {
+export const loadAllWellnessCompleted = (wellness: Array<any>): Common.ActionResult<Array<any>> => {
     return{
         type: ActionType.LOAD_ALL_DONE,
         value: wellness
-    }
+    };
 }
 
-export const loadAllWellness = () : Common.ActionResult<{}> =>{
+export const loadAllWellness = (): Common.ActionResult<{}> => {
     return{
         type: ActionType.LOAD_ALL
-    }
+    };
 }
 
 export const loadAllWellnessFailed = (error: Error): Common.ActionResult<Error> => {
     return {
         type : ActionType.LOAD_ALL_FAILED,
         value : error
-    }
+    };
 }
 
 // export const getAllWellness = () => {

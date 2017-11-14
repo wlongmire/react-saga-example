@@ -14,7 +14,7 @@ interface BiodriveListItemState {
 
 }
 
-export class BiodriveListItem extends React.Component<BiodriveListItemProps, BiodriveListItemState> {
+class BiodriveListItem extends React.Component<BiodriveListItemProps, BiodriveListItemState> {
     constructor() {
         super();
         this.handleClick = this.handleClick.bind(this);
@@ -43,3 +43,5 @@ export class BiodriveListItem extends React.Component<BiodriveListItemProps, Bio
         );
     }
 }
+
+export default BiodriveListItem;

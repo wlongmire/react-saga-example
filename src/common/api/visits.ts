@@ -34,10 +34,10 @@ export const getVisitsForChannel = (channelId: number): Promise<Array<Visit>> =>
                     visitType: value.visit_type,
                     vitals: value.vitals,
                     internalNotes: value.internalNotes
-                } as Visit
+                } as Visit;
             });
         });
-}
+};
 
 export const saveVisit = (visit: Visit, channelId: number) => {
     const body = {
@@ -69,4 +69,4 @@ export const saveVisit = (visit: Visit, channelId: number) => {
             return Promise.resolve(visit);
         }
     );
-}
+};

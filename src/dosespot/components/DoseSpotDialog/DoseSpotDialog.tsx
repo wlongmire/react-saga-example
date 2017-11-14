@@ -2,10 +2,14 @@ import * as React from 'react';
 
 import './DoseSpotDialog.css';
 
-export class DoseSpotDialog extends React.Component<{}, {}> {
+class DoseSpotDialog extends React.Component<{}, {}> {
     render() {
         return (
-            <div></div>
-        )
+            <div>
+                {/* TODO need implement */}
+            </div>
+        );
     }
 }
+
+export default DoseSpotDialog;

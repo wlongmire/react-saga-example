@@ -1,15 +1,14 @@
 import * as React from 'react';
+
+import HeaderLabel from '../common/HeaderLabel';
+
 import './styles.css';
 
-import * as Common from '../common';
-
-
-
-export class LinkExpired extends React.Component<{}, {}>{
-    render(){
+class LinkExpired extends React.Component<{}, {}> {
+    render() {
         return(
             <div>
-                <Common.HeaderLabel/>
+                <HeaderLabel />
                 <div className="link-expired-body">
                 <h2 className="bold">
                     Update password link expired
@@ -19,6 +18,8 @@ export class LinkExpired extends React.Component<{}, {}>{
                 <p className="text-content-small">Other questions? Email at hello@life.co</p>
                 </div>
             </div>
-        )
+        );
     }
 }
+
+export default LinkExpired;

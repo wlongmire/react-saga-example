@@ -1,6 +1,6 @@
 import * as Actions from './actions';
 import * as Api from '../common/api';
-import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { ActionResult } from '../common';
 
 function* loadOther(action: ActionResult<number>) {
@@ -23,5 +23,5 @@ function* watchLoadOther() {
 export default function* root() {
     yield all([
         fork(watchLoadOther)
-    ])
+    ]);
 }

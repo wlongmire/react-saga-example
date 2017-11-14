@@ -10,7 +10,7 @@ export const getImagingForChannel = (channelId: number) => {
             return response.json();
         }).then((result: Map<string, any>) => {
 
-            // temporary - will be removed shortly
+            // TODO remove hardcode
             return Promise.resolve([{
                 id: '1',
                 status: 'Scheduled',
@@ -30,6 +30,6 @@ export const getImagingForChannel = (channelId: number) => {
                 imagingLocation: 'Dexter\'s Lab - 25 Broadway, Jersey City, NJ 33048',
                 scheduledFor: new Date('2017-08-16'),
                 publicNote: 'CT scan of the left foot to confirm abnormalities.'
-            }])
+            }]);
         });
-}
+};

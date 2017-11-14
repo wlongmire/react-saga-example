@@ -3,30 +3,25 @@ import * as React from 'react';
 import './AddSection.css';
 
 type P = {
-    handleCloseModal ?: (event:any) => void;
+    handleCloseModal ?: (event: any) => void;
     children?: JSX.Element
-}
+};
 
-
-export default class AddSection extends React.Component<P, {}>{
-    constructor(props:P){
-        super(props)
+export default class AddSection extends React.Component<P, {}> {
+    handleCloseModal = (event: any) => {
+        // TODO implement
     }
 
-    handleCloseModal = (event:any) => {
-    
-    }
-
-    render(){
-        const C = this.props.children
+    render() {
+        const C = this.props.children;
         return (
-            <div id='add-section' onClick={this.props.handleCloseModal}>
+            <div id="add-section" onClick={this.props.handleCloseModal}>
                 <div className="add-section">
                     <div>
                         {C}
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

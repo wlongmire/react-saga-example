@@ -15,28 +15,23 @@ export interface UserListState {
 
 }
 
-export class UserList extends React.Component<UserListProps, UserListState> {
-
-    constructor() {
-        super();
-        this.handleEditUser = this.handleEditUser.bind(this);
-    }
-
+class UserList extends React.Component<UserListProps, UserListState> {
     getUserAvatar(user: User): JSX.Element {
         return (
             <Avatar 
                 backgroundColor="#f84445"
-                color="#ffffff">
+                color="#ffffff"
+            >
                 {
                     (user.firstName !== null 
-                    ? user.firstName.substr(0,1) 
-                    : (user.lastName !== null ? user.lastName.substr(0,1) : ''))
+                    ? user.firstName.substr(0, 1)
+                    : (user.lastName !== null ? user.lastName.substr(0, 1) : ''))
                 }
             </Avatar>
-        )
+        );
     }
 
-    handleEditUser(user: User) {
+    handleEditUser = (user: User) => {
         if (this.props.onItemClick) {
             this.props.onItemClick(user);
         }
@@ -44,10 +39,10 @@ export class UserList extends React.Component<UserListProps, UserListState> {
 
     render() {
         return (
-            <table className={classNames("list-table", this.props.className)}>
+            <table className={classNames('list-table', this.props.className)}>
                 <thead>
                     <tr>
-                        <td className="table-column-icon"></td>
+                        <td className="table-column-icon">{/**/}</td>
                         <td className="table-column-type">Type</td>
                         <td className="table-column-first-name">First Name</td>
                         <td className="table-column-last-name">Last Name</td>
@@ -55,23 +50,29 @@ export class UserList extends React.Component<UserListProps, UserListState> {
                     </tr>
                 </thead>
                 <tbody>
-                {
+                {this.props.users &&
                     this.props.users.map((user: User) => {
                         return (
-                            <tr key={user.id} className="list-table-hover-row" onClick={() => this.handleEditUser(user)}>
+                            <tr
+                                key={user.id}
+                                className="list-table-hover-row"
+                                onClick={() => this.handleEditUser(user)}
+                            >
                                 <td className="table-column-icon">
-                                    { this.getUserAvatar(user) }
+                                    {this.getUserAvatar(user)}
                                 </td>
                                 <td className="table-column-type">{user.type}</td>
                                 <td className="table-column-first-name">{user.firstName}</td>
                                 <td className="table-column-last-name">{user.lastName}</td>
                                 <td className="table-column-email">{user.email}</td>
                             </tr>
-                        )
+                        );
                     })
                 }
                 </tbody>
             </table>
-        )
+        );
     }
 }
+
+export default UserList;

@@ -16,11 +16,6 @@ export class AuthInfo {
         this.userId = userId;
         this.userChannel = userChannel;
         this.phoneHint = phoneHint;
-        this.roleId = roleId
+        this.roleId = roleId;
     }
 }
-
-
-
-
-

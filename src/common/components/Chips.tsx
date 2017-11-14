@@ -8,34 +8,31 @@ const styles = {
 };
 
 interface ChipCollectionProps {
-    items : Array<string>;
+    items: Array<string>;
 }
 
-export class ChipCollection extends React.Component<ChipCollectionProps, {}>{
-    constructor(props:ChipCollectionProps){
-        super(props)
-     
-    }
+export class ChipCollection extends React.Component<ChipCollectionProps, {}> {
     handleRequestDelete = () => {
-        
+        // TODO implement
     }
-    render(){
-            return(
+
+    render() {
+        return(
             <div>
             {
-                this.props.items.map((i:any, index:number)=>{
+                this.props.items.map((i: any, index: number) => {
                     return(
-                            <Chip
-                                key={index}
-                                onRequestDelete={this.handleRequestDelete}
-                                style={styles.chip}
-                            >
-                            {i}
-                            </Chip>
-                    )
+                        <Chip
+                            key={index}
+                            onRequestDelete={this.handleRequestDelete}
+                            style={styles.chip}
+                        >
+                        {i}
+                        </Chip>
+                    );
                 })
             }
             </div>
-            )
+        );
     }
 }

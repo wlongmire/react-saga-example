@@ -3,7 +3,6 @@ export * from './utils';
 export { default as history } from './history';
 export * from './components';
 
-
 /**
  * Globals for the project
  */

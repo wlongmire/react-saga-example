@@ -1,4 +1,5 @@
-export { default as otherReducer } from './reducer';
-export { default as otherSaga } from './sagas';
-export * from './components';
-export { loadOther } from './actions';
+import * as actions from './actions';
+import reducer from './reducer';
+import * as components from './components';
+
+export default { actions, reducer, components };

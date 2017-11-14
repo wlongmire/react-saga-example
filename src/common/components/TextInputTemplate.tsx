@@ -21,8 +21,8 @@ interface TextInputTemplateState {
 }
 
 const underlineStyle = {
-    display : "none"
-}
+    display : 'none'
+};
 
 export class TextInputTemplate extends React.Component<TextInputTemplateProps, TextInputTemplateState> {
     
@@ -55,25 +55,26 @@ export class TextInputTemplate extends React.Component<TextInputTemplateProps, T
     handleChange(event: any) {
         this.setState({
             value: event.target.value
-        }, () =>{
-            if (this.props.onChange) 
+        },            () => {
+            if (this.props.onChange) {
                 this.props.onChange(this.state.value);
+            }
         }); 
     }   
 
     render() {
-        let inputHeight = "58px" || this.props.inputHeight;
+        let inputHeight = '58px' || this.props.inputHeight;
         return(
             <div>
                 <span className="input-title">{this.props.title}</span>
                 <TextField
                     style={{
-                        border:'1px solid #C6D3D1',
-                        position: "relative",
-                        padding: "1em",
-                        width:'100%',
-                        height:{inputHeight},
-                        borderRadius: "3px",
+                        border: '1px solid #C6D3D1',
+                        position: 'relative',
+                        padding: '1em',
+                        width: '100%',
+                        height: {inputHeight},
+                        borderRadius: '3px',
                     }}
                     onChange={this.handleChange}
                     floatingLabelText={this.props.floatingText}
@@ -86,6 +87,6 @@ export class TextInputTemplate extends React.Component<TextInputTemplateProps, T
                     value={this.state.value}
                 />
             </div>
-        )
+        );
     }
 }

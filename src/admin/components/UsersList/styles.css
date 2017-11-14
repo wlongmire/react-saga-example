@@ -1,0 +1,32 @@
+.users-table{
+    margin: 4em auto;
+    font-size: medium;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+}
+thead{
+    color: gray;
+    font-weight: bold;
+}
+
+tbody{
+    font-weight: medium;
+}
+
+tr{
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+}
+
+.user-avatar{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: 4em;
+}
+
+td{
+    padding: 10px 0 10px 0;
+}

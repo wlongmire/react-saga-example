@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as Moment from 'moment';
 import * as _ from 'lodash';
 
-import { BiodriveListGroupHeader } from '../BiodriveListGroupHeader';
-import { BiodriveListItem } from '../BiodriveListItem';
+import BiodriveListGroupHeader from '../BiodriveListGroupHeader/BiodriveListGroupHeader';
+import BiodriveListItem from '../BiodriveListItem/BiodriveListItem';
 import { BiodriveListItemInfo } from '../../reducer';
 
 import './BiodriveList.css';
@@ -13,7 +13,7 @@ interface BiodriveListProps {
     onItemClick: (item: BiodriveListItemInfo) => void;
 }
 
-export class BiodriveList extends React.Component<BiodriveListProps, {}> {
+class BiodriveList extends React.Component<BiodriveListProps, {}> {
 
     generateListItems(items: Array<BiodriveListItemInfo>): Array<React.ReactNode> {
         const list: Array<React.ReactNode> = [];
@@ -54,3 +54,5 @@ export class BiodriveList extends React.Component<BiodriveListProps, {}> {
         );
     }
 }
+
+export default BiodriveList;

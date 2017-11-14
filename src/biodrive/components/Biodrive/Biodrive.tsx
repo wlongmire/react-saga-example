@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as Moment from 'moment';
 import { BiodriveListItemInfo } from '../../reducer';
-import { BiodriveList } from '../BiodriveList';
+import BiodriveList from '../BiodriveList/BiodriveList';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { OthersComponent } from '../../../other';
+import OthersComponent from '../../../other/components/Other';
 import { Other, Patient, Treatment, Visit } from '../../../common';
 
 import './Biodrive.css';
@@ -30,17 +30,10 @@ const inkBarStyle = {
     borderRadius: 3
 };
 
-export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
-    
-    constructor() {
-        super();
-        this.state = {
-            selectedTab: 'treatments'
-        };
-
-        this.handleItemClick = this.handleItemClick.bind(this);
-        this.handleTabChange = this.handleTabChange.bind(this);
-    }
+class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
+    state = {
+        selectedTab: 'treatments'
+    };
 
     getTabButtonStyle(tabName: string) {
         return {
@@ -48,13 +41,13 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
         };
     }
 
-    handleItemClick(info: BiodriveListItemInfo) {
+    handleItemClick = (info: BiodriveListItemInfo) => {
         if (this.props.onDetailItemSelected) {
             this.props.onDetailItemSelected(info);
         }
     }
 
-    handleTabChange(value: any) {
+    handleTabChange = (value: any) => {
         this.setState({selectedTab: value});
     }
 
@@ -62,7 +55,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
         return (
             <div id="main-section">
                  <section className="biodrive-section">       
-                     <Tabs 
+                    <Tabs
                         value={this.state.selectedTab} 
                         inkBarStyle={inkBarStyle} 
                         tabItemContainerStyle={labelBackground}
@@ -70,7 +63,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                     >
                         <Tab value={'treatments'} label="Treatments" buttonStyle={this.getTabButtonStyle('treatments')}>
                             <BiodriveList 
-                                items={this.props.treatments.map((treatment) => { 
+                                items={this.props.treatments.map((treatment) => {
                                     return new BiodriveListItemInfo(
                                         'treatment',
                                         treatment.id, 
@@ -84,7 +77,7 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                         </Tab>
                         <Tab value={'visits'} label="Visits" buttonStyle={this.getTabButtonStyle('visits')}>
                             <BiodriveList 
-                                items={this.props.visits.map((visit) => { 
+                                items={this.props.visits.map((visit) => {
                                     return new BiodriveListItemInfo(
                                         'visit',
                                         visit.id, 
@@ -103,9 +96,11 @@ export class Biodrive extends React.Component<BiodriveProps, BiodriveState> {
                                 channelId={this.props.patient.primaryChannel}
                             />
                         </Tab>
-                     </Tabs>
+                    </Tabs>
                  </section>
             </div>
         );
     }
 }
+
+export default Biodrive;

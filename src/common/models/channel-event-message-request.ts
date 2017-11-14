@@ -1,7 +1,7 @@
 export class ChannelEventMessageRequest<T> {
-    event_id: string;
-    event_type: string;
-    channel_id: number;
+    eventId: string;
+    eventType: string;
+    channelId: number;
     major: number;
     minor: number;
     payload: T;

@@ -1,30 +1,21 @@
 import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import './Wellness.css';
+
 import {
-    // TableInputs, 
-    // TableTemplate,
-    // DropDownTemplate, 
     TextInputTemplate,
-    // ChipCollection,
     TableGoalTemplate,
     DateTimeDropDownTemplate
 } from '../../common/components';
 
-import { GlobalState } from '../../common';
-import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {  Dispatch } from "redux";
-
-// import * as wellnessActions from '../actions';
+import './Wellness.css';
 
 interface S {
-    payload: object
+    payload: object;
 }
 
 interface WellnessProps {
-    wellness : any,
-    loadAllWellness : () => void
+    wellness: any;
+    loadAllWellness: () => void;
 }
 
 const style = {
@@ -32,35 +23,31 @@ const style = {
     width: '30%',
     marginBottom: '1em',
     marginLeft: '3rem'
-  }
-  
-  const btnStyle = {
-      backgroundColor: '#f84445',
-  }
+}
 
+const btnStyle = {
+    backgroundColor: '#f84445',
+}
 
-class WellnessContainer extends React.Component<WellnessProps, S>{
-    constructor(){
-        super();
-        this.state = {
-            payload: {}
-        }
+class Wellness extends React.Component<WellnessProps, S> {
+    state = {
+        payload: {}
+    };
+    
+    componentDidMount() {
+        this.props.loadAllWellness();
     }
     
-    componentDidMount(){
-        this.props.loadAllWellness()
-    }
-    
-    onTableTemplateChange = (templateName:string) => (items: object[]) => {
+    onTableTemplateChange = (templateName: string) => (items: object[]) => {
         this.setState(prevState => ({
             payload : {
                 ...prevState.payload,
                 [templateName]: items
             }
-        }))
+        }));
     }
     
-    render(){
+    render() {
         return(
             <form>
                 <TableGoalTemplate
@@ -83,28 +70,28 @@ class WellnessContainer extends React.Component<WellnessProps, S>{
                     title="Activity"
                     multiLine={true}
                     rows={2}
-                    hintText={"Type Something ..."}
+                    hintText={'Type Something ...'}
                 />
                 <TextInputTemplate
                     name="wellness-sleep"
                     title="Sleep"
                     multiLine={true}
                     rows={2}
-                    hintText={"Type Something ..."}
+                    hintText={'Type Something ...'}
                 />
                 <TextInputTemplate
                     name="wellness-behavioral"
                     title="Behavioral"
                     multiLine={true}
                     rows={2}
-                    hintText={"Type Something ..."}
+                    hintText={'Type Something ...'}
                 />
                 <TextInputTemplate
                     name="wellness-community"
                     title="Community"
                     multiLine={true}
                     rows={2}
-                    hintText={"Type Something ..."}
+                    hintText={'Type Something ...'}
                 />
                 </div>
                 <br/>
@@ -116,21 +103,8 @@ class WellnessContainer extends React.Component<WellnessProps, S>{
                     label="save"
                 />
             </form>
-        )
+        );
     }
 }
 
-const mapStateToProps = (state: GlobalState) => {
-    return {
-        wellness : state.wellness,
-    }
-}
-
-const mapDispatchToProps = (dispatch:Dispatch<{}>) => bindActionCreators(
-    {
-        // loadAllWellness : wellnessActions.getAllWellness 
-    },
-    dispatch
-)
-
-export const WellnessComponent = connect<{}, WellnessProps, {}>(mapStateToProps, mapDispatchToProps)(WellnessContainer)
+export default Wellness;

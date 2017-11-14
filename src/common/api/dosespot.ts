@@ -1,7 +1,10 @@
 import { DoseSpotStatus, SingleSignOnInfo } from '../../common';
 
+const DOSESPOT_API_URL = `http://${process.env.REACT_APP_DOSESPOT_API_HOST}`;
+
 export const fetchSingleSignOnInfo = (clinicId: number, clinicianId: number) => {
-    return fetch(`http://${process.env.REACT_APP_DOSESPOT_API_HOST}/clinics/${clinicId}/clinicians/${clinicianId}/sso`, {
+    // TODO move construct api url in separate variable
+    return fetch(`${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}/sso`, {
         method: 'GET',
         mode: 'cors',
         cache: 'default'
@@ -21,15 +24,15 @@ export const fetchSingleSignOnInfo = (clinicId: number, clinicianId: number) => 
         };
 
         if (Object.keys(raw).indexOf('SingleSignOnUrl') > -1) {
-            ssoInfo['singleSignOnUrl'] = raw.SingleSignOnUrl;
+            ssoInfo.singleSignOnUrl = raw.SingleSignOnUrl;
         }
 
         return ssoInfo;
     });
-}
+};
 
 export const fetchStatus = (clinicId: number, clinicianId: number) => {
-    return fetch(`http://${process.env.REACT_APP_DOSESPOT_API_HOST}/clinics/${clinicId}/clinicians/${clinicianId}/status`, {
+    return fetch(`${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}/status`, {
         method: 'GET',
         mode: 'cors',
         cache: 'default'
@@ -48,4 +51,4 @@ export const fetchStatus = (clinicId: number, clinicianId: number) => {
             url: raw.Url
         };
     });
-}
+};

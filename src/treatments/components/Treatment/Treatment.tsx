@@ -1,16 +1,17 @@
 import * as React from 'react';
 import * as Moment from 'moment';
-// import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+
 import { 
     FormSelectControl, 
     FormSelectControlOption, 
     FormDateTimeControl,
-    FormTextField
+    FormTextField,
+    Patient,
+    SingleSignOnInfo,
+    Treatment,
+    TreatmentStatus
 } from '../../../common';
-import { connect } from 'react-redux';
-import { fetchSingleSignOnInfo } from '../../actions';
-import { Patient, SingleSignOnInfo, Treatment, TreatmentStatus } from '../../../common';
 
 import './Treatment.css';
 
@@ -18,9 +19,9 @@ interface TreatmentComponentProps {
     singleSignOnInfo: SingleSignOnInfo;
     treatment: Treatment;
     patients: Array<Patient>;
-    onSave?: (treatment: Treatment) => void,
+    onSave?: (treatment: Treatment) => void;
     onCancel?: (treatment: Treatment) => void;
-    fetchSingleSignOnInfo: () => void
+    fetchSingleSignOnInfo: () => void;
 }
 
 interface TreatmentComponentState {
@@ -40,19 +41,13 @@ interface TreatmentComponentState {
     isNew: boolean;
 }
 
-class _TreatmentComponent extends React.Component<TreatmentComponentProps, TreatmentComponentState> {
-    
+class TreatmentComponent extends React.Component<TreatmentComponentProps, TreatmentComponentState> {
     constructor(props: TreatmentComponentProps) {
         super(props);
         this.state = {
             id: this.props.treatment.id,
             isNew: true
         };
-
-        this.handleCancelClick = this.handleCancelClick.bind(this);
-        this.handleEditDetailsButtonClick = this.handleEditDetailsButtonClick.bind(this);
-        this.handleSaveClick = this.handleSaveClick.bind(this);
-        this.handleValueChanged = this.handleValueChanged.bind(this);
     }
 
     componentDidMount() {
@@ -94,16 +89,22 @@ class _TreatmentComponent extends React.Component<TreatmentComponentProps, Treat
     }
 
     getPatientName(patientId: number): string {
-        if (!this.props.patients) return '';
-        let patient = this.props.patients.find((patient) => {
-            return patient.id === patientId
+        if (!this.props.patients) {
+            return '';
+        }
+        let patient = this.props.patients.find((patientObj) => {
+            return patientObj.id === patientId;
         });
-        if (!patient) return '';
+        if (!patient) {
+            return '';
+        }
         return `${patient.firstName} ${patient.lastName}`;
     }
 
-    handleCancelClick() {
-        if (!this.props.onCancel) return;
+    handleCancelClick = () => {
+        if (!this.props.onCancel) {
+            return;
+        }
         let treatment = {
             ...this.state, 
             dateWritten: this.state.dateWritten ? this.state.dateWritten.toDate() : undefined, 
@@ -112,24 +113,26 @@ class _TreatmentComponent extends React.Component<TreatmentComponentProps, Treat
         this.props.onCancel(treatment);
     }
 
-    handleClose() {
-        
+    handleClose = () => {
+        // TODO implement
     }
 
-    handleEditDetailsButtonClick() {
-        
+    handleEditDetailsButtonClick = () => {
+        // TODO implement
     }
 
-    handleEndOnDateChange(value: Moment.Moment) {
-        
+    handleEndOnDateChange = (value: Moment.Moment) => {
+        // TODO implement
     }
 
-    handleOpen() {
-        
+    handleOpen = () => {
+        // TODO implement
     }
 
-    handleSaveClick() {
-        if (!this.props.onSave) return;
+    handleSaveClick = () => {
+        if (!this.props.onSave) {
+            return;
+        }
         let treatment = {
             ...this.state, 
             dateWritten: this.state.dateWritten ? this.state.dateWritten.toDate() : undefined, 
@@ -150,12 +153,17 @@ class _TreatmentComponent extends React.Component<TreatmentComponentProps, Treat
 
         return (
             <div className="treatment-component">
-                <input className="edit-in-dosespot-button" type="button" value="Edit Details in Dosespot" onClick={this.handleEditDetailsButtonClick} />
+                <input
+                    className="edit-in-dosespot-button"
+                    type="button"
+                    value="Edit Details in Dosespot"
+                    onClick={this.handleEditDetailsButtonClick}
+                />
                 <FormSelectControl 
                     label="Status" 
                     options={
                         TreatmentStatus.map((status) => {
-                            return { value: status, text: status } as FormSelectControlOption
+                            return { value: status, text: status } as FormSelectControlOption;
                         })
                     }
                     value={this.state.status}
@@ -240,17 +248,8 @@ class _TreatmentComponent extends React.Component<TreatmentComponentProps, Treat
                 </Dialog> */}
                 
             </div>
-        )
+        );
     }
 }
 
-function mapStateToProps(state: any) {
-    return {
-        patients: state.patients.items,
-        singleSignOnInfo: state.treatments.singleSignOnInfo
-    };
-}
-
-export const TreatmentComponent = connect<{}, TreatmentComponentProps, { treatment: Treatment }>(mapStateToProps, {
-    fetchSingleSignOnInfo
-}) (_TreatmentComponent);
+export default TreatmentComponent;

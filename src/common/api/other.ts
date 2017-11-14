@@ -10,11 +10,11 @@ export const getOtherForChannel = (channelId: number) => {
             return response.json();
         }).then((result: Map<string, any>) => {
 
-            // temporary - will be removed soon
+            // TODO remove hardcode
             return Promise.resolve({
                 social: 'Anemia biopsy blood pressure bronchoconstriction...',
                 family: 'Anemia biopsy blood pressure bronchoconstriction...',
                 allergies: 'Anemia biopsy blood pressure bronchoconstriction...'
             });
         });
-}
+};

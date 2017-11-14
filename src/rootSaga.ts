@@ -1,20 +1,15 @@
 import { fork, all } from 'redux-saga/effects';
-// import * as auth from './auth';
-// import * as treatments from './treatments';
-// import * as navigation from './navigation';
-// import * as users from './users';
-// import * as visits from './visits';
-import { authSaga } from './auth';
-import { navSaga } from './navigation';
-import { patientsSaga } from './patients';
-import { doseSpotSaga } from './dosespot';
-import { adminSaga } from './admin';
-import { userSaga } from './users';
-import { chatSaga } from './chat';
-import { visitsSaga } from './visits';
-import { treatmentsSaga } from './treatments';
-import { otherSaga } from './other';
-// import { visitSaga } from './visits';
+
+import authSaga from './auth/sagas';
+import navSaga from './navigation/sagas';
+import patientsSaga from './patients/sagas';
+import doseSpotSaga from './dosespot/sagas';
+import adminSaga from './admin/sagas';
+import userSaga from './users/sagas';
+import chatSaga from './chat/sagas';
+import visitsSaga from './visits/sagas';
+import treatmentsSaga from './treatments/sagas';
+import otherSaga from './other/sagas';
 
 export default function* root() {
     yield all([

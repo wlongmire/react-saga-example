@@ -14,7 +14,7 @@ export enum ControlType {
 
 export type ValidationErrors = {
     [key: string]: any
-}
+};
 
 export interface ValidatorFn {
     (c: any): ValidationErrors|null;
@@ -74,16 +74,16 @@ export class DateSelectorFieldOptions extends FormControlOptions {
 }
 
 interface FormControlProps {
-    controlType: ControlType,
-    textOptions?: TextFieldOptions,
-    dropdownOptions?: DropdownFieldOptions,
-    dateSelectorOptions?: DateSelectorFieldOptions
+    controlType: ControlType;
+    textOptions?: TextFieldOptions;
+    dropdownOptions?: DropdownFieldOptions;
+    dateSelectorOptions?: DateSelectorFieldOptions;
 }
 
 export const FormControl: React.SFC<FormControlProps> = (props) => {
     return (
         <div className="lc-form-control">
-            {props.controlType == ControlType.Text &&
+            {props.controlType === ControlType.Text &&
                 <TextField
                     hintText={props.textOptions ? props.textOptions.hintText : ''}
                     floatingLabelText={props.textOptions ? props.textOptions.floatingLabelText : ''}
@@ -91,23 +91,24 @@ export const FormControl: React.SFC<FormControlProps> = (props) => {
                     onChange={props.textOptions ? props.textOptions.onChange : undefined}
                 />
             }
-            {props.controlType == ControlType.Selector &&
+            {props.controlType === ControlType.Selector &&
                 <SelectField 
                     hintText={props.dropdownOptions ? props.dropdownOptions.hintText : ''}
                     floatingLabelText={props.dropdownOptions ? props.dropdownOptions.floatingLabelText : ''}
                     value={props.dropdownOptions ? props.dropdownOptions.value : ''}
                     onChange={props.dropdownOptions ? props.dropdownOptions.onChange : undefined}
                 >
-                {props.dropdownOptions &&
-                    props.dropdownOptions.items.map((item: DropdownItem, index: number) => {
-                        <MenuItem key={item.value} value={item.value} primaryText={item.primaryText} />
-                    })
-                }
+                    {props.dropdownOptions &&
+                        props.dropdownOptions.items.map((item: DropdownItem, index: number) => {
+                            <MenuItem
+                                key={item.value}
+                                value={item.value}
+                                primaryText={item.primaryText}
+                            />;
+                        })
+                    }
                 </SelectField>
-            }
-            {props.controlType == ControlType.DateSelector &&
-                <div></div>
             }
         </div>
     );
-}
+};

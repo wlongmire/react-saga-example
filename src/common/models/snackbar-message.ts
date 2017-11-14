@@ -4,6 +4,6 @@ export enum SnackbarMessageType {
 }
 
 export interface SnackbarMessage {
-    type: SnackbarMessageType,
-    message: string
+    type: SnackbarMessageType;
+    message: string;
 }

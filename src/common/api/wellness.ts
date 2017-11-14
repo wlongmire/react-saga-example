@@ -10,7 +10,7 @@ export const getWellnessForChannel = (channelId: number) => {
             return response.json();
         }).then((result: Map<string, any>) => {
 
-            // temporary - will be removed soon
+            // TODO remove hardcode
             return Promise.resolve({
                 goals: [{
                     id: '1',
@@ -32,6 +32,6 @@ export const getWellnessForChannel = (channelId: number) => {
                 sleep: 'Anemia biopsy blood pressure bronchoconstriction...',
                 behavioral: 'Anemia biopsy blood pressure bronchoconstriction...',
                 community: 'Anemia biopsy blood pressure bronchoconstriction...'
-            })
+            });
         });
-}
+};

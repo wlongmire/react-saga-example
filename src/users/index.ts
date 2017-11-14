@@ -1,4 +1,5 @@
-export { ActionType, fetchAllUsers, createUser, updateUser, clearSnackbarMessage } from './actions';
-export { default as userReducer } from './reducer';
-export { default as userSaga } from './sagas';
-export { UsersContainer, UserList, UserDetail } from './components';
+import * as actions from './actions';
+import reducer from './reducer';
+import * as components from './components';
+
+export default { actions, reducer, components };

@@ -1,6 +1,6 @@
-// export * from './Patients';
-// export * from './Patient';
-// Add all other users here to this file if need be to be able to import them at whatever stage
-export { UserList } from './UserList';
-export { UserDetail } from './UserDetail';
-export { UsersContainer } from './UsersContainer';
+import UserDetailForm from '../components/UserDetail/UserDetailForm';
+import AddSection from '../components/common/AddSection';
+import UserList from '../components/UserList/UserList';
+import Users from '../components/Users/Users';
+
+export { UserDetailForm, AddSection, UserList, Users };

@@ -1,4 +1,4 @@
 export interface DeviceInfo {
-    userId: number,
+    userId: number;
     deviceId: string;
 }

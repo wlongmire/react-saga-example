@@ -13,7 +13,7 @@ describe('auth sagas', () => {
         const deviceId = uuidv4();
         const credentials = new AuthCredentials(email, password, deviceId);
     
-        const action = <Common.ActionResult<AuthCredentials>>{ 
+        const action = <Common.ActionResult<AuthCredentials>> {
             type: actions.ActionType.LOGIN, 
             value: credentials
         };

@@ -1,2 +1,4 @@
-export { RXContainer } from './Treatments';
-export { TreatmentComponent } from './Treatment';
+import TreatmentComponent from './Treatment/Treatment';
+import TreatmentsCollection from './Treatments/TreatmentsCollection';
+
+export { TreatmentComponent, TreatmentsCollection };

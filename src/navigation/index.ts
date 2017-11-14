@@ -1,3 +1,4 @@
-export { ActionType, navigate } from './actions';
-export { Navbar } from './components';
-export { default as navSaga } from './sagas';
+import * as actions from './actions';
+import * as components from './components';
+
+export default { actions, components };

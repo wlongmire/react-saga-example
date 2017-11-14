@@ -20,19 +20,11 @@ interface OtherState {
     otherInfo: Other;
 }
 
-export class OthersComponent extends React.Component<OtherProps, OtherState> {
-
-    constructor() {
-        super();
-
-        this.state = {
-            attachmentList: [],
-            otherInfo: new Other()
-        };
-
-        this.handleValueChanged = this.handleValueChanged.bind(this);
-        this.handleAttachmentUpdated = this.handleAttachmentUpdated.bind(this);
-    }
+class OthersComponent extends React.Component<OtherProps, OtherState> {
+    state = {
+        attachmentList: [],
+        otherInfo: new Other()
+    };
 
     componentDidMount() {
         if (this.props) {
@@ -52,11 +44,11 @@ export class OthersComponent extends React.Component<OtherProps, OtherState> {
         }
     }
 
-    handleValueChanged(field: string, value: {}) {
-        console.log( `this field ${field} changed ${value}`);
+    handleValueChanged = (field: string, value: {}) => {
+        console.log( `this field ${field} changed ${value}`); // tslint:disable-line
     }
 
-    handleAttachmentUpdated(attachments: Array<Attachment>) {
+    handleAttachmentUpdated = (attachments: Array<Attachment>) => {
         console.log(`Attachments Updated `, attachments); // tslint:disable-line
     }
 
@@ -153,3 +145,5 @@ export class OthersComponent extends React.Component<OtherProps, OtherState> {
         );
     }
 }
+
+export default OthersComponent;

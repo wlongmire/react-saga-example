@@ -17,64 +17,64 @@ export module ActionType {
 export const socketConnect = (): ActionResult<{}> => {
     return {
         type: ActionType.SOCKET_CONNECT
-    }
-}
+    };
+};
 
 export const socketDisconect = (): ActionResult<{}> => {
     return {
         type: ActionType.SOCKET_DISCONNECT
-    }
-}
+    };
+};
 
 export const socketConnecting = (): ActionResult<{}> => {
     return {
         type: ActionType.SOCKET_CONNECTING
-    }
-}
+    };
+};
 
 export const socketError = (e: Event): ActionResult<Event> => {
     return {
         type: ActionType.SOCKET_ERROR,
         value: e
-    }
-}
+    };
+};
 
 export const socketOpened = (): ActionResult<{}> => {
     return {
         type: ActionType.SOCKET_OPENED
-    }
-}
+    };
+};
 
 export const socketClosed = (): ActionResult<{}> => {
     return {
         type: ActionType.SOCKET_CLOSED
-    }
-}
+    };
+};
 
-export const messagesReceived = (messages: Array<ChannelEventMessage<any>>): ActionResult<Array<ChannelEventMessage<any>>> => {
+export const messagesReceived = (messages: ChannelEventMessage<any>[]): ActionResult<ChannelEventMessage<any>[]> => {
     return {
         type: ActionType.MESSAGES_RECEIVED,
         value: messages
-    }
-}
+    };
+};
 
 export const messageSend = (message: ChannelEventMessage<any>): ActionResult<ChannelEventMessage<any>> => {
     return {
         type: ActionType.MESSAGE_SEND,
         value: message
-    }
-}
+    };
+};
 
 export const messageSendSuccess = (message: ChannelEventMessage<any>): ActionResult<ChannelEventMessage<any>> => {
     return {
         type: ActionType.MESSAGE_SEND_SUCCESS,
         value: message
-    }
-}
+    };
+};
 
 export const messageSendFail = (e: Error): ActionResult<Error> => {
     return { 
         type: ActionType.MESSAGE_SEND_FAIL,
         value: e
-    }
-}
+    };
+};

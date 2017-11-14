@@ -1,4 +1,5 @@
-export * from './components';
-export { socketConnect, messageSend } from './actions';
-export { default as chatReducer} from './reducer';
-export { default as chatSaga } from './sagas';
+import * as actions from './actions';
+import reducer from './reducer';
+import * as components from './components';
+
+export default { actions, reducer, components };

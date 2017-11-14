@@ -148,7 +148,8 @@ export class FormTableInputControl extends React.Component<FormTableInputControl
                                     multiline={this.props.multilineDetail}
                                     rows={this.props.multilineRows}
                                     singleValue={this.props.singleValue}
-                                /> )
+                                />
+                            );
                         })
                     }
                 </div>

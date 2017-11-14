@@ -2,44 +2,44 @@ import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import './TableInputs.css';
 
-interface IAdditionalItem {
+interface AdditionalItem {
     id: number;
-    title : string;
+    title: string;
     description: string;
 
 }
 
 const underlineStyle = {
-    display : "none"
-}
+    display : 'none'
+};
 
 interface TableTemplateState {
-    items: Array<IAdditionalItem>
+    items: Array<AdditionalItem>;
 }
 
-interface TableTemplateProps{
-    headerTitle : string,
-    onChange : (items:Array<any>) => void;
+interface TableTemplateProps {
+    headerTitle: string;
+    onChange: (items: Array<any>) => void;
 }
-export class PanelTemplate extends React.Component<TableTemplateProps, TableTemplateState>{
-    private count:number = 0;
+export class PanelTemplate extends React.Component<TableTemplateProps, TableTemplateState> {
+    private count: number = 0;
     
-    constructor(props:TableTemplateProps){
-        super(props)
+    constructor(props: TableTemplateProps) {
+        super(props);
     
-    this.state = {
+        this.state = {
         items : [],
         
-    }
+    };
 
-    this.handleAddItem = this.handleAddItem.bind(this);
+        this.handleAddItem = this.handleAddItem.bind(this);
     }
 
     handleAddItem = (e: React.SyntheticEvent<any>) => {
-        const newItem: IAdditionalItem = {
-            id:this.count++,
-            title:'',
-            description:''
+        const newItem: AdditionalItem = {
+            id: this.count++,
+            title: '',
+            description: ''
         };
 
         this.setState(prevState => ({
@@ -47,24 +47,24 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
         }));
     }
 
-    handleSubmit = (e:any, value:any) => {
-        
+    handleSubmit = (e: any, value: any) => {
+        // TODO implement
     }
 
-    handleChangeInput = (index: number) => (e:any) => {
+    handleChangeInput = (index: number) => (e: any) => {
         let items = [...this.state.items];
         const item = items[index];
         items[index] = {
             ...item,
             [e.target.name]: e.target.value
-        }
+        };
 
         this.setState({items}, () => {
-            this.props.onChange(this.state.items)
-        })
+            this.props.onChange(this.state.items);
+        });
     }
 
-    render(){
+    render() {
         return(
         <div id="add-component">
                 <div className="add-component-header">
@@ -75,7 +75,7 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                 </div>
                 <div className="body">
                         {
-                            this.state.items.map((item:IAdditionalItem, index:number, array)=>{
+                            this.state.items.map((item: AdditionalItem, index: number, array) => {
                                 return(
                                 <div key={item.id} className="component-entry-panels">
                                 <div>
@@ -95,7 +95,8 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                                         hintText="Result"
                                         onChange={this.handleChangeInput(index)}
                                         underlineStyle={underlineStyle}
-                                        floatingLabelText="Result"/>
+                                        floatingLabelText="Result"
+                                    />
                                 </div>
                                 <div>
                                     <TextField 
@@ -104,7 +105,8 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                                         hintText="Status"
                                         underlineStyle={underlineStyle}
                                         onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="Status"/>
+                                        floatingLabelText="Status"
+                                    />
                                 </div>
 
                                 <div>
@@ -114,15 +116,16 @@ export class PanelTemplate extends React.Component<TableTemplateProps, TableTemp
                                         name="comment"
                                         hintText="Comment"
                                         onChange={this.handleChangeInput(index)}
-                                        floatingLabelText="Comment"/>
+                                        floatingLabelText="Comment"
+                                    />
                                 </div>
                                 </div>
-                                )
+                                );
                             })
                         }
                 </div>
         
         </div> 
-        )
+        );
     }
 }

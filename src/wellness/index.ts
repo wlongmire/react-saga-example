@@ -1,10 +1,5 @@
-import {WellnessComponent} from './components';
+import * as actions from './actions';
+import reducer from './reducer';
+import * as components from './components';
 
-import {reducer} from './reducer';
-
-export const Reducers = {
-    root: reducer
-}
-export const Components = {
-    WellnessComponent
-}
+export default { actions, reducer, components };

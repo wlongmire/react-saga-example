@@ -11,7 +11,7 @@ function initialState(): ChatState {
     };
 }
 
-export default function reducer(state = initialState(), action: ActionResult<{}>) {
+export default function reducer(state: ChatState = initialState(), action: ActionResult<{}>) {
     switch (action.type) {
         
         case Actions.ActionType.SOCKET_CONNECT:
@@ -37,7 +37,7 @@ export default function reducer(state = initialState(), action: ActionResult<{}>
                     if (_.hasIn(pending, newMessage.event_id)) {
                         delete pending[newMessage.event_id];
                     }
-                    return true;    
+                    return true;
                 }
                 return false;
             });
@@ -58,13 +58,14 @@ export default function reducer(state = initialState(), action: ActionResult<{}>
         case Actions.ActionType.MESSAGE_SEND:
             const msg = action.value as ChannelEventMessageRequest<any>;
             
-            if (_.hasIn(state.outboundMessages, msg.event_id)) 
+            if (_.hasIn(state.outboundMessages, msg.eventId)) {
                 return state;
-
-            const outbound = _.cloneDeep(state.outboundMessages);
-            outbound[msg.event_id] = msg;
+            }
             
-            return { ...state, outboundMessages: outbound }
+            return { ...state, outboundMessages: {
+                ...state.outboundMessages,
+                [msg.eventId]: msg
+            } };
 
         default:
             return state;

@@ -68,7 +68,7 @@ interface VisitComponentState {
     isValid: boolean;
 }
  
-export class VisitComponent extends React.Component<VisitComponentProps, VisitComponentState> {
+class VisitComponent extends React.Component<VisitComponentProps, VisitComponentState> {
     
     constructor() {
         super();
@@ -438,4 +438,6 @@ export class VisitComponent extends React.Component<VisitComponentProps, VisitCo
             </form>
         );
     }
-}                
+}
+
+export default VisitComponent;

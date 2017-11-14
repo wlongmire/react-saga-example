@@ -24,66 +24,66 @@ export const clearSnackbarMessage = (): ActionResult<{}> => {
     return {
         type: ActionType.CLEAR_SNACKBAR_MESSAGE
     };
-}
+};
 
 export const fetchAllUsers = (): ActionResult<{}> => {
     return {
         type: ActionType.FETCH_ALL_USERS
     };
-}
+};
 
 export const fetAllUsersSuccess = (users: Array<User>): ActionResult<Array<User>> => {
     return {
         type: ActionType.FETCH_ALL_USERS_SUCCESS,
         value: users
     };
-}
+};
 
 export const fetchAllUsersFailure = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_ALL_USERS_FAILURE,
         value: e
     };
-}
+};
 
 export const createUser = (user: User): ActionResult<User> => {
     return {
         type: ActionType.CREATE_USER,
         value: user
     };
-}
+};
 
 export const createUserSuccess = (user: User): ActionResult<User> => {
     return {
         type: ActionType.CREATE_USER_SUCCESS,
         value: user
     };
-}
+};
 
 export const createUserFailure = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.CREATE_USER_FAILURE,
         value: e
     };
-}
+};
 
 export const updateUser = (user: User): ActionResult<User> => {
     return {
         type: ActionType.UPDATE_USER,
         value: user
     };
-}
+};
 
 export const updateUserSuccess = (user: User): ActionResult<User> => {
     return {
         type: ActionType.UPDATE_USER_SUCCESS,
         value: user
     };
-}
+};
 
 export const updateUserFailure = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.UPDATE_USER_FAILURE,
         value: e
     };
-}
+};

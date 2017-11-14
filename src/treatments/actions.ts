@@ -4,7 +4,7 @@ export module ActionType {
     export const ADD = 'rx/ADD';
     export const LOAD_ALL = 'rx/LOAD_ALL_TREATMENTS';
     export const LOAD_ALL_DONE = 'rx/LOAD_ALL_TREATMENTS_COMPLETED';
-    export const LOAD_ALL_FAILED = 'rx/LOAD_ALL_FAILED'
+    export const LOAD_ALL_FAILED = 'rx/LOAD_ALL_FAILED';
     export const FETCH_SSO_INFO = 'rx/FETCH_SSO_INFO';
     export const FETCH_SSO_INFO_FAILED = 'rx/FETCH_SSO_INFO_FAILED';
     export const FETCH_SSO_INFO_SUCCESS = 'rx/FETCH_SSO_INFO_SUCCESS';
@@ -13,45 +13,45 @@ export module ActionType {
     export const FETCH_TREATMENTS_FAIL = 'visits/FETCH_TREATMENTS_FAIL';
 }
 
-export const loadAllRxCompleted = (treatments: Array<any>):ActionResult<Array<any>> => {
+export const loadAllRxCompleted = (treatments: Array<any>): ActionResult<any[]> => {
     return{
         type: ActionType.LOAD_ALL_DONE,
         value: treatments
-    }
-}
+    };
+};
 
-export const loadAllRx = () : ActionResult<{}> =>{
+export const loadAllRx = (): ActionResult<{}> => {
     return {
         type: ActionType.LOAD_ALL
-    }
-}
+    };
+};
 
 export const loadAllRxFailed = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.LOAD_ALL_FAILED,
         value: error
-    }
-}
+    };
+};
 
 export const fetchSingleSignOnInfo = (): ActionResult<{}> => {
     return {
         type: ActionType.FETCH_SSO_INFO
-    }
-}
+    };
+};
 
 export const fetchSingleSignOnInfoFailed = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_SSO_INFO_FAILED,
         value: error
-    }
-}
+    };
+};
 
 export const fetchSingleSignOnInfoSuccess = (ssoInfo: SingleSignOnInfo): ActionResult<SingleSignOnInfo> => {
     return {
         type: ActionType.FETCH_SSO_INFO_SUCCESS,
         value: ssoInfo
-    }
-} 
+    };
+};
 
 export const fetchTreatments = (channelId: number): ActionResult<number> => {
     return {

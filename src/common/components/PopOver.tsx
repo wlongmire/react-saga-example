@@ -46,5 +46,5 @@ export const PopOver = (props: P) => {
                 <i className="flask-icon"><FaFlask/></i>
             </li>
         </ul>
-    )
-}
+    );
+};

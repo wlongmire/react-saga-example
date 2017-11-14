@@ -1,4 +1,5 @@
-export { DoseSpotDialog, DoseSpotUser } from './components';
-export { default as doseSpotReducer } from './reducer';
-export { fetchSingleSignOnInfo } from './actions';
-export { default as doseSpotSaga } from './sagas';
+import * as actions from './actions';
+import reducer from './reducer';
+import * as components from './components';
+
+export default { actions, reducer, components };

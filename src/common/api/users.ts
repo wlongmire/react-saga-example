@@ -13,7 +13,7 @@ export const fetchAllUsers = () => {
         }).then((data: any) => {
             return data.map(mapToUser);
         });
-}
+};
 
 export const createUser = (user: User) => {
     let payload;
@@ -53,7 +53,7 @@ export const createUser = (user: User) => {
                 } as User;
             }
         });
-}
+};
 
 export const updateUser = (user: User) => {
     let payload: any;
@@ -91,17 +91,23 @@ export const updateUser = (user: User) => {
             if (data.constructor.name === 'String') {
                 throw new Error(data as string);
             } else {
-                let updated = _.zipObject(data.map((pair: any) => pair.key), data.map((pair:any) => pair.value));
-                updated['user_id'] = user.id;
+                let updated = data.reduce(
+                    (result: Object, current: any) => {
+                        result[current.key] = current.value;
+                        return result;
+                    },
+                    {}
+                );
 
+                updated.user_id = user.id;
                 if (payload) {
-                    updated['role_id'] = payload['role_id'];
+                    updated.role_id = payload.role_id;
                 }
                 
                 return mapToUser(updated);
             }
         });
-}
+};
 
 /**
  * Maps raw data to the correct user type instance.
@@ -132,4 +138,4 @@ const mapToUser = (data: any): User => {
         default:
             throw new Error('unsupported entity type');
     }
-}
+};

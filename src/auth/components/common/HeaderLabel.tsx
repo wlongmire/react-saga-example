@@ -6,7 +6,7 @@ import './HeaderLabel.css';
 const HeaderLabel = () => {
     return (
         <Link to="/" className="lifeco-label">LifeCo</Link>
-    )
-}
+    );
+};
 
 export default HeaderLabel;

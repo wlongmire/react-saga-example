@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { Route, Router, Redirect, Switch, RouteComponentProps, RouteProps } from 'react-router-dom';
-import * as Auth from './auth';
-import { AdminPage } from './admin';
+import Login from './auth/containers/Login';
+import MFACodeEntry from './auth/containers/MFACodeEntry';
+import { AdminPage } from './admin/containers/AdminPage';
 import { Schedules } from './schedule';
 import { AuthorizedRoute } from './main';
-import { Navbar } from './navigation';
-import { PatientList } from './patients';
-import { PatientDetail } from './patients';
-import { DoseSpotUser } from './dosespot';
-import { UsersContainer, UserDetail } from './users';
+import Navbar from './navigation/containers/Navbar';
+import PatientList from './patients/containers/PatientList';
+import PatientDetail from './patients/containers/PatientDetail';
+import DoseSpotUser from './dosespot/containers/DoseSpotUser';
+import UserDetail from './users/conteiners/UserDetail';
+import UsersContainer from './users/conteiners/UsersContainer';
 import { history } from './common';
 
 const UnauthorizedLayout = (props: RouteComponentProps<any>) => {
@@ -17,12 +19,13 @@ const UnauthorizedLayout = (props: RouteComponentProps<any>) => {
             <Switch>
                 <Route 
                     path={`${props.match.path}/login`}
-                    render={(props) => <Auth.LoginContainer {...props} />}
+                    render={(renderProps) => <Login {...renderProps} />}
                 />
+                {
                 <Route
                     path={`${props.match.path}/verify-code`}
-                    render={(props) => <Auth.MFACodeEntry {...props} />}
-                />
+                    render={(renderProps) => <MFACodeEntry {...renderProps} />}
+                />}
                 <Redirect to={`${props.match.path}/login`} />
             </Switch>
         </div>
@@ -37,13 +40,13 @@ const PrimaryLayout = (props: RouteProps) => {
             </header>
             <main>
                 <Switch>
-                    <Route path={`${props.path}/patients`} exact component={PatientList} />
-                    <Route 
-                        exact
-                        path={`${props.path}/patient-detail/:patientId`} 
-                        render={(props) => <PatientDetail {...props} />}
+                    <Route path={`${props.path}/patients`} exact={true} component={PatientList} />
+                    <Route
+                        exact={true}
+                        path={`${props.path}/patient-detail/:patientId`}
+                        render={(renderProps) => <PatientDetail {...renderProps} />}
                     />
-                    <Route path={`${props.path}/patients/biodrive`} exact component={PatientList} />
+                    <Route path={`${props.path}/patients/biodrive`} exact={true} component={PatientList} />
                     <Route path={`${props.path}/dosespot`} component={DoseSpotUser} />
                     <Route path={`${props.path}/user-add`} component={UserDetail} />
                     <Route path={`${props.path}/user-detail`} component={UserDetail} />

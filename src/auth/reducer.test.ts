@@ -6,7 +6,7 @@ describe('auth reducer', () => {
     const initialState: AuthState = {
         isAuthenticated: false,
         pending: false
-    }
+    };
 
     it('should return the initial state', () => {
         expect(reducer(initialState, { type: actions.ActionType.LOGIN })).toEqual({

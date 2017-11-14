@@ -1,2 +1,4 @@
-export { ChatChannel } from './ChatChannel';
-export { ChatMessage } from './ChatMessage';
+import ChatChannel from './ChatChannel/ChatChannel';
+import ChatMessage from './ChatMessage/ChatMessage';
+
+export {ChatMessage, ChatChannel};

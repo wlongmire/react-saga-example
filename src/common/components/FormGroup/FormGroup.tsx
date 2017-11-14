@@ -12,4 +12,4 @@ export const FormGroup: React.SFC<FormGroupProps> = (props) => {
             {props.children}
         </div>
     );
-}
+};

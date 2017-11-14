@@ -1,9 +1,9 @@
 import { ActionResult } from '../common';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
-import * as Navigation from '../navigation';
+import navigation from '../navigation';
 import { AuthCredentials, Identity, AuthInfo } from '../common';
-import * as api from '../common/api'
+import * as api from '../common/api';
 
 export function* login(action: ActionResult<AuthCredentials>) {
     try {
@@ -47,13 +47,13 @@ export function* onForgotPassword(action: ActionResult<string>) {
 }
 
 function* onLoginSuccess(action: ActionResult<AuthInfo>) {
-    const authInfo = action.value as AuthInfo
+    const authInfo = action.value as AuthInfo;
     localStorage.setItem('auth', JSON.stringify(authInfo));
-    yield(put(Navigation.navigate('/auth/verify-code')));
+    yield(put(navigation.actions.navigate('/auth/verify-code')));
 }
 
 function* onLogoutSuccess() {
-    yield(put(Navigation.navigate('/auth/login')));
+    yield(put(navigation.actions.navigate('/auth/login')));
 }
 
 function* onFetchIdentity() {
@@ -68,7 +68,7 @@ function* onFetchIdentity() {
 function* onFetchIdentitySuccess(action: ActionResult<Identity>) {
     const identity = action.value as Identity;
     localStorage.setItem('identity', JSON.stringify(identity));
-    yield(put(Navigation.navigate('/app/')));
+    yield(put(navigation.actions.navigate('/app/')));
 }
 
 function* onVerifyCodeSuccess() {

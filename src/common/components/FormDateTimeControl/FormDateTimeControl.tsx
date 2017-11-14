@@ -7,7 +7,7 @@ import './FormDateTimeControl.css';
 
 interface FormDateTimeControlProps {
     label?: string;
-    date?: Moment.Moment
+    date?: Moment.Moment;
     floatingLabelText?: string;
     onChange: (value: Moment.Moment) => void;
 }
@@ -61,7 +61,9 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
     }
 
     componentDidMount() {
-        if (!this.props.date) return;
+        if (!this.props.date) {
+            return;
+        }
         if (this.props.date) {
             let moment = this.props.date;
             this.setDate(moment);
@@ -69,7 +71,9 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
     }
 
     componentWillReceiveProps(props: FormDateTimeControlProps) {
-        if (!props.date) return;
+        if (!props.date) {
+            return;
+        }
         if (props.date) {
             let moment = props.date;
             this.setDate(moment);
@@ -77,12 +81,16 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
     }
 
     setDate(moment: Moment.Moment) {
-        this.setState({
-            value: moment,
-            selectedTimeStop: this.findMatchingStop(moment)
-        }, () => {
-            if (!this.dateInput) return;
-            this.dateInput.value = this.state.value.format('M/D/YYYY');
+        this.setState(
+            {
+                value: moment,
+                selectedTimeStop: this.findMatchingStop(moment)
+            },
+            () => {
+                if (!this.dateInput) {
+                    return;
+                }
+                this.dateInput.value = this.state.value.format('M/D/YYYY');
         });
     }
 
@@ -105,7 +113,9 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
 
     handleDateChange(e: any) {
         let next = Moment(e.target.value);
-        if (!next.isValid()) return;
+        if (!next.isValid()) {
+            return;
+        }
 
         if (this.state.selectedTimeStop) {
             next = Moment(next.set({
@@ -113,30 +123,32 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
                 'minute': this.state.selectedTimeStop.minute()
             }));  
         } 
-        this.setState({
-            value: next
-        }, () => {
-            if (this.props.onChange) {
-                this.props.onChange(this.state.value);
-            }
+        this.setState(
+            { value: next},
+            () => {
+                if (this.props.onChange) {
+                    this.props.onChange(this.state.value);
+                }
         });
     }
 
     handleOpenDatePicker() {
-        
+        // TODO implement
     }
 
     handleTimeChange(event: object, index: number, value: any) {
         let val = value as Moment.Moment;
         let current = this.state.value;
         let next = Moment(current.set({'hour': val.hour(), 'minute': val.minute()}));
-        this.setState({
-            selectedTimeStop: val,
-            value: next
-        }, () => {
-            if (this.props.onChange) {
-                this.props.onChange(this.state.value);
-            }
+        this.setState(
+            {
+                selectedTimeStop: val,
+                value: next
+            },
+            () => {
+                if (this.props.onChange) {
+                    this.props.onChange(this.state.value);
+                }
         });
     }
 
@@ -150,7 +162,7 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
                         className="date-control-text-input" 
                         type="text" 
                         onChange={this.handleDateChange}
-                        ref={(el) => this.dateInput = el }
+                        ref={(el) => this.dateInput = el}
                     />
                 </div>
                 <div className="date-control-time-selector-wrapper">
@@ -166,7 +178,14 @@ export class FormDateTimeControl extends React.Component<FormDateTimeControlProp
                 >
                     {
                         this.state.timeStops.map((timeStop, index) => {
-                            return (<MenuItem key={index} className="select-control-option" value={timeStop} primaryText={timeStop.format('h:mm A')} />)
+                            return (
+                                <MenuItem
+                                    key={index}
+                                    className="select-control-option"
+                                    value={timeStop}
+                                    primaryText={timeStop.format('h:mm A')}
+                                />
+                            );
                         })
                     }
                 </SelectField>

@@ -8,9 +8,9 @@ function initialState(): UsersState {
     };
 }
 
-export default function reducer(state = initialState(), action: ActionResult<any>){
+export default function reducer(state: UsersState = initialState(), action: ActionResult<any>) {
 
-    switch(action.type){
+    switch (action.type) {
         case ActionType.CREATE_USER:
             return { 
                 ...state, 
@@ -75,7 +75,7 @@ export default function reducer(state = initialState(), action: ActionResult<any
 
         case ActionType.UPDATE_USER_SUCCESS:
             const updated = action.value as User;
-            const idx = state.items.findIndex((user: User) => user.id === updated.id );
+            const idx = state.items.findIndex((upUser: User) => upUser.id === updated.id );
             state.items.splice(idx, 1, updated);
             return { 
                 ...state, 

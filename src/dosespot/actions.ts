@@ -9,19 +9,19 @@ export module ActionType {
 export const fetchSingleSignOnInfo = (): ActionResult<{}> => {
     return {
         type: ActionType.FETCH_SSO_INFO
-    }
-}
+    };
+};
 
 export const fetchSingleSignOnInfoFailed = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_SSO_INFO_FAILED,
         value: error
-    }
-}
+    };
+};
 
 export const fetchSingleSignOnInfoSuccess = (ssoInfo: SingleSignOnInfo): ActionResult<SingleSignOnInfo> => {
     return {
         type: ActionType.FETCH_SSO_INFO_SUCCESS,
         value: ssoInfo
-    }
-} 
+    };
+};

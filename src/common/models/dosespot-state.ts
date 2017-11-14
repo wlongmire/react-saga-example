@@ -4,6 +4,6 @@ import { SingleSignOnInfo } from './single-sign-on-info';
 export class DoseSpotState {
     isFetching: boolean;
     items: DoseSpotStatus[];
-    clinicians: number[]
+    clinicians: number[];
     sso: SingleSignOnInfo | null | undefined;
 }

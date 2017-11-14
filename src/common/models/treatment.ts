@@ -28,4 +28,4 @@ export const TreatmentStatus = [
     'Refill',
     'Inactive',
     'Cancelled'
-]
+];

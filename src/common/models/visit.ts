@@ -67,7 +67,7 @@ export const Doctors = [
     'Sapna Palep, MD',
     'Sherry Shieh, MD',
     'Bernard Dreyer, MD'
-]
+];
 
 export const DoctorTypes = [
     'Primary Care Physician',
@@ -110,12 +110,12 @@ export const DoctorTypes = [
     'Sleep disorders specialist',
     'Surgeon',
     'Urologist'
-]
+];
 
 export const LifeCoLocations = [
     'NoMad, 79 Madison Ave, 8th Floor',
     'Flatiron 339 14th Street'
-]
+];
 
 export const VisitStatus = [
     'Ordered',
@@ -123,7 +123,7 @@ export const VisitStatus = [
     'Process Visit',
     'Released',
     'Cancelled'
-]
+];
 
 export const Complaints = [
     'Abdominal pain',
@@ -229,7 +229,7 @@ export const Complaints = [
     'Sore throat',
     'Styes',
     'Vomiting'
-]
+];
 
 export const Vitals = [
     'Height',
@@ -240,7 +240,7 @@ export const Vitals = [
     'Pulse',
     'Respiratory Rate',
     'O2 Saturation',
-]
+];
 
 export const SystemsReview = [
     'Eyes',
@@ -256,7 +256,7 @@ export const SystemsReview = [
     'Endocrine',
     'Hematologic/ lymphatic',
     'Allergic / immunologic',
-]
+];
 
 export enum VisitType {
     LifeCo,

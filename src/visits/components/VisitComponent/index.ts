@@ -1,1 +1,3 @@
-export { VisitComponent } from './VisitComponent';
+import VisitComponent from './VisitComponent';
+
+export {VisitComponent};

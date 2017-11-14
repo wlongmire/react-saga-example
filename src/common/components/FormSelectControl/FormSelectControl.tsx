@@ -62,8 +62,9 @@ export class FormSelectControl extends React.Component<FormSelectControlProps, F
 
     handleChange(event: object, index: number, value: any) {
         this.setState({value}, () => {
-            if (this.props.onValueChanged)
+            if (this.props.onValueChanged) {
                 this.props.onValueChanged(value);
+            }
         });
     }
 
@@ -85,11 +86,18 @@ export class FormSelectControl extends React.Component<FormSelectControlProps, F
                 >
                     {
                         this.props.options.map((option) => {
-                            return (<MenuItem key={option.value} className="select-control-option" value={option.value} primaryText={option.text} />)
+                            return (
+                                <MenuItem
+                                    key={option.value}
+                                    className="select-control-option"
+                                    value={option.value}
+                                    primaryText={option.text}
+                                />
+                            );
                         })
                     }
                 </SelectField>
             </div>
-        )
+        );
     }
 }

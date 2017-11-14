@@ -26,10 +26,10 @@ export const getTreatmentsForChannel = (channelId: number) => {
                     endOn: value.end_on,
                     medicationName: value.medication_name,
                     id: key
-                } as Treatment
+                } as Treatment;
             });
         });
-}
+};
 
 export const createTreatment = (treatment: Treatment, channelId: number) => {
     const body = {
@@ -53,7 +53,7 @@ export const createTreatment = (treatment: Treatment, channelId: number) => {
             return Promise.resolve(treatment);
         }
     );
-}
+};
 
 export const updateTreatment = (treatment: Treatment, channelId: number) => {
     const body = {
@@ -77,4 +77,4 @@ export const updateTreatment = (treatment: Treatment, channelId: number) => {
             return Promise.resolve(treatment);
         }
     );
-}
+};

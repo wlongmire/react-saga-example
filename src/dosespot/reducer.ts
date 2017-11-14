@@ -7,14 +7,14 @@ function initialState(): DoseSpotState {
         items: [],
         clinicians: [],
         sso: null
-    }
+    };
 }
 
-export default function reducer(state = initialState(), action: ActionResult<{}>){
+export default function reducer(state: DoseSpotState = initialState(), action: ActionResult<{}>) {
     switch (action.type) {
         case Actions.ActionType.FETCH_SSO_INFO_SUCCESS:
-            return { ...state, sso: action.value}
+            return { ...state, sso: action.value};
         default:
-            return state
+            return state;
     }
 }

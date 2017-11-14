@@ -1,5 +1,5 @@
 import * as api from '../common/api';
-import * as Navigation from '../navigation';
+import navigation from '../navigation';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { 
     ActionType, 
@@ -28,7 +28,7 @@ function* onFetchPatients() {
 function* onSelectPatient(action: ActionResult<number>) {
     try {
         const patientId = action.value;
-        yield(put(Navigation.navigate(`/app/patient-detail/${patientId}`)));
+        yield(put(navigation.actions.navigate(`/app/patient-detail/${patientId}`)));
         yield(put(selectPatientSuccess(patientId || -1)));
     } catch (e) {
         yield(put(selectPatientFailure(e)));
@@ -37,7 +37,9 @@ function* onSelectPatient(action: ActionResult<number>) {
 
 function* onAddVisit(action: ActionResult<ChannelVisit>) {
     try {
-        if (!action.value) return;
+        if (!action.value) {
+            return;
+        }
         const {visit, channelId } = action.value;
         yield call(() => api.visits.saveVisit(visit, channelId));
         yield(put(addVisitSuccess(visit, channelId)));
@@ -48,7 +50,9 @@ function* onAddVisit(action: ActionResult<ChannelVisit>) {
 
 function* onUpdateVisit(action: ActionResult<ChannelVisit>) {
     try {
-        if (!action.value) return;
+        if (!action.value) {
+            return;
+        }
         const { visit, channelId } = action.value;
         yield call(() => api.visits.saveVisit(visit, channelId));
         yield(put(updateVisitSuccess(visit, channelId)));
@@ -59,9 +63,11 @@ function* onUpdateVisit(action: ActionResult<ChannelVisit>) {
 
 function* onUnselectPatient(action: ActionResult<number>) {
     try {
-        if (!action.value) return;
+        if (!action.value) {
+            return;
+        }
         const patientId = action.value;
-        yield(put(Navigation.navigate(`/app/patients`)));
+        yield(put(navigation.actions.navigate(`/app/patients`)));
         yield(put(unselectPatientSuccess(patientId)));
     } catch (e) {
         yield(put(unselectPatientFailure(e)));

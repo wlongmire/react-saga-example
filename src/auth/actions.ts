@@ -67,77 +67,77 @@ export const forgotPassword = (email: string): ActionResult<string> => {
     return {
         type: ActionType.FORGOT_PASSWORD,
         value: email
-    }
-}
+    };
+};
 
 export const forgotPasswordSuccess = (): ActionResult<{}> => {
     return {
         type: ActionType.FORGOT_PASSWORD_SUCCESS
-    }
-}
+    };
+};
 
 export const forgotPasswordFail = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FORGOT_PASSWORD_FAIL,
         value: error
-    }
-}
+    };
+};
 
 export const verifyCode = (code: string): ActionResult<string> => {
     return {
         type: ActionType.VERIFY_CODE,
         value: code
-    }
-}
+    };
+};
 
 export const verifyCodeSuccess = (): ActionResult<{}> => {
     return {
         type: ActionType.VERIFY_CODE_SUCCESS
-    }
-}
+    };
+};
 
 export const verifyCodeFail = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.VERIFY_CODE_FAIL,
         value: e
-    }
-}
+    };
+};
 
 export const resendCode = (): ActionResult<{}> => {
     return {
         type: ActionType.RESEND_CODE
-    }
-}
+    };
+};
 
 export const resendCodeSuccess = (): ActionResult<null> => {
     return {
         type: ActionType.RESEND_CODE_SUCCESS
-    }
-}
+    };
+};
 
 export const resendCodeFail = (e: Error): ActionResult<Error> => {
     return {
         type: ActionType.RESEND_CODE_FAIL,
         value: e
-    }
-}
+    };
+};
 
 export const fetchIdentity = (): ActionResult<null> => {
     return {
         type: ActionType.FETCH_IDENTITY
-    }
-}
+    };
+};
 
 export const fetchIdentitySuccess = (identity: Identity): ActionResult<Identity> => {
     return {
         type: ActionType.FETCH_IDENTITY_SUCCESS,
         value: identity
-    }
-}
+    };
+};
 
 export const fetchIdentityFail = (error: Error): ActionResult<Error> => {
     return {
         type: ActionType.FETCH_IDENTITY_FAIL,
         value: error
-    }
-}
+    };
+};

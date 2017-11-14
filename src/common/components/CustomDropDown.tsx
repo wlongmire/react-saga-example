@@ -1,7 +1,7 @@
 import * as React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import './Common.css'
+import './Common.css';
 
 interface CustomDropDownState {
     selected: any;
@@ -12,19 +12,19 @@ export interface CustomDropDownProps {
     itemSource: DropDownItem[];
     onChange: (v: DropDownItem) => void;
     leftCaretPosition ?: number;
-    className?: string
+    className?: string;
 }
 
 export type DropDownItem = {
     value: any;
     primaryText: string;
-}
+};
 
 const underlineStyle = {
-    display: "none"
-}
+    display: 'none'
+};
 
-export class CustomDropDown extends React.Component<CustomDropDownProps, CustomDropDownState>{
+export class CustomDropDown extends React.Component<CustomDropDownProps, CustomDropDownState> {
     
     constructor() {
         super();
@@ -38,8 +38,9 @@ export class CustomDropDown extends React.Component<CustomDropDownProps, CustomD
         const item = this.props.itemSource[index];
 
         this.setState({ selected: item}, () => {
-            if (this.props.onChange)
+            if (this.props.onChange) {
                 this.props.onChange(this.state.selected);
+            }
         });
     }
 
@@ -58,12 +59,13 @@ export class CustomDropDown extends React.Component<CustomDropDownProps, CustomD
                         iconStyle={{left: 500}}
                         underlineStyle={underlineStyle} 
                         value={this.state.selected} 
-                        onChange={this.handleChange}>
+                        onChange={this.handleChange}
+                    >
                         {
                             this.props.itemSource.map((item: DropDownItem, index: number) => {
                                 return (
                                     <MenuItem key={index} value={item.value} primaryText={item.primaryText} />
-                                )
+                                );
                             })
                         }
                     </DropDownMenu>

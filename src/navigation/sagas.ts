@@ -7,7 +7,7 @@ import { history } from '../common';
  */
 function* watchNavigate() {
     while (true) {
-        const{ value } = yield take(ActionType.NAVIGATE);
+        const { value } = yield take(ActionType.NAVIGATE);
         
         if (value === undefined) {
             history.push(history.location.state.referrer);

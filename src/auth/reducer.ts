@@ -24,7 +24,7 @@ function initialState(): AuthState {
         clientTokenVerificationError: undefined,
         identity: identity,
         authError: undefined,
-        pending: identity && identity.userInfo ? false : true
+        pending: false
     };
 }
 
@@ -34,12 +34,11 @@ export default function reducer(state: AuthState = initialState(), action: Commo
             const authInfo = action.value as AuthInfo;
             return { 
                 ...state, 
-                isAuthenticated: false, // not until the token is also verified
+                isAuthenticated: true,
                 auth: authInfo,
                 clientToken: authInfo.clientToken,
                 clientTokenVerified: undefined,
-                clientTokenVerificationError: undefined,
-                pending: true
+                clientTokenVerificationError: undefined
             };
         case ActionType.LOGIN_FAIL:
             return {
@@ -56,16 +55,14 @@ export default function reducer(state: AuthState = initialState(), action: Commo
                 userIdentity: undefined,
                 authError: undefined,
                 clientTokenVerified: undefined,
-                clientTokenVerificationError: undefined,
-                pending: false
+                clientTokenVerificationError: undefined
             };
         case ActionType.VERIFY_CODE_SUCCESS:
             return {
                 ...state,
                 clientTokenVerified: true,
                 clientTokenVerificationError: undefined,
-                isAuthenticated: true,
-                pending: false
+                isAuthenticated: true
             };
         case ActionType.VERIFY_CODE_FAIL:
             return {
@@ -77,8 +74,7 @@ export default function reducer(state: AuthState = initialState(), action: Commo
         case ActionType.FETCH_IDENTITY_SUCCESS:
             return {
                 ...state,
-                identity: action.value as Identity,
-                pending: false
+                identity: action.value as Identity
             };
         default:
             return state;

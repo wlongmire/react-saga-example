@@ -41,6 +41,7 @@ export * from './test-order';
 export * from './treatment';
 export * from './treatments-state';
 export * from './user';
+export * from './user-args';
 export * from './users-state';
 export * from './visit';
 export * from './visits-state';

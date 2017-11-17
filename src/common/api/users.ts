@@ -18,16 +18,16 @@ export const fetchAllUsers = () => {
 export const createUser = (user: User) => {
     let payload;
 
-    if (user instanceof PatientUser) {
-        payload = PatientUser.toPayload(user);
+    if (user.type === 'patient') {
+        payload = PatientUser.toPayload(user as PatientUser);
     }
 
-    if (user instanceof DoctorUser) {
-        payload = DoctorUser.toPayload(user);
+    if (user.type === 'doctor') {
+        payload = DoctorUser.toPayload(user as DoctorUser);
     }
 
-    if (user instanceof OpsUser) {
-        payload = OpsUser.toPayload(user);
+    if (user.type === 'ops') {
+        payload = OpsUser.toPayload(user as OpsUser);
     }
 
     let json = _.omitBy(payload, _.isNil);
@@ -58,16 +58,16 @@ export const createUser = (user: User) => {
 export const updateUser = (user: User) => {
     let payload: any;
     
-    if (user instanceof PatientUser) {
-        payload = PatientUser.toPayload(user);
+    if (user.type === 'patient') {
+        payload = PatientUser.toPayload(user as PatientUser);
     }
 
-    if (user instanceof DoctorUser) {
-        payload = DoctorUser.toPayload(user);
+    if (user.type === 'doctor') {
+        payload = DoctorUser.toPayload(user as DoctorUser);
     }
 
-    if (user instanceof OpsUser) {
-        payload = OpsUser.toPayload(user);
+    if (user.type === 'ops') {
+        payload = OpsUser.toPayload(user as OpsUser);
     }
 
     if (!user.id) {
@@ -100,9 +100,7 @@ export const updateUser = (user: User) => {
                 );
 
                 updated.user_id = user.id;
-                if (payload) {
-                    updated.role_id = payload.role_id;
-                }
+                updated.role_id = roleIdFromType(user.type);
                 
                 return mapToUser(updated);
             }
@@ -136,6 +134,20 @@ const mapToUser = (data: any): User => {
         case 6: 
             return PatientUser.fromPayload(data);
         default:
+            console.error('unsupported role id', data.role_id);
             throw new Error('unsupported entity type');
+    }
+};
+
+const roleIdFromType = (type: string): number => {
+    switch (type) {
+        case 'doctor':
+            return 1;
+        case 'ops':
+            return 4;
+        case 'patient':
+            return 6;
+        default:
+            throw new Error(`Unknown type '${type}'`);
     }
 };

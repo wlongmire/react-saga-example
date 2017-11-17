@@ -121,6 +121,8 @@ export const fetchIdentity = () => {
                             first: result.user_info.first,
                             last: result.user_info.last,
                             phone: result.user_info.phone,
+                            clinicId: result.user_info.dosespot_clinic_id,
+                            clinicianId: result.user_info.dosespot_clinician_id
                         } as IdentityUserInfo;
                     }
 

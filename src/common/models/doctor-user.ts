@@ -5,7 +5,8 @@ export class DoctorUser extends User {
     npi: string;
     specialty?: string;
     credential?: string;
-    clinicianId?: number;
+    dosespotClinicianId?: number;
+    dosespotClinicId?: number;
 
     static fromPayload(data: any): DoctorUser { // tslint:disable-line
         let doctorUser = new DoctorUser();
@@ -25,7 +26,8 @@ export class DoctorUser extends User {
             npi: data.npi,
             specialty: data.specialty,
             credential: data.credential,
-            clinicianId: data.clincian_id,
+            dosespotClinicianId: data.dosespot_clinician_id,
+            dosespotClinicId: data.dosespot_clinic_id,
             streetAddress1: data.street_address_1,
             streetAddress2: data.street_address_2,
             city: data.city,
@@ -52,7 +54,8 @@ export class DoctorUser extends User {
             npi: user.npi || '',
             specialty: user.specialty || '',
             credential: user.credential || '',
-            clincian_id: user.clinicianId || '',
+            dosespot_clinician_id: user.dosespotClinicianId || '',
+            dosespot_clinic_id: user.dosespotClinicId || '',
             street_address_1: user.streetAddress1 || '',
             street_address_2: user.streetAddress2 || '',
             city: user.city || '',

@@ -1,4 +1,4 @@
-import { ActionResult, User } from '../common';
+import { ActionResult, User, UserArgs } from '../common';
 
 /**
  * Action types for Patients.
@@ -46,10 +46,10 @@ export const fetchAllUsersFailure = (e: Error): ActionResult<Error> => {
     };
 };
 
-export const createUser = (user: User): ActionResult<User> => {
+export const createUser = (userArgs: UserArgs): ActionResult<UserArgs> => {
     return {
         type: ActionType.CREATE_USER,
-        value: user
+        value: userArgs
     };
 };
 
@@ -67,10 +67,10 @@ export const createUserFailure = (e: Error): ActionResult<Error> => {
     };
 };
 
-export const updateUser = (user: User): ActionResult<User> => {
+export const updateUser = (userArgs: UserArgs): ActionResult<UserArgs> => {
     return {
         type: ActionType.UPDATE_USER,
-        value: user
+        value: userArgs
     };
 };
 

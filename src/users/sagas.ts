@@ -1,7 +1,7 @@
 import * as Actions from './actions';
 import * as Api from '../common/api';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { ActionResult, User } from '../common';
+import { ActionResult, PatientUser, User, UserArgs } from '../common';
 
 function* fetchAllUsers() {
     try {
@@ -12,25 +12,56 @@ function* fetchAllUsers() {
     }
 }
 
-function* createUser(action: ActionResult<User>) {
+function* createUser(action: ActionResult<UserArgs>) {
     try {
         if (action.value === undefined) {
-            throw new Error('action is missing required user value');
+            throw new Error('action is missing required user args value');
         }
-        const updatedUser = yield call(Api.users.createUser, action.value);
-        yield(put(Actions.createUserSuccess(updatedUser)));
+
+        const { user, clinicId, clinicianId } = action.value;
+        let updatedUser: User = yield call(Api.users.createUser, user);
+
+        if (updatedUser.type === 'patient' && clinicId && clinicianId) {
+            const dosespotUser = yield call(
+                () => Api.dosespot.createPatient(clinicId, clinicianId, updatedUser as PatientUser)
+            );
+            updatedUser.dosespotPatientId = dosespotUser.patientId;
+            updatedUser = yield call(Api.users.updateUser, updatedUser);
+            yield(put(Actions.createUserSuccess(updatedUser)));
+        } else {
+            yield(put(Actions.createUserSuccess(updatedUser)));
+        }
     } catch (e) {
         yield(put(Actions.createUserFailure(e)));
     }
 }
 
-function* updateUser(action: ActionResult<User>) {
+function* updateUser(action: ActionResult<UserArgs>) {
     try {
         if (action.value === undefined) {
-            throw new Error('action is missing required user value');
+            throw new Error('action is missing required user args value');
         }
-        const updatedUser = yield call(Api.users.updateUser, action.value);
-        yield(put(Actions.updateUserSuccess(updatedUser)));
+
+        const { user, clinicId, clinicianId } = action.value;
+        let updatedUser = yield call(Api.users.updateUser, user);
+
+        if (updatedUser.type === 'patient' && clinicId && clinicianId) {
+            let dosespotUser;
+            if (updatedUser.dosespotPatientId) {
+                dosespotUser = yield call(
+                    () => Api.dosespot.updatePatient(clinicId, clinicianId, updatedUser as PatientUser)
+                );
+            } else {
+                dosespotUser = yield call(
+                    () => Api.dosespot.createPatient(clinicId, clinicianId, updatedUser as PatientUser)
+                );
+            }
+            updatedUser.dosespotPatientId = dosespotUser.patientId;
+            updatedUser = yield call(Api.users.updateUser, updatedUser);
+            yield(put(Actions.updateUserSuccess(updatedUser)));
+        } else {
+            yield(put(Actions.updateUserSuccess(updatedUser)));
+        }
     } catch (e) {
         yield(put(Actions.updateUserFailure(e)));
     }

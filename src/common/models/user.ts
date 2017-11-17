@@ -39,8 +39,8 @@ export abstract class User {
     npi?: string;
     specialty?: string;
     credential?: string;
-    clinicianId?: number;
-
+    dosespotClinicId?: number;
+    dosespotClinicianId?: number;
     dosespotPatientId?: number;
 
     isNew() {

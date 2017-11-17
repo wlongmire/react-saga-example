@@ -6,15 +6,17 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
-import { FormGroup, User, PatientUser, DoctorUser, OpsUser, SnackbarMessage } from '../../../common';
+import { FormGroup, User, UserArgs, PatientUser, DoctorUser, OpsUser, SnackbarMessage } from '../../../common';
 import { RouteComponentProps } from 'react-router-dom';
 
 import './UserDetail.css';
 
 export interface UserDetailProps extends RouteComponentProps<{userId: string}> {
     snackbarMessage: SnackbarMessage;
-    createUser: (user: User) => void;
-    updateUser: (user: User) => void;
+    clinicId?: number;
+    clinicianId?: number;
+    createUser: (userArgs: UserArgs) => void;
+    updateUser: (userArgs: UserArgs) => void;
     clearSnackbarMessage: () => void;
 }
 
@@ -59,8 +61,8 @@ export interface UserDetailState {
     npi?: string;
     specialty?: string;
     credential?: string;
-    clinicianId?: number;
-
+    dosespotClinicianId?: number;
+    dosespotClinicId?: number;
     dosespotPatientId?: number;
 
     isNew: boolean;
@@ -145,7 +147,8 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         user.npi = this.state.npi ? this.state.npi : '';
         user.specialty = this.state.specialty ? this.state.specialty : undefined;
         user.credential = this.state.credential ? this.state.credential : undefined;
-        user.clinicianId = this.state.clinicianId ? this.state.clinicianId : undefined;
+        user.dosespotClinicianId = this.state.dosespotClinicianId ? this.state.dosespotClinicianId : undefined;
+        user.dosespotClinicId = this.state.dosespotClinicId ? this.state.dosespotClinicId : undefined;
         user.streetAddress1 = this.state.streetAddress1 ? this.state.streetAddress1 : '';
         user.streetAddress2 = this.state.streetAddress2 ? this.state.streetAddress2 : undefined;
         user.city = this.state.city ? this.state.city : '';
@@ -218,7 +221,6 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         user.npi = this.state.npi ? this.state.npi : undefined;
         user.specialty = this.state.specialty ? this.state.specialty : undefined;
         user.credential = this.state.credential ? this.state.credential : undefined;
-        user.clinicianId = this.state.clinicianId ? this.state.clinicianId : undefined;
     
         user.dosespotPatientId = this.state.dosespotPatientId ? this.state.dosespotPatientId : undefined;
 
@@ -326,9 +328,17 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         }
         
         if (doctor.isNew()) {
-            this.props.createUser(doctor);
+            this.props.createUser({ 
+                user: doctor, 
+                clinicId: this.props.clinicId,
+                clinicianId: this.props.clinicianId
+            } as UserArgs);
         } else {
-            this.props.updateUser(doctor);
+            this.props.updateUser({
+                user: doctor,
+                clinicId: this.props.clinicId,
+                clinicianId: this.props.clinicianId
+            });
         }
     }
 
@@ -341,9 +351,17 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         }
             
         if (ops.isNew()) {
-            this.props.createUser(ops);
+            this.props.createUser({ 
+                user: ops, 
+                clinicId: this.props.clinicId,
+                clinicianId: this.props.clinicianId
+            } as UserArgs);
         } else {
-            this.props.updateUser(ops);
+            this.props.updateUser({ 
+                user: ops, 
+                clinicId: this.props.clinicId,
+                clinicianId: this.props.clinicianId
+            } as UserArgs);
         }
     }
 
@@ -356,9 +374,17 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         }
             
         if (patient.isNew()) {
-            this.props.createUser(patient);
+            this.props.createUser({ 
+                user: patient, 
+                clinicId: this.props.clinicId,
+                clinicianId: this.props.clinicianId
+            } as UserArgs);
         } else {
-            this.props.updateUser(patient);
+            this.props.updateUser({ 
+                user: patient, 
+                clinicId: this.props.clinicId,
+                clinicianId: this.props.clinicianId
+            } as UserArgs);
         }
     }
 
@@ -403,7 +429,8 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         user.npi = this.state.npi ? this.state.npi : undefined;
         user.specialty = this.state.specialty ? this.state.specialty : undefined;
         user.credential = this.state.credential ? this.state.credential : undefined;
-        user.clinicianId = this.state.clinicianId ? this.state.clinicianId : undefined;
+        user.dosespotClinicianId = this.state.dosespotClinicianId ? this.state.dosespotClinicianId : undefined;
+        user.dosespotClinicId = this.state.dosespotClinicId ? this.state.dosespotClinicId : undefined;
     
         user.dosespotPatientId = this.state.dosespotPatientId ? this.state.dosespotPatientId : undefined;
     }
@@ -574,9 +601,9 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
                     value={this.state.gender}
                     onChange={this.handleGenderChange}
                 >
-                    <MenuItem value="male" primaryText="Male" />
-                    <MenuItem value="female" primaryText="Female" />
-                    <MenuItem value="unknown" primaryText="Unknown" />
+                    <MenuItem value="Male" primaryText="Male" />
+                    <MenuItem value="Female" primaryText="Female" />
+                    <MenuItem value="Unknown" primaryText="Unknown" />
                 </SelectField>
                 {required &&
                     this.renderRequiredLabel()
@@ -660,56 +687,56 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
                     value={this.state.state}
                     onChange={this.handleStateChange}
                 >
-                    <MenuItem value="AL" primaryText="AL" />
-                    <MenuItem value="AK" primaryText="AK" />
-                    <MenuItem value="AZ" primaryText="AZ" />
-                    <MenuItem value="AR" primaryText="AR" />
-                    <MenuItem value="CA" primaryText="CA" />
-                    <MenuItem value="CO" primaryText="CO" />
-                    <MenuItem value="CT" primaryText="CT" />
-                    <MenuItem value="DE" primaryText="DE" />
-                    <MenuItem value="FL" primaryText="FL" />
-                    <MenuItem value="GA" primaryText="GA" />
-                    <MenuItem value="HI" primaryText="HI" />
-                    <MenuItem value="ID" primaryText="ID" />
-                    <MenuItem value="IL" primaryText="IL" />
-                    <MenuItem value="IN" primaryText="IN" />
-                    <MenuItem value="IA" primaryText="IA" />
-                    <MenuItem value="KS" primaryText="KS" />
-                    <MenuItem value="KY" primaryText="KY" />
-                    <MenuItem value="LA" primaryText="LA" />
-                    <MenuItem value="ME" primaryText="ME" />
-                    <MenuItem value="MD" primaryText="MD" />
-                    <MenuItem value="MA" primaryText="MA" />
-                    <MenuItem value="MI" primaryText="MI" />
-                    <MenuItem value="MN" primaryText="MN" />
-                    <MenuItem value="MS" primaryText="MS" />
-                    <MenuItem value="MO" primaryText="MO" />
-                    <MenuItem value="MT" primaryText="MT" />
-                    <MenuItem value="NE" primaryText="NE" />
-                    <MenuItem value="NV" primaryText="NV" />
-                    <MenuItem value="NH" primaryText="NH" />
-                    <MenuItem value="NJ" primaryText="NJ" />
-                    <MenuItem value="NM" primaryText="NM" />
-                    <MenuItem value="NY" primaryText="NY" />
-                    <MenuItem value="NC" primaryText="NC" />
-                    <MenuItem value="ND" primaryText="ND" />
-                    <MenuItem value="OH" primaryText="OH" />
-                    <MenuItem value="OK" primaryText="OK" />
-                    <MenuItem value="OR" primaryText="OR" />
-                    <MenuItem value="PA" primaryText="PA" />
-                    <MenuItem value="RI" primaryText="RI" />
-                    <MenuItem value="SC" primaryText="SC" />
-                    <MenuItem value="SD" primaryText="SD" />
-                    <MenuItem value="TN" primaryText="TN" />
-                    <MenuItem value="TX" primaryText="TX" />
-                    <MenuItem value="UT" primaryText="UT" />
-                    <MenuItem value="VT" primaryText="VT" />
-                    <MenuItem value="VA" primaryText="VA" />
-                    <MenuItem value="WA" primaryText="WA" />
-                    <MenuItem value="WV" primaryText="WV" />
-                    <MenuItem value="WI" primaryText="WI" />
-                    <MenuItem value="WY" primaryText="WY" />
+                    <MenuItem value="ALABAMA" primaryText="AL" />
+                    <MenuItem value="ALASKA" primaryText="AK" />
+                    <MenuItem value="ARIZONA" primaryText="AZ" />
+                    <MenuItem value="ARKANSAS" primaryText="AR" />
+                    <MenuItem value="CALIFORNIA" primaryText="CA" />
+                    <MenuItem value="COLORADO" primaryText="CO" />
+                    <MenuItem value="CONNECTICUT" primaryText="CT" />
+                    <MenuItem value="DELAWARE" primaryText="DE" />
+                    <MenuItem value="FLORIDA" primaryText="FL" />
+                    <MenuItem value="GEORGIA" primaryText="GA" />
+                    <MenuItem value="HAWAII" primaryText="HI" />
+                    <MenuItem value="IDAHO" primaryText="ID" />
+                    <MenuItem value="ILLINOIS" primaryText="IL" />
+                    <MenuItem value="INDIANA" primaryText="IN" />
+                    <MenuItem value="IOWA" primaryText="IA" />
+                    <MenuItem value="KANSAS" primaryText="KS" />
+                    <MenuItem value="KENTUCKY" primaryText="KY" />
+                    <MenuItem value="LOUISIANA" primaryText="LA" />
+                    <MenuItem value="MAINE" primaryText="ME" />
+                    <MenuItem value="MDMARYLAND" primaryText="MD" />
+                    <MenuItem value="MASSACHUSETTS" primaryText="MA" />
+                    <MenuItem value="MICHIGAN" primaryText="MI" />
+                    <MenuItem value="MINNESOTA" primaryText="MN" />
+                    <MenuItem value="MSMISSISSIPPI" primaryText="MS" />
+                    <MenuItem value="MISSOURI" primaryText="MO" />
+                    <MenuItem value="MONTANA" primaryText="MT" />
+                    <MenuItem value="NEBRASKA" primaryText="NE" />
+                    <MenuItem value="NEVADA" primaryText="NV" />
+                    <MenuItem value="NEW HAMPSHIRE" primaryText="NH" />
+                    <MenuItem value="NEW JERSEY" primaryText="NJ" />
+                    <MenuItem value="NEW MEXICO" primaryText="NM" />
+                    <MenuItem value="NEW YORK" primaryText="NY" />
+                    <MenuItem value="NORTH CAROLINA" primaryText="NC" />
+                    <MenuItem value="NORTH DAKOTA" primaryText="ND" />
+                    <MenuItem value="OHIO" primaryText="OH" />
+                    <MenuItem value="OKLAHOMA" primaryText="OK" />
+                    <MenuItem value="OREGON" primaryText="OR" />
+                    <MenuItem value="PENNSYLVANIA" primaryText="PA" />
+                    <MenuItem value="RHODE ISLAND" primaryText="RI" />
+                    <MenuItem value="SOUTH CAROLINA" primaryText="SC" />
+                    <MenuItem value="SOUTH DAKOTA" primaryText="SD" />
+                    <MenuItem value="TENNESSEE" primaryText="TN" />
+                    <MenuItem value="TEXAS" primaryText="TX" />
+                    <MenuItem value="UTAH" primaryText="UT" />
+                    <MenuItem value="VERMONT" primaryText="VT" />
+                    <MenuItem value="VIRGINIA" primaryText="VA" />
+                    <MenuItem value="WASHINGTON" primaryText="WA" />
+                    <MenuItem value="WEST VIRGINIA" primaryText="WV" />
+                    <MenuItem value="WISCONSIN" primaryText="WI" />
+                    <MenuItem value="WYOMING" primaryText="WY" />
                 </SelectField>
                 {required &&
                     this.renderRequiredLabel()
@@ -1027,14 +1054,12 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
     renderSpecialtyField(required?: boolean) {
         return (
             <FormGroup>
-                <SelectField
-                    floatingLabelText="Doctor Type"
+                <TextField
+                    floatingLabelText="Specialty"
+                    name="specialty"
                     value={this.state.specialty}
-                    onChange={this.handleSpecialtyChange}
-                >
-                    <MenuItem value="primary_care" primaryText="Primary Care" />
-                    <MenuItem value="gynecologist" primaryText="Gynecologist" />
-                </SelectField>
+                    onChange={this.handleTextChange}
+                />
                 {required &&
                     this.renderRequiredLabel()
                 }
@@ -1058,13 +1083,29 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
         );
     }
 
-    renderClincianIdField(required?: boolean) {
+    renderClinicianIdField(required?: boolean) {
         return (
             <FormGroup>
                 <TextField
-                    floatingLabelText="Clinician ID"
-                    name="clinicianId"
-                    value={this.state.clinicianId}
+                    floatingLabelText="Dosespot Clinician ID"
+                    name="dosespotClinicianId"
+                    value={this.state.dosespotClinicianId}
+                    onChange={this.handleTextChange}
+                />
+                {required &&
+                    this.renderRequiredLabel()
+                }
+            </FormGroup>
+        );
+    }
+
+    renderClinicIdField(required?: boolean) {
+        return (
+            <FormGroup>
+                <TextField
+                    floatingLabelText="Dosespot Clinic ID"
+                    name="dosespotClinicId"
+                    value={this.state.dosespotClinicId}
                     onChange={this.handleTextChange}
                 />
                 {required &&
@@ -1123,6 +1164,8 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
                 {this.renderSSNField()}
                 {this.renderSexField(true)}
                 {this.renderNPIField()}
+                {this.renderClinicIdField(true)}
+                {this.renderClinicianIdField(true)}
                 {this.renderDoctorTypeField(true)}
                 {this.renderSpecialtyField()}
                 {this.renderCredentialField()}
@@ -1202,11 +1245,11 @@ class UserDetailForm extends React.Component<UserDetailProps, UserDetailState> {
                 {this.renderGenderField()}
                 {this.renderCredentialField()}
                 {this.renderPharmacyIdField()}
-                {this.renderAddressLine1Field()}
+                {this.renderAddressLine1Field(true)}
                 {this.renderAddressLine2Field()}
-                {this.renderCityField()}
-                {this.renderStateField()}
-                {this.renderPostalCodeField()}
+                {this.renderCityField(true)}
+                {this.renderStateField(true)}
+                {this.renderPostalCodeField(true)}
                 {this.renderCountryCodeField()}
                 {this.renderContactFirstNameField()}
                 {this.renderContactLastNameField()}

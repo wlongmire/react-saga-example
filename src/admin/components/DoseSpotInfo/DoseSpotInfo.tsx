@@ -18,7 +18,7 @@ class DoseSpotInfo extends React.PureComponent<DoseSpotInfoProps> {
                 <table>
                     <thead>
                         <tr>
-                            <td>Clincian ID</td>
+                            <td>Clinician ID</td>
                             <td>Refill Requests</td>
                             <td>Transmission Errors</td>
                             <td>Pending Prescriptions</td>

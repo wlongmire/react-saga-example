@@ -5,7 +5,7 @@ import { History } from 'history';
 import { DoseSpotStatus } from '../../../common';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-import UsersContainer from '../../../users/conteiners/UsersContainer';
+import UsersContainer from '../../../users/containers/UsersContainer';
 
 import './AdminMainPage.css';
 

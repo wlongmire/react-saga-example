@@ -9,8 +9,8 @@ import Navbar from './navigation/containers/Navbar';
 import PatientList from './patients/containers/PatientList';
 import PatientDetail from './patients/containers/PatientDetail';
 import DoseSpotUser from './dosespot/containers/DoseSpotUser';
-import UserDetail from './users/conteiners/UserDetail';
-import UsersContainer from './users/conteiners/UsersContainer';
+import UserDetail from './users/containers/UserDetail';
+import UsersContainer from './users/containers/UsersContainer';
 import { history } from './common';
 
 const UnauthorizedLayout = (props: RouteComponentProps<any>) => {

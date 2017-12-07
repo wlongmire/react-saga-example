@@ -1,0 +1,16 @@
+.table-column-type {
+    text-transform: capitalize;
+    width: 142px;
+}
+
+.table-column-first-name {
+    width: 216px;
+}
+
+.table-column-last-name {
+    width: 206px;
+}
+
+.table-column-email {
+    width: 313px;
+}

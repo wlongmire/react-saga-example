@@ -1,0 +1,12 @@
+version: "3"
+services:
+  ehr_web:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    image: quay.io/lifeco/ehr_web
+    command: ["yarn", "start"]
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"

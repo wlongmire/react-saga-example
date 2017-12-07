@@ -1,0 +1,82 @@
+.content-container {
+    padding-top: 54px;
+    padding-left: 239px;
+}
+
+.content-container-title-bar .inline-title {
+    font-size: 32px;
+    color: #333333;
+    font-weight: bold;
+    margin: 0;
+}
+
+.content-container .user-detail-body {
+    margin-top: 66px;
+}
+
+.user-detail-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "avatar form";
+    margin: 0 auto; 
+}
+
+.user-avatar-editor {
+    grid-area: avatar;
+}
+
+.user-avatar-replace-button {
+    margin: 11px 0px;
+    display: block;
+    border: none;
+    padding: 1px;
+    font-size: 14px;
+    width: 140px;
+    height: 31px;
+    background: #f84445;
+    color: #ffffff;
+    border-radius: 3px;
+}
+
+.user-avatar-delete-link {
+    font-size: 12px;
+    color: #333333;
+    font-size: medium;
+    text-decoration: underline;
+    text-transform: uppercase;
+    color: #000000;
+    cursor: pointer;
+}
+
+.user-avatar-delete-link:hover {
+    color: #f84445;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.user-form-container {
+    grid-area: form;
+}
+
+.user-avatar-title {
+    font-size: 13px;
+    color: #000000;
+    opacity: 0.6;
+    margin-bottom: 1em;
+    display: block;
+}
+
+.user-form-save-button {
+    height: 36px;
+    width: 198px;
+    border-radius: 2px;
+    background-color: #F74646;
+    border: #F74646;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 43px;
+    cursor: pointer;
+}

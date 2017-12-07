@@ -1,0 +1,69 @@
+.form-table-input-control {
+    margin-bottom: 20px;
+}
+
+.form-table-input-control .form-table-input-control-header {
+    display: grid;
+    grid-template-columns: 1fr 30px 30px;
+    grid-template-areas: 
+        "label plus toggle";
+    padding: 10px 15px;
+    height: 40px;
+    width: 94%;
+    opacity: 0.62;
+    border-radius: 3px;
+    background-color: #DCE4E3;
+}
+
+.form-table-input-control-header span {
+    grid-area: label;
+    font-size: 15px;
+    line-height: 22px;
+    height: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-table-input-control-header .material-icons.add {
+    grid-area: plus;
+    height: 12px;
+    width: 12px;
+    color: #67B2A6;
+    cursor: pointer;
+}
+
+.form-table-input-control-header .material-icons.arrow-drop-down {
+    grid-area: toggle;
+    display: block;
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+}
+
+.form-table-input-control-header .material-icons.arrow-drop-up {
+    grid-area: toggle;
+    display: none;
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+}
+
+.form-table-input-control-header.expanded .material-icons.arrow-drop-down {
+    display: none;
+}
+
+.form-table-input-control-header.expanded .material-icons.arrow-drop-up {
+    display: block;
+}
+
+div.form-table-input-control-body {
+    transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+div.form-table-input-control-body.expanded {
+    opacity: 1;
+    height: auto;
+}

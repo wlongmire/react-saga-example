@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchSingleSignOnInfo } from '../actions';
+// import { fetchSingleSignOnInfo } from '../actions';
 import { Patient, SingleSignOnInfo, Treatment as TreatmentModel } from '../../common';
 import TreatmentComponent from '../components/Treatment/Treatment';
 
@@ -30,7 +30,7 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = {
-    fetchSingleSignOnInfo
+    // fetchSingleSignOnInfo
 };
 
 export default connect<{}, TreatmentComponentProps, { treatment: TreatmentModel }>

@@ -1,4 +1,4 @@
-import { DoseSpotStatus, PatientUser, SingleSignOnInfo } from '../../common';
+import { DosespotClinicianStatus, PatientUser } from '../../common';
 import { getRequestInit } from './util';
 
 const DOSESPOT_API_URL = process.env.REACT_APP_DOSESPOT_API_HOST;
@@ -40,7 +40,7 @@ export const updatePatient = (clinicId: number, clinicianId: number, patient: Pa
     });
 };
 
-export const fetchPatientTreatments = (clinicId: number, clinicianId: number, patientId: number) => {
+export const fetchPatientMedications = (clinicId: number, clinicianId: number, patientId: number) => {
     const requestInit = getRequestInit('GET');
     return fetch(
         `${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}/patients/${patientId}/medications`,
@@ -58,53 +58,37 @@ export const fetchPatientTreatments = (clinicId: number, clinicianId: number, pa
     });
 };
 
-export const fetchSingleSignOnInfo = (clinicId: number, clinicianId: number) => {
-    // TODO move construct api url in separate variable
-    return fetch(`${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}/sso`, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default'
-    }).then((response: any) => {
+export const fetchPatientUrl = (clinicId: number, clinicianId: number, patient: PatientUser): Promise<string> => {
+    const requestInit = getRequestInit(
+        'POST', 
+        JSON.stringify(PatientUser.toDosespotPayload(patient)), 
+        true, 
+        'application/json'
+    );
+    return fetch(
+        `${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}/patients/${patient.dosespotPatientId}/sso`, 
+        requestInit
+    )
+    .then((response: any) => {
         if (response.ok) {
-            return response.json();
+            return response.json().url;
         } else {
-            throw new Error('fetch single sign on info failed');
+            throw new Error('fetch patient url failed');
         }
-    }).then((raw: any) => {
-        const ssoInfo = <SingleSignOnInfo> {
-            clinicId: raw.SingleSignOnClinicId,
-            userId: raw.SingleSignOnUserId,
-            ssoPhraseLength: raw.SingleSignOnPhraseLength,
-            singleSignOnCode: raw.SingleSignOnCode,
-            singleSignOnUserIdVerify: raw.SingleSignOnUserIdVerify
-        };
-
-        if (Object.keys(raw).indexOf('SingleSignOnUrl') > -1) {
-            ssoInfo.singleSignOnUrl = raw.SingleSignOnUrl;
-        }
-
-        return ssoInfo;
     });
 };
 
-export const fetchStatus = (clinicId: number, clinicianId: number) => {
-    return fetch(`${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}/status`, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default'
-    }).then((response: any) => {
+export const fetchClinicianStatus = (clinicId: number, clinicianId: number): Promise<DosespotClinicianStatus> => {
+    const requestInit = getRequestInit('GET');
+    return fetch(
+        `${DOSESPOT_API_URL}/clinics/${clinicId}/clinicians/${clinicianId}`, 
+        requestInit
+    )
+    .then((response: any) => {
         if (response.ok) {
-            return response.json();
+            return response.json() as DosespotClinicianStatus;
         } else {
-            throw new Error('fetch dosespot status failed');
+            throw new Error('fetch patient url failed');
         }
-    }).then((raw: any) => {
-        return <DoseSpotStatus> {
-            clinicianId: raw.ClinicianId,
-            refillRequestsCount: raw.RefillRequestsCount,
-            transactionErrorsCount: raw.TransactionErrorsCount,
-            pendingPrescriptionsCount: raw.PendingPrescriptionsCount,
-            url: raw.Url
-        };
     });
 };

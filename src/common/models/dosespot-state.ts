@@ -1,9 +1,8 @@
-import { DoseSpotStatus } from './dosespot-status';
-import { SingleSignOnInfo } from './single-sign-on-info';
+import { DosespotClinicianStatus, DosespotMedicationListItem } from '../../common';
 
-export class DoseSpotState {
+export class DosespotState {
     isFetching: boolean;
-    items: DoseSpotStatus[];
-    clinicians: number[];
-    sso: SingleSignOnInfo | null | undefined;
+    status?: DosespotClinicianStatus;
+    medications: DosespotMedicationListItem[];
+    error?: Error;
 }

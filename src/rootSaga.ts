@@ -1,4 +1,5 @@
-import { fork, all } from 'redux-saga/effects';
+import { all, put, fork } from 'redux-saga/effects';
+import { ActionResult } from './common';
 
 import authSaga from './auth/sagas';
 import navSaga from './navigation/sagas';
@@ -11,7 +12,16 @@ import visitsSaga from './visits/sagas';
 import treatmentsSaga from './treatments/sagas';
 import otherSaga from './other/sagas';
 
-export default function* root() {
+export const APP_INIT = 'root/APP_INIT';
+
+export const appInit = (preloadedState: any): ActionResult<{}> => {
+    return {
+        type: APP_INIT,
+        value: preloadedState
+    };
+};
+
+export default function* root(preloadedState: any) {
     yield all([
         fork(authSaga),
         fork(navSaga),
@@ -22,6 +32,7 @@ export default function* root() {
         fork(chatSaga),
         fork(visitsSaga),
         fork(treatmentsSaga),
-        fork(otherSaga)
+        fork(otherSaga),
+        put(appInit(preloadedState))
     ]);
 }

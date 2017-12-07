@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { default as rootReducer } from './rootReducer';
 import thunk from 'redux-thunk';
+// import logger from 'redux-logger';
 
 import rootSaga from './rootSaga';
 import { GlobalState } from './common/index';
@@ -37,7 +38,8 @@ const configureStore = (preloadedState: {}) => {
         preloadedState,
         enhancer
     );
-    sagaMiddleware.run(rootSaga);
+    
+    sagaMiddleware.run(rootSaga, preloadedState);
 
     store.subscribe(() =>  {
         localStorage.setItem('store', JSON.stringify(store.getState()));

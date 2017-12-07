@@ -1,9 +1,10 @@
-import { ActionResult } from '../common';
+import { ActionResult, GlobalState } from '../common';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as Actions from './actions';
 import navigation from '../navigation';
 import { AuthCredentials, Identity, AuthInfo } from '../common';
 import * as api from '../common/api';
+import { APP_INIT } from '../rootSaga';
 
 export function* login(action: ActionResult<AuthCredentials>) {
     try {
@@ -112,6 +113,15 @@ function* watchForFetchIdentitySuccess() {
     yield takeEvery(Actions.ActionType.FETCH_IDENTITY_SUCCESS, onFetchIdentitySuccess);
 }
 
+function* appInit(action: ActionResult<GlobalState>) {
+    if (!action.value) return null;
+    yield(put(Actions.fetchIdentity()));
+}
+
+function* watchAppInit() {
+    yield takeEvery(APP_INIT, appInit);
+}
+
 export default function* root() {
     yield all([
         fork(watchForLogin),
@@ -122,6 +132,7 @@ export default function* root() {
         fork(watchForVerifyCode),
         fork(watchForVerifyCodeSuccess),
         fork(watchForFetchIdentity),
-        fork(watchForFetchIdentitySuccess)
+        fork(watchForFetchIdentitySuccess),
+        fork(watchAppInit)
     ]);
 }

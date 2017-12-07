@@ -2,11 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import auth from '../../auth';
-import { Identity, GlobalState } from '../../common';
+import { DosespotClinicianStatus, Identity, GlobalState } from '../../common';
 import NavbarComponent from '../components/Navbar/NavbarComponent';
 
 interface NavbarProps {
     identity: Identity;
+    dosespotStatus: DosespotClinicianStatus;
     logout: () => void;
 }
 
@@ -20,7 +21,8 @@ class Navbar extends React.Component<NavbarProps, {}> {
 
 const mapStateToProps = (state: GlobalState) => {
     return {
-        identity: state.auth.identity
+        identity: state.auth.identity,
+        dosespotStatus: state.dosespot.status
     };
 };
 

@@ -1,19 +1,28 @@
-import * as Actions from './actions';
-import { ActionResult, DoseSpotState } from '../common';
+import { ActionType } from './actions';
+import { ActionResult, DosespotClinicianStatus, DosespotState } from '../common';
 
-function initialState(): DoseSpotState {
+function initialState(): DosespotState {
     return {
         isFetching: false,
-        items: [],
-        clinicians: [],
-        sso: null
+        medications: [],
+        error: undefined
     };
 }
 
-export default function reducer(state: DoseSpotState = initialState(), action: ActionResult<{}>) {
+export default function reducer(state: DosespotState = initialState(), action: ActionResult<{}>) {
     switch (action.type) {
-        case Actions.ActionType.FETCH_SSO_INFO_SUCCESS:
-            return { ...state, sso: action.value};
+        case ActionType.FETCH_CLINICIAN_STATUS:
+            return { ...state, isFetching: true, error: undefined };
+        case ActionType.FETCH_CLINICIAN_STATUS_SUCCESS:
+            console.log('value', action.value);
+            return { 
+                ...state, 
+                isFetching: false, 
+                status: action.value as DosespotClinicianStatus,
+                error: undefined
+            };
+        case ActionType.FETCH_CLINICIAN_STATUS_FAIL:
+            return { ...state, isFetching: false, error: action.value as Error };
         default:
             return state;
     }

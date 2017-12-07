@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { Route } from 'react-router-dom';
-import { History } from 'history';
+import { Route, RouteComponentProps } from 'react-router-dom';
+// import { History } from 'history';
 
-import { DoseSpotStatus } from '../../../common';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import UsersContainer from '../../../users/containers/UsersContainer';
 
 import './AdminMainPage.css';
 
-interface AdminPageProps {
-    statuses: DoseSpotStatus[];
-    clinicians: number[];
-    fetchDoseSpotStatus: () => void;
-    location: any;
-    history: History;
+interface AdminPageProps extends RouteComponentProps<{}> {
+    // statuses: DoseSpotStatus[];
+    // clinicians: number[];
+    // fetchDoseSpotStatus: () => void;
+    // location: any;
+    // history: History;
 }
 
 interface AdminPageState {
@@ -36,9 +35,9 @@ export class AdminMainPage extends React.Component<AdminPageProps, AdminPageStat
     };
 
     componentDidMount() {
-        if (this.props.fetchDoseSpotStatus) {
-            this.props.fetchDoseSpotStatus();
-        }
+        // if (this.props.fetchDoseSpotStatus) {
+        //     this.props.fetchDoseSpotStatus();
+        // }
     }
 
     handleCloseDialog = () => {
@@ -50,26 +49,26 @@ export class AdminMainPage extends React.Component<AdminPageProps, AdminPageStat
     }
 
     handleNavigate = (subpath: string) => {
-        this.setState({ selectedTab: subpath}, () => {
-            this.props.history.push(`${this.props.location.pathname}/${subpath}`);
-        });
+        // this.setState({ selectedTab: subpath}, () => {
+        //     this.props.history.push(`${this.props.location.pathname}/${subpath}`);
+        // });
     }
 
-    getStatusErrorsCount(): number {
-        if (!this.props.statuses || this.props.statuses.length === 0) {
-            return 0;
-        }
-        const status = this.props.statuses[0];
-        return status.transactionErrorsCount;
-    }
+    // getStatusErrorsCount(): number {
+    //     if (!this.props.statuses || this.props.statuses.length === 0) {
+    //         return 0;
+    //     }
+    //     const status = this.props.statuses[0];
+    //     return status.transactionErrorsCount;
+    // }
 
-    getStatusErrorsUrl(): string {
-        if (!this.props.statuses || this.props.statuses.length === 0) {
-            return '';
-        }
-        const status = this.props.statuses[0];
-        return status.url;
-    }
+    // getStatusErrorsUrl(): string {
+    //     if (!this.props.statuses || this.props.statuses.length === 0) {
+    //         return '';
+    //     }
+    //     const status = this.props.statuses[0];
+    //     return status.url;
+    // }
 
     render() {
         return(
@@ -77,7 +76,7 @@ export class AdminMainPage extends React.Component<AdminPageProps, AdminPageStat
                 <section className="admin-content">
                     <Route path={`${this.props.location.pathname}/`} exact={true} component={UsersContainer} />
                     <Route path={`${this.props.location.pathname}/users`} exact={true} component={UsersContainer} />
-                    <Route 
+                    {/* <Route 
                         path={`${this.props.location.pathname}/dosespot`} 
                         exact={true} 
                         render={(props) => { 
@@ -87,7 +86,7 @@ export class AdminMainPage extends React.Component<AdminPageProps, AdminPageStat
                                 </div>
                             );
                         }} 
-                    />
+                    /> */}
                 </section>
                 <Dialog
                     title="DoseSpot"
@@ -113,7 +112,7 @@ export class AdminMainPage extends React.Component<AdminPageProps, AdminPageStat
                     autoScrollBodyContent={true}
                 >
                     <div className="admin-dosespot-dialog-wrapper">
-                        <iframe className="admin-dosespot-iframe" src={this.getStatusErrorsUrl()} />
+                        {/* <iframe className="admin-dosespot-iframe" src={this.getStatusErrorsUrl()} /> */}
                     </div>
                 </Dialog>
             </div>

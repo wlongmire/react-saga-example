@@ -1,6 +1,6 @@
 import { AuthState } from './auth-state';
 import { ChatState } from './chat-state';
-import { DoseSpotState } from './dosespot-state'
+import { DosespotState } from './dosespot-state'
 import { OtherState } from './other-state';
 import { PatientsState } from './patients-state';
 import { TreatmentsState } from './treatments-state';
@@ -11,7 +11,7 @@ import { WellnessState } from './wellness-state';
 export interface GlobalState {
     auth: AuthState;    
     chat: ChatState;
-    dosespot: DoseSpotState;
+    dosespot: DosespotState;
     other: OtherState;
     patients: PatientsState;
     treatments: TreatmentsState;

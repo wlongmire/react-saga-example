@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import admin from './admin';
+// import admin from './admin';
 import auth from './auth';
 import chat from './chat';
 import dosespot from './dosespot';
@@ -10,7 +10,7 @@ import visits from './visits';
 import other from './other';
 
 export default combineReducers({
-    admin: admin.reducer,
+    // admin: admin.reducer,
     auth: auth.reducer,
     chat: chat.reducer,
     dosespot: dosespot.reducer,

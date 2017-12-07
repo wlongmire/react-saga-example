@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import chat from '../../chat';
-import dosespot from '../../dosespot';
 import { GlobalState, Identity, Visit, Patient, ChannelEventMessage,
     ChatMessage, Treatment, Other, ChannelEventMessageRequest } from '../../common';
 import PatientDetailForm from '../components/PatientDetail/PatientDetailForm';
 import visits from '../../visits';
-import treatments from '../../treatments';
+// import treatments from '../../treatments';
 import other from '../../other';
 
 interface PatientsProps extends RouteComponentProps<{patientId: number}> {
@@ -45,10 +44,9 @@ const mapStateToProps = (state: GlobalState) => {
 };
 
 const mapDispatchToProps = {
-    fetchSingleSignOnInfo: dosespot.actions.fetchSingleSignOnInfo,
     sendMessage: chat.actions.messageSend,
     fetchVisits: visits.actions.fetchVisits,
-    fetchTreatments: treatments.actions.fetchTreatments,
+    // fetchTreatments: treatments.actions.fetchTreatments,
     loadOther: other.actions.loadOther
 };
 
